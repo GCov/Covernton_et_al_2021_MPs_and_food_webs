@@ -1,0 +1,36 @@
+ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
+EBPJ1,Elliot Bay,Plankton Jars,449,NP,Jan-00,fibre,black,523.54,yes,Can't get a good spectra without burning,Unknown,1
+EBPJ1,Elliot Bay,Plankton Jars,450,NP,Jan-00,fibre,blue,1696.29,yes,,Cellulose,1
+EBPJ1,Elliot Bay,Plankton Jars,451,NP,Jan-00,fibre,clear,1536.35,yes,,Polyester,1
+EBPJ1,Elliot Bay,Plankton Jars,452,NP,Jan-00,fibre,brown,2222.09,yes,,Polyester,1
+EBPJ2,Elliot Bay,Plankton Jars,na,na,Jan-00,na,na,na,na,,,1
+EBPJ3,Elliot Bay,Plankton Jars,na,na,Jan-00,na,na,na,na,,,1
+CBPJ1,Cole's Bay,Plankton Jars,453,NP,Jan-00,fibre,blue,689.74,yes,p-(meta-Phylene terephthalamide),Kevlar,1
+CBPJ1,Cole's Bay,Plankton Jars,#833,NP,Jan-00,fibre,black,260.95,yes,,,1
+CBPJ3,Cole's Bay,Plankton Jars,na,na,Jan-00,na,na,na,na,,,1
+CBPJ4,Cole's Bay,Plankton Jars,454,NP,Jan-00,fibre,clear,2562.11,yes,,Polyester,1
+HPPJ1,Victoria Harbour,Plankton Jars,na,na,Jan-00,na,na,na,na,,,2
+HPPJ2,Victoria Harbour,Plankton Jars,455,NP,Jan-00,fibre,clear,744.24,yes,,Polyester,2
+HPPJ2,Victoria Harbour,Plankton Jars,456,NP,Jan-00,fibre,blue,714.18,yes,,Cellulose,2
+HPPJ3,Victoria Harbour,Plankton Jars,457,NP,Jan-00,fibre,pink,4442.99,yes,,Polyester,2
+HPPJ3,Victoria Harbour,Plankton Jars,458,NP,Jan-00,fibre,black,587.34,yes,,Polyester,2
+HPPJ3,Victoria Harbour,Plankton Jars,459,NP,Jan-00,fibre,orange,12663.46,yes,,Polyester,2
+HPPJ5,Victoria Harbour,Plankton Jars,460,NP,Jan-00,fibre,green,318.15,yes,,Dye,2
+HPPJ5,Victoria Harbour,Plankton Jars,461,NP,Jan-00,fibre,blue,3058.19,yes,,Polyester,2
+HPPJ5,Victoria Harbour,Plankton Jars,462,NP,Jan-00,fibre,green,360.69,yes,,Dye,2
+HPPJ5,Victoria Harbour,Plankton Jars,463,NP,Jan-00,fibre,pink,3251.05,yes,,Wool,2
+HPPJ5,Victoria Harbour,Plankton Jars,464,NP,Jan-00,fibre,blue,572.75,yes,Could not find for Raman,,2
+HPPJ5,Victoria Harbour,Plankton Jars,465,NP,Jan-00,fibre,red,654.16,yes,,Polyester,2
+HPPJ5,Victoria Harbour,Plankton Jars,466,NP,Jan-00,fibre,pink,330.48,yes,,Polyester,2
+Sep10PB1],,Blanks,467,NP,Jan-00,fibre,blue,5201.65,yes,,Polyester,2
+Sep10PB2],,Blanks,468,NP,Jan-00,fibre,purple,2607.04,yes,,Cellulose,2
+Sep10PB2],,Blanks,469,NP,Jan-00,fibre,green,509.07,yes,Too much fluorescence to get a good signature,Unknown,2
+Sep10PB2],,Blanks,470,NP,Jan-00,fibre,clear,882.78,yes,,Polyester,2
+Sep10PB2],,Blanks,471,NP,Jan-00,fibre,clear,1224.85,yes,Could not find for Raman,,2
+Sep10PB2],,Blanks,472,NP,Jan-00,fibre,clear,307.44,yes,,Cellulose,2
+Sep10PB2],,Blanks,473,NP,Jan-00,fibre,clear,369.66,yes,,Cellulose,2
+Sep10PB2],,Blanks,474,NP,Jan-00,fibre,clear,420.92,yes,,Cellulose,2
+Sep10PB2],,Blanks,475,NP,Jan-00,fibre,purple,1271.56,yes,,Dye,2
+Sep10PB2],,Blanks,476,NP,Jan-00,fibre,purple,360.31,yes,,Cellulose,2
+Aug28PB2,,Blanks,na,na,Jan-00,na,na,na,na,,,1
+Aug28PB3,,Blanks,477,NP,Jan-00,fragment,rainbow,309.66,yes,,Polystyrene,1
