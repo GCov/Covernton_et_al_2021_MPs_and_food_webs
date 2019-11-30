@@ -1,0 +1,110 @@
+ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
+CBSS1,Cole's Bay,Sea Stars,321,NP,>150,fibre,clear,305.95,yes,,Cellulose,1
+CBSS1,Cole's Bay,Sea Stars,322,NP,>150,fibre,clear,481.48,yes,,Cellulose,1
+CBSS1,Cole's Bay,Sea Stars,323,NP,>150,fibre,blue,229.14,yes,,Unknown,1
+CBSS1,Cole's Bay,Sea Stars,324,NP,>150,fibre,clear,499.35,yes,,Cellulose,1
+CBSS1,Cole's Bay,Sea Stars,325,NP,>150,fibre,clear,453.43,yes,,Unknown,1
+CBSS1,Cole's Bay,Sea Stars,326,NP,>150,fibre,clear,1533.44,yes,,Polyester,1
+CBSS2,Cole's Bay,Sea Stars,327,NP,>150,fibre,brown,755.59,yes,,Unknown,1
+CBSS3,Cole's Bay,Sea Stars,328,NP,>150,fibre,red,143.31,yes,,Cellulose,1
+CBSS3,Cole's Bay,Sea Stars,329,NP,>150,fibre,clear,597.38,yes,,Polyester,1
+CBSS4,Cole's Bay,Sea Stars,330,NP,>150,fibre,black,381.96,yes,,Polyester,1
+CBSS4,Cole's Bay,Sea Stars,331,NP,>150,fibre,clear,766.29,yes,,Cellulose,1
+CBSS4,Cole's Bay,Sea Stars,332,NP,>150,fibre,clear,1331.88,yes,,Polyester,1
+CBSS5,Cole's Bay,Sea Stars,333,NP,>150,fibre,red,651.94,yes,,Cellulose,1
+CBSS6,Cole's Bay,Sea Stars,#822,NP,>150,fibre,brown,1790.4,no,dropped,,1
+CBSS6,Cole's Bay,Sea Stars,334,NP,>150,fibre,clear,1264.95,yes,,Polyester,1
+CBSS6,Cole's Bay,Sea Stars,335,NP,>150,fibre,blue,1956.81,yes,,Acrylic,1
+CBSS6,Cole's Bay,Sea Stars,336,NP,>150,fibre,pink,266.08,yes,,Polyester,1
+CBSS6,Cole's Bay,Sea Stars,#823,NP,>150,fibre,clear,1494.29,no,dropped,,1
+CBSS6,Cole's Bay,Sea Stars,337,NP,>150,fibre,clear,3981.07,yes,,Polyester,1
+CBSS7,Cole's Bay,Sea Stars,338,NP,>150,fibre,clear,550.35,yes,,Cellulose,1
+CBSS7,Cole's Bay,Sea Stars,339,NP,>150,fibre,clear,885.85,yes,,Cellulose,1
+CBSS7,Cole's Bay,Sea Stars,340,NP,>150,fibre,blue,453.16,yes,,Unknown,1
+CBSS8,Cole's Bay,Sea Stars,341,NP,>150,fibre,clear,294.55,yes,Could not find for raman,,1
+CBSS8,Cole's Bay,Sea Stars,342,NP,>150,fibre ,purple,340.91,yes,,Polyester,1
+CBSS9,Cole's Bay,Sea Stars,343,NP,>150,fibre,clear,562.06,yes,,Wool,1
+CBSS9,Cole's Bay,Sea Stars,344,NP,>150,fibre ,purple,561.68,yes,,Polyester,1
+CBSS9,Cole's Bay,Sea Stars,345,NP,>150,fibre,clear,472.96,yes,,Polyester,1
+CBSS9,Cole's Bay,Sea Stars,346,NP,>150,fibre,clear,714.34,yes,,Polyester,1
+CBSS10,Cole's Bay,Sea Stars,347,NP,>150,fibre,pink,323.15,yes,,Polyester,1
+CBSS10,Cole's Bay,Sea Stars,348,NP,>150,fibre,blue,123.88,yes,Probably denim,Unknown,1
+CBSS11,Cole's Bay,Sea Stars,349,NP,>150,fibre,blue,417.44,yes,Probably denim,Unknown,1
+CBSS11,Cole's Bay,Sea Stars,350,NP,>150,fibre,clear,195.75,yes,,Cellulose,1
+CBSS12,Cole's Bay,Sea Stars,351,NP,>150,fibre,clear,1578.66,yes,,Cellulose,1
+CBSS12,Cole's Bay,Sea Stars,352,NP,>150,fibre,red,759.63,yes,,Cellulose,1
+CBSS12,Cole's Bay,Sea Stars,353,NP,>150,fibre,clear,484.17,yes,,Polyester,1
+CBSS13,Cole's Bay,Sea Stars,354,NP,>150,fibre,black,232.15,yes,,Cellulose,1
+CBSS14,Cole's Bay,Sea Stars,355,NP,>150,fibre,blue,397.87,yes,,Unknown,1
+CBSS15,Cole's Bay,Sea Stars,356,NP,>150,fibre,clear,219.67,yes,,Salt,1
+CBSS15,Cole's Bay,Sea Stars,357,NP,>150,fibre,blue,521.49,yes,,Cellulose,1
+CBSS15,Cole's Bay,Sea Stars,358,NP,>150,fibre,black,794.78,yes,,Dye,1
+CBSS15,Cole's Bay,Sea Stars,359,NP,>150,fibre,blue,7713.97,yes,,Polyurethane,1
+CBSS15,Cole's Bay,Sea Stars,360,NP,>150,fibre,red,706.37,yes,,Cellulose,1
+CBSS16,Cole's Bay,Sea Stars,361,NP,>150,fragment,multi-colour,458.86,yes,"Get strong dye sigNAtures on coloured areas. On the clear areas it's a messy sigNAture, but best matches Polyurethane and alkyd resin, both of which are used in paint or varnish. Either way should probably confirm on ATR or micro-FTIR",Paint,1
+CBSS16,Cole's Bay,Sea Stars,362,NP,>150,fibre,black,1080.37,yes,,Polyester,1
+CBSS16,Cole's Bay,Sea Stars,363,NP,>150,fibre,clear,150.56,yes,,Cellulose,1
+CBSSB1,Cole's Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,1
+CBSSB2,Cole's Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,1
+CBSSB3,Cole's Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,1
+EBSS1,Elliot Bay,Sea Stars,364,NP,>150,fibre,red,3623.61,yes,,Cellulose,2
+EBSS1,Elliot Bay,Sea Stars,#824,NP,>150,fibre,clear,406.17,no,dropped,,2
+EBSS2,Elliot Bay,Sea Stars,365,NP,>150,fibre,black,1259.15,yes,Probably denim,Unknown,2
+EBSS3,Elliot Bay,Sea Stars,366,NP,>150,fibre,clear,359.27,yes,Strong modal sigNAture and physically looks like rayon,Rayon,2
+EBSS3,Elliot Bay,Sea Stars,NA,NA,>150,NA,NA,NA,NA,,,2
+EBSS4,Elliot Bay,Sea Stars,367,NP,>150,fibre,black,538.59,yes,,Cellulose,2
+EBSS5,Elliot Bay,Sea Stars,368,NP,>150,fibre,blue,1096.13,yes,,Cellulose,2
+EBSS5,Elliot Bay,Sea Stars,369,NP,>150,fibre,black,4694.47,yes,,Polyester,2
+EBSS5,Elliot Bay,Sea Stars,370,NP,>150,fibre,red,727.56,yes,,Cellulose,2
+EBSS6,Elliot Bay,Sea Stars,NA,NA,>150,NA,NA,NA,NA,,,2
+EBSS7,Elliot Bay,Sea Stars,371,NP,>150,fibre,blue,363.27,yes,,Unknown,2
+EBSS8,Elliot Bay,Sea Stars,NA,NA,>150,NA,NA,NA,NA,,,2
+EBSS9,Elliot Bay,Sea Stars,372,NP,>150,fibre,clear,397.36,yes,,Polyester,2
+EBSS10,Elliot Bay,Sea Stars,373,NP,>150,fibre,blue,1016.66,yes,,Polyester,2
+EBSS11,Elliot Bay,Sea Stars,NA,NA,>150,NA,NA,NA,NA,,,2
+EBSS12,Elliot Bay,Sea Stars,374,NP,>150,fibre,orange,269.87,yes,,Cellulose,2
+EBSS12,Elliot Bay,Sea Stars,375,NP,>150,fibre,red,958.33,yes,,Acrylic,2
+EBSS12,Elliot Bay,Sea Stars,376,NP,>150,fibre,clear,503.75,yes,,Polyester,2
+EBSS13,Elliot Bay,Sea Stars,377,NP,>150,fibre,green,672.25,yes,,Cellulose,2
+EBSS14,Elliot Bay,Sea Stars,378,NP,>150,fibre,green,189.88,yes,,Dye,2
+EBSS14,Elliot Bay,Sea Stars,379,NP,>150,fibre,clear,2281.22,yes,,Unknown,2
+EBSS15,Elliot Bay,Sea Stars,NA,NP,>150,NA,NA,NA,NA,,,2
+EBSSB1,Elliot Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
+EBSSB2,Elliot Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
+EBSSB3,Elliot Bay,Blanks,380,NP,>150,fibre,orange,1572.55,yes,,Cellulose,2
+EBSS1,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS2,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS4,Elliot Bay,Sea Stars,506,NP,1-150,fibre,black,606.78,yes,,Cellulose,3
+EBSS6,Elliot Bay,Sea Stars,507,NP,1-150,fibre,clear,527.75,yes,,Polyester,3
+EBSS7,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS8,Elliot Bay,Sea Stars,#838,NP,1-150,fibre,black,381.51,no,dropped,,3
+EBSS9,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS11 (1/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS11 (2/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS11 (3/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS13,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSS15,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSSPB2,Elliot Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,3
+EBSSPB3,Elliot Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,3
+CBSS1,Cole's Bay,Sea Stars,508,NP,1-150,fibre,black,426.89,yes,,Cellulose,4
+CBSS2,Cole's Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,4
+CBSS5,Cole's Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,4
+CBSS7,Cole's Bay,Sea Stars,509,NP,1-150,fibre,purple,990.48,yes,,Polyester,4
+CBSS8 (1/4),Cole's Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,4
+CBSS8 (2/4),Cole's Bay,Sea Stars,510,NP,1-150,fibre,clear,728.15,yes,,Polyester,4
+CBSS8 (2/4),Cole's Bay,Sea Stars,511,NP,1-150,fibre,clear,1599.73,yes,"Looks like rayon and good match with modal
+",Rayon,4
+CBSS8 (2/4),Cole's Bay,Sea Stars,512,NP,1-150,fragment,rainbow,554.79,yes,,Styrene copolymer,4
+CBSS8 (2/4),Cole's Bay,Sea Stars,513,NP,1-150,fibre,purple,649.07,yes,,Polyester,4
+CBSS8 (2/4),Cole's Bay,Sea Stars,514,NP,1-150,fibre,clear,1271.07,yes,,Polyester,4
+CBSS8 (3/4),Cole's Bay,Sea Stars,515,NP,1-150,fibre,clear,4144.19,yes,"Can't get a good spectra, but physically looks like wool",Unknown,4
+CBSS8 (4/4),Cole's Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,4
+CBSS9,Cole's Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,4
+CBSS10,Cole's Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,4
+CBSS11,Cole's Bay,Sea Stars,516,NP,1-150,fibre,blue,511.45,yes,,Polyester,4
+CBSS13,Cole's Bay,Sea Stars,517,NP,1-150,fibre,red,430.76,yes,,Cellulose,4
+CBSS14,Cole's Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,4
+CBSS16,Cole's Bay,Sea Stars,518,NP,1-150,fibre,clear,491.08,yes,,Polyester,4
+CBSSPB2,Cole's Bay,Blanks,519,NP,1-150,fibre,clear,322.84,yes,,Cellulose,4
+CBSSPB2,Cole's Bay,Blanks,520,NP,1-150,fibre,black,743.74,yes,,Polyester,4
+CBSSPB3,Cole's Bay,Blanks,521,NP,1-150,fibre,black,1297.58,yes,,Polyester,4
