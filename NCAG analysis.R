@@ -120,8 +120,8 @@ PT_blanks_means <-
 
 PT_polymer <- 
   PT %>% 
-  group_by(ID, site, shape, colour, blank.match, particle.type, raman.ID, 
-           sample.volume) %>% 
+  group_by(ID, site, sample.type, shape, colour, blank.match, particle.type, 
+           raman.ID, sample.volume) %>% 
   summarize(count = sum(num))
 
 ## Blank subtract
@@ -138,7 +138,7 @@ PT_polymer2$adj.count <- with(PT_polymer2, count - blank.mean)
 
 PT_particle_type <-
   PT_polymer2 %>%
-  group_by(ID, site, particle.type, sample.volume) %>%
+  group_by(ID, site, sample.type, particle.type, sample.volume) %>%
   summarize(count = sum(adj.count))
 
 PT_synthetic <- subset(PT_particle_type,
@@ -150,15 +150,11 @@ PT_synthetic_summary <-
   summarize(mean = mean(count/sample.volume),
             sd = sd(count/sample.volume))
   
-ggplot(PT_synthetic_summary) + 
-  geom_point(aes(x = site,
-               y = mean),
+ggplot(PT_synthetic) + 
+  geom_boxplot(aes(x = site,
+               y = count/sample.volume),
            colour = 'black',
-           size = 2) + 
-  geom_errorbar(aes(x = site,
-                    ymin = mean - sd,
-                    ymax = mean + sd),
-                size = 1) +
+           size = 1) + 
   labs(x = 'Particles/L',
        y = 'Site')
 
@@ -226,7 +222,8 @@ PJ_blanks_means <-
 
 PJ_polymer <- 
   PJ %>% 
-  group_by(ID, site, shape, colour, blank.match, particle.type, raman.ID) %>% 
+  group_by(ID, site, sample.type, shape, colour, blank.match, particle.type, 
+           raman.ID) %>% 
   summarize(count = sum(num))
 
 ## Blank subtract
@@ -239,11 +236,12 @@ PJ_polymer2 <-
 
 PJ_polymer2$blank.mean[is.na(PJ_polymer2$blank.mean)] <- 0
 
-PJ_polymer2$adj.count <- with(PJ_polymer2, count - blank.mean)
+PJ_polymer2$adj.count <- ceiling(with(PJ_polymer2, count - blank.mean))
+PJ_polymer2$adj.count[PJ_polymer2$adj.count < 0] <- 0
 
 PJ_particle_type <-
   PJ_polymer2 %>%
-  group_by(ID, site, particle.type) %>%
+  group_by(ID, site, sample.type, particle.type) %>%
   summarize(count = sum(adj.count))
 
 PJ_synthetic <- subset(PJ_particle_type,
@@ -263,20 +261,397 @@ PJ_synthetic <- left_join(PJ_IDs, PJ_synthetic, by = c('ID', 'site'))
 
 PJ_synthetic$count[is.na(PJ_synthetic$count)] <- 0
 
+PJ_synthetic$sample.type[is.na(PJ_synthetic$sample.type)] <- 'Plankton Jars'
+
 PJ_synthetic_summary <-
   PJ_synthetic %>% 
   group_by(site) %>% 
   summarize(mean = mean(count),
             sd = sd(count))
             
-ggplot(PJ_synthetic_summary) + 
-  geom_point(aes(x = site,
-                 y = mean),
-             colour = 'black',
-             size = 2) + 
-  geom_errorbar(aes(x = site,
-                    ymin = mean - sd,
-                    ymax = mean + sd),
-                size = 1) +
+ggplot(PJ_synthetic) + 
+  geom_boxplot(aes(x = site,
+                   y = count),
+               colour = 'black',
+               size = 1) + 
   labs(x = 'Site',
        y = 'Particles/L')
+
+## Do all of the above for the mussels data
+
+## Load mussels data
+
+mussels <- read.csv("mussels.csv", header = TRUE)
+
+## Clean up mussels data
+
+names(mussels)
+summary(mussels$size.fraction)
+summary(mussels$shape)
+summary(mussels$colour)
+
+mussels$shape <- mapvalues(mussels$shape,
+                                 from = c('fibre',
+                                          'fragment'),
+                                 to = c('Fibre',
+                                        'Fragment'))
+summary(mussels$shape)
+
+summary(mussels$raman.ID)
+
+mussels$particle.type <- 
+  mapvalues(mussels$raman.ID,
+            from = levels(mussels$raman.ID),
+            to = c('Unknown',
+                   'Synthetic Polymer',
+                   'Natural Anthropogenic',
+                   'Natural Anthropogenic',
+                   'Natural Anthropogenic',
+                   'Unknown Anthropogenic',
+                   'Unknown Anthropogenic',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Semi-synthetic',
+                   'Unknown',
+                   'Synthetic Polymer',
+                   'Natural Anthropogenic'))
+summary(mussels$particle.type)
+
+summary(mussels$colour)
+
+mussels$num <- with(mussels,
+                          ifelse(is.na(length), 0, 1))
+
+## Separate blanks data
+
+MU_blanks <- subset(mussels, sample.type == 'Blanks')
+MU <- subset(mussels, sample.type == 'Mussels')
+MU$ID <- as.character(MU$ID)
+MU$ID <- as.factor(MU$ID)
+
+## Summarize blanks data
+
+summary(MU_blanks)
+MU_blanks_particle_type <- 
+  MU_blanks %>% 
+  group_by(ID, shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.count = sum(num))
+
+MU_blanks_means <- 
+  MU_blanks_particle_type %>% 
+  group_by(shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.mean = mean(blank.count))
+
+## Summarize MU data
+
+MU_polymer <- 
+  MU %>% 
+  group_by(ID, site, sample.type, shape, colour, blank.match, particle.type, 
+           raman.ID) %>% 
+  summarize(count = sum(num))
+
+## Blank subtract
+
+MU_polymer2 <-
+  left_join(MU_polymer, 
+            MU_blanks_means, 
+            by = c('shape', 'colour', 'blank.match', 'raman.ID', 
+                   'particle.type'))
+
+MU_polymer2$blank.mean[is.na(MU_polymer2$blank.mean)] <- 0
+
+MU_polymer2$adj.count <- ceiling(with(MU_polymer2, count - blank.mean))
+MU_polymer2$adj.count[MU_polymer2$adj.count < 0] <- 0
+
+MU_particle_type <-
+  MU_polymer2 %>%
+  group_by(ID, site, sample.type, particle.type) %>%
+  summarize(count = sum(adj.count))
+
+MU_synthetic <- subset(MU_particle_type,
+                       particle.type == 'Synthetic Polymer')
+
+ID <- c(levels(MU$ID))
+
+site <- as.factor(c(
+  rep("Cole's Bay", 16),
+  rep('Elliot Bay', 10),
+  rep('Victoria Harbour', 10)
+))
+MU_IDs <- data.frame(ID, site)
+
+MU_synthetic <- left_join(MU_IDs, MU_synthetic, by = c('ID', 'site'))
+
+MU_synthetic$count[is.na(MU_synthetic$count)] <- 0
+
+MU_synthetic$sample.type[is.na(MU_synthetic$sample.type)] <- 'Mussels'
+
+MU_synthetic_summary <-
+  MU_synthetic %>% 
+  group_by(site) %>% 
+  summarize(mean = mean(count),
+            sd = sd(count))
+
+ggplot(MU_synthetic) + 
+  geom_boxplot(aes(x = site,
+                   y = count),
+               colour = 'black',
+               size = 1) +
+  labs(x = 'Site',
+       y = 'Particles/Ind')
+
+
+## Do all of the above for clams
+
+# Load clams data
+
+clams <- read.csv("clams.csv", header = TRUE)
+
+## Clean up clams data
+
+names(clams)
+summary(clams$size.fraction)
+summary(clams$shape)
+summary(clams$colour)
+
+clams$shape <- mapvalues(clams$shape,
+                           from = c('fibre',
+                                    'fragment'),
+                           to = c('Fibre',
+                                  'Fragment'))
+summary(clams$shape)
+
+summary(clams$raman.ID)
+
+clams$particle.type <- 
+  mapvalues(clams$raman.ID,
+            from = levels(clams$raman.ID),
+            to = c('Unknown',
+                   'Natural Anthropogenic',
+                   'Natural Anthropogenic',
+                   'Unknown Anthropogenic',
+                   'Synthetic Polymer',
+                   'Semi-synthetic',
+                   'Unknown',
+                   'Natural Anthropogenic'))
+summary(clams$particle.type)
+
+summary(clams$colour)
+
+clams$num <- with(clams,
+                    ifelse(is.na(length), 0, 1))
+
+## Summarize clams data
+
+clams_polymer <- 
+  clams %>% 
+  group_by(ID, site, sample.type, shape, colour, blank.match, particle.type, 
+           raman.ID) %>% 
+  summarize(count = sum(num))
+
+## Blank subtract
+
+clams_polymer2 <-
+  left_join(clams_polymer, 
+            MU_blanks_means, 
+            by = c('shape', 'colour', 'blank.match', 'raman.ID', 
+                   'particle.type'))
+
+clams_polymer2$blank.mean[is.na(clams_polymer2$blank.mean)] <- 0
+
+clams_polymer2$adj.count <- ceiling(with(clams_polymer2, count - blank.mean))
+clams_polymer2$adj.count[clams_polymer2$adj.count < 0] <- 0
+
+clams_particle_type <-
+  clams_polymer2 %>%
+  group_by(ID, site, sample.type, particle.type) %>%
+  summarize(count = sum(adj.count))
+
+clams_synthetic <- subset(clams_particle_type,
+                       particle.type == 'Synthetic Polymer')
+
+ID <- c(levels(clams$ID))
+
+site <- as.factor(c(
+  rep("Cole's Bay", 8),
+  rep('Elliot Bay', 15)))
+  
+clams_IDs <- data.frame(ID, site)
+
+clams_synthetic <- left_join(clams_IDs, clams_synthetic, by = c('ID', 'site'))
+
+clams_synthetic$count[is.na(clams_synthetic$count)] <- 0
+
+clams_synthetic$sample.type[is.na(clams_synthetic$sample.type)] <- 'Clams'
+
+clams_synthetic_summary <-
+  clams_synthetic %>% 
+  group_by(site) %>% 
+  summarize(mean = mean(count),
+            sd = sd(count))
+
+ggplot(clams_synthetic) + 
+  geom_boxplot(aes(x = site,
+                   y = count),
+               colour = 'black',
+               size = 1) +
+  labs(x = 'Site',
+       y = 'Particles/Ind')
+
+
+## Do all of the above for sea stars
+
+# Load sea_stars data
+
+sea_stars <- read.csv("sea_stars.csv", header = TRUE)
+
+## Clean up sea_stars data
+
+names(sea_stars)
+summary(sea_stars$size.fraction)
+summary(sea_stars$shape)
+summary(sea_stars$colour)
+
+sea_stars$shape <- mapvalues(sea_stars$shape,
+                         from = c('fibre',
+                                  'fibre ',
+                                  'fragment'),
+                         to = c('Fibre',
+                                'Fibre',
+                                'Fragment'))
+summary(sea_stars$shape)
+
+summary(sea_stars$raman.ID)
+
+sea_stars$particle.type <- 
+  mapvalues(sea_stars$raman.ID,
+            from = levels(sea_stars$raman.ID),
+            to = c('Unknown',
+                   'Synthetic Polymer',
+                   'Natural Anthropogenic',
+                   'Unknown Anthropogenic',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Semi-synthetic',
+                   'Natural',
+                   'Synthetic Polymer',
+                   'Unknown',
+                   'Natural Anthropogenic'))
+summary(sea_stars$particle.type)
+
+summary(sea_stars$colour)
+
+sea_stars$num <- with(sea_stars,
+                  ifelse(is.na(length), 0, 1))
+
+## Separate blanks data
+
+SS_blanks <- subset(sea_stars, sample.type == 'Blanks')
+SS <- subset(sea_stars, sample.type == 'Sea Stars')
+SS$ID <- as.character(SS$ID)
+SS$ID <- as.factor(SS$ID)
+
+## Summarize blanks data
+
+summary(SS_blanks)
+SS_blanks_particle_type <- 
+  SS_blanks %>% 
+  group_by(ID, shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.count = sum(num))
+
+SS_blanks_means <- 
+  SS_blanks_particle_type %>% 
+  group_by(shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.mean = mean(blank.count))
+
+## Summarize SS data
+
+SS_polymer <- 
+  SS %>% 
+  group_by(ID, site, sample.type, shape, colour, blank.match, particle.type, 
+           raman.ID) %>% 
+  summarize(count = sum(num))
+
+## Blank subtract
+
+SS_polymer2 <-
+  left_join(SS_polymer, 
+            SS_blanks_means, 
+            by = c('shape', 'colour', 'blank.match', 'raman.ID', 
+                   'particle.type'))
+
+SS_polymer2$blank.mean[is.na(SS_polymer2$blank.mean)] <- 0
+
+SS_polymer2$adj.count <- ceiling(with(SS_polymer2, count - blank.mean))
+SS_polymer2$adj.count[SS_polymer2$adj.count < 0] <- 0
+
+## Add together samples that were divided
+
+SS_polymer2$ID <- mapvalues(SS_polymer2$ID,
+                            from = c('CBSS8 (1/4)', 
+                                     'CBSS8 (2/4)',
+                                     'CBSS8 (3/4)',
+                                     'CBSS8 (4/4)',
+                                     'EBSS11 (1/3)',
+                                     'EBSS11 (2/3)',
+                                     'EBSS11 (3/3)'),
+                            to = c('CBSS8', 'CBSS8', 'CBSS8', 'CBSS8',
+                                   'EBSS11', 'EBSS11', 'EBSS11'))
+
+SS_particle_type <-
+  SS_polymer2 %>%
+  group_by(ID, site, sample.type, particle.type) %>%
+  summarize(count = sum(adj.count))
+
+SS_synthetic <- subset(SS_particle_type,
+                       particle.type == 'Synthetic Polymer')
+
+ID <- c(levels(SS_polymer2$ID))
+
+site <- as.factor(c(
+  rep("Cole's Bay", 16),
+  rep('Elliot Bay', 15)))
+
+SS_IDs <- data.frame(ID, site)
+
+SS_synthetic <- left_join(SS_IDs, SS_synthetic, by = c('ID', 'site'))
+
+SS_synthetic$count[is.na(SS_synthetic$count)] <- 0
+
+SS_synthetic$sample.type[is.na(SS_synthetic$sample.type)] <- 'Sea Stars'
+
+SS_synthetic_summary <-
+  SS_synthetic %>% 
+  group_by(site) %>% 
+  summarize(mean = mean(count),
+            sd = sd(count))
+
+ggplot(SS_synthetic) + 
+  geom_boxplot(aes(x = site,
+                   y = count),
+               colour = 'black',
+               size = 1) +
+  labs(x = 'Site',
+       y = 'Particles/Ind')
+
+## Do all of the above for sea cucumbers
+
+
+
+## Plot everything together
+
+PT_synthetic2 <- PT_synthetic
+PT_synthetic2$count <- with(PT_synthetic2, count/sample.volume)
+
+allcounts <- rbind.fill(PT_synthetic2[c(1:4, 6)],
+                        PJ_synthetic,
+                        MU_synthetic,
+                        clams_synthetic,
+                        SS_synthetic)
+
+ggplot(allcounts) +
+  geom_boxplot(aes(x = site, 
+                   y = count,
+                   fill = sample.type))
+
