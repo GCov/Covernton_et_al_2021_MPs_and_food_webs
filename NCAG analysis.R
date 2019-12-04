@@ -101,7 +101,7 @@ PT$num <- ifelse(is.na(PT$length), 0, 1)
 ## Separate blanks data
 
 PT_blanks <- subset(PT, sample.type == 'Blanks')
-PT <- subset(PT, sample.type == 'Plankton tows')
+PT <- subset(PT, sample.type == 'Plankton Tows')
 
 ## Summarize blanks data
 
@@ -474,7 +474,7 @@ ID <- c(levels(clams$ID))
 
 site <- as.factor(c(
   rep("Cole's Bay", 8),
-  rep('Elliot Bay', 15)))
+  rep('Elliot Bay', 10)))
   
 clams_IDs <- data.frame(ID, site)
 
@@ -607,11 +607,28 @@ SS_particle_type <-
 SS_synthetic <- subset(SS_particle_type,
                        particle.type == 'Synthetic Polymer')
 
-ID <- c(levels(SS_polymer2$ID))
+SS2 <- subset(SS, size.fraction == '1-150')
+SS2$ID <- as.character(SS2$ID)
+SS2$ID <- as.factor(SS2$ID)
+
+ID <- levels(SS2$ID)
+
+ID <- mapvalues(ID,
+                from = c('CBSS8 (1/4)', 
+                         'CBSS8 (2/4)',
+                         'CBSS8 (3/4)',
+                         'CBSS8 (4/4)',
+                         'EBSS11 (1/3)',
+                         'EBSS11 (2/3)',
+                         'EBSS11 (3/3)'),
+                to = c('CBSS8', 'CBSS8', 'CBSS8', 'CBSS8',
+                       'EBSS11', 'EBSS11', 'EBSS11'))
+
+ID <- unique(ID)
 
 site <- as.factor(c(
-  rep("Cole's Bay", 16),
-  rep('Elliot Bay', 15)))
+  rep("Cole's Bay", 11),
+  rep('Elliot Bay', 10)))
 
 SS_IDs <- data.frame(ID, site)
 
@@ -729,12 +746,16 @@ CU_particle_type <-
 CU_synthetic <- subset(CU_particle_type,
                        particle.type == 'Synthetic Polymer')
 
-ID <- c(levels(CU_polymer2$ID))
+CU2 <- subset(CU, size.fraction == '1-150')
+CU2$ID <- as.character(CU2$ID)
+CU2$ID <- as.factor(CU2$ID)
+
+ID <- levels(CU2$ID)
 
 site <- as.factor(c(
-  rep("Cole's Bay", 18),
-  rep('Elliot Bay', 17),
-  rep('Victoria Harbour', 15)))
+  rep("Cole's Bay", 13),
+  rep('Elliot Bay', 11),
+  rep('Victoria Harbour', 11)))
 
 CU_IDs <- data.frame(ID, site)
 
@@ -852,12 +873,16 @@ CR_particle_type <-
 CR_synthetic <- subset(CR_particle_type,
                        particle.type == 'Synthetic Polymer')
 
-ID <- c(levels(CR_polymer2$ID))
+CR2 <- subset(CR, size.fraction == '<1000')
+CR2$ID <- as.character(CR2$ID)
+CR2$ID <- as.factor(CR2$ID)
+
+ID <- levels(CR2$ID)
 
 site <- as.factor(c(
-  rep("Cole's Bay", 16),
-  rep('Elliot Bay', 16),
-  rep('Victoria Harbour', 14)))
+  rep("Cole's Bay", 11),
+  rep('Elliot Bay', 11),
+  rep('Victoria Harbour', 10)))
 
 CR_IDs <- data.frame(ID, site)
 
@@ -894,8 +919,41 @@ allcounts <- rbind.fill(PT_synthetic2[c(1:4, 6)],
                         CU_synthetic,
                         CR_synthetic)
 
+palette1 <- c('#A5A57D', '#E80D6D', '#0E6B1D', '#AC3E7E', '#91721E', '#84D6D8', 
+              '#8F2C40')
+
+png('NCAG Preliminary Counts.png', width = 20, height = 15, units = 'cm',
+    pointsize = 16, res = 300)
+
 ggplot(allcounts) +
   geom_boxplot(aes(x = site, 
                    y = count,
-                   fill = sample.type))
+                   fill = sample.type)) +
+  labs(x = '',
+       y = 'MP Count per ind or L') +
+  scale_fill_manual(values = palette1) +
+  theme_bw() +
+  theme(
+    legend.text = element_text(size = 18),
+    legend.title = element_blank(),
+    text = element_text(size = 16),
+    panel.spacing = unit(0.5, "lines"),
+    axis.text.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16),
+    strip.background = element_blank(),
+    strip.text.x = element_text(size = 16),
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank()
+  )
 
+dev.off()
+
+
+## Summarize by polymer type
+
+PT_polymer2 %>% group_by(sample.type, raman.ID) %>% summarize(count = sum(count))
+PJ_polymer2 %>% group_by(sample.type, raman.ID) %>% summarize(count = sum(count))
+MU_polymer2 %>% group_by(sample.type, raman.ID) %>% summarize(count = sum(count))
+clams_polymer2 %>% group_by(sample.type, raman.ID) %>% summarize(count = sum(count))
+SS_polymer2 %>% group_by(sample.type, raman.ID) %>% summarize(count = sum(count))
+CU_polymer2 %>% group_by(sample.type, raman.ID) %>% summarize(count = sum(count))
