@@ -2,6 +2,7 @@
 library(plyr)
 library(ggplot2)
 library(dplyr)
+library(ggridges)
 
 ## load field data
 
@@ -926,7 +927,7 @@ png('NCAG Preliminary Counts.png', width = 20, height = 15, units = 'cm',
     pointsize = 16, res = 300)
 
 ggplot(allcounts) +
-  geom_boxplot(aes(x = site, 
+  geom_violin(aes(x = site, 
                    y = count,
                    fill = sample.type)) +
   labs(x = '',
@@ -947,6 +948,31 @@ ggplot(allcounts) +
   )
 
 dev.off()
+
+## Ridgeline plot
+
+ggplot(allcounts) +
+  geom_density_ridges2(aes(x = count, 
+                          y = sample.type,
+                          fill = site),
+                      alpha = 0.4,
+                      panel_scaling = FALSE,
+                      scale = 1.1,
+                      rel_min_height = 0.01) +
+  labs(x = 'MP Count per ind or L',
+       y = '') +
+  theme_ridges() +
+  scale_fill_manual(values = palette1[5:7]) +
+  scale_x_continuous(limits = c(0, 5)) +
+  theme(
+    legend.text = element_text(size = 18),
+    legend.title = element_blank(),
+    text = element_text(size = 16),
+    axis.text.x = element_text(size = 16),
+    axis.text.y = element_text(size = 16),
+    panel.spacing = unit(0.1, "lines"),
+    strip.text.x = element_text(size = 16)
+  )
 
 
 ## Summarize by polymer type
