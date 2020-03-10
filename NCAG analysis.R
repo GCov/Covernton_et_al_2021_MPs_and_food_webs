@@ -4,6 +4,12 @@ library(ggplot2)
 library(dplyr)
 library(ggridges)
 
+## define standard error function
+
+se <- function(x) {
+  sd(x)/sqrt(length(x))
+}
+
 ## load field data
 
 field_data <- read.csv("NCAG_field_data.csv", header = TRUE)
@@ -16,16 +22,6 @@ names(field_data)
 summary(field_data$site)
 summary(field_data$animal.type)
 summary(field_data$species)
-
-field_data$species <- mapvalues(field_data$species,
-                                from = c('C. miniata',
-                                         'M. magister',
-                                         'P. californicus'),
-                                to = c('Cucumaria miniata',
-                                       'Metacarcinus magister',
-                                       'Parastichopus californicus'))
-summary(field_data$species)
-
 summary(field_data$sex)
 
 field_data$sex <- mapvalues(field_data$sex, 
@@ -97,7 +93,7 @@ PT$ID <- as.factor(PT$ID)
 
 head(PT)
 
-PT$num <- ifelse(is.na(PT$length), 0, 1)
+PT$num <- ifelse(is.na(PT$length), 0, 1)  # Separate out samples that had 0 counts
 
 ## Separate blanks data
 
@@ -109,20 +105,22 @@ PT <- subset(PT, sample.type == 'Plankton Tows')
 summary(PT_blanks)
 PT_blanks_particle_type <- 
   PT_blanks %>% 
-  group_by(ID, shape, colour, blank.match, raman.ID, particle.type) %>% 
+  group_by(ID, shape, colour, size.fraction, blank.match, raman.ID, 
+           particle.type) %>% 
   summarize(blank.count = sum(num))
 
 PT_blanks_means <- 
   PT_blanks_particle_type %>% 
-  group_by(shape, colour, blank.match, raman.ID, particle.type) %>% 
+  group_by(shape, colour, size.fraction, blank.match, raman.ID, 
+           particle.type) %>% 
   summarize(blank.mean = mean(blank.count))
 
 ## Summarize PT data
 
 PT_polymer <- 
   PT %>% 
-  group_by(ID, site, sample.type, shape, colour, blank.match, particle.type, 
-           raman.ID, sample.volume) %>% 
+  group_by(ID, site, sample.type, size.fraction, shape, colour, blank.match, 
+           particle.type, raman.ID, sample.volume) %>% 
   summarize(count = sum(num))
 
 ## Blank subtract
@@ -130,8 +128,8 @@ PT_polymer <-
 PT_polymer2 <-
   left_join(PT_polymer, 
             PT_blanks_means, 
-            by = c('shape', 'colour', 'blank.match', 'raman.ID', 
-                   'particle.type'))
+            by = c('shape', 'colour', 'size.fraction', 'blank.match', 
+                   'raman.ID', 'particle.type'))
 
 PT_polymer2$blank.mean[is.na(PT_polymer2$blank.mean)] <- 0
 
@@ -142,22 +140,21 @@ PT_particle_type <-
   group_by(ID, site, sample.type, particle.type, sample.volume) %>%
   summarize(count = sum(adj.count))
 
-PT_synthetic <- subset(PT_particle_type,
-                       particle.type == 'Synthetic Polymer')
-
-PT_synthetic_summary <-
-  PT_synthetic %>% 
-  group_by(site) %>% 
-  summarize(mean = mean(count/sample.volume),
-            sd = sd(count/sample.volume))
+PT_summary <-
+  PT_particle_type %>% 
+  group_by(ID, site, sample.type, sample.volume) %>% 
+  summarize(count = sum(count))
   
-ggplot(PT_synthetic) + 
+ggplot(PT_summary) + 
   geom_boxplot(aes(x = site,
                y = count/sample.volume),
            colour = 'black',
            size = 1) + 
   labs(x = 'Particles/L',
        y = 'Site')
+
+with(PT_summary,tapply(count/sample.volume, site, mean))
+with(PT_summary,tapply(count/sample.volume, site, se))
 
 ## Do all of the above for the plankon jar samples
 
@@ -187,11 +184,15 @@ plankton_jars$particle.type <-
   mapvalues(plankton_jars$raman.ID,
             from = levels(plankton_jars$raman.ID),
             to = c('Unknown',
+                   'Synthetic Polymer',
+                   'Natural Anthropogenic',
                    'Natural Anthropogenic',
                    'Unknown Anthropogenic',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Semi-Synthetic',
                    'Unknown',
                    'Natural Anthropogenic'))
 summary(plankton_jars$particle.type)
@@ -245,38 +246,40 @@ PJ_particle_type <-
   group_by(ID, site, sample.type, particle.type) %>%
   summarize(count = sum(adj.count))
 
-PJ_synthetic <- subset(PJ_particle_type,
-                       particle.type == 'Synthetic Polymer')
-
-ID <- c('CBPJ1', 'CBPJ3', 'CBPJ4', 
-        'EBPJ1', 'EBPJ2', 'EBPJ3', 
-        'HPPJ2', 'HPPJ3', 'HPPJ5')
+ID <- c('CBPJ1', 'CBPJ2', 'CBPJ3', 'CBPJ4', 'CBPJ5', 
+        'EBPJ1', 'EBPJ2', 'EBPJ3', 'EBPJ4', 'EBPJ5', 
+        'HPPJ1', 'HPPJ2', 'HPPJ3', 'HPPJ4', 'HPPJ5')
 site <- as.factor(c(
-  rep("Cole's Bay", 3),
-  rep('Elliot Bay', 3),
-  rep('Victoria Harbour', 3)
+  rep("Cole's Bay", 5),
+  rep('Elliot Bay', 5),
+  rep('Victoria Harbour', 5)
 ))
 PJ_IDs <- data.frame(ID, site)
 
-PJ_synthetic <- left_join(PJ_IDs, PJ_synthetic, by = c('ID', 'site'))
+PJ_particle_type <- left_join(PJ_IDs, PJ_particle_type, by = c('ID', 'site'))
 
-PJ_synthetic$count[is.na(PJ_synthetic$count)] <- 0
+PJ_particle_type$count[is.na(PJ_synthetic$count)] <- 0
 
-PJ_synthetic$sample.type[is.na(PJ_synthetic$sample.type)] <- 'Plankton Jars'
+PJ_particle_type$sample.type[is.na(PJ_particle_type$sample.type)] <- 
+  'Plankton Jars'
 
-PJ_synthetic_summary <-
-  PJ_synthetic %>% 
-  group_by(site) %>% 
-  summarize(mean = mean(count),
-            sd = sd(count))
+PJ_summary <-
+  PJ_particle_type %>% 
+  group_by(ID, site, sample.type) %>% 
+  summarize(count = sum(count))
+
+PJ_summary$count[is.na(PJ_summary$count)] <- 0
             
-ggplot(PJ_synthetic) + 
+ggplot(PJ_summary) + 
   geom_boxplot(aes(x = site,
                    y = count),
                colour = 'black',
                size = 1) + 
   labs(x = 'Site',
        y = 'Particles/L')
+
+with(PJ_summary, tapply(count, site, mean))
+with(PJ_summary, tapply(count, site, se))
 
 ## Do all of the above for the mussels data
 
