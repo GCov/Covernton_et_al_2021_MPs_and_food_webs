@@ -19,24 +19,20 @@ EBPT1,Elliot Bay,Plankton Tows,18,NP,>250,fibre,clear,190.73,yes,,Cellulose,2
 EBPT1,Elliot Bay,Plankton Tows,19,NP,>250,fibre,clear,185.84,yes,,Cellulose,2
 EBPT1,Elliot Bay,Plankton Tows,#10,NP,>250,fibre,red,1728.04,no,dropped,,2
 EBPT1,Elliot Bay,Plankton Tows,20,NP,>250,fibre,red,708.75,yes,,Polyester,2
-EBPT2,Elliot Bay,Plankton Tows,#11,NP,>250,fibre,clear,83.69,no,tiny**,,2
 EBPT2,Elliot Bay,Plankton Tows,21,NP,>250,fibre ,black,661.84,yes,,Cellulose,2
 EBPT2,Elliot Bay,Plankton Tows,23,NP,>250,fibre,pink,1993.77,yes,,Acrylic,2
 EBPT2,Elliot Bay,Plankton Tows,24,NP,>250,fibre,blue,2188.57,yes,could not find for Raman,,2
 EBPT2,Elliot Bay,Plankton Tows,26,NP,>250,fibre,orange,575.53,yes,,Unknown,2
 EBPT3,Elliot Bay,Plankton Tows,#17,NP,>250,fibre ,black,101.25,no,"tiny**, dropped",,2
-EBPT3,Elliot Bay,Plankton Tows,#18,NP,>250,fibre ,black,67.51,no,tiny**,,2
 EBPT4,Elliot Bay,Plankton Tows,28,NP,>250,fibre ,clear,561.41,yes,,Cellulose,2
 EBPT4,Elliot Bay,Plankton Tows,29,NP,>250,fibre ,purple,2122.29,yes,,Unknown,2
 EBPT4,Elliot Bay,Plankton Tows,#19,NP,>250,fibre ,black,100.13,no,tiny**,,2
 EBPT4,Elliot Bay,Plankton Tows,30,NP,>250,fibre,blue,449.24,yes,,Unknown,2
-EBPT4,Elliot Bay,Plankton Tows,#20,NP,>250,fibre,blue,90.42,no,tiny**,,2
 EBPTB1,Elliot Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,,2
 EBPTB2,Elliot Bay,Blanks,31,NP,>250,fibre,black,175.69,yes,,Cellulose,2
 EBPTB2,Elliot Bay,Blanks,32,NP,>250,fibre,blue,227.47,yes,,Unknown,2
 EBPTB3,Elliot Bay,Blanks,33,NP,>250,fibre,clear,1810.44,yes,,Polyacrylonitrile,2
 EBPTB3,Elliot Bay,Blanks,34,NP,>250,fibre,red,158.83,yes,could not find for Raman,,2
-EBPT5,Elliot Bay,Plankton Tows,#26,NP,>250,fibre,black,64.95,no,tiny**,,2
 EBPT5,Elliot Bay,Plankton Tows,35,NP,>250,fibre,blue,408.45,yes,,Unknown,2
 EBPT5,Elliot Bay,Plankton Tows,36,NP,>250,fibre,black,1073.92,yes,,Dye,2
 EBPT5,Elliot Bay,Plankton Tows,37,NP,>250,fibre,black,1021.81,yes,,Cellulose,2
@@ -97,7 +93,6 @@ HPPT3,Victoria Harbour,Plankton Tows,101,NP,150-250,fibre,clear,659.03,yes,,Poly
 HPPT4,Victoria Harbour,Plankton Tows,106,NP,150-250,fibre,black,523.19,yes,,Polyester,3
 HPPT4,Victoria Harbour,Plankton Tows,108,NP,150-250,fibre,red,996.38,yes,,Polyester,3
 HPPT4,Victoria Harbour,Plankton Tows,109,NP,150-250,fibre,red,927.32,yes,,Polyester,3
-HPPT4,Victoria Harbour,Plankton Tows,#194,NP,150-250,fragment,red,94.61,no,tiny**,,3
 HPPT5,Victoria Harbour,Plankton Tows,110,NP,150-250,fibre,black,360.14,yes,,Polyester,3
 HPPT5,Victoria Harbour,Plankton Tows,112,NP,150-250,fibre,red,852.93,yes,,Polyester,3
 HPPT5,Victoria Harbour,Plankton Tows,113,NP,150-250,fibre,blue,959.67,yes,Too much fluorescence to get a good Raman signature,Unknown,3
