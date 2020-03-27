@@ -1,19 +1,19 @@
 ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
-CBPT1,Cole's Bay,Plankton Tows,1,GC,>250,fibre,red,>5000,yes,,Polyester,1
-CBPT1,Cole's Bay,Plankton Tows,4,NP,>250,fibre,blue,1040.01,yes,,Polypropylene,1
-CBPT1,Cole's Bay,Plankton Tows,5,NP,>250,fibre,clear,1087.32,yes,,Polypropylene,1
-CBPT2,Cole's Bay,Plankton Tows,6,NP,>250,fibre ,clear,630.6,yes,,Plastics Additive,1
-CBPT2,Cole's Bay,Plankton Tows,7,NP,>250,fibre ,clear,866.55,yes,,Cellulose,1
-CBPT2,Cole's Bay,Plankton Tows,8,NP,>250,fibre,clear,921.7,yes,,Cellulose,1
-CBPT2,Cole's Bay,Plankton Tows,9,NP,>250,fibre,clear,667.64,yes,,Cellulose,1
-CBPT3,Cole's Bay,Plankton Tows,#2,NP,>250,fibre,black,597.66,no,dropped,,1
-CBPT4,Cole's Bay,Plankton Tows,NA,NP,>250,NA,NA,NA,NA,,,1
-CBPT5,Cole's Bay,Plankton Tows,12,NP,>250,fibre,blue,1064.99,yes,,Polypropylene,1
-CBPT5,Cole's Bay,Plankton Tows,14,NP,>250,fragment,black,884.46,yes,,Unknown,1
-CBPT5,Cole's Bay,Plankton Tows,15,NP,>250,fibre,yellow green,2431.27,yes,,Unknown,1
-CBPTPB1,Cole's Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,,1
-CBPTPB2,Cole's Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,,1
-CBPTPB3,Cole's Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,,1
+CBPT1,Coles Bay,Plankton Tows,1,GC,>250,fibre,red,>5000,yes,,Polyester,1
+CBPT1,Coles Bay,Plankton Tows,4,NP,>250,fibre,blue,1040.01,yes,,Polypropylene,1
+CBPT1,Coles Bay,Plankton Tows,5,NP,>250,fibre,clear,1087.32,yes,,Polypropylene,1
+CBPT2,Coles Bay,Plankton Tows,6,NP,>250,fibre ,clear,630.6,yes,,Plastics Additive,1
+CBPT2,Coles Bay,Plankton Tows,7,NP,>250,fibre ,clear,866.55,yes,,Cellulose,1
+CBPT2,Coles Bay,Plankton Tows,8,NP,>250,fibre,clear,921.7,yes,,Cellulose,1
+CBPT2,Coles Bay,Plankton Tows,9,NP,>250,fibre,clear,667.64,yes,,Cellulose,1
+CBPT3,Coles Bay,Plankton Tows,#2,NP,>250,fibre,black,597.66,no,dropped,,1
+CBPT4,Coles Bay,Plankton Tows,NA,NP,>250,NA,NA,NA,NA,,,1
+CBPT5,Coles Bay,Plankton Tows,12,NP,>250,fibre,blue,1064.99,yes,,Polypropylene,1
+CBPT5,Coles Bay,Plankton Tows,14,NP,>250,fragment,black,884.46,yes,,Unknown,1
+CBPT5,Coles Bay,Plankton Tows,15,NP,>250,fibre,yellow green,2431.27,yes,,Unknown,1
+CBPTPB1,Coles Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,,1
+CBPTPB2,Coles Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,,1
+CBPTPB3,Coles Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,,1
 EBPT1,Elliot Bay,Plankton Tows,#6,NP,>250,fibre,black,319.85,no,dropped,,2
 EBPT1,Elliot Bay,Plankton Tows,18,NP,>250,fibre,clear,190.73,yes,,Cellulose,2
 EBPT1,Elliot Bay,Plankton Tows,19,NP,>250,fibre,clear,185.84,yes,,Cellulose,2
@@ -65,19 +65,19 @@ HPPT5,Victoria Harbour,Plankton Tows,66,NP,>250,fibre,clear,2083.34,yes,,Polyest
 HPPT5,Victoria Harbour,Plankton Tows,67,NP,>250,fibre,orange,2071.08,yes,,Cellulose,1
 HPPT5,Victoria Harbour,Plankton Tows,69,NP,>250,fibre ,blue,634.59,yes,,Polypropylene,1
 HPPT5,Victoria Harbour,Plankton Tows,71,NP,>250,fibre ,black,1442.76,yes,,Dye,1
-CBPTPB1,Cole's Bay,Blanks,#56,NP,150-250,fibre,clear,825.12,no,dropped,,3
-CBPTPB2,Cole's Bay,Blanks,,NA,150-250,NA,NA,NA,NA,NA,NA,3
-CBPTPB3,Cole's Bay,Blanks,72,NP,150-250,fibre,black,196.93,yes,,Cellulose,3
-CBPT1,Cole's Bay,Plankton Tows,74,NP,150-250,fibre,clear,421.58,yes,,Polypropylene,3
-CBPT1,Cole's Bay,Plankton Tows,76,NP,150-250,fibre,blue,547.19,yes,,Plastics Dye,3
-CBPT2,Cole's Bay,Plankton Tows,NA,NA,150-250,NA,NA,NA,NA,NA,NA,3
-CBPT3,Cole's Bay,Plankton Tows,77,NP,150-250,fibre,clear,470.85,no,dropped,,3
-CBPT3,Cole's Bay,Plankton Tows,78,NP,150-250,fibre,orange,561.16,yes,,Polyester,3
-CBPT4,Cole's Bay,Plankton Tows,79,NP,150-250,fibre,blue,1454.82,yes,,Polyurethane,3
-CBPT4,Cole's Bay,Plankton Tows,81,NP,150-250,fibre,purple,780.23,yes,too much fluorescence to get a good Raman signature,Unknown,3
-CBPT4,Cole's Bay,Plankton Tows,82,NP,150-250,fibre,black,347.94,yes,,Cellulose,3
-CBPT4,Cole's Bay,Plankton Tows,83,NP,150-250,fibre,black,224.88,yes,,Dye,3
-CBPT5,Cole's Bay,Plankton Tows,84,NP,150-250,fibre,blue,392.59,yes,too much fluorescence to get a good Raman signature,Unknown,3
+CBPTPB1,Coles Bay,Blanks,#56,NP,150-250,fibre,clear,825.12,no,dropped,,3
+CBPTPB2,Coles Bay,Blanks,,NA,150-250,NA,NA,NA,NA,NA,NA,3
+CBPTPB3,Coles Bay,Blanks,72,NP,150-250,fibre,black,196.93,yes,,Cellulose,3
+CBPT1,Coles Bay,Plankton Tows,74,NP,150-250,fibre,clear,421.58,yes,,Polypropylene,3
+CBPT1,Coles Bay,Plankton Tows,76,NP,150-250,fibre,blue,547.19,yes,,Plastics Dye,3
+CBPT2,Coles Bay,Plankton Tows,NA,NA,150-250,NA,NA,NA,NA,NA,NA,3
+CBPT3,Coles Bay,Plankton Tows,77,NP,150-250,fibre,clear,470.85,no,dropped,,3
+CBPT3,Coles Bay,Plankton Tows,78,NP,150-250,fibre,orange,561.16,yes,,Polyester,3
+CBPT4,Coles Bay,Plankton Tows,79,NP,150-250,fibre,blue,1454.82,yes,,Polyurethane,3
+CBPT4,Coles Bay,Plankton Tows,81,NP,150-250,fibre,purple,780.23,yes,too much fluorescence to get a good Raman signature,Unknown,3
+CBPT4,Coles Bay,Plankton Tows,82,NP,150-250,fibre,black,347.94,yes,,Cellulose,3
+CBPT4,Coles Bay,Plankton Tows,83,NP,150-250,fibre,black,224.88,yes,,Dye,3
+CBPT5,Coles Bay,Plankton Tows,84,NP,150-250,fibre,blue,392.59,yes,too much fluorescence to get a good Raman signature,Unknown,3
 HPPT1,Victoria Harbour,Plankton Tows,85,NP,150-250,fibre,clear,135.88,yes,,Unknown,3
 HPPT1,Victoria Harbour,Plankton Tows,86,NP,150-250,fibre,clear,3215.15,yes,,Polyester,3
 HPPT1,Victoria Harbour,Plankton Tows,87,NP,150-250,fibre,clear,698.96,yes,,Polyester,3

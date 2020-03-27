@@ -793,3 +793,108 @@ FF_polymer2$adj.count <- ceiling(with(FF_polymer2, count - blank.mean))
 FF_polymer2$adj.count[FF_polymer2$adj.count < 0] <- 0
 
 #### Rockfish ####
+
+# Load rockfish data
+
+rockfish <- read.csv("rockfish.csv", header = TRUE)
+
+## Clean up crabs data
+
+names(rockfish)
+summary(rockfish$size.fraction)
+summary(rockfish$shape)
+summary(rockfish$colour)
+
+rockfish$shape <- mapvalues(rockfish$shape,
+                            from = levels(rockfish$shape),
+                            to = c('Fibre',
+                                   'Fragment'))
+summary(rockfish$shape)
+
+levels(rockfish$raman.ID)
+
+rockfish$raman.ID <-
+  mapvalues(rockfish$raman.ID,
+            from = c('Cellulose\n',
+                     'Dye\n'),
+            to = c('Cellulose',
+                   'Dye'))
+
+rockfish$particle.type <- 
+  mapvalues(rockfish$raman.ID,
+            from = levels(rockfish$raman.ID),
+            to = c('Unknown',
+                   'Synthetic Polymer',
+                   'Natural',
+                   'Natural Anthropogenic',
+                   'Unknown Anthropogenic',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Semi-synthetic',
+                   'Unknown',
+                   'Natural Anthropogenic'))
+summary(rockfish$particle.type)
+
+summary(rockfish$colour)
+
+rockfish$num <- with(rockfish,
+                     ifelse(is.na(length), 0, 1))
+
+## Separate blanks data
+
+RF_blanks <- subset(rockfish, sample.type == 'Blanks')
+RF <- subset(rockfish, 
+             sample.type == 'Rockfish Guts' |
+               sample.type == 'Rockfish Livers' |
+               sample.type == 'Rockfish: Ingested Animals')
+RF$ID <- as.character(RF$ID)
+RF$ID <- as.factor(RF$ID)
+
+## Summarize blanks data
+
+summary(RF_blanks)
+RF_blanks_particle_type <- 
+  RF_blanks %>% 
+  group_by(ID, shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.count = sum(num))
+
+RF_blanks_means <- 
+  RF_blanks_particle_type %>% 
+  group_by(shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.mean = mean(blank.count))
+
+## Summarize RF data
+
+RF_polymer <- 
+  RF %>% 
+  group_by(ID, site, sample.type, size.fraction, shape, colour, blank.match, 
+           particle.type, raman.ID) %>% 
+  summarize(count = sum(num))
+
+## Blank subtract
+
+RF_polymer2 <-
+  left_join(RF_polymer, 
+            RF_blanks_means, 
+            by = c('shape', 'colour', 'blank.match', 'raman.ID', 
+                   'particle.type'))
+
+RF_polymer2$blank.mean[is.na(RF_polymer2$blank.mean)] <- 0
+
+RF_polymer2$adj.count <- ceiling(with(RF_polymer2, count - blank.mean))
+RF_polymer2$adj.count[RF_polymer2$adj.count < 0] <- 0
+
+## Add together samples that were divided
+
+RF_polymer2$ID <- mapvalues(RF_polymer2$ID,
+                            from = c('EBRF16A', 
+                                     'EBRF16B',
+                                     'HPRF21A',
+                                     'HPRF21B',
+                                     'HPRF4B'),
+                            to = c('EBRF16',
+                                   'EBRF16',
+                                   'HPRF21',
+                                   'HPRF21',
+                                   'HPRF4'))

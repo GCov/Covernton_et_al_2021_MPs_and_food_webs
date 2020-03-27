@@ -1,82 +1,82 @@
 ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
-CBFF1,Cole's Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBFF10,Cole's Bay,Flatfish Guts,386,NP,>150,fibre,orange,417.59,yes,,Cellulose,2
-CBFF11,Cole's Bay,Flatfish Guts,387,NP,>150,fibre,clear,8614.33,yes,,Polyester,2
-CBFF12,Cole's Bay,Flatfish Guts,388,NP,>150,fibre,red,1252.51,yes,,Dye,2
-CBFF12,Cole's Bay,Flatfish Guts,389,NP,>150,fibre,blue,749.2,yes,,Unknown,2
-CBFF13,Cole's Bay,Flatfish Guts,#825,NP,>150,fibre,clear,979.58,no,dropped,,2
-CBFF13,Cole's Bay,Flatfish Guts,390,NP,>150,fibre,red,447.05,yes,,Cellulose,2
-CBFF13,Cole's Bay,Flatfish Guts,391,NP,>150,fibre,blue,7491.2,yes,Too much fluorescence to get a good sigNAture,Unknown,2
-CBFF13,Cole's Bay,Flatfish Guts,392,NP,>150,fibre,red,900.88,yes,,Cellulose,2
-CBFF14,Cole's Bay,Flatfish Guts,393,NP,>150,fibre,blue,530.31,yes,,Polyester,2
-CBFF15,Cole's Bay,Flatfish Guts,394,NP,>150,fibre,black,681.81,yes,,Polyester,2
-CBFF2,Cole's Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBFF3,Cole's Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBFF4,Cole's Bay,Flatfish Guts,395,NP,>150,fibre,clear,440.53,yes,,Polyester,2
-CBFF5,Cole's Bay,Flatfish Guts,396,NP,>150,fibre,clear,1159.15,yes,,Wool,2
-CBFF5,Cole's Bay,Flatfish Guts,397,NP,>150,fibre,red,1126.63,yes,,Polyester,2
-CBFF6,Cole's Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBFF7,Cole's Bay,Flatfish Guts,398,NP,>150,fibre,clear,935.54,yes,,Polyester,2
-CBFF7,Cole's Bay,Flatfish Guts,399,NP,>150,fibre,red,6473.73,yes,Cellulose sigNAture and has physical structure of Rayon,Rayon,2
-CBFF9,Cole's Bay,Flatfish Guts,385,NP,>150,fibre,blue,505.43,yes,,Cellulose,2
-CBFF8,Cole's Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBFF1,Cole's Bay,Flatfish Guts,749,BB,1-150,fibre,blue,312.93,yes,,Dye,2
-CBFF1,Cole's Bay,Flatfish Guts,750,BB,1-150,fibre,blue,342.83,yes,,Polyester,2
-CBFF1,Cole's Bay,Flatfish Guts,751,BB,1-150,fibre,blue,219.58,yes,Probably denim,Unknown,2
-CBFF1,Cole's Bay,Flatfish Guts,,BB,1-150,fibre,clear,492.07,no,dropped,,2
-CBFF1,Cole's Bay,Flatfish Guts,752,BB,1-150,fibre,blue,931.14,yes,,Cellulose,2
-CBFF2,Cole's Bay,Flatfish Guts,753,BB,1-150,fibre,yellow,526.42,yes,Can't get a good spectral match,Unknown,2
-CBFF2,Cole's Bay,Flatfish Guts,754,BB,1-150,fibre,blue,451.96,yes,,Cellulose,2
-CBFF2,Cole's Bay,Flatfish Guts,755,BB,1-150,fibre,blue,948.14,yes,Probably denim,Unknown,2
-CBFF2,Cole's Bay,Flatfish Guts,756,BB,1-150,fibre,clear,716.12,yes,,Polyester,2
-CBFF2,Cole's Bay,Flatfish Guts,757,BB,1-150,fibre,black,985.24,yes,,Polyester,2
-CBFF2,Cole's Bay,Flatfish Guts,,BB,1-150,fibre,red,393.68,no,dropped,,2
-CBFF2,Cole's Bay,Flatfish Guts,758,BB,1-150,fibre,red,556.41,yes,,Cellulose,2
-CBFF3,Cole's Bay,Flatfish Guts,759,BB,1-150,fibre,black,454.09,yes,,Polyester,2
-CBFF3,Cole's Bay,Flatfish Guts,,BB,1-150,fibre,black,735.59,no,dropped,,2
-CBFF3,Cole's Bay,Flatfish Guts,760,BB,1-150,fibre,blue,962.16,yes,,Cellulose,2
-CBFF3,Cole's Bay,Flatfish Guts,761,BB,1-150,fibre,olive,905.69,yes,,Polyester,2
-CBFF6,Cole's Bay,Flatfish Guts,762,BB,1-150,fibre,yellow,874.18,yes,Can't get good match with spectra,Unknown,2
-CBFF6,Cole's Bay,Flatfish Guts,763,BB,1-150,fibre,black,532.81,yes,,Dye,2
-CBFF6,Cole's Bay,Flatfish Guts,764,BB,1-150,fibre,red,245.29,yes,Could not find for Raman,,2
-CBFF6,Cole's Bay,Flatfish Guts,765,BB,1-150,fibre,blue,2927.35,yes,Too much fluorescence to get a good spectra,Unknown,2
-CBFF6,Cole's Bay,Flatfish Guts,766,BB,1-150,fibre,blue,420.42,yes,,Cellulose,2
-CBFF7,Cole's Bay,Flatfish Guts,,BB,1-150,fibre,blue,312.91,no, dropped,,2
-CBFF7,Cole's Bay,Flatfish Guts,767,BB,1-150,fibre,brown,595.06,yes,Can't get a good spectra without burning,Unknown,2
-CBFF7,Cole's Bay,Flatfish Guts,768,BB,1-150,fibre,red,,yes,,Polyester,2
-CBFF9,Cole's Bay,Flatfish Guts,769,BB,1-150,fibre,blue,2813.83,yes,,Cellulose,2
-CBFF9,Cole's Bay,Flatfish Guts,770,BB,1-150,fibre,black,803.08,yes,,Cellulose,2
-CBFF9,Cole's Bay,Flatfish Guts,771,BB,1-150,fibre,red,672.72,yes,,Cellulose,2
-CBFF9,Cole's Bay,Flatfish Guts,772,BB,1-150,fibre,black,462.71,yes,,Polyester,2
-CBFF10,Cole's Bay,Flatfish Guts,773,BB,1-150,fibre,blue,1142.13,yes,Probably denim,Unknown,2
-CBFF10,Cole's Bay,Flatfish Guts,774,BB,1-150,fibre,blue,1442.65,yes,,Cellulose,2
-CBFF10,Cole's Bay,Flatfish Guts,775,BB,1-150,fibre,blue,368.55,yes,Probably denim,Unknown,2
-CBFF11,Cole's Bay,Flatfish Guts,776,BB,1-150,fibre,blue,1266.1,yes,,Polyester,2
-CBFF12,Cole's Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,NA,,2
-CBFF14,Cole's Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,NA,,2
-CBFF1,Cole's Bay,Flatfish Livers,777,BB,>1,fibre,black,488.93,yes,,Cellulose,2
-CBFF1,Cole's Bay,Flatfish Livers,778,BB,>1,fibre,clear,1755.87,yes,,Polyester,2
-CBFF2,Cole's Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
-CBFF3,Cole's Bay,Flatfish Livers,779,BB,>1,fibre,blue,681.73,yes,,Cellulose,2
-CBFF6,Cole's Bay,Flatfish Livers,780,BB,>1,fibre,clear,1133.94,yes,,"Wool
+CBFF1,Coles Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
+CBFF10,Coles Bay,Flatfish Guts,386,NP,>150,fibre,orange,417.59,yes,,Cellulose,2
+CBFF11,Coles Bay,Flatfish Guts,387,NP,>150,fibre,clear,8614.33,yes,,Polyester,2
+CBFF12,Coles Bay,Flatfish Guts,388,NP,>150,fibre,red,1252.51,yes,,Dye,2
+CBFF12,Coles Bay,Flatfish Guts,389,NP,>150,fibre,blue,749.2,yes,,Unknown,2
+CBFF13,Coles Bay,Flatfish Guts,#825,NP,>150,fibre,clear,979.58,no,dropped,,2
+CBFF13,Coles Bay,Flatfish Guts,390,NP,>150,fibre,red,447.05,yes,,Cellulose,2
+CBFF13,Coles Bay,Flatfish Guts,391,NP,>150,fibre,blue,7491.2,yes,Too much fluorescence to get a good sigNAture,Unknown,2
+CBFF13,Coles Bay,Flatfish Guts,392,NP,>150,fibre,red,900.88,yes,,Cellulose,2
+CBFF14,Coles Bay,Flatfish Guts,393,NP,>150,fibre,blue,530.31,yes,,Polyester,2
+CBFF15,Coles Bay,Flatfish Guts,394,NP,>150,fibre,black,681.81,yes,,Polyester,2
+CBFF2,Coles Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
+CBFF3,Coles Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
+CBFF4,Coles Bay,Flatfish Guts,395,NP,>150,fibre,clear,440.53,yes,,Polyester,2
+CBFF5,Coles Bay,Flatfish Guts,396,NP,>150,fibre,clear,1159.15,yes,,Wool,2
+CBFF5,Coles Bay,Flatfish Guts,397,NP,>150,fibre,red,1126.63,yes,,Polyester,2
+CBFF6,Coles Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
+CBFF7,Coles Bay,Flatfish Guts,398,NP,>150,fibre,clear,935.54,yes,,Polyester,2
+CBFF7,Coles Bay,Flatfish Guts,399,NP,>150,fibre,red,6473.73,yes,Cellulose sigNAture and has physical structure of Rayon,Rayon,2
+CBFF9,Coles Bay,Flatfish Guts,385,NP,>150,fibre,blue,505.43,yes,,Cellulose,2
+CBFF8,Coles Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
+CBFF1,Coles Bay,Flatfish Guts,749,BB,1-150,fibre,blue,312.93,yes,,Dye,2
+CBFF1,Coles Bay,Flatfish Guts,750,BB,1-150,fibre,blue,342.83,yes,,Polyester,2
+CBFF1,Coles Bay,Flatfish Guts,751,BB,1-150,fibre,blue,219.58,yes,Probably denim,Unknown,2
+CBFF1,Coles Bay,Flatfish Guts,,BB,1-150,fibre,clear,492.07,no,dropped,,2
+CBFF1,Coles Bay,Flatfish Guts,752,BB,1-150,fibre,blue,931.14,yes,,Cellulose,2
+CBFF2,Coles Bay,Flatfish Guts,753,BB,1-150,fibre,yellow,526.42,yes,Can't get a good spectral match,Unknown,2
+CBFF2,Coles Bay,Flatfish Guts,754,BB,1-150,fibre,blue,451.96,yes,,Cellulose,2
+CBFF2,Coles Bay,Flatfish Guts,755,BB,1-150,fibre,blue,948.14,yes,Probably denim,Unknown,2
+CBFF2,Coles Bay,Flatfish Guts,756,BB,1-150,fibre,clear,716.12,yes,,Polyester,2
+CBFF2,Coles Bay,Flatfish Guts,757,BB,1-150,fibre,black,985.24,yes,,Polyester,2
+CBFF2,Coles Bay,Flatfish Guts,,BB,1-150,fibre,red,393.68,no,dropped,,2
+CBFF2,Coles Bay,Flatfish Guts,758,BB,1-150,fibre,red,556.41,yes,,Cellulose,2
+CBFF3,Coles Bay,Flatfish Guts,759,BB,1-150,fibre,black,454.09,yes,,Polyester,2
+CBFF3,Coles Bay,Flatfish Guts,,BB,1-150,fibre,black,735.59,no,dropped,,2
+CBFF3,Coles Bay,Flatfish Guts,760,BB,1-150,fibre,blue,962.16,yes,,Cellulose,2
+CBFF3,Coles Bay,Flatfish Guts,761,BB,1-150,fibre,olive,905.69,yes,,Polyester,2
+CBFF6,Coles Bay,Flatfish Guts,762,BB,1-150,fibre,yellow,874.18,yes,Can't get good match with spectra,Unknown,2
+CBFF6,Coles Bay,Flatfish Guts,763,BB,1-150,fibre,black,532.81,yes,,Dye,2
+CBFF6,Coles Bay,Flatfish Guts,764,BB,1-150,fibre,red,245.29,yes,Could not find for Raman,,2
+CBFF6,Coles Bay,Flatfish Guts,765,BB,1-150,fibre,blue,2927.35,yes,Too much fluorescence to get a good spectra,Unknown,2
+CBFF6,Coles Bay,Flatfish Guts,766,BB,1-150,fibre,blue,420.42,yes,,Cellulose,2
+CBFF7,Coles Bay,Flatfish Guts,,BB,1-150,fibre,blue,312.91,no, dropped,,2
+CBFF7,Coles Bay,Flatfish Guts,767,BB,1-150,fibre,brown,595.06,yes,Can't get a good spectra without burning,Unknown,2
+CBFF7,Coles Bay,Flatfish Guts,768,BB,1-150,fibre,red,,yes,,Polyester,2
+CBFF9,Coles Bay,Flatfish Guts,769,BB,1-150,fibre,blue,2813.83,yes,,Cellulose,2
+CBFF9,Coles Bay,Flatfish Guts,770,BB,1-150,fibre,black,803.08,yes,,Cellulose,2
+CBFF9,Coles Bay,Flatfish Guts,771,BB,1-150,fibre,red,672.72,yes,,Cellulose,2
+CBFF9,Coles Bay,Flatfish Guts,772,BB,1-150,fibre,black,462.71,yes,,Polyester,2
+CBFF10,Coles Bay,Flatfish Guts,773,BB,1-150,fibre,blue,1142.13,yes,Probably denim,Unknown,2
+CBFF10,Coles Bay,Flatfish Guts,774,BB,1-150,fibre,blue,1442.65,yes,,Cellulose,2
+CBFF10,Coles Bay,Flatfish Guts,775,BB,1-150,fibre,blue,368.55,yes,Probably denim,Unknown,2
+CBFF11,Coles Bay,Flatfish Guts,776,BB,1-150,fibre,blue,1266.1,yes,,Polyester,2
+CBFF12,Coles Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,NA,,2
+CBFF14,Coles Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,NA,,2
+CBFF1,Coles Bay,Flatfish Livers,777,BB,>1,fibre,black,488.93,yes,,Cellulose,2
+CBFF1,Coles Bay,Flatfish Livers,778,BB,>1,fibre,clear,1755.87,yes,,Polyester,2
+CBFF2,Coles Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
+CBFF3,Coles Bay,Flatfish Livers,779,BB,>1,fibre,blue,681.73,yes,,Cellulose,2
+CBFF6,Coles Bay,Flatfish Livers,780,BB,>1,fibre,clear,1133.94,yes,,"Wool
 ",2
-CBFF6,Cole's Bay,Flatfish Livers,781,BB,>1,fragment,green,926.89,yes,From ATR-FTIR,Paint Chip,2
-CBFF6,Cole's Bay,Flatfish Livers,782,BB,>1,fibre,blue,1143.07,yes,,Cellulose,2
-CBFF7,Cole's Bay,Flatfish Livers,783,BB,>1,fibre,blue,378.44,yes,,Cellulose,2
-CBFF9,Cole's Bay,Flatfish Livers,784,BB,>1,fibre,blue,342.39,yes,,Cellulose,2
-CBFF9,Cole's Bay,Flatfish Livers,785,BB,>1,fibre,blue,308.5,yes,,Cellulose,2
-CBFF10,Cole's Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
-CBFF11,Cole's Bay,Flatfish Livers,786,BB,>1,fibre,black,538.72,yes,,Cellulose,2
-CBFF11,Cole's Bay,Flatfish Livers,787,BB,>1,fibre,black,397.17,yes,,Polyester,2
-CBFF11,Cole's Bay,Flatfish Livers,788,BB,>1,fibre,blue,610.75,yes,Possibly acrylic,Unknown,2
-CBFF12,Cole's Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
-CBFF14,Cole's Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
+CBFF6,Coles Bay,Flatfish Livers,781,BB,>1,fragment,green,926.89,yes,From ATR-FTIR,Paint Chip,2
+CBFF6,Coles Bay,Flatfish Livers,782,BB,>1,fibre,blue,1143.07,yes,,Cellulose,2
+CBFF7,Coles Bay,Flatfish Livers,783,BB,>1,fibre,blue,378.44,yes,,Cellulose,2
+CBFF9,Coles Bay,Flatfish Livers,784,BB,>1,fibre,blue,342.39,yes,,Cellulose,2
+CBFF9,Coles Bay,Flatfish Livers,785,BB,>1,fibre,blue,308.5,yes,,Cellulose,2
+CBFF10,Coles Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
+CBFF11,Coles Bay,Flatfish Livers,786,BB,>1,fibre,black,538.72,yes,,Cellulose,2
+CBFF11,Coles Bay,Flatfish Livers,787,BB,>1,fibre,black,397.17,yes,,Polyester,2
+CBFF11,Coles Bay,Flatfish Livers,788,BB,>1,fibre,blue,610.75,yes,Possibly acrylic,Unknown,2
+CBFF12,Coles Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
+CBFF14,Coles Bay,Flatfish Livers,NA,BB,>1,NA,NA,NA,NA,NA,,2
 CBFFPB1,,Blanks,789,BB,>1,fibre,clear,1438.46,yes,,Wool,2
 CBFFPB1,,Blanks,790,BB,>1,fibre,blue,541.1,yes,,Cellulose,2
 CBFFPB3,,Blanks,791,BB,>1,fibre,clear,1023.59,yes,,Polyester,2
-CBFF4,Cole's Bay,Flatfish Guts,1066,BB,1-150,fiber,black,1578.56,yes,,,2
-CBFF5,Cole's Bay,Flatfish Guts,1067,BB,1-150,fiber,black,386.7,yes,,,2
-CBFF5,Cole's Bay,Flatfish Guts,1068,BB,1-150,fiber,black,1985.53,yes,,,2
-CBFF8,Cole's Bay,Flatfish Guts,,BB,1-150,fiber,red,1182.71,no,dropped,,2
-CBFF13,Cole's Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2
-CBFF15,Cole's Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2
+CBFF4,Coles Bay,Flatfish Guts,1066,BB,1-150,fiber,black,1578.56,yes,,,2
+CBFF5,Coles Bay,Flatfish Guts,1067,BB,1-150,fiber,black,386.7,yes,,,2
+CBFF5,Coles Bay,Flatfish Guts,1068,BB,1-150,fiber,black,1985.53,yes,,,2
+CBFF8,Coles Bay,Flatfish Guts,,BB,1-150,fiber,red,1182.71,no,dropped,,2
+CBFF13,Coles Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2
+CBFF15,Coles Bay,Flatfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2

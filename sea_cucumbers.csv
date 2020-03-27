@@ -1,65 +1,65 @@
 ID,site,sample.type,particle.number,aNAlyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
-CBCU1,Cole's Bay,Sea Cucumbers,280,NP,>150,fibre,purple,2793.62,yes,,Polyester,2
-CBCU1,Cole's Bay,Sea Cucumbers,281,NP,>150,fibre,black,249.44,yes,,Dye,2
-CBCU10,Cole's Bay,Sea Cucumbers,299,NP,>150,fibre,blue,565.94,yes,,Cellulose,2
-CBCU10,Cole's Bay,Sea Cucumbers,300,NP,>150,fibre,yellow,233.67,yes,Can't get a good Raman sigNAture,Unknown,2
-CBCU10,Cole's Bay,Sea Cucumbers,301,NP,>150,fibre,black,244.24,yes,,Polyester,2
-CBCU10,Cole's Bay,Sea Cucumbers,302,NP,>150,fibre,blue,1004.95,yes,,Cellulose,2
-CBCU10,Cole's Bay,Sea Cucumbers,303,NP,>150,fibre,black,352.65,yes,,Polyester,2
-CBCU11,Cole's Bay,Sea Cucumbers,304,NP,>150,fibre,red,151.23,yes,,Cellulose,2
-CBCU11,Cole's Bay,Sea Cucumbers,305,NP,>150,fibre,purple,549.58,yes,Too much fluorescence to get a good sigNAture,Unknown,2
-CBCU12,Cole's Bay,Sea Cucumbers,#820,NP,>150,fibre,clear,136.3,yes,,,2
-CBCU12,Cole's Bay,Sea Cucumbers,306,NP,>150,fibre,red,437.89,yes,,Polyester,2
-CBCU12,Cole's Bay,Sea Cucumbers,307,NP,>150,fibre,clear,300.12,yes,,Polyester,2
-CBCU13,Cole's Bay,Sea Cucumbers,308,NP,>150,fibre,blue,275.94,yes,,Polyester,2
-CBCU13,Cole's Bay,Sea Cucumbers,309,NP,>150,fibre,orange,291.47,yes,,Nylon,2
-CBCU13,Cole's Bay,Sea Cucumbers,#821,NP,>150,fibre,clear,184.71,no,dropped,,2
-CBCU14,Cole's Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBCU15,Cole's Bay,Sea Cucumbers,310,NP,>150,fibre,clear,324.08,yes,,Kevlar,2
-CBCU15,Cole's Bay,Sea Cucumbers,311,NP,>150,fibre,red,819.29,yes,,Cellulose,2
-CBCU16,Cole's Bay,Sea Cucumbers,312,NP,>150,fibre,black,377.62,yes,Too much fluorescence to get a good spectra,Unknown,2
-CBCU17,Cole's Bay,Sea Cucumbers,313,NP,>150,fibre,black,251.78,yes,,Cellulose,2
-CBCU17,Cole's Bay,Sea Cucumbers,314,NP,>150,fibre,clear,585.04,yes,,Cellulose,2
-CBCU17,Cole's Bay,Sea Cucumbers,315,NP,>150,fibre,red,264.2,yes,,Cellulose,2
-CBCU17,Cole's Bay,Sea Cucumbers,316,NP,>150,fibre,blue,828.4,yes,,Unknown,2
-CBCU18,Cole's Bay,Sea Cucumbers,317,NP,>150,fibre,clear,589.19,yes,,Polyester,2
-CBCU18,Cole's Bay,Sea Cucumbers,318,NP,>150,fibre,blue,535.79,yes,,Polyester,2
-CBCU18,Cole's Bay,Sea Cucumbers,319,NP,>150,fibre,clear,104.58,yes,,Mineral,2
-CBCU2,Cole's Bay,Sea Cucumbers,282,NP,>150,fibre,black,282,yes,,Polyester,2
-CBCU2,Cole's Bay,Sea Cucumbers,283,NP,>150,fibre,clear,501.4,yes,,Polyester,2
-CBCU3,Cole's Bay,Sea Cucumbers,285,NP,>150,fibre,blue,1193.55,yes,,Unknown,2
-CBCU5,Cole's Bay,Sea Cucumbers,289,NP,>150,fibre,red,415.27,yes,,Cellulose,2
-CBCU5,Cole's Bay,Sea Cucumbers,290,NP,>150,fibre,clear,1854.44,yes,,Unknown,2
-CBCU6,Cole's Bay,Sea Cucumbers,291,NP,>150,fibre,purple,1026.17,yes,,Polyester,2
-CBCU6,Cole's Bay,Sea Cucumbers,292,NP,>150,fibre,blue,1510.34,yes,,Unknown,2
-CBCU7,Cole's Bay,Sea Cucumbers,293,NP,>150,fibre,blue,1436.9,yes,,Unknown,2
-CBCU7,Cole's Bay,Sea Cucumbers,294,NP,>150,fibre,black,504.56,yes,,Polyester,2
-CBCU7,Cole's Bay,Sea Cucumbers,295,NP,>150,fibre,red,1239.07,yes,,Cellulose,2
-CBCU7,Cole's Bay,Sea Cucumbers,296,NP,>150,fibre,clear,968.79,no,Suspect that this is rayon,Cellulose,2
-CBCU7,Cole's Bay,Sea Cucumbers,297,NP,>150,fibre,blue,576.87,yes,,Plastics Dye,2
-CBCU7,Cole's Bay,Sea Cucumbers,298,NP,>150,fibre,black,570.95,yes,,Polyester,2
-CBCU8,Cole's Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,,,,2
-CBCU9,Cole's Bay,Sea Cucumbers,#819,NP,>150,fibre,clear,649.25,no,dropped,,2
-CBCUB1,Cole's Bay,Blanks,320,NP,>150,fibre,clear,873.22,yes,,Polyester,2
-CBCUB2,Cole's Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
-CBCUB3,Cole's Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
-CBCU10,Cole's Bay,Sea Cucumbers,480,NP,1-150,fibre,yellow,350.81,yes,,Nylon,1
-CBCU10,Cole's Bay,Sea Cucumbers,481,NP,1-150,fibre,blue,272.29,yes,,Cellulose,1
-CBCU11,Cole's Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU12,Cole's Bay,Sea Cucumbers,#836,NP,1-150,fibre,clear,1131.37,no,dropped,,1
-CBCU14,Cole's Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU15,Cole's Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU16,Cole's Bay,Sea Cucumbers,482,NP,1-150,fibre,clear,245.08,yes,,Unknown,1
-CBCU17,Cole's Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU18,Cole's Bay,Sea Cucumbers,483,NP,1-150,fibre,black,450.44,yes,,Polyester,1
-CBCU4,Cole's Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU5,Cole's Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU6,Cole's Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU8,Cole's Bay,Sea Cucumbers,#834,NP,1-150,fibre,clear,218.37,no,dropped,,1
-CBCU9,Cole's Bay,Sea Cucumbers,479,NP,1-150,fibre,clear,524.05,yes,Can't get a good spectra,Unknown,1
-CBCU9,Cole's Bay,Sea Cucumbers,#835,NP,1-150,fragment,yellow,146.21,no,dropped,,1
-CBCUPB1,Cole's Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCUPB2,Cole's Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU1,Coles Bay,Sea Cucumbers,280,NP,>150,fibre,purple,2793.62,yes,,Polyester,2
+CBCU1,Coles Bay,Sea Cucumbers,281,NP,>150,fibre,black,249.44,yes,,Dye,2
+CBCU10,Coles Bay,Sea Cucumbers,299,NP,>150,fibre,blue,565.94,yes,,Cellulose,2
+CBCU10,Coles Bay,Sea Cucumbers,300,NP,>150,fibre,yellow,233.67,yes,Can't get a good Raman sigNAture,Unknown,2
+CBCU10,Coles Bay,Sea Cucumbers,301,NP,>150,fibre,black,244.24,yes,,Polyester,2
+CBCU10,Coles Bay,Sea Cucumbers,302,NP,>150,fibre,blue,1004.95,yes,,Cellulose,2
+CBCU10,Coles Bay,Sea Cucumbers,303,NP,>150,fibre,black,352.65,yes,,Polyester,2
+CBCU11,Coles Bay,Sea Cucumbers,304,NP,>150,fibre,red,151.23,yes,,Cellulose,2
+CBCU11,Coles Bay,Sea Cucumbers,305,NP,>150,fibre,purple,549.58,yes,Too much fluorescence to get a good sigNAture,Unknown,2
+CBCU12,Coles Bay,Sea Cucumbers,#820,NP,>150,fibre,clear,136.3,yes,,,2
+CBCU12,Coles Bay,Sea Cucumbers,306,NP,>150,fibre,red,437.89,yes,,Polyester,2
+CBCU12,Coles Bay,Sea Cucumbers,307,NP,>150,fibre,clear,300.12,yes,,Polyester,2
+CBCU13,Coles Bay,Sea Cucumbers,308,NP,>150,fibre,blue,275.94,yes,,Polyester,2
+CBCU13,Coles Bay,Sea Cucumbers,309,NP,>150,fibre,orange,291.47,yes,,Nylon,2
+CBCU13,Coles Bay,Sea Cucumbers,#821,NP,>150,fibre,clear,184.71,no,dropped,,2
+CBCU14,Coles Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,NA,,2
+CBCU15,Coles Bay,Sea Cucumbers,310,NP,>150,fibre,clear,324.08,yes,,Kevlar,2
+CBCU15,Coles Bay,Sea Cucumbers,311,NP,>150,fibre,red,819.29,yes,,Cellulose,2
+CBCU16,Coles Bay,Sea Cucumbers,312,NP,>150,fibre,black,377.62,yes,Too much fluorescence to get a good spectra,Unknown,2
+CBCU17,Coles Bay,Sea Cucumbers,313,NP,>150,fibre,black,251.78,yes,,Cellulose,2
+CBCU17,Coles Bay,Sea Cucumbers,314,NP,>150,fibre,clear,585.04,yes,,Cellulose,2
+CBCU17,Coles Bay,Sea Cucumbers,315,NP,>150,fibre,red,264.2,yes,,Cellulose,2
+CBCU17,Coles Bay,Sea Cucumbers,316,NP,>150,fibre,blue,828.4,yes,,Unknown,2
+CBCU18,Coles Bay,Sea Cucumbers,317,NP,>150,fibre,clear,589.19,yes,,Polyester,2
+CBCU18,Coles Bay,Sea Cucumbers,318,NP,>150,fibre,blue,535.79,yes,,Polyester,2
+CBCU18,Coles Bay,Sea Cucumbers,319,NP,>150,fibre,clear,104.58,yes,,Mineral,2
+CBCU2,Coles Bay,Sea Cucumbers,282,NP,>150,fibre,black,282,yes,,Polyester,2
+CBCU2,Coles Bay,Sea Cucumbers,283,NP,>150,fibre,clear,501.4,yes,,Polyester,2
+CBCU3,Coles Bay,Sea Cucumbers,285,NP,>150,fibre,blue,1193.55,yes,,Unknown,2
+CBCU5,Coles Bay,Sea Cucumbers,289,NP,>150,fibre,red,415.27,yes,,Cellulose,2
+CBCU5,Coles Bay,Sea Cucumbers,290,NP,>150,fibre,clear,1854.44,yes,,Unknown,2
+CBCU6,Coles Bay,Sea Cucumbers,291,NP,>150,fibre,purple,1026.17,yes,,Polyester,2
+CBCU6,Coles Bay,Sea Cucumbers,292,NP,>150,fibre,blue,1510.34,yes,,Unknown,2
+CBCU7,Coles Bay,Sea Cucumbers,293,NP,>150,fibre,blue,1436.9,yes,,Unknown,2
+CBCU7,Coles Bay,Sea Cucumbers,294,NP,>150,fibre,black,504.56,yes,,Polyester,2
+CBCU7,Coles Bay,Sea Cucumbers,295,NP,>150,fibre,red,1239.07,yes,,Cellulose,2
+CBCU7,Coles Bay,Sea Cucumbers,296,NP,>150,fibre,clear,968.79,no,Suspect that this is rayon,Cellulose,2
+CBCU7,Coles Bay,Sea Cucumbers,297,NP,>150,fibre,blue,576.87,yes,,Plastics Dye,2
+CBCU7,Coles Bay,Sea Cucumbers,298,NP,>150,fibre,black,570.95,yes,,Polyester,2
+CBCU8,Coles Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,,,,2
+CBCU9,Coles Bay,Sea Cucumbers,#819,NP,>150,fibre,clear,649.25,no,dropped,,2
+CBCUB1,Coles Bay,Blanks,320,NP,>150,fibre,clear,873.22,yes,,Polyester,2
+CBCUB2,Coles Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
+CBCUB3,Coles Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
+CBCU10,Coles Bay,Sea Cucumbers,480,NP,1-150,fibre,yellow,350.81,yes,,Nylon,1
+CBCU10,Coles Bay,Sea Cucumbers,481,NP,1-150,fibre,blue,272.29,yes,,Cellulose,1
+CBCU11,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU12,Coles Bay,Sea Cucumbers,#836,NP,1-150,fibre,clear,1131.37,no,dropped,,1
+CBCU14,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU15,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU16,Coles Bay,Sea Cucumbers,482,NP,1-150,fibre,clear,245.08,yes,,Unknown,1
+CBCU17,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU18,Coles Bay,Sea Cucumbers,483,NP,1-150,fibre,black,450.44,yes,,Polyester,1
+CBCU4,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU5,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU6,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCU8,Coles Bay,Sea Cucumbers,#834,NP,1-150,fibre,clear,218.37,no,dropped,,1
+CBCU9,Coles Bay,Sea Cucumbers,479,NP,1-150,fibre,clear,524.05,yes,Can't get a good spectra,Unknown,1
+CBCU9,Coles Bay,Sea Cucumbers,#835,NP,1-150,fragment,yellow,146.21,no,dropped,,1
+CBCUPB1,Coles Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,1
+CBCUPB2,Coles Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,1
 EBCU1,Elliot Bay,Sea Cucumbers,216,NP,>150,fibre,green,2762.76,yes,Too much fluorescence to get a good Raman sigNAture,Unknown,3
 EBCU1,Elliot Bay,Sea Cucumbers,217,NP,>150,fibre,black,468.08,yes,,Cellulose,3
 EBCU10,Elliot Bay,Sea Cucumbers,240,NP,>150,fibre,blue,2252.22,yes,,Unknown,3

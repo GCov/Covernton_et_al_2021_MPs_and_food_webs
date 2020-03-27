@@ -1,19 +1,19 @@
 ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
-CBC3,Cole's Bay,Clams,522,NP,>1,fibre,black,429.81,yes,,Polyester,1
-CBC5,Cole's Bay,Clams,523,NP,>1,fibre,clear,304.21,yes,,Cellulose,1
-CBC5,Cole's Bay,Clams,524,NP,>1,fibre,clear,3103.46,yes,,Cellulose,1
-CBC5,Cole's Bay,Clams,#839,NP,>1,fibre,orange,380.94,no ,dropped,,1
-CBC6,Cole's Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
-CBC11,Cole's Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
-CBC12,Cole's Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
-CBC13,Cole's Bay,Clams,525,NP,>1,fibre,green,1494.03,yes,"Good spectra but can't get a match
+CBC3,Coles Bay,Clams,522,NP,>1,fibre,black,429.81,yes,,Polyester,1
+CBC5,Coles Bay,Clams,523,NP,>1,fibre,clear,304.21,yes,,Cellulose,1
+CBC5,Coles Bay,Clams,524,NP,>1,fibre,clear,3103.46,yes,,Cellulose,1
+CBC5,Coles Bay,Clams,#839,NP,>1,fibre,orange,380.94,no ,dropped,,1
+CBC6,Coles Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
+CBC11,Coles Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
+CBC12,Coles Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
+CBC13,Coles Bay,Clams,525,NP,>1,fibre,green,1494.03,yes,"Good spectra but can't get a match
 ",Unknown,1
-CBC14,Cole's Bay,Clams,526,NP,>1,fibre,clear,531.42,yes,,Cellulose,1
-CBC14,Cole's Bay,Clams,527,NP,>1,fibre,clear,1127.75,yes,,Polyester,1
-CBC15,Cole's Bay,Clams,639,BB,>1,fibre,clear,1469.31,yes,,Cellulose,1
-CBC15,Cole's Bay,Clams,,BB,>1,fibre,black,954.71,no ,dropped,,1
-CBC15,Cole's Bay,Clams,640,BB,>1,fibre,blue,1344.26,yes,Probably denim,Unknown,1
-CBC15,Cole's Bay,Clams,641,BB,>1,fibre,clear,1086.55,yes,,Polyester,1
+CBC14,Coles Bay,Clams,526,NP,>1,fibre,clear,531.42,yes,,Cellulose,1
+CBC14,Coles Bay,Clams,527,NP,>1,fibre,clear,1127.75,yes,,Polyester,1
+CBC15,Coles Bay,Clams,639,BB,>1,fibre,clear,1469.31,yes,,Cellulose,1
+CBC15,Coles Bay,Clams,,BB,>1,fibre,black,954.71,no ,dropped,,1
+CBC15,Coles Bay,Clams,640,BB,>1,fibre,blue,1344.26,yes,Probably denim,Unknown,1
+CBC15,Coles Bay,Clams,641,BB,>1,fibre,clear,1086.55,yes,,Polyester,1
 EBC1,Elliot Bay,Clams,642,BB,>1,fibre,clear,2118.76,yes,,Cellulose,2
 EBC2,Elliot Bay,Clams,NA,BB,>1,NA,NA,NA,NA,,,2
 EBC3,Elliot Bay,Clams,643,BB,>1,fibre,clear,845.41,yes,,Polyester,2

@@ -1,20 +1,20 @@
 ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID
-CBPT1,Cole's Bay,Plankton tows,1,GC,>250,fibre,red,>5000,yes,,Polyester
-CBPT1,Cole's Bay,Plankton tows,4,NP,>250,fibre,blue,1040.01,yes,,Polypropylene
-CBPT1,Cole's Bay,Plankton tows,5,NP,>250,fibre,clear,1087.32,yes,,Polypropylene
-CBPT2,Cole's Bay,Plankton tows,6,NP,>250,fibre ,clear,630.6,yes,,Plastics Additive
-CBPT2,Cole's Bay,Plankton tows,7,NP,>250,fibre ,clear,866.55,yes,,Cellulose
-CBPT2,Cole's Bay,Plankton tows,8,NP,>250,fibre,clear,921.7,yes,,Cellulose
-CBPT2,Cole's Bay,Plankton tows,9,NP,>250,fibre,clear,667.64,yes,,Cellulose
-CBPT3,Cole's Bay,Plankton tows,#2,NP,>250,fibre,black,597.66,no,dropped,
-CBPT4,Cole's Bay,Plankton tows,NA,NP,>250,NA,NA,NA,NA,,
-CBPT5,Cole's Bay,Plankton tows,12,NP,>250,fibre,blue,1064.99,yes,,Polypropylene
-CBPT5,Cole's Bay,Plankton tows,14,NP,>250,fragment,black,884.46,yes,,Unknown
-CBPT5,Cole's Bay,Plankton tows,#4,NP,>250,fragment,blue,45.21,yes,,
-CBPT5,Cole's Bay,Plankton tows,15,NP,>250,fibre,yellow green,2431.27,yes,,Unknown
-CBPTPB1,Cole's Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,
-CBPTPB2,Cole's Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,
-CBPTPB3,Cole's Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,
+CBPT1,Coles Bay,Plankton tows,1,GC,>250,fibre,red,>5000,yes,,Polyester
+CBPT1,Coles Bay,Plankton tows,4,NP,>250,fibre,blue,1040.01,yes,,Polypropylene
+CBPT1,Coles Bay,Plankton tows,5,NP,>250,fibre,clear,1087.32,yes,,Polypropylene
+CBPT2,Coles Bay,Plankton tows,6,NP,>250,fibre ,clear,630.6,yes,,Plastics Additive
+CBPT2,Coles Bay,Plankton tows,7,NP,>250,fibre ,clear,866.55,yes,,Cellulose
+CBPT2,Coles Bay,Plankton tows,8,NP,>250,fibre,clear,921.7,yes,,Cellulose
+CBPT2,Coles Bay,Plankton tows,9,NP,>250,fibre,clear,667.64,yes,,Cellulose
+CBPT3,Coles Bay,Plankton tows,#2,NP,>250,fibre,black,597.66,no,dropped,
+CBPT4,Coles Bay,Plankton tows,NA,NP,>250,NA,NA,NA,NA,,
+CBPT5,Coles Bay,Plankton tows,12,NP,>250,fibre,blue,1064.99,yes,,Polypropylene
+CBPT5,Coles Bay,Plankton tows,14,NP,>250,fragment,black,884.46,yes,,Unknown
+CBPT5,Coles Bay,Plankton tows,#4,NP,>250,fragment,blue,45.21,yes,,
+CBPT5,Coles Bay,Plankton tows,15,NP,>250,fibre,yellow green,2431.27,yes,,Unknown
+CBPTPB1,Coles Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,
+CBPTPB2,Coles Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,
+CBPTPB3,Coles Bay,Blanks,NA,NP,>250,NA,NA,NA,NA,NA,
 EBPT1,Elliot Bay,Plankton tows,#5,NP,>250,fragment,blue,81.69,no,tiny**,
 EBPT1,Elliot Bay,Plankton tows,#6,NP,>250,fibre,black,319.85,no,dropped,
 EBPT1,Elliot Bay,Plankton tows,#7,NP,>250,fragment,blue,69.86,no,tiny**,
@@ -116,78 +116,78 @@ HPPT5,Victoria Harbour,Plankton tows,68,NP,>250,fragment,blue,111.64,yes,,
 HPPT5,Victoria Harbour,Plankton tows,69,NP,>250,fibre ,blue,634.59,yes,,Polypropylene
 HPPT5,Victoria Harbour,Plankton tows,70,NP,>250,fragment,blue,181.26,yes,,
 HPPT5,Victoria Harbour,Plankton tows,71,NP,>250,fibre ,black,1442.76,yes,,Dye
-CBPTPB1,Cole's Bay,Blanks,#54,NP,150-250,fragment,blue,43.25,no,tiny**,
-CBPTPB1,Cole's Bay,Blanks,#55,NP,150-250,fragment,blue,91.85,no,tiny**,
-CBPTPB1,Cole's Bay,Blanks,#56,NP,150-250,fibre,clear,825.12,no,dropped,
-CBPTPB2,Cole's Bay,Blanks,#57,NP,150-250,fragment,blue,50.72,no,tiny**,
-CBPTPB2,Cole's Bay,Blanks,#58,NP,150-250,fragment,blue,61.64,no,tiny**,
-CBPTPB2,Cole's Bay,Blanks,#59,NP,150-250,fragment,blue,40.65,no,tiny**,
-CBPTPB2,Cole's Bay,Blanks,#60,NP,150-250,fragment,blue,46.48,no,tiny**,
-CBPTPB2,Cole's Bay,Blanks,#61,NP,150-250,fragment,blue,54.64,no,tiny**,
-CBPTPB2,Cole's Bay,Blanks,#62,NP,150-250,fragment,blue,69.29,no,tiny**,
-CBPTPB2,Cole's Bay,Blanks,#63,NP,150-250,fragment,blue,47.17,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,#64,NP,150-250,fragment,blue,64.94,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,#65,NP,150-250,fragment,blue,38.87,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,#66,NP,150-250,fragment,blue,48.04,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,#67,NP,150-250,fragment,blue,88.45,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,72,NP,150-250,fibre,black,196.93,yes,,Cellulose
-CBPTPB3,Cole's Bay,Blanks,#68,NP,150-250,fragment,blue,62.52,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,#69,NP,150-250,fragment,blue,54.56,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,#70,NP,150-250,fragment,blue,15.02,no,tiny**,
-CBPTPB3,Cole's Bay,Blanks,#71,NP,150-250,fragment,blue,92.86,no,tiny**,
-CBPT1,Cole's Bay,Plankton tows,73,NP,150-250,fragment,blue,189.86,yes,,
-CBPT1,Cole's Bay,Plankton tows,74,NP,150-250,fibre,clear,421.58,yes,,Polypropylene
-CBPT1,Cole's Bay,Plankton tows,#72,NP,150-250,fragment,blue,44.98,no,tiny**,
-CBPT1,Cole's Bay,Plankton tows,75,NP,150-250,fragment,blue,363.83,yes,,
-CBPT1,Cole's Bay,Plankton tows,76,NP,150-250,fibre,blue,547.19,yes,,Plastics Dye
-CBPT2,Cole's Bay,Plankton tows,#73,NP,150-250,fragment,blue,29.37,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#74,NP,150-250,fragment,blue,56.43,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#75,NP,150-250,fragment,blue,25.87,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#76,NP,150-250,fragment,blue,55.06,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#77,NP,150-250,fragment,blue,32.81,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#78,NP,150-250,fragment,blue,24.6,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#79,NP,150-250,fragment,blue,30.02,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#80,NP,150-250,fragment,blue,57.79,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#81,NP,150-250,fragment,blue,34.11,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#82,NP,150-250,fragment,blue,86.63,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#83,NP,150-250,fragment,blue,36.58,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#84,NP,150-250,fragment,blue,64.34,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#85,NP,150-250,fragment,blue,32.09,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#86,NP,150-250,fragment,blue,53.11,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#87,NP,150-250,fragment,blue,94.09,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#88,NP,150-250,fragment,blue,29.1,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#89,NP,150-250,fragment,blue,20.66,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#90,NP,150-250,fragment,blue,58.84,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#91,NP,150-250,fragment,blue,34.38,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#92,NP,150-250,fragment,blue,51.44,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#93,NP,150-250,fragment,blue,34.82,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#94,NP,150-250,fragment,blue,56.72,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#95,NP,150-250,fragment,blue,53.18,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#96,NP,150-250,fragment,blue,28.74,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#97,NP,150-250,fragment,blue,16.74,no,tiny**,
-CBPT2,Cole's Bay,Plankton tows,#98,NP,150-250,fragment,blue,81.69,no,tiny**,
-CBPT3,Cole's Bay,Plankton tows,77,NP,150-250,fibre,clear,470.85,no,dropped,
-CBPT3,Cole's Bay,Plankton tows,#99,NP,150-250,fragment,blue,25.69,no,tiny**,
-CBPT3,Cole's Bay,Plankton tows,#100,NP,150-250,fragment,blue,27.6,no,tiny**,
-CBPT3,Cole's Bay,Plankton tows,78,NP,150-250,fibre,orange,561.16,yes,,Polyester
-CBPT3,Cole's Bay,Plankton tows,#101,NP,150-250,fragment,blue,39.45,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,#102,NP,150-250,fragment,blue,37.79,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,#103,NP,150-250,fragment,blue,23.92,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,79,NP,150-250,fibre,blue,1454.82,yes,,Polyurethane
-CBPT4,Cole's Bay,Plankton tows,#104,NP,150-250,fragment,blue,65.75,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,#105,NP,150-250,fragment,blue,23.63,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,81,NP,150-250,fibre,purple,780.23,yes,too much fluorescence to get a good Raman signature,Unknown
-CBPT4,Cole's Bay,Plankton tows,82,NP,150-250,fibre,black,347.94,yes,,Cellulose
-CBPT4,Cole's Bay,Plankton tows,#106,NP,150-250,fragment,blue,73.82,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,#107,NP,150-250,fragment,blue,29.2,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,#108,NP,150-250,fragment,blue,22.05,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,#109,NP,150-250,fragment,blue,54.12,no,tiny**,
-CBPT4,Cole's Bay,Plankton tows,83,NP,150-250,fibre,black,224.88,yes,,Dye
-CBPT5,Cole's Bay,Plankton tows,#110,NP,150-250,fragment,blue,26.83,no,tiny**,
-CBPT5,Cole's Bay,Plankton tows,#111,NP,150-250,fragment,blue,41.72,no,tiny**,
-CBPT5,Cole's Bay,Plankton tows,84,NP,150-250,fibre,blue,392.59,yes,too much fluorescence to get a good Raman signature,Unknown
-CBPT5,Cole's Bay,Plankton tows,#112,NP,150-250,fragment,blue,27.77,no,tiny**,
-CBPT5,Cole's Bay,Plankton tows,#113,NP,150-250,fragment,blue,37.8,no,tiny**,
+CBPTPB1,Coles Bay,Blanks,#54,NP,150-250,fragment,blue,43.25,no,tiny**,
+CBPTPB1,Coles Bay,Blanks,#55,NP,150-250,fragment,blue,91.85,no,tiny**,
+CBPTPB1,Coles Bay,Blanks,#56,NP,150-250,fibre,clear,825.12,no,dropped,
+CBPTPB2,Coles Bay,Blanks,#57,NP,150-250,fragment,blue,50.72,no,tiny**,
+CBPTPB2,Coles Bay,Blanks,#58,NP,150-250,fragment,blue,61.64,no,tiny**,
+CBPTPB2,Coles Bay,Blanks,#59,NP,150-250,fragment,blue,40.65,no,tiny**,
+CBPTPB2,Coles Bay,Blanks,#60,NP,150-250,fragment,blue,46.48,no,tiny**,
+CBPTPB2,Coles Bay,Blanks,#61,NP,150-250,fragment,blue,54.64,no,tiny**,
+CBPTPB2,Coles Bay,Blanks,#62,NP,150-250,fragment,blue,69.29,no,tiny**,
+CBPTPB2,Coles Bay,Blanks,#63,NP,150-250,fragment,blue,47.17,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,#64,NP,150-250,fragment,blue,64.94,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,#65,NP,150-250,fragment,blue,38.87,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,#66,NP,150-250,fragment,blue,48.04,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,#67,NP,150-250,fragment,blue,88.45,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,72,NP,150-250,fibre,black,196.93,yes,,Cellulose
+CBPTPB3,Coles Bay,Blanks,#68,NP,150-250,fragment,blue,62.52,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,#69,NP,150-250,fragment,blue,54.56,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,#70,NP,150-250,fragment,blue,15.02,no,tiny**,
+CBPTPB3,Coles Bay,Blanks,#71,NP,150-250,fragment,blue,92.86,no,tiny**,
+CBPT1,Coles Bay,Plankton tows,73,NP,150-250,fragment,blue,189.86,yes,,
+CBPT1,Coles Bay,Plankton tows,74,NP,150-250,fibre,clear,421.58,yes,,Polypropylene
+CBPT1,Coles Bay,Plankton tows,#72,NP,150-250,fragment,blue,44.98,no,tiny**,
+CBPT1,Coles Bay,Plankton tows,75,NP,150-250,fragment,blue,363.83,yes,,
+CBPT1,Coles Bay,Plankton tows,76,NP,150-250,fibre,blue,547.19,yes,,Plastics Dye
+CBPT2,Coles Bay,Plankton tows,#73,NP,150-250,fragment,blue,29.37,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#74,NP,150-250,fragment,blue,56.43,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#75,NP,150-250,fragment,blue,25.87,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#76,NP,150-250,fragment,blue,55.06,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#77,NP,150-250,fragment,blue,32.81,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#78,NP,150-250,fragment,blue,24.6,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#79,NP,150-250,fragment,blue,30.02,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#80,NP,150-250,fragment,blue,57.79,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#81,NP,150-250,fragment,blue,34.11,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#82,NP,150-250,fragment,blue,86.63,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#83,NP,150-250,fragment,blue,36.58,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#84,NP,150-250,fragment,blue,64.34,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#85,NP,150-250,fragment,blue,32.09,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#86,NP,150-250,fragment,blue,53.11,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#87,NP,150-250,fragment,blue,94.09,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#88,NP,150-250,fragment,blue,29.1,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#89,NP,150-250,fragment,blue,20.66,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#90,NP,150-250,fragment,blue,58.84,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#91,NP,150-250,fragment,blue,34.38,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#92,NP,150-250,fragment,blue,51.44,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#93,NP,150-250,fragment,blue,34.82,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#94,NP,150-250,fragment,blue,56.72,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#95,NP,150-250,fragment,blue,53.18,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#96,NP,150-250,fragment,blue,28.74,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#97,NP,150-250,fragment,blue,16.74,no,tiny**,
+CBPT2,Coles Bay,Plankton tows,#98,NP,150-250,fragment,blue,81.69,no,tiny**,
+CBPT3,Coles Bay,Plankton tows,77,NP,150-250,fibre,clear,470.85,no,dropped,
+CBPT3,Coles Bay,Plankton tows,#99,NP,150-250,fragment,blue,25.69,no,tiny**,
+CBPT3,Coles Bay,Plankton tows,#100,NP,150-250,fragment,blue,27.6,no,tiny**,
+CBPT3,Coles Bay,Plankton tows,78,NP,150-250,fibre,orange,561.16,yes,,Polyester
+CBPT3,Coles Bay,Plankton tows,#101,NP,150-250,fragment,blue,39.45,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,#102,NP,150-250,fragment,blue,37.79,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,#103,NP,150-250,fragment,blue,23.92,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,79,NP,150-250,fibre,blue,1454.82,yes,,Polyurethane
+CBPT4,Coles Bay,Plankton tows,#104,NP,150-250,fragment,blue,65.75,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,#105,NP,150-250,fragment,blue,23.63,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,81,NP,150-250,fibre,purple,780.23,yes,too much fluorescence to get a good Raman signature,Unknown
+CBPT4,Coles Bay,Plankton tows,82,NP,150-250,fibre,black,347.94,yes,,Cellulose
+CBPT4,Coles Bay,Plankton tows,#106,NP,150-250,fragment,blue,73.82,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,#107,NP,150-250,fragment,blue,29.2,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,#108,NP,150-250,fragment,blue,22.05,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,#109,NP,150-250,fragment,blue,54.12,no,tiny**,
+CBPT4,Coles Bay,Plankton tows,83,NP,150-250,fibre,black,224.88,yes,,Dye
+CBPT5,Coles Bay,Plankton tows,#110,NP,150-250,fragment,blue,26.83,no,tiny**,
+CBPT5,Coles Bay,Plankton tows,#111,NP,150-250,fragment,blue,41.72,no,tiny**,
+CBPT5,Coles Bay,Plankton tows,84,NP,150-250,fibre,blue,392.59,yes,too much fluorescence to get a good Raman signature,Unknown
+CBPT5,Coles Bay,Plankton tows,#112,NP,150-250,fragment,blue,27.77,no,tiny**,
+CBPT5,Coles Bay,Plankton tows,#113,NP,150-250,fragment,blue,37.8,no,tiny**,
 HPPT1,Victoria Harbour,Plankton tows,#114,NP,150-250,fragment,blue,30.03,no,tiny**,
 HPPT1,Victoria Harbour,Plankton tows,#116,NP,150-250,fragment,blue,50.59,no,tiny**,
 HPPT1,Victoria Harbour,Plankton tows,#117,NP,150-250,fragment,blue,23.91,no,tiny**,
