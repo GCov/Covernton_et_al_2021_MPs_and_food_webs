@@ -1,3 +1,17 @@
+##### Setup #####
+
+## load packages
+library(plyr)
+library(ggplot2)
+library(dplyr)
+library(ggridges)
+
+## Define standard error function
+
+se <- function(x) {
+  sd(x)/sqrt(length(x))
+}
+
 #### Combine all data ####
 
 PT_synthetic2 <- PT_synthetic

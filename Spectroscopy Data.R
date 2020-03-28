@@ -1,3 +1,10 @@
+##### Setup #####
+
+## load packages
+library(plyr)
+library(ggplot2)
+library(dplyr)
+
 #### Plankton Tows ####
 
 ## Load plankton tow data

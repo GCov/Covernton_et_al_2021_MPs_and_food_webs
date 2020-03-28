@@ -103,6 +103,7 @@ HPCR8,Victoria Harbour,Crabs,1,NP,>1 mm,fibre,Clear,4353.75,,,,
 HPCR9,Victoria Harbour,Crabs,1,NP,>1 mm,fibre,Clear,2032.24,,,,
 HPCR10,Victoria Harbour,Crabs,1,NP,>1 mm,fibre,Clear,1007.61,,"These unknown 'black' fibres are actually clear up close, and I suspect they're chitin.",Unknown,
 HPCR10,Victoria Harbour,Crabs,2,NP,>1 mm,fibre,Blue,673.43,,,Unknown,
+HPCR11,Victoria Harbour,Crabs,,NP,>1 mm,NA,NA,NA,NA,,,
 HPCR10,Victoria Harbour,Crabs,3,NP,>1 mm,fibre,Black,10481.58,,could not find for Raman,,
 HPCR12,Victoria Harbour,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 HPCR13,Victoria Harbour,Crabs,1,NP,>1 mm,fibre,Black,1309.01,,,Cellulose,
@@ -152,3 +153,16 @@ HPCR15,Victoria Harbour,Crabs,810,BB,<1000,fiber,clear,1436.97,yes,,,3
 HPCR15,Victoria Harbour,Crabs,811,BB,<1000,fiber,blue,1248.11,yes,,,3
 HPCRPB2,Victoria Harbour,Blanks,NA,BB,<1000,NA,NA,NA,NA,,,3
 HPCRPB3,Victoria Harbour,Blanks,NA,BB,<1000,NA,NA,NA,NA,,,3
+CBCR2,Coles Bay,Crabs,1069,BB,<1000,fiber,black,892.13,yes,,,1
+CBCR4,Coles Bay,Crabs,1070,BB,<1000,fiber,brown,2064.54,yes,,,1
+CBCR8,Coles Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,1
+CBCR9,Coles Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,1
+CBCRPB2,Coles Bay,Blanks,1071,BB,<1000,fiber,blue,1086.48,yes,,,1
+EBCR1,Elliot Bay,Crabs,1072,BB,<1000,fiber,blue,5825.48,yes,,,2
+EBCR4,Elliot Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,2
+EBCR8,Elliot Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,2
+EBCR11,Elliot Bay,Crabs,1073,BB,<1000,fiber,blue,1077.45,yes,,,2
+EBCRPB3,Elliot Bay,Blanks,NA,BB,<1000,NA,NA,NA,NA,,,2
+HPCR5,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,3
+HPCR6,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,3
+HPCR11,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,3
