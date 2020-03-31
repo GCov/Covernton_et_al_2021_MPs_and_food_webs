@@ -1,286 +1,10 @@
 ID,site,sample.type,deltaC,total.C,C.comments,deltaN,total.N,N.comments,tray.name,well.ID,sample.weight
-EBMU3,Elliot Bay,Mussels,-18.47,345.83,,8.69,97.64,,FSH1,A2,0.878
-EBC7,Elliot Bay,Clams,-18.01,125.71,,10.64,27.07,,FSH1,A3,0.318
-EBMU14,Elliot Bay,Mussels,-17.83,181.49,,9.39,54.02,,FSH1,A5,0.513
-EBC5,Elliot Bay,Clams,-16.84,205.71,,9.48,51.82,,FSH1,A6,0.819
-EBC1,Elliot Bay,Clams,-17.2,50.97,Precision decreases for samples containing less than 100ugC,9.8,13.68,Precision decreases for samples containing less than 20ugN,FSH1,A7,0.165
-EBMU2,Elliot Bay,Mussels,-17.75,120.51,,9.39,37.69,,FSH1,A9,0.539
-EBMU4,Elliot Bay,Mussels,-18.2,400.66,,9.08,112.3,,FSH1,A10,1.044
-EBMU10,Elliot Bay,Mussels,-17.83,203.07,,8.98,63.08,,FSH1,A11,0.503
-EBMU5,Elliot Bay,Mussels,-17.75,310.47,,9.76,90.25,,FSH1,A12,0.685
-EBMU6,Elliot Bay,Mussels,-17.33,244.74,,9.1,74.55,,FSH1,B1,0.647
-EBMU7,Elliot Bay,Mussels,-16.52,70.23,Precision decreases for samples containing less than 100ugC,9.48,23.47,,FSH1,B2,0.204
-EBMU8,Elliot Bay,Mussels,-16.67,248.98,,8.87,79.57,,FSH1,B3,0.563
-EBMU9,Elliot Bay,Mussels,-17.12,227.55,,9.16,67.29,,FSH1,B4,0.634
-EBMU11,Elliot Bay,Mussels,-18.29,150.43,,8.81,44.24,,FSH1,B7,0.398
-EBMU12,Elliot Bay,Mussels,-18.03,190.5,,9.25,57.66,,FSH1,B8,0.475
-EBMU15,Elliot Bay,Mussels,-17.78,216.07,,9.19,66.22,,FSH1,B9,0.564
-EBC3,Elliot Bay,Clams,-16.65,274.09,,10.52,69.65,,FSH1,B11,0.779
-EBC4,Elliot Bay,Clams,-17.5,68.65,Precision decreases for samples containing less than 100ugC,10.88,17.99,Precision decreases for samples containing less than 20ugN,FSH1,B12,0.206
-EBC6,Elliot Bay,Clams,-17.17,362.87,,9.94,85.38,,FSH1,C1,0.985
-EBC9,Elliot Bay,Clams,-16.82,317.52,,10.61,74.87,,FSH1,C2,0.952
-EBC10,Elliot Bay,Clams,-17.62,116.85,,10.17,28.45,,FSH1,C4,0.31
-EBC11,Elliot Bay,Clams,-19.3,158.7,,9.6,33.22,,FSH1,C5,0.432
-EBC13,Elliot Bay,Clams,-16.6,542.67,,12.14,134.24,,FSH1,C6,1.519
-EBC14,Elliot Bay,Clams,-16.98,451.05,,10.27,113.77,,FSH1,C7,1.216
-EBC15,Elliot Bay,Clams,-16.71,494.21,,10.27,126.4,,FSH1,C8,1.374
-CBRF1,Coles Bay,Rockfish Liver,-19.02,632.8,,14.26,78.21,,FSH1,C9,1.288
-CBRF2,Coles Bay,Rockfish Liver,-18.08,825.72,,13.56,49.63,,FSH1,C10,1.569
-CBRF3,Coles Bay,Rockfish Liver,-16.16,607.01,,13.55,53.85,,FSH1,C11,1.02
-CBRF4,Coles Bay,Rockfish Liver,-18.76,340.14,,13.62,26.99,,FSH1,C12,0.677
-CBRF5,Coles Bay,Rockfish Liver,-18.83,502.42,,13.5,33.74,,FSH1,D1,0.988
-CBRF6,Coles Bay,Rockfish Liver,-14.62,371.59,,12.85,38.57,,FSH1,D2,0.797
-CBRF7,Coles Bay,Rockfish Liver,-18.96,788.02,,14.3,56.85,,FSH1,D3,1.501
-CBRF8,Coles Bay,Rockfish Liver,-17.92,709.9,,13.36,49.72,,FSH1,D4,1.435
-CBRF9,Coles Bay,Rockfish Liver,-18.69,1133.3,,13.17,70.04,,FSH1,D5,1.588
-CBRF10,Coles Bay,Rockfish Liver,-19.78,775.62,,14.32,43.47,,FSH1,D6,1.25
-EBRF1,Elliot Bay,Rockfish Liver,-18.12,736.43,,15.54,87.89,,FSH1,D7,1.291
-EBRF2,Elliot Bay,Rockfish Liver,-17.67,283.43,,14.15,24.45,,FSH1,D8,0.555
-EBRF3,Elliot Bay,Rockfish Liver,-18.63,387.51,,14.21,49.75,,FSH1,D9,0.772
-EBRF4,Elliot Bay,Rockfish Liver,-17.35,649.51,,13.46,80.62,,FSH1,D10,1.12
-EBRF5,Elliot Bay,Rockfish Liver,-18.91,567.05,,13.99,39.28,,FSH1,D11,1.003
-EBRF6,Elliot Bay,Rockfish Liver,-19.1,564.3,,13.85,70.06,,FSH1,D12,1.029
-EBRF7,Elliot Bay,Rockfish Liver,-18.6,496.17,,13.28,45.67,,FSH1,E1,0.926
-EBRF8,Elliot Bay,Rockfish Liver,-18.5,311.46,,12.94,35.58,,FSH1,E2,0.597
-EBRF9,Elliot Bay,Rockfish Liver,-17.68,2246.51,,13.2,192.56,,FSH1,E3,1.502
-EBRF10,Elliot Bay,Rockfish Liver,-20.27,345.14,,13.36,27.2,,FSH1,E4,0.625
-EBRF11,Elliot Bay,Rockfish Liver,-17.61,659.61,,14.88,55.92,,FSH1,E5,1.206
-EBRF12,Elliot Bay,Rockfish Liver,-18.33,618.98,,14.45,48.87,,FSH1,E6,1.071
-EBRF13,Elliot Bay,Rockfish Liver,-20.46,606.44,,12.25,60.15,,FSH1,E7,1.103
-EBRF14,Elliot Bay,Rockfish Liver,-19.48,729.26,,13.47,103.75,,FSH1,E8,1.458
-EBRF15,Elliot Bay,Rockfish Liver,-20.2,498.83,,12.95,46.99,,FSH1,E9,0.88
-EBRF16,Elliot Bay,Rockfish Liver,-17.74,329.12,,14.47,42.08,,FSH1,E10,0.664
-EBRF17,Elliot Bay,Rockfish Liver,-16.7,530.45,,14.8,47.24,,FSH1,E11,1.017
-EBRF18,Elliot Bay,Rockfish Liver,-19.43,657.03,,14.24,39.08,,FSH1,E12,1.06
-EBRF19,Elliot Bay,Rockfish Liver,-19.81,527.72,,15.05,31.04,,FSH1,F2,0.848
-EBRF20,Elliot Bay,Rockfish Liver,-18.5,631.79,,13.88,38.18,,FSH1,F3,1.06
-EBRF21,Elliot Bay,Rockfish Liver,-22.38,490.6,,14.1,23.65,,FSH1,F4,0.76
-HPRF1,Victoria Harbour,Rockfish Liver,-17.91,495.76,,13.91,45.51,,FSH1,F9,0.991
-HPRF2,Victoria Harbour,Rockfish Liver,-18.07,353.93,,13.86,40.77,,FSH1,F10,0.655
-HPRF3,Victoria Harbour,Rockfish Liver,-18.77,418.81,,13.67,38.15,,FSH1,F11,0.815
-HPRF4,Victoria Harbour,Rockfish Liver,-18.53,572.98,,13.87,70.62,,FSH1,F12,1.065
-HPRF5,Victoria Harbour,Rockfish Liver,-17.86,277.31,,13.01,25.09,,FSH1,G2,0.552
-HPRF6,Victoria Harbour,Rockfish Liver,-20.04,730.4,,13.48,63.5,,FSH1,G3,1.387
-HPRF7,Victoria Harbour,Rockfish Liver,-19.11,636.34,,13.12,75.02,,FSH1,G5,1.373
-HPRF9,Victoria Harbour,Rockfish Liver,-18.51,460.01,,12.9,47.16,,FSH1,G6,0.883
-HPRF10,Victoria Harbour,Rockfish Liver,-17.51,683.44,,13.17,65.58,,FSH1,G7,1.213
-HPRF11,Victoria Harbour,Rockfish Liver,-18.61,362.55,,13.76,58.99,,FSH1,G8,0.9
-HPRF12,Victoria Harbour,Rockfish Liver,-19.71,406.21,,12.99,48.14,,FSH1,G9,0.789
-HPRF13,Victoria Harbour,Rockfish Liver,-19.61,452.38,,13.32,51,,FSH1,G11,0.866
-HPRF14,Victoria Harbour,Rockfish Liver,-18.18,758.86,,13.73,56.57,,FSH1,G12,1.489
-HPRF15,Victoria Harbour,Rockfish Liver,-18.43,631.12,,13.75,41.52,,FSH1,H1,1.177
-HPRF16,Victoria Harbour,Rockfish Liver,-18.93,650.91,,13.45,45.5,,FSH1,H3,1.164
-HPRF17,Victoria Harbour,Rockfish Liver,-17.43,465.96,,12.97,40.25,,FSH1,H4,0.87
-HPRF18,Victoria Harbour,Rockfish Liver,-19.84,705.9,,13.25,69.2,,FSH1,H5,1.311
-HPRF19,Victoria Harbour,Rockfish Liver,-20.16,517.1,,13.07,60.01,,FSH1,H6,1.021
-HPRF20,Victoria Harbour,Rockfish Liver,-19.96,781.07,,13.81,85.93,,FSH1,H8,1.372
-HPRF21,Victoria Harbour,Rockfish Liver,-17.62,696.33,,14.76,60.49,,FSH1,H9,1.264
-HPRF22,Victoria Harbour,Rockfish Liver,-17.28,843.86,,13.39,123.88,,FSH1,H10,1.261
-HPRF24,Victoria Harbour,Rockfish Liver,-19.22,585.59,,14.37,49.65,,FSH1,H11,1.071
-EBRF14,Elliot Bay,Rockfish Muscle,-16.99,445.03,,14.67,130.74,,FSH1,H12,1.055
-EBRF17,Elliot Bay,Rockfish Muscle,-14.68,419.56,,15.45,119.89,,FSH2,A1,1.018
-EBRF4,Elliot Bay,Rockfish Muscle,-14.79,434.68,,15.03,119.42,,FSH2,A2,1.148
-EBRF1,Elliot Bay,Rockfish Muscle,-14.99,494.54,,15.39,148.91,,FSH2,A3,1.352
-EBRF2,Elliot Bay,Rockfish Muscle,-14.9,318.94,,14.44,95.19,,FSH2,A4,0.762
-EBRF3,Elliot Bay,Rockfish Muscle,-15.04,482.05,,14.58,144.12,,FSH2,A5,1.14
-EBRF5,Elliot Bay,Rockfish Muscle,-15.08,324.53,,14.91,96.5,,FSH2,A6,0.862
-EBRF6,Elliot Bay,Rockfish Muscle,-15.17,425.59,,14.63,128.73,,FSH2,A7,1.022
-EBRF7,Elliot Bay,Rockfish Muscle,-14.72,452.73,,14.42,132.05,,FSH2,A8,1.229
-EBRF8,Elliot Bay,Rockfish Muscle,-15.08,348.25,,14.12,103.75,,FSH2,A10,0.829
-EBRF9,Elliot Bay,Rockfish Muscle,-14.43,542.2,,15.48,156.42,,FSH2,A11,1.311
-EBRF10,Elliot Bay,Rockfish Muscle,-16.6,93.86,Precision decreases for samples containing less than 100ugC,14.49,25.74,,FSH2,A12,1.334
-EBRF11,Elliot Bay,Rockfish Muscle,-14.72,356.4,,15.21,105.11,,FSH2,B1,0.814
-EBRF12,Elliot Bay,Rockfish Muscle,-15.08,281.23,,15.53,73.78,,FSH2,B2,0.712
-EBRF13,Elliot Bay,Rockfish Muscle,-16,592.05,,13.6,181.82,,FSH2,B3,1.383
-EBRF15,Elliot Bay,Rockfish Muscle,-16.84,284.64,,14.05,73.55,,FSH2,B4,0.619
-EBRF16,Elliot Bay,Rockfish Muscle,-14.74,337.07,,15.31,100.07,,FSH2,B5,0.812
-EBRF18,Elliot Bay,Rockfish Muscle,-14.85,438.36,,15.12,126.81,,FSH2,B7,1.064
-EBRF19,Elliot Bay,Rockfish Muscle,-14.38,256.02,,15.9,72.87,,FSH2,B9,0.619
-EBRF20,Elliot Bay,Rockfish Muscle,-14.82,555.49,,14.51,154.09,,FSH2,B10,1.339
-EBRF21,Elliot Bay,Rockfish Muscle,-17.62,259.23,,14.58,71.98,,FSH2,B11,0.832
-CBRF1,Coles Bay,Rockfish Muscle,-14.96,570.17,,14.69,176.5,,FSH2,C1,1.358
-CBRF2,Coles Bay,Rockfish Muscle,-13.84,298.96,,14.27,86.45,,FSH2,C2,0.777
-CBRF3,Coles Bay,Rockfish Muscle,-13.12,276.45,,14.22,80.51,,FSH2,C3,0.684
-CBRF4,Coles Bay,Rockfish Muscle,-14.14,583.77,,14.13,170.72,,FSH2,C4,1.411
-CBRF5,Coles Bay,Rockfish Muscle,-14.09,345.81,,13.94,99.09,,FSH2,C5,0.799
-CBRF6,Coles Bay,Rockfish Muscle,-13.21,389.58,,14.05,115.82,,FSH2,C6,0.956
-CBRF7,Coles Bay,Rockfish Muscle,-14.05,549.78,,14.01,160.58,,FSH2,C7,1.34
-CBRF8,Coles Bay,Rockfish Muscle,-14.17,357.35,,13.61,102.91,,FSH2,C8,0.867
-CBRF9,Coles Bay,Rockfish Muscle,-14.12,347.91,,13.9,96.55,,FSH2,C10,0.8
-CBRF10,Coles Bay,Rockfish Muscle,-13.75,405.39,,15.43,119.4,,FSH2,C12,0.963
-HPCU1,Victoria Harbour,Sea Cucumber Muscle,-16.16,337.7,,8.1,85.62,,FSH2,D1,1.176
-HPCU2,Victoria Harbour,Sea Cucumber Muscle,-16.53,227.79,,10.25,55.42,,FSH2,D2,0.757
-HPCU3,Victoria Harbour,Sea Cucumber Muscle,-15.91,179.09,,7.78,45.46,,FSH2,D4,0.878
-HPCU4,Victoria Harbour,Sea Cucumber Muscle,-16.41,300.44,,8.39,78.37,,FSH2,D5,0.945
-HPCU5,Victoria Harbour,Sea Cucumber Muscle,-16.25,306.28,,9.19,76.31,,FSH2,D6,1.115
-HPCU6,Victoria Harbour,Sea Cucumber Muscle,-17.04,264.63,,13.38,54.35,,FSH2,D7,0.849
-HPCU7,Victoria Harbour,Sea Cucumber Muscle,-15.53,273.9,,12.1,68.32,,FSH2,D8,1.47
-HPCU8,Victoria Harbour,Sea Cucumber Muscle,-15.77,144.1,,12.25,33.43,,FSH2,D9,0.725
-HPCU9,Victoria Harbour,Sea Cucumber Muscle,-16.32,228.75,,11.36,51.27,,FSH2,D10,1.025
-HPCU10,Victoria Harbour,Sea Cucumber Muscle,-16.38,247.02,,10.91,48.46,,FSH2,D11,1.177
-HPCU11,Victoria Harbour,Sea Cucumber Muscle,-15.9,213.42,,10.18,51.76,,FSH2,D12,0.684
-HPCU12,Victoria Harbour,Sea Cucumber Muscle,-16.4,237.23,,12.58,57.24,,FSH2,E1,0.783
-HPCU13,Victoria Harbour,Sea Cucumber Muscle,-15.71,247.66,,9.79,62.87,,FSH2,E3,0.756
-HPCU14,Victoria Harbour,Sea Cucumber Muscle,-15.88,148.62,,8.28,38.09,,FSH2,E4,0.882
-HPCU15,Victoria Harbour,Sea Cucumber Muscle,-16.43,266.39,,9.92,56.29,,FSH2,E5,0.827
-CBFF1,Coles Bay,Flatfish Liver,-15.64,423.25,,13.49,91.31,,FSH2,E6,1.005
-CBFF2,Coles Bay,Flatfish Liver,-18.07,401.18,,14.53,70.04,,FSH2,E7,0.851
-CBFF3,Coles Bay,Flatfish Liver,-15.87,241.52,,13.23,50.18,,FSH2,E8,0.564
-CBFF4,Coles Bay,Flatfish Liver,-14.8,291.22,,12.57,60.69,,FSH2,E9,0.676
-CBFF5,Coles Bay,Flatfish Liver,-15.18,255.21,E10 and G12 could be swapped,14.39,50.46,E10 and G12 could be swapped,FSH2,E10,0.597
-CBFF6,Coles Bay,Flatfish Liver,-15.61,265.65,,12.52,52.65,,FSH2,E11,0.551
-CBFF7,Coles Bay,Flatfish Liver,-16.35,411.35,,12.54,88.13,,FSH2,E12,0.906
-CBFF8,Coles Bay,Flatfish Liver,-17.89,305,,12.9,63.12,,FSH2,F2,0.686
-CBFF9,Coles Bay,Flatfish Liver,-15.96,304.49,,12.37,54.07,,FSH2,F3,0.648
-CBFF10,Coles Bay,Flatfish Liver,-15.19,239.17,,13.86,44.43,,FSH2,F5,0.512
-CBFF11,Coles Bay,Flatfish Liver,-15.46,250.38,,12.35,47.23,,FSH2,F6,0.547
-CBFF12,Coles Bay,Flatfish Liver,-16.3,416.42,,12.26,77.67,,FSH2,F7,0.917
-CBFF13,Coles Bay,Flatfish Liver,-16.03,118.83,,13.24,19.58,Precision decreases for samples containing less than 20ugN,FSH2,F8,1.188
-EBCR1,Elliot Bay,Crab Muscle,-15.38,237.58,,12.27,67.14,,FSH2,F9,0.608
-EBCR2,Elliot Bay,Crab Muscle,-15.43,447.19,,12.23,130.42,,FSH2,F11,1.263
-EBCR3,Elliot Bay,Crab Muscle,-14.63,341.12,,12.69,98.26,,FSH2,F12,0.921
-EBCR4,Elliot Bay,Crab Muscle,-15.51,421.66,,12.53,122.52,,FSH2,G1,1.105
-EBCR5,Elliot Bay,Crab Muscle,-14.97,255.02,,12.88,72.68,,FSH2,G2,0.654
-EBCR6,Elliot Bay,Crab Muscle,-15,389.27,,12.06,114.24,,FSH2,G3,0.933
-STND4,Elliot Bay,Crab Muscle,-19.82,616.83,,12.89,111.84,,FSH2,G4,1.315
-EBCR7,Elliot Bay,Crab Muscle,-14.18,363.98,,12.44,109.48,,FSH2,G5,0.981
-EBCR8,Elliot Bay,Crab Muscle,-14.32,540.88,,12.1,162.37,,FSH2,G6,1.358
-EBCR11,Elliot Bay,Crab Muscle,-14.55,484.35,,12.13,145.12,,FSH2,G8,1.354
-EBCR12,Elliot Bay,Crab Muscle,-14.73,480.94,,12.54,143.47,,FSH2,G9,1.353
-EBCR13,Elliot Bay,Crab Muscle,-15.08,234.3,,12.35,67.35,,FSH2,G10,0.69
-EBCR14,Elliot Bay,Crab Muscle,-15.57,308.06,,12.11,88.88,,FSH2,G11,0.756
-EBCR15,Elliot Bay,Crab Muscle,-14.45,393.58,E10 and G12 could be swapped,12.76,118.06,E10 and G12 could be swapped,FSH2,G12,1.123
-EBCR16,Elliot Bay,Crab Muscle,-13.25,347.31,,12.34,103.42,,FSH2,H1,1.022
-CBSP1,Coles Bay,Surfperch Muscle,-16.48,565,,13.95,152.99,,FSH2,H2,1.448
-CBSP2,Coles Bay,Surfperch Muscle,-15.31,285.09,,13.91,74.82,,FSH2,H3,0.704
-CBSP3,Coles Bay,Surfperch Muscle,-16.77,354.26,,12.66,101.5,,FSH2,H5,0.878
-CBSP4,Coles Bay,Surfperch Muscle,-16.3,301.61,,13.37,84.56,,FSH2,H6,0.799
-CBSP5,Coles Bay,Surfperch Muscle,-17.3,471.27,,13.31,128.74,,FSH2,H7,1.177
-CBSP6,Coles Bay,Surfperch Muscle,-15.41,464.71,,14.45,127.99,,FSH2,H9,1.406
-CBSP7,Coles Bay,Surfperch Muscle,-15.77,547.35,H10 and H12 could be swapped,13.32,161.83,H10 and H12 could be swapped,FSH2,H10,0.692
-CBSP8,Coles Bay,Surfperch Muscle,-15.87,334.6,,13.47,96.49,,FSH2,H11,0.896
-CBSP9,Coles Bay,Surfperch Muscle,-17.23,285.43,H10 and H12 could be swapped,12.84,80.8,H10 and H12 could be swapped,FSH2,H12,1.451
-CBSP10,Coles Bay,Surfperch Muscle,-15.93,456.25,,12.83,131.4,,FSH3,A1,1.074
-CBSP11,Coles Bay,Surfperch Muscle,-16.5,509.62,,14.73,138.01,,FSH3,A3,1.438
-CBSP12,Coles Bay,Surfperch Muscle,-15.67,401.8,,12.94,120.21,,FSH3,A5,0.973
-CBSP13,Coles Bay,Surfperch Muscle,-14.1,379.8,,13.82,107.64,,FSH3,A6,0.946
-CBSP14,Coles Bay,Surfperch Muscle,-16.19,345.03,,14.26,96,,FSH3,A7,0.918
-CBSP15,Coles Bay,Surfperch Muscle,-16.22,559.89,,13.73,161.36,,FSH3,A8,1.456
-CBSP16,Coles Bay,Surfperch Muscle,-17.27,566.08,,13.33,159.73,,FSH3,A9,1.407
-CBSP1,Coles Bay,Surfperch Liver,-17.48,364.68,,13.87,66.69,,FSH3,A10,0.817
-CBSP2,Coles Bay,Surfperch Liver,-19.26,508.94,,17.38,69.55,,FSH3,A11,1.037
-CBSP3,Coles Bay,Surfperch Liver,-17.7,351.74,,12.85,69.46,,FSH3,B1,0.8
-CBSP4,Coles Bay,Surfperch Liver,-19.47,621.23,,15.73,84.95,,FSH3,B2,1.305
-CBSP5,Coles Bay,Surfperch Liver,-19.02,364.47,,13.27,64.25,,FSH3,B3,0.792
-CBSP6,Coles Bay,Surfperch Liver,-17.61,384.14,,13.17,82.49,,FSH3,B4,0.911
-CBSP7,Coles Bay,Surfperch Liver,-18.12,340.49,,13.01,66.91,,FSH3,B5,0.809
-CBSP8,Coles Bay,Surfperch Liver,-17.38,218.68,,13.49,47.48,,FSH3,B6,0.528
-CBSP9,Coles Bay,Surfperch Liver,-18.28,271.38,,13.46,57.4,,FSH3,B7,0.608
-CBSP10,Coles Bay,Surfperch Liver,-17.83,392.62,,13.42,83.64,,FSH3,B8,0.897
-CBSP11,Coles Bay,Surfperch Liver,-20.04,344.25,,20.75,39.78,,FSH3,B10,0.69
-CBSP12,Coles Bay,Surfperch Liver,-17.65,374.37,,13.77,82.98,,FSH3,B11,0.88
-CBSP13,Coles Bay,Surfperch Liver,-15.82,302.82,,14.05,51.29,,FSH3,B12,0.66
-CBSP14,Coles Bay,Surfperch Liver,-18.33,350.22,,13.37,59.21,,FSH3,C1,0.774
-CBSP15,Coles Bay,Surfperch Liver,-19.62,380.01,,14.55,54.36,,FSH3,C2,0.81
-CBSP16,Coles Bay,Surfperch Liver,-18.67,331.46,,12.74,70.02,,FSH3,C3,0.809
-CBCU1,Coles Bay,Sea Cucumber Muscle,-14.68,141.21,,9.85,33.72,,FSH3,C4,0.552
-CBCU3,Coles Bay,Sea Cucumber Muscle,-13.15,264.09,,10.92,60.09,,FSH3,C6,1.17
-CBCU4,Coles Bay,Sea Cucumber Muscle,-13.32,208.84,,12.15,43.9,,FSH3,C8,1.177
-CBCU5,Coles Bay,Sea Cucumber Muscle,-14.63,249.69,,17.5,37.75,,FSH3,C9,1.187
-CBCU6,Coles Bay,Sea Cucumber Muscle,-17.41,188.3,,10,44.65,,FSH3,C11,0.63
-CBCU8,Coles Bay,Sea Cucumber Muscle,-13.81,77.53,Precision decreases for samples containing less than 100ugC,10.47,11.94,Precision decreases for samples containing less than 20ugN,FSH3,D2,0.553
-CBCU9,Coles Bay,Sea Cucumber Muscle,-13.97,305.49,,10.9,66.17,,FSH3,D3,1.444
-CBCU11,Coles Bay,Sea Cucumber Muscle,-13.7,196.26,,10.41,40.03,,FSH3,D5,1.16
-CBCU12,Coles Bay,Sea Cucumber Muscle,-14,176.04,,11.04,39.09,,FSH3,D6,0.939
-CBCU13,Coles Bay,Sea Cucumber Muscle,-13.07,150.89,,11.32,22.78,,FSH3,D7,0.905
-CBCU14,Coles Bay,Sea Cucumber Muscle,-13.9,204.54,,10.83,38.79,,FSH3,D8,1.09
-CBCU16,Coles Bay,Sea Cucumber Muscle,-14.23,81.19,Precision decreases for samples containing less than 100ugC,13.7,12.7,Precision decreases for samples containing less than 20ugN,FSH3,D10,0.822
-CBCU17,Coles Bay,Sea Cucumber Muscle,-14.49,248.74,,12.78,46.59,,FSH3,D11,1.337
-CBCU18,Coles Bay,Sea Cucumber Muscle,-14.92,245.28,,11.44,56.32,,FSH3,D12,1.112
-EBCU1,Elliot Bay,Sea Cucumber Muscle,-16.44,277.51,,11.61,68.17,,FSH3,E1,0.813
-EBCU2,Elliot Bay,Sea Cucumber Muscle,-16.49,281.4,,8.74,73.39,,FSH3,E2,0.824
-EBCU3,Elliot Bay,Sea Cucumber Muscle,-13.39,241.34,,10.35,45.24,,FSH3,E3,1.454
-EBCU4,Elliot Bay,Sea Cucumber Muscle,-16.66,214.26,,8.92,55.2,,FSH3,E4,0.788
-EBCU5,Elliot Bay,Sea Cucumber Muscle,-16.81,381.62,,7.87,94.97,,FSH3,E6,1.176
-EBCU6,Elliot Bay,Sea Cucumber Muscle,-16.57,376.79,,8.62,98.65,,FSH3,E7,1.073
-EBCU7,Elliot Bay,Sea Cucumber Muscle,-16.22,505.94,,9.13,135.18,,FSH3,E8,1.469
-EBCU8,Elliot Bay,Sea Cucumber Muscle,-16.66,377.79,,8.39,94.13,,FSH3,E9,1.223
-EBCU9,Elliot Bay,Sea Cucumber Muscle,-17.04,392.49,,11.85,89.27,,FSH3,E10,1.275
-EBCU10,Elliot Bay,Sea Cucumber Muscle,-16.74,521.71,,10.78,135.05,,FSH3,E11,1.489
-EBCU12,Elliot Bay,Sea Cucumber Muscle,-16.2,290.08,,10.53,74.32,,FSH3,E12,0.855
-EBCU13,Elliot Bay,Sea Cucumber Muscle,-16.34,305.14,,8.65,81.09,,FSH3,F1,0.857
-EBCU14,Elliot Bay,Sea Cucumber Muscle,-16.28,205.93,,8.48,55.09,,FSH3,F3,0.687
-EBCU15,Elliot Bay,Sea Cucumber Muscle,-16.88,276.91,,8.33,67.77,,FSH3,F4,0.819
-EBCU16,Elliot Bay,Sea Cucumber Muscle,-16.02,322.87,,9.21,86.74,,FSH3,F5,0.959
-CBFF1,Coles Bay,Flatfish Muscle,-14.81,489.41,,15.64,138.69,,FSH3,F7,1.344
-CBFF2,Coles Bay,Flatfish Muscle,-11.83,357.22,,13.87,104.15,,FSH3,F8,0.965
-CBFF3,Coles Bay,Flatfish Muscle,-14.98,265.79,,14.27,78.74,,FSH3,F9,0.742
-CBFF4,Coles Bay,Flatfish Muscle,-13.55,255.7,,14.15,71.21,,FSH3,F10,0.658
-CBFF5,Coles Bay,Flatfish Muscle,-11.58,401.16,,14.28,125.83,,FSH3,F11,1.185
-CBFF6,Coles Bay,Flatfish Muscle,-14.07,277.99,,14.46,78.07,,FSH3,F12,0.751
-CBFF7,Coles Bay,Flatfish Muscle,-15.09,431.15,,14.16,123.06,,FSH3,G2,1.118
-CBFF8,Coles Bay,Flatfish Muscle,-16.12,443.83,,13.36,134.87,,FSH3,G3,1.204
-CBFF9,Coles Bay,Flatfish Muscle,-14.63,537.41,,13.82,160.07,,FSH3,G5,1.436
-CBFF10,Coles Bay,Flatfish Muscle,-13.52,250.49,,14.38,70.7,,FSH3,G6,0.653
-CBFF11,Coles Bay,Flatfish Muscle,-13.88,407.89,,13.07,120.57,,FSH3,G7,1.051
-CBFF12,Coles Bay,Flatfish Muscle,-13.88,413.96,,13.84,120.56,,FSH3,G8,1.106
-CBFF13,Coles Bay,Flatfish Muscle,-13.98,524.14,,14.17,150.35,,FSH3,G9,1.345
-CBFF14,Coles Bay,Flatfish Muscle,-12.48,411.21,,13.66,126.54,,FSH3,G10,1.053
-CBFF15,Coles Bay,Flatfish Muscle,-13.97,225.59,,13.69,66.09,,FSH3,G11,0.627
-HPFF1,Victoria Harbour,Flatfish Muscle,-15.45,353.72,,13.07,96.05,,FSH3,H2,1.014
-HPFF2,Victoria Harbour,Flatfish Muscle,-13.91,388.38,,12.93,107.96,,FSH3,H3,0.994
-EBFF1,Elliot Bay,Flatfish Muscle,-12.92,445.68,,14.98,124.24,,FSH3,H5,1.369
-HPSP1,Victoria Harbour,Surfperch Liver,-15.87,170.71,,12.9,34.92,,FSH3,H7,0.376
-HPSP2,Victoria Harbour,Surfperch Liver,-14.84,244.35,,12.74,50.6,,FSH3,H8,0.506
-HPSP3,Victoria Harbour,Surfperch Liver,-16.6,205.84,,12.41,41.69,,FSH3,H9,0.465
-HPSP4,Victoria Harbour,Surfperch Liver,-17.73,75.48,Precision decreases for samples containing less than 100ugC,11.86,17.67,Precision decreases for samples containing less than 20ugN,FSH3,H10,0.193
-HPSP5,Victoria Harbour,Surfperch Liver,-15.54,251.51,,11.97,48.67,,FSH3,H11,0.58
-HPSP6,Victoria Harbour,Surfperch Liver,-16.1,211.09,,11.73,37.52,,FSH3,H12,0.491
-HPSP7,Victoria Harbour,Surfperch Liver,-18.5,249.44,,11.52,55.5,,FSH4,A1,0.523
-HPSP9,Victoria Harbour,Surfperch Liver,-16.37,69.84,Precision decreases for samples containing less than 100ugC,11.15,12.19,Precision decreases for samples containing less than 20ugN,FSH4,A4,0.159
-HPSP10,Victoria Harbour,Surfperch Liver,-16.12,271,,11.94,48.38,,FSH4,A5,0.612
-HPSP11,Victoria Harbour,Surfperch Liver,-15.72,228.51,,11.43,46.17,,FSH4,A6,0.501
-HPSP12,Victoria Harbour,Surfperch Liver,-15.34,465.13,,11.68,77.95,,FSH4,A7,1.052
-HPSP13,Victoria Harbour,Surfperch Liver,-15.1,304.39,,12.48,45.81,,FSH4,A9,0.583
-HPSP14,Victoria Harbour,Surfperch Liver,-16.27,194.05,,11.54,39.15,,FSH4,A11,0.411
-HPSP15,Victoria Harbour,Surfperch Liver,-16.46,192.63,,11.81,38.15,,FSH4,A12,0.413
-HPSP16,Victoria Harbour,Surfperch Liver,-16.39,292.68,,12.37,61.25,,FSH4,B1,0.637
-HPSP17,Victoria Harbour,Surfperch Liver,-18.51,251.88,,11.73,50.08,,FSH4,B2,0.548
-EBCR9,Elliot Bay,Crab Muscle,-15.56,583.09,,12.95,173.65,,FSH4,B3,1.495
-EBCR10,Elliot Bay,Crab Muscle,-15.14,294.78,,12.44,85.58,,FSH4,B4,0.766
-HPSP1,Victoria Harbour,Surfperch Muscle,-14.74,462.6,,13.04,131.32,,FSH4,B5,1.043
-HPSP2,Victoria Harbour,Surfperch Muscle,-12.62,541.75,,13.38,153.97,,FSH4,B6,1.254
-HPSP3,Victoria Harbour,Surfperch Muscle,-15.22,330.4,,13.08,98.61,,FSH4,B7,0.766
-HPSP4,Victoria Harbour,Surfperch Muscle,-17.49,306.87,,12.75,90.29,,FSH4,B8,0.722
-HPSP5,Victoria Harbour,Surfperch Muscle,-14.63,388.09,,12.82,114.37,,FSH4,B9,0.9
-HPSP6,Victoria Harbour,Surfperch Muscle,-14.53,390.81,,12.86,116.83,,FSH4,B11,0.939
-HPSP7,Victoria Harbour,Surfperch Muscle,-16.84,373.13,,12.68,110.48,,FSH4,B12,0.861
-HPSP8,Victoria Harbour,Surfperch Muscle,-15.77,270.74,,12.86,81.19,,FSH4,C2,0.633
-HPSP9,Victoria Harbour,Surfperch Muscle,-14.66,378.45,,12.48,113.08,,FSH4,C4,0.891
-HPSP10,Victoria Harbour,Surfperch Muscle,-15.63,512.29,,12.68,151.49,,FSH4,C6,1.208
-HPSP11,Victoria Harbour,Surfperch Muscle,-14.1,390.83,,12.39,117.44,,FSH4,C7,0.938
-HPSP12,Victoria Harbour,Surfperch Muscle,-15.1,443.72,,12.63,131.52,,FSH4,C8,1.038
-HPSP13,Victoria Harbour,Surfperch Muscle,-12.5,526.34,,13.14,158.46,,FSH4,C9,1.224
-HPSP14,Victoria Harbour,Surfperch Muscle,-14.4,449.87,,13,133.5,,FSH4,C10,1.052
-HPSP15,Victoria Harbour,Surfperch Muscle,-15.13,481.84,,12.83,141.85,,FSH4,C11,1.116
-HPSP16,Victoria Harbour,Surfperch Muscle,-14.49,466.11,,13.04,138.08,,FSH4,C12,1.082
-HPSP17,Victoria Harbour,Surfperch Muscle,-16.74,504.72,,12.85,151.19,,FSH4,D1,1.177
-HPCR1,Victoria Harbour,Crab Muscle,-15.68,560.93,,11.57,164.71,,FSH4,D2,1.374
-HPCR2,Victoria Harbour,Crab Muscle,-15.92,227.33,,11.87,69.11,,FSH4,D3,0.647
-HPCR3,Victoria Harbour,Crab Muscle,-15.4,311.96,,11.26,96.1,,FSH4,D4,0.924
-HPCR4,Victoria Harbour,Crab Muscle,-14.44,404.65,,11.48,126.33,,FSH4,D6,1.049
-HPCR5,Victoria Harbour,Crab Muscle,-15.72,344.51,,10.49,101.33,,FSH4,D7,0.873
-HPCR6,Victoria Harbour,Crab Muscle,-15.68,510.76,,10.78,153.6,,FSH4,D8,1.253
-HPCR7,Victoria Harbour,Crab Muscle,-15.75,367.7,,10.69,110.39,,FSH4,D9,0.938
-HPCR8,Victoria Harbour,Crab Muscle,-16.28,381.99,,10.33,117.21,,FSH4,D11,0.975
-HPCR9,Victoria Harbour,Crab Muscle,-15.31,391.96,,10.59,119.98,,FSH4,D12,1
-HPCR10,Victoria Harbour,Crab Muscle,-15.88,425.03,,10.8,127.27,,FSH4,E1,1.059
-HPCR11,Victoria Harbour,Crab Muscle,-15.15,334.44,,10.35,100.19,,FSH4,E2,0.952
-HPCR12,Victoria Harbour,Crab Muscle,-14.79,559.83,,12.39,164.92,,FSH4,E3,1.469
-HPCR13,Victoria Harbour,Crab Muscle,-15.61,442.26,,12.1,137.38,,FSH4,E4,1.077
-HPCR14,Victoria Harbour,Crab Muscle,-17.64,477.52,,11.24,144.09,,FSH4,E5,1.218
-HPCR15,Victoria Harbour,Crab Muscle,-15.53,314.69,,10.41,94.75,,FSH4,E6,0.8
 CBC1,Coles Bay,Clams,-17.49,233.98,,10.93,56.47,,FSH4,E8,0.621
+CBC11,Coles Bay,Clams,-18.37,326.52,,8.53,74.99,,FSH4,F5,0.897
+CBC12,Coles Bay,Clams,-18.05,252.65,,8.85,58.33,,FSH4,F6,0.737
+CBC13,Coles Bay,Clams,-18.28,270.79,,10.24,67.01,,FSH4,F8,0.79
+CBC14,Coles Bay,Clams,-18.54,453.17,,11.45,99.91,,FSH4,F9,1.291
+CBC15,Coles Bay,Clams,-17.87,255.58,,8.57,59.96,,FSH4,F11,0.708
 CBC2,Coles Bay,Clams,-17.84,305.4,,11.29,72.86,,FSH4,E9,0.857
 CBC3,Coles Bay,Clams,-18.37,344.1,,9.89,85.33,,FSH4,E10,0.925
 CBC4,Coles Bay,Clams,-17.72,472.48,,10.48,113.9,,FSH4,E11,1.319
@@ -288,20 +12,52 @@ CBC5,Coles Bay,Clams,-17.91,324.25,,9.05,78.08,,FSH4,E12,0.855
 CBC6,Coles Bay,Clams,-18.46,283.76,,9.01,67.11,,FSH4,F1,0.78
 CBC8,Coles Bay,Clams,-17.84,308.46,,8.78,71.77,,FSH4,F2,0.843
 CBC9,Coles Bay,Clams,-18.06,480.09,,8.64,118.15,,FSH4,F4,1.383
-CBC11,Coles Bay,Clams,-18.37,326.52,,8.53,74.99,,FSH4,F5,0.897
-CBC12,Coles Bay,Clams,-18.05,252.65,,8.85,58.33,,FSH4,F6,0.737
-CBC13,Coles Bay,Clams,-18.28,270.79,,10.24,67.01,,FSH4,F8,0.79
-CBC14,Coles Bay,Clams,-18.54,453.17,,11.45,99.91,,FSH4,F9,1.291
-CBC15,Coles Bay,Clams,-17.87,255.58,,8.57,59.96,,FSH4,F11,0.708
+CBCR10,Coles Bay,Crabs,-13.69,477.44,,12.85,144.4,,FSH5,C1,1.288
+CBCR11,Coles Bay,Crabs,-13.42,240.22,,12.69,71.28,,FSH5,C2,0.63
+CBCR12,Coles Bay,Crabs,-15.77,520.74,,11.14,159.39,,FSH5,C3,1.358
+CBCR13,Coles Bay,Crabs,-14.32,265.02,,11.87,77.58,,FSH5,C4,0.69
+CBCR14,Coles Bay,Crabs,-14.23,253.96,,11.76,72.8,,FSH5,C5,0.736
+CBCR15,Coles Bay,Crabs,-14.19,256.23,,11.71,74.01,,FSH5,C6,0.79
+CBCR16,Coles Bay,Crabs,-13.87,451.25,,12.28,131.97,,FSH5,C7,1.183
+CBCR17,Coles Bay,Crabs,-12.74,378.51,,12.97,116.21,,FSH5,C8,1.015
+CBCR18,Coles Bay,Crabs,-14.18,435.21,,12.73,127.89,,FSH5,C9,1.121
+CBCR2,Coles Bay,Crabs,-14.77,448.87,,11.66,129.29,,FSH5,B2,1.371
+CBCR3,Coles Bay,Crabs,-14.21,321.34,,11.96,93.33,,FSH5,B4,0.941
+CBCR4,Coles Bay,Crabs,-13.2,375.92,,12.02,112.55,,FSH5,B5,1.098
+CBCR5,Coles Bay,Crabs,-13.52,429.17,,12.53,127.58,,FSH5,B7,1.237
+CBCR6,Coles Bay,Crabs,-13.96,293.21,,12.07,85.6,,FSH5,B8,0.775
+CBCR7,Coles Bay,Crabs,-13.93,540.01,,12.48,163.46,,FSH5,B9,1.415
+CBCR8,Coles Bay,Crabs,-14.51,384.01,,12.24,111.15,,FSH5,B10,0.962
+CBCR9,Coles Bay,Crabs,-13.55,468.1,,11.91,137.13,,FSH5,B11,1.224
+CBFF1,Coles Bay,Flatfish Livers,-15.64,423.25,,13.49,91.31,,FSH2,E6,1.005
+CBFF10,Coles Bay,Flatfish Livers,-15.19,239.17,,13.86,44.43,,FSH2,F5,0.512
+CBFF11,Coles Bay,Flatfish Livers,-15.46,250.38,,12.35,47.23,,FSH2,F6,0.547
+CBFF12,Coles Bay,Flatfish Livers,-16.3,416.42,,12.26,77.67,,FSH2,F7,0.917
+CBFF13,Coles Bay,Flatfish Livers,-16.03,118.83,,13.24,19.58,Precision decreases for samples containing less than 20ugN,FSH2,F8,1.188
+CBFF2,Coles Bay,Flatfish Livers,-18.07,401.18,,14.53,70.04,,FSH2,E7,0.851
+CBFF3,Coles Bay,Flatfish Livers,-15.87,241.52,,13.23,50.18,,FSH2,E8,0.564
+CBFF4,Coles Bay,Flatfish Livers,-14.8,291.22,,12.57,60.69,,FSH2,E9,0.676
+CBFF5,Coles Bay,Flatfish Livers,-15.18,255.21,E10 and G12 could be swapped,14.39,50.46,E10 and G12 could be swapped,FSH2,E10,0.597
+CBFF6,Coles Bay,Flatfish Livers,-15.61,265.65,,12.52,52.65,,FSH2,E11,0.551
+CBFF7,Coles Bay,Flatfish Livers,-16.35,411.35,,12.54,88.13,,FSH2,E12,0.906
+CBFF8,Coles Bay,Flatfish Livers,-17.89,305,,12.9,63.12,,FSH2,F2,0.686
+CBFF9,Coles Bay,Flatfish Livers,-15.96,304.49,,12.37,54.07,,FSH2,F3,0.648
+CBFF1,Coles Bay,Flatfish,-14.81,489.41,,15.64,138.69,,FSH3,F7,1.344
+CBFF10,Coles Bay,Flatfish,-13.52,250.49,,14.38,70.7,,FSH3,G6,0.653
+CBFF11,Coles Bay,Flatfish,-13.88,407.89,,13.07,120.57,,FSH3,G7,1.051
+CBFF12,Coles Bay,Flatfish,-13.88,413.96,,13.84,120.56,,FSH3,G8,1.106
+CBFF13,Coles Bay,Flatfish,-13.98,524.14,,14.17,150.35,,FSH3,G9,1.345
+CBFF14,Coles Bay,Flatfish,-12.48,411.21,,13.66,126.54,,FSH3,G10,1.053
+CBFF15,Coles Bay,Flatfish,-13.97,225.59,,13.69,66.09,,FSH3,G11,0.627
+CBFF2,Coles Bay,Flatfish,-11.83,357.22,,13.87,104.15,,FSH3,F8,0.965
+CBFF3,Coles Bay,Flatfish,-14.98,265.79,,14.27,78.74,,FSH3,F9,0.742
+CBFF4,Coles Bay,Flatfish,-13.55,255.7,,14.15,71.21,,FSH3,F10,0.658
+CBFF5,Coles Bay,Flatfish,-11.58,401.16,,14.28,125.83,,FSH3,F11,1.185
+CBFF6,Coles Bay,Flatfish,-14.07,277.99,,14.46,78.07,,FSH3,F12,0.751
+CBFF7,Coles Bay,Flatfish,-15.09,431.15,,14.16,123.06,,FSH3,G2,1.118
+CBFF8,Coles Bay,Flatfish,-16.12,443.83,,13.36,134.87,,FSH3,G3,1.204
+CBFF9,Coles Bay,Flatfish,-14.63,537.41,,13.82,160.07,,FSH3,G5,1.436
 CBMU1,Coles Bay,Mussels,-18.55,526.8,,9.62,154.41,,FSH4,F12,1.367
-CBMU2,Coles Bay,Mussels,-18.44,204.93,,9.97,56.93,,FSH4,G1,0.538
-CBMU3,Coles Bay,Mussels,-18.62,360.68,,10.83,95.22,,FSH4,G2,1.054
-CBMU4,Coles Bay,Mussels,-18.21,450.18,,10.45,126.31,,FSH4,G4,1.236
-CBMU5,Coles Bay,Mussels,-18.27,432.29,,9.33,120.99,,FSH4,G5,1.213
-CBMU6,Coles Bay,Mussels,-18.31,354.81,,11.05,94.17,,FSH4,G6,1.228
-CBMU7,Coles Bay,Mussels,-18.26,372.26,,8.77,110.76,,FSH4,G7,1.044
-CBMU8,Coles Bay,Mussels,-18.23,283.75,,10.84,77.37,,FSH4,G8,0.724
-CBMU9,Coles Bay,Mussels,-18.81,313.7,,9.17,88.36,,FSH4,G9,0.749
 CBMU10,Coles Bay,Mussels,-18.44,488.85,,16.53,131.3,,FSH4,G11,1.3
 CBMU11,Coles Bay,Mussels,-17.19,249.36,,10.83,72.87,,FSH4,G12,0.669
 CBMU12,Coles Bay,Mussels,-17.89,271.1,,8.37,82.84,,FSH4,H1,0.672
@@ -312,7 +68,265 @@ CBMU16,Coles Bay,Mussels,-19.03,491.83,,9.41,135.24,,FSH4,H6,1.15
 CBMU17,Coles Bay,Mussels,-19.07,343.1,,8.72,92.61,,FSH4,H7,0.982
 CBMU18,Coles Bay,Mussels,-18.53,261.56,,8.47,79.68,,FSH4,H8,0.668
 CBMU19,Coles Bay,Mussels,-18.77,260.38,,9.12,73.58,,FSH4,H9,0.645
+CBMU2,Coles Bay,Mussels,-18.44,204.93,,9.97,56.93,,FSH4,G1,0.538
+CBMU3,Coles Bay,Mussels,-18.62,360.68,,10.83,95.22,,FSH4,G2,1.054
+CBMU4,Coles Bay,Mussels,-18.21,450.18,,10.45,126.31,,FSH4,G4,1.236
+CBMU5,Coles Bay,Mussels,-18.27,432.29,,9.33,120.99,,FSH4,G5,1.213
+CBMU6,Coles Bay,Mussels,-18.31,354.81,,11.05,94.17,,FSH4,G6,1.228
+CBMU7,Coles Bay,Mussels,-18.26,372.26,,8.77,110.76,,FSH4,G7,1.044
+CBMU8,Coles Bay,Mussels,-18.23,283.75,,10.84,77.37,,FSH4,G8,0.724
+CBMU9,Coles Bay,Mussels,-18.81,313.7,,9.17,88.36,,FSH4,G9,0.749
+CBRF1,Coles Bay,Rockfish Livers,-19.02,632.8,,14.26,78.21,,FSH1,C9,1.288
+CBRF10,Coles Bay,Rockfish Livers,-19.78,775.62,,14.32,43.47,,FSH1,D6,1.25
+CBRF2,Coles Bay,Rockfish Livers,-18.08,825.72,,13.56,49.63,,FSH1,C10,1.569
+CBRF3,Coles Bay,Rockfish Livers,-16.16,607.01,,13.55,53.85,,FSH1,C11,1.02
+CBRF4,Coles Bay,Rockfish Livers,-18.76,340.14,,13.62,26.99,,FSH1,C12,0.677
+CBRF5,Coles Bay,Rockfish Livers,-18.83,502.42,,13.5,33.74,,FSH1,D1,0.988
+CBRF6,Coles Bay,Rockfish Livers,-14.62,371.59,,12.85,38.57,,FSH1,D2,0.797
+CBRF7,Coles Bay,Rockfish Livers,-18.96,788.02,,14.3,56.85,,FSH1,D3,1.501
+CBRF8,Coles Bay,Rockfish Livers,-17.92,709.9,,13.36,49.72,,FSH1,D4,1.435
+CBRF9,Coles Bay,Rockfish Livers,-18.69,1133.3,,13.17,70.04,,FSH1,D5,1.588
+CBRF1,Coles Bay,Rockfish,-14.96,570.17,,14.69,176.5,,FSH2,C1,1.358
+CBRF10,Coles Bay,Rockfish,-13.75,405.39,,15.43,119.4,,FSH2,C12,0.963
+CBRF2,Coles Bay,Rockfish,-13.84,298.96,,14.27,86.45,,FSH2,C2,0.777
+CBRF3,Coles Bay,Rockfish,-13.12,276.45,,14.22,80.51,,FSH2,C3,0.684
+CBRF4,Coles Bay,Rockfish,-14.14,583.77,,14.13,170.72,,FSH2,C4,1.411
+CBRF5,Coles Bay,Rockfish,-14.09,345.81,,13.94,99.09,,FSH2,C5,0.799
+CBRF6,Coles Bay,Rockfish,-13.21,389.58,,14.05,115.82,,FSH2,C6,0.956
+CBRF7,Coles Bay,Rockfish,-14.05,549.78,,14.01,160.58,,FSH2,C7,1.34
+CBRF8,Coles Bay,Rockfish,-14.17,357.35,,13.61,102.91,,FSH2,C8,0.867
+CBRF9,Coles Bay,Rockfish,-14.12,347.91,,13.9,96.55,,FSH2,C10,0.8
+CBCU1,Coles Bay,Sea Cucumbers,-14.68,141.21,,9.85,33.72,,FSH3,C4,0.552
+CBCU11,Coles Bay,Sea Cucumbers,-13.7,196.26,,10.41,40.03,,FSH3,D5,1.16
+CBCU12,Coles Bay,Sea Cucumbers,-14,176.04,,11.04,39.09,,FSH3,D6,0.939
+CBCU13,Coles Bay,Sea Cucumbers,-13.07,150.89,,11.32,22.78,,FSH3,D7,0.905
+CBCU14,Coles Bay,Sea Cucumbers,-13.9,204.54,,10.83,38.79,,FSH3,D8,1.09
+CBCU16,Coles Bay,Sea Cucumbers,-14.23,81.19,Precision decreases for samples containing less than 100ugC,13.7,12.7,Precision decreases for samples containing less than 20ugN,FSH3,D10,0.822
+CBCU17,Coles Bay,Sea Cucumbers,-14.49,248.74,,12.78,46.59,,FSH3,D11,1.337
+CBCU18,Coles Bay,Sea Cucumbers,-14.92,245.28,,11.44,56.32,,FSH3,D12,1.112
+CBCU3,Coles Bay,Sea Cucumbers,-13.15,264.09,,10.92,60.09,,FSH3,C6,1.17
+CBCU4,Coles Bay,Sea Cucumbers,-13.32,208.84,,12.15,43.9,,FSH3,C8,1.177
+CBCU5,Coles Bay,Sea Cucumbers,-14.63,249.69,,17.5,37.75,,FSH3,C9,1.187
+CBCU6,Coles Bay,Sea Cucumbers,-17.41,188.3,,10,44.65,,FSH3,C11,0.63
+CBCU8,Coles Bay,Sea Cucumbers,-13.81,77.53,Precision decreases for samples containing less than 100ugC,10.47,11.94,Precision decreases for samples containing less than 20ugN,FSH3,D2,0.553
+CBCU9,Coles Bay,Sea Cucumbers,-13.97,305.49,,10.9,66.17,,FSH3,D3,1.444
+CBSS1,Coles Bay,Sea Stars,-10.92,155.85,,13.63,39.68,,FSH6,E6,0.967
+CBSS10,Coles Bay,Sea Stars,-11.65,144.54,,13.94,41.28,,FSH6,F5,1.115
+CBSS11,Coles Bay,Sea Stars,-9.09,268.02,,11.54,42.12,,FSH6,F6,0.814
+CBSS12,Coles Bay,Sea Stars,-17.09,183.41,,11.23,14.49,Precision decreases for samples containing less than 20ugN,FSH6,F7,0.453
+CBSS13,Coles Bay,Sea Stars,-13.27,82.09,,13.15,49.92,,FSH6,F8,1.028
+CBSS14,Coles Bay,Sea Stars,-9.47,118.92,,13.21,25.21,,FSH6,F9,0.715
+CBSS15,Coles Bay,Sea Stars,-10.69,229.83,,12.82,34.68,,FSH6,F10,1.21
+CBSS16,Coles Bay,Sea Stars,-8.38,194.76,,12.31,40.51,,FSH6,F11,1.022
+CBSS2,Coles Bay,Sea Stars,-12.72,164.3,,11.81,23.67,,FSH6,E7,0.836
+CBSS3,Coles Bay,Sea Stars,-10.33,129.72,,13.42,31.94,,FSH6,E9,1.021
+CBSS4,Coles Bay,Sea Stars,-10.12,180.07,,13.21,35.67,,FSH6,E11,0.875
+CBSS5,Coles Bay,Sea Stars,-10.85,117.45,,11.81,20.04,,FSH6,E12,0.668
+CBSS6,Coles Bay,Sea Stars,-9.25,164.52,,19.28,22.57,,FSH6,F1,1.072
+CBSS7,Coles Bay,Sea Stars,-9.07,218.74,,12.18,16.65,Precision decreases for samples containing less than 20ugN,FSH6,F2,0.66
+CBSS8,Coles Bay,Sea Stars,-9.27,109.55,,12.73,32.63,,FSH6,F3,1.251
+CBSS9,Coles Bay,Sea Stars,-11.29,151.8,,12.75,53.16,,FSH6,F4,1.417
+CBSP1,Coles Bay,Surfperch Livers,-17.48,364.68,,13.87,66.69,,FSH3,A10,0.817
+CBSP10,Coles Bay,Surfperch Livers,-17.83,392.62,,13.42,83.64,,FSH3,B8,0.897
+CBSP11,Coles Bay,Surfperch Livers,-20.04,344.25,,20.75,39.78,,FSH3,B10,0.69
+CBSP12,Coles Bay,Surfperch Livers,-17.65,374.37,,13.77,82.98,,FSH3,B11,0.88
+CBSP13,Coles Bay,Surfperch Livers,-15.82,302.82,,14.05,51.29,,FSH3,B12,0.66
+CBSP14,Coles Bay,Surfperch Livers,-18.33,350.22,,13.37,59.21,,FSH3,C1,0.774
+CBSP15,Coles Bay,Surfperch Livers,-19.62,380.01,,14.55,54.36,,FSH3,C2,0.81
+CBSP16,Coles Bay,Surfperch Livers,-18.67,331.46,,12.74,70.02,,FSH3,C3,0.809
+CBSP2,Coles Bay,Surfperch Livers,-19.26,508.94,,17.38,69.55,,FSH3,A11,1.037
+CBSP3,Coles Bay,Surfperch Livers,-17.7,351.74,,12.85,69.46,,FSH3,B1,0.8
+CBSP4,Coles Bay,Surfperch Livers,-19.47,621.23,,15.73,84.95,,FSH3,B2,1.305
+CBSP5,Coles Bay,Surfperch Livers,-19.02,364.47,,13.27,64.25,,FSH3,B3,0.792
+CBSP6,Coles Bay,Surfperch Livers,-17.61,384.14,,13.17,82.49,,FSH3,B4,0.911
+CBSP7,Coles Bay,Surfperch Livers,-18.12,340.49,,13.01,66.91,,FSH3,B5,0.809
+CBSP8,Coles Bay,Surfperch Livers,-17.38,218.68,,13.49,47.48,,FSH3,B6,0.528
+CBSP9,Coles Bay,Surfperch Livers,-18.28,271.38,,13.46,57.4,,FSH3,B7,0.608
+CBSP1,Coles Bay,Surfperch,-16.48,565,,13.95,152.99,,FSH2,H2,1.448
+CBSP10,Coles Bay,Surfperch,-15.93,456.25,,12.83,131.4,,FSH3,A1,1.074
+CBSP11,Coles Bay,Surfperch,-16.5,509.62,,14.73,138.01,,FSH3,A3,1.438
+CBSP12,Coles Bay,Surfperch,-15.67,401.8,,12.94,120.21,,FSH3,A5,0.973
+CBSP13,Coles Bay,Surfperch,-14.1,379.8,,13.82,107.64,,FSH3,A6,0.946
+CBSP14,Coles Bay,Surfperch,-16.19,345.03,,14.26,96,,FSH3,A7,0.918
+CBSP15,Coles Bay,Surfperch,-16.22,559.89,,13.73,161.36,,FSH3,A8,1.456
+CBSP16,Coles Bay,Surfperch,-17.27,566.08,,13.33,159.73,,FSH3,A9,1.407
+CBSP2,Coles Bay,Surfperch,-15.31,285.09,,13.91,74.82,,FSH2,H3,0.704
+CBSP3,Coles Bay,Surfperch,-16.77,354.26,,12.66,101.5,,FSH2,H5,0.878
+CBSP4,Coles Bay,Surfperch,-16.3,301.61,,13.37,84.56,,FSH2,H6,0.799
+CBSP5,Coles Bay,Surfperch,-17.3,471.27,,13.31,128.74,,FSH2,H7,1.177
+CBSP6,Coles Bay,Surfperch,-15.41,464.71,,14.45,127.99,,FSH2,H9,1.406
+CBSP7,Coles Bay,Surfperch,-15.77,547.35,H10 and H12 could be swapped,13.32,161.83,H10 and H12 could be swapped,FSH2,H10,0.692
+CBSP8,Coles Bay,Surfperch,-15.87,334.6,,13.47,96.49,,FSH2,H11,0.896
+CBSP9,Coles Bay,Surfperch,-17.23,285.43,H10 and H12 could be swapped,12.84,80.8,H10 and H12 could be swapped,FSH2,H12,1.451
+EBC1,Elliot Bay,Clams,-17.2,50.97,Precision decreases for samples containing less than 100ugC,9.8,13.68,Precision decreases for samples containing less than 20ugN,FSH1,A7,0.165
+EBC10,Elliot Bay,Clams,-17.62,116.85,,10.17,28.45,,FSH1,C4,0.31
+EBC11,Elliot Bay,Clams,-19.3,158.7,,9.6,33.22,,FSH1,C5,0.432
+EBC13,Elliot Bay,Clams,-16.6,542.67,,12.14,134.24,,FSH1,C6,1.519
+EBC14,Elliot Bay,Clams,-16.98,451.05,,10.27,113.77,,FSH1,C7,1.216
+EBC15,Elliot Bay,Clams,-16.71,494.21,,10.27,126.4,,FSH1,C8,1.374
+EBC3,Elliot Bay,Clams,-16.65,274.09,,10.52,69.65,,FSH1,B11,0.779
+EBC4,Elliot Bay,Clams,-17.5,68.65,Precision decreases for samples containing less than 100ugC,10.88,17.99,Precision decreases for samples containing less than 20ugN,FSH1,B12,0.206
+EBC5,Elliot Bay,Clams,-16.84,205.71,,9.48,51.82,,FSH1,A6,0.819
+EBC6,Elliot Bay,Clams,-17.17,362.87,,9.94,85.38,,FSH1,C1,0.985
+EBC7,Elliot Bay,Clams,-18.01,125.71,,10.64,27.07,,FSH1,A3,0.318
+EBC9,Elliot Bay,Clams,-16.82,317.52,,10.61,74.87,,FSH1,C2,0.952
+EBCR1,Elliot Bay,Crabs,-15.38,237.58,,12.27,67.14,,FSH2,F9,0.608
+EBCR10,Elliot Bay,Crabs,-15.14,294.78,,12.44,85.58,,FSH4,B4,0.766
+EBCR11,Elliot Bay,Crabs,-14.55,484.35,,12.13,145.12,,FSH2,G8,1.354
+EBCR12,Elliot Bay,Crabs,-14.73,480.94,,12.54,143.47,,FSH2,G9,1.353
+EBCR13,Elliot Bay,Crabs,-15.08,234.3,,12.35,67.35,,FSH2,G10,0.69
+EBCR14,Elliot Bay,Crabs,-15.57,308.06,,12.11,88.88,,FSH2,G11,0.756
+EBCR15,Elliot Bay,Crabs,-14.45,393.58,E10 and G12 could be swapped,12.76,118.06,E10 and G12 could be swapped,FSH2,G12,1.123
+EBCR16,Elliot Bay,Crabs,-13.25,347.31,,12.34,103.42,,FSH2,H1,1.022
+EBCR2,Elliot Bay,Crabs,-15.43,447.19,,12.23,130.42,,FSH2,F11,1.263
+EBCR3,Elliot Bay,Crabs,-14.63,341.12,,12.69,98.26,,FSH2,F12,0.921
+EBCR4,Elliot Bay,Crabs,-15.51,421.66,,12.53,122.52,,FSH2,G1,1.105
+EBCR5,Elliot Bay,Crabs,-14.97,255.02,,12.88,72.68,,FSH2,G2,0.654
+EBCR6,Elliot Bay,Crabs,-15,389.27,,12.06,114.24,,FSH2,G3,0.933
+EBCR7,Elliot Bay,Crabs,-14.18,363.98,,12.44,109.48,,FSH2,G5,0.981
+EBCR8,Elliot Bay,Crabs,-14.32,540.88,,12.1,162.37,,FSH2,G6,1.358
+EBCR9,Elliot Bay,Crabs,-15.56,583.09,,12.95,173.65,,FSH4,B3,1.495
+STND4,Elliot Bay,Crabs,-19.82,616.83,,12.89,111.84,,FSH2,G4,1.315
+EBFF1,Elliot Bay,Flatfish,-12.92,445.68,,14.98,124.24,,FSH3,H5,1.369
+EBMU10,Elliot Bay,Mussels,-17.83,203.07,,8.98,63.08,,FSH1,A11,0.503
+EBMU11,Elliot Bay,Mussels,-18.29,150.43,,8.81,44.24,,FSH1,B7,0.398
+EBMU12,Elliot Bay,Mussels,-18.03,190.5,,9.25,57.66,,FSH1,B8,0.475
+EBMU14,Elliot Bay,Mussels,-17.83,181.49,,9.39,54.02,,FSH1,A5,0.513
+EBMU15,Elliot Bay,Mussels,-17.78,216.07,,9.19,66.22,,FSH1,B9,0.564
+EBMU2,Elliot Bay,Mussels,-17.75,120.51,,9.39,37.69,,FSH1,A9,0.539
+EBMU3,Elliot Bay,Mussels,-18.47,345.83,,8.69,97.64,,FSH1,A2,0.878
+EBMU4,Elliot Bay,Mussels,-18.2,400.66,,9.08,112.3,,FSH1,A10,1.044
+EBMU5,Elliot Bay,Mussels,-17.75,310.47,,9.76,90.25,,FSH1,A12,0.685
+EBMU6,Elliot Bay,Mussels,-17.33,244.74,,9.1,74.55,,FSH1,B1,0.647
+EBMU7,Elliot Bay,Mussels,-16.52,70.23,Precision decreases for samples containing less than 100ugC,9.48,23.47,,FSH1,B2,0.204
+EBMU8,Elliot Bay,Mussels,-16.67,248.98,,8.87,79.57,,FSH1,B3,0.563
+EBMU9,Elliot Bay,Mussels,-17.12,227.55,,9.16,67.29,,FSH1,B4,0.634
+EBRF1,Elliot Bay,Rockfish Livers,-18.12,736.43,,15.54,87.89,,FSH1,D7,1.291
+EBRF10,Elliot Bay,Rockfish Livers,-20.27,345.14,,13.36,27.2,,FSH1,E4,0.625
+EBRF11,Elliot Bay,Rockfish Livers,-17.61,659.61,,14.88,55.92,,FSH1,E5,1.206
+EBRF12,Elliot Bay,Rockfish Livers,-18.33,618.98,,14.45,48.87,,FSH1,E6,1.071
+EBRF13,Elliot Bay,Rockfish Livers,-20.46,606.44,,12.25,60.15,,FSH1,E7,1.103
+EBRF14,Elliot Bay,Rockfish Livers,-19.48,729.26,,13.47,103.75,,FSH1,E8,1.458
+EBRF15,Elliot Bay,Rockfish Livers,-20.2,498.83,,12.95,46.99,,FSH1,E9,0.88
+EBRF16,Elliot Bay,Rockfish Livers,-17.74,329.12,,14.47,42.08,,FSH1,E10,0.664
+EBRF17,Elliot Bay,Rockfish Livers,-16.7,530.45,,14.8,47.24,,FSH1,E11,1.017
+EBRF18,Elliot Bay,Rockfish Livers,-19.43,657.03,,14.24,39.08,,FSH1,E12,1.06
+EBRF19,Elliot Bay,Rockfish Livers,-19.81,527.72,,15.05,31.04,,FSH1,F2,0.848
+EBRF2,Elliot Bay,Rockfish Livers,-17.67,283.43,,14.15,24.45,,FSH1,D8,0.555
+EBRF20,Elliot Bay,Rockfish Livers,-18.5,631.79,,13.88,38.18,,FSH1,F3,1.06
+EBRF21,Elliot Bay,Rockfish Livers,-22.38,490.6,,14.1,23.65,,FSH1,F4,0.76
+EBRF3,Elliot Bay,Rockfish Livers,-18.63,387.51,,14.21,49.75,,FSH1,D9,0.772
+EBRF4,Elliot Bay,Rockfish Livers,-17.35,649.51,,13.46,80.62,,FSH1,D10,1.12
+EBRF5,Elliot Bay,Rockfish Livers,-18.91,567.05,,13.99,39.28,,FSH1,D11,1.003
+EBRF6,Elliot Bay,Rockfish Livers,-19.1,564.3,,13.85,70.06,,FSH1,D12,1.029
+EBRF7,Elliot Bay,Rockfish Livers,-18.6,496.17,,13.28,45.67,,FSH1,E1,0.926
+EBRF8,Elliot Bay,Rockfish Livers,-18.5,311.46,,12.94,35.58,,FSH1,E2,0.597
+EBRF9,Elliot Bay,Rockfish Livers,-17.68,2246.51,,13.2,192.56,,FSH1,E3,1.502
+EBRF1,Elliot Bay,Rockfish,-14.99,494.54,,15.39,148.91,,FSH2,A3,1.352
+EBRF10,Elliot Bay,Rockfish,-16.6,93.86,Precision decreases for samples containing less than 100ugC,14.49,25.74,,FSH2,A12,1.334
+EBRF11,Elliot Bay,Rockfish,-14.72,356.4,,15.21,105.11,,FSH2,B1,0.814
+EBRF12,Elliot Bay,Rockfish,-15.08,281.23,,15.53,73.78,,FSH2,B2,0.712
+EBRF13,Elliot Bay,Rockfish,-16,592.05,,13.6,181.82,,FSH2,B3,1.383
+EBRF14,Elliot Bay,Rockfish,-16.99,445.03,,14.67,130.74,,FSH1,H12,1.055
+EBRF15,Elliot Bay,Rockfish,-16.84,284.64,,14.05,73.55,,FSH2,B4,0.619
+EBRF16,Elliot Bay,Rockfish,-14.74,337.07,,15.31,100.07,,FSH2,B5,0.812
+EBRF17,Elliot Bay,Rockfish,-14.68,419.56,,15.45,119.89,,FSH2,A1,1.018
+EBRF18,Elliot Bay,Rockfish,-14.85,438.36,,15.12,126.81,,FSH2,B7,1.064
+EBRF19,Elliot Bay,Rockfish,-14.38,256.02,,15.9,72.87,,FSH2,B9,0.619
+EBRF2,Elliot Bay,Rockfish,-14.9,318.94,,14.44,95.19,,FSH2,A4,0.762
+EBRF20,Elliot Bay,Rockfish,-14.82,555.49,,14.51,154.09,,FSH2,B10,1.339
+EBRF21,Elliot Bay,Rockfish,-17.62,259.23,,14.58,71.98,,FSH2,B11,0.832
+EBRF3,Elliot Bay,Rockfish,-15.04,482.05,,14.58,144.12,,FSH2,A5,1.14
+EBRF4,Elliot Bay,Rockfish,-14.79,434.68,,15.03,119.42,,FSH2,A2,1.148
+EBRF5,Elliot Bay,Rockfish,-15.08,324.53,,14.91,96.5,,FSH2,A6,0.862
+EBRF6,Elliot Bay,Rockfish,-15.17,425.59,,14.63,128.73,,FSH2,A7,1.022
+EBRF7,Elliot Bay,Rockfish,-14.72,452.73,,14.42,132.05,,FSH2,A8,1.229
+EBRF8,Elliot Bay,Rockfish,-15.08,348.25,,14.12,103.75,,FSH2,A10,0.829
+EBRF9,Elliot Bay,Rockfish,-14.43,542.2,,15.48,156.42,,FSH2,A11,1.311
+EBCU1,Elliot Bay,Sea Cucumbers,-16.44,277.51,,11.61,68.17,,FSH3,E1,0.813
+EBCU10,Elliot Bay,Sea Cucumbers,-16.74,521.71,,10.78,135.05,,FSH3,E11,1.489
+EBCU12,Elliot Bay,Sea Cucumbers,-16.2,290.08,,10.53,74.32,,FSH3,E12,0.855
+EBCU13,Elliot Bay,Sea Cucumbers,-16.34,305.14,,8.65,81.09,,FSH3,F1,0.857
+EBCU14,Elliot Bay,Sea Cucumbers,-16.28,205.93,,8.48,55.09,,FSH3,F3,0.687
+EBCU15,Elliot Bay,Sea Cucumbers,-16.88,276.91,,8.33,67.77,,FSH3,F4,0.819
+EBCU16,Elliot Bay,Sea Cucumbers,-16.02,322.87,,9.21,86.74,,FSH3,F5,0.959
+EBCU2,Elliot Bay,Sea Cucumbers,-16.49,281.4,,8.74,73.39,,FSH3,E2,0.824
+EBCU3,Elliot Bay,Sea Cucumbers,-13.39,241.34,,10.35,45.24,,FSH3,E3,1.454
+EBCU4,Elliot Bay,Sea Cucumbers,-16.66,214.26,,8.92,55.2,,FSH3,E4,0.788
+EBCU5,Elliot Bay,Sea Cucumbers,-16.81,381.62,,7.87,94.97,,FSH3,E6,1.176
+EBCU6,Elliot Bay,Sea Cucumbers,-16.57,376.79,,8.62,98.65,,FSH3,E7,1.073
+EBCU7,Elliot Bay,Sea Cucumbers,-16.22,505.94,,9.13,135.18,,FSH3,E8,1.469
+EBCU8,Elliot Bay,Sea Cucumbers,-16.66,377.79,,8.39,94.13,,FSH3,E9,1.223
+EBCU9,Elliot Bay,Sea Cucumbers,-17.04,392.49,,11.85,89.27,,FSH3,E10,1.275
+EBSS1,Elliot Bay,Sea Stars,-13.44,105.82,,11.03,61.53,,FSH6,D1,1.097
+EBSS10,Elliot Bay,Sea Stars,-11.46,294.47,,12.94,65.62,,FSH6,D11,1.417
+EBSS11,Elliot Bay,Sea Stars,-11.58,199.73,,14.43,31.36,,FSH6,D12,0.885
+EBSS12,Elliot Bay,Sea Stars,-10.72,346.87,,11.81,68.65,,FSH6,E1,1.089
+EBSS13,Elliot Bay,Sea Stars,-10.94,188.94,,11.51,25.36,,FSH6,E2,0.642
+EBSS14,Elliot Bay,Sea Stars,-10.64,258.39,,10.99,42.79,,FSH6,E3,0.837
+EBSS15,Elliot Bay,Sea Stars,-11.2,235.99,,11.76,39.98,,FSH6,E4,0.999
+EBSS2,Elliot Bay,Sea Stars,-12.45,261.58,,12.61,98.66,,FSH6,D2,1.353
+EBSS3,Elliot Bay,Sea Stars,-10.2,186.15,,18.14,41.02,,FSH6,D3,1.352
+EBSS4,Elliot Bay,Sea Stars,-11.79,228.55,,13.16,72.04,,FSH6,D4,0.997
+EBSS5,Elliot Bay,Sea Stars,-13.39,157.89,,11.78,52.31,,FSH6,D5,0.901
+EBSS6,Elliot Bay,Sea Stars,-11.53,224.87,,11.79,74.83,,FSH6,D7,1.235
+EBSS7,Elliot Bay,Sea Stars,-14.27,151.45,,12.45,86.61,,FSH6,D8,1.351
+EBSS8,Elliot Bay,Sea Stars,-10.24,185.4,,12.75,72.02,,FSH6,D9,1.435
+EBSS9,Elliot Bay,Sea Stars,-11.08,168.12,,13.32,39.3,,FSH6,D10,0.935
+EBSP1,Elliot Bay,Surfperch Livers,-16.1,326.89,,14.08,74.63,,FSH5,C10,0.761
+EBSP10,Elliot Bay,Surfperch Livers,-19.91,81.51,Precision decreases for samples containing less than 100ugC,13.33,17.8,Precision decreases for samples containing less than 20ugN,FSH5,D9,0.201
+EBSP11,Elliot Bay,Surfperch Livers,-19.82,301.93,,13.35,54.98,,FSH5,D10,0.692
+EBSP12,Elliot Bay,Surfperch Livers,-17.84,116.47,,13.35,23,,FSH5,D11,0.256
+EBSP13,Elliot Bay,Surfperch Livers,-16.73,520.6,,14,95.43,,FSH5,D12,1.125
+EBSP14,Elliot Bay,Surfperch Livers,-20.35,494.23,,13.01,67.65,,FSH5,E1,1.002
+EBSP15,Elliot Bay,Surfperch Livers,-20.38,586.71,,12.97,81.11,,FSH5,E2,1.194
+EBSP2,Elliot Bay,Surfperch Livers,-18.51,291.68,,13.89,70.6,,FSH5,C11,0.677
+EBSP3,Elliot Bay,Surfperch Livers,-18.15,239.76,,13.9,45.91,,FSH5,C12,0.541
+EBSP4,Elliot Bay,Surfperch Livers,-16.37,111.59,,14,25.17,,FSH5,D1,0.198
+EBSP5,Elliot Bay,Surfperch Livers,-18.94,246.54,,13.43,49.2,,FSH5,D2,0.57
+EBSP6,Elliot Bay,Surfperch Livers,-20,381.67,,12.88,79.71,,FSH5,D3,0.826
+EBSP7,Elliot Bay,Surfperch Livers,-21.5,467.36,,13.14,64.48,,FSH5,D5,0.964
+EBSP8,Elliot Bay,Surfperch Livers,-19.77,166.92,,13.3,34.15,,FSH5,D7,0.428
+EBSP9,Elliot Bay,Surfperch Livers,-19.55,459.61,,13.33,100.7,,FSH5,D8,1.127
+EBSP1,Elliot Bay,Surfperch,-15.02,399.14,,14.21,110.84,,FSH5,E3,1.128
+EBSP10,Elliot Bay,Surfperch,-17.82,366.82,,13.1,107.52,,FSH5,F2,1.012
+EBSP11,Elliot Bay,Surfperch,-17.35,449.17,,13.22,129.03,,FSH5,F3,1.126
+EBSP12,Elliot Bay,Surfperch,-14.52,468.79,,13.43,141.27,,FSH5,F4,1.22
+EBSP13,Elliot Bay,Surfperch,-14.84,279.81,,13.85,83.67,,FSH5,F5,0.775
+EBSP14,Elliot Bay,Surfperch,-14.91,451.92,,13.78,133.77,,FSH5,F6,1.111
+EBSP15,Elliot Bay,Surfperch,-15.99,379.46,,13.2,112.37,,FSH5,F7,0.959
+EBSP2,Elliot Bay,Surfperch,-16.62,356.74,,13.91,104.48,,FSH5,E4,1.067
+EBSP3,Elliot Bay,Surfperch,-15.92,349.06,,13.9,101.98,,FSH5,E5,0.945
+EBSP4,Elliot Bay,Surfperch,-13.45,446.7,,13.49,130.84,,FSH5,E6,1.221
+EBSP5,Elliot Bay,Surfperch,-15.91,193.16,,14.18,55.82,,FSH5,E7,1.004
+EBSP6,Elliot Bay,Surfperch,-17.6,354.23,,13.41,102.73,,FSH5,E8,1.446
+EBSP7,Elliot Bay,Surfperch,-17.64,557.12,,13.76,161.5,,FSH5,E10,1.395
+EBSP8,Elliot Bay,Surfperch,-16.26,240.18,,13.32,70.21,,FSH5,E12,0.646
+EBSP9,Elliot Bay,Surfperch,-17.13,340.82,,13.33,98.9,,FSH5,F1,0.894
+HPCR1,Victoria Harbour,Crabs,-15.68,560.93,,11.57,164.71,,FSH4,D2,1.374
+HPCR10,Victoria Harbour,Crabs,-15.88,425.03,,10.8,127.27,,FSH4,E1,1.059
+HPCR11,Victoria Harbour,Crabs,-15.15,334.44,,10.35,100.19,,FSH4,E2,0.952
+HPCR12,Victoria Harbour,Crabs,-14.79,559.83,,12.39,164.92,,FSH4,E3,1.469
+HPCR13,Victoria Harbour,Crabs,-15.61,442.26,,12.1,137.38,,FSH4,E4,1.077
+HPCR14,Victoria Harbour,Crabs,-17.64,477.52,,11.24,144.09,,FSH4,E5,1.218
+HPCR15,Victoria Harbour,Crabs,-15.53,314.69,,10.41,94.75,,FSH4,E6,0.8
+HPCR2,Victoria Harbour,Crabs,-15.92,227.33,,11.87,69.11,,FSH4,D3,0.647
+HPCR3,Victoria Harbour,Crabs,-15.4,311.96,,11.26,96.1,,FSH4,D4,0.924
+HPCR4,Victoria Harbour,Crabs,-14.44,404.65,,11.48,126.33,,FSH4,D6,1.049
+HPCR5,Victoria Harbour,Crabs,-15.72,344.51,,10.49,101.33,,FSH4,D7,0.873
+HPCR6,Victoria Harbour,Crabs,-15.68,510.76,,10.78,153.6,,FSH4,D8,1.253
+HPCR7,Victoria Harbour,Crabs,-15.75,367.7,,10.69,110.39,,FSH4,D9,0.938
+HPCR8,Victoria Harbour,Crabs,-16.28,381.99,,10.33,117.21,,FSH4,D11,0.975
+HPCR9,Victoria Harbour,Crabs,-15.31,391.96,,10.59,119.98,,FSH4,D12,1
+HPFF1,Victoria Harbour,Flatfish,-15.45,353.72,,13.07,96.05,,FSH3,H2,1.014
+HPFF2,Victoria Harbour,Flatfish,-13.91,388.38,,12.93,107.96,,FSH3,H3,0.994
 HPMU1,Victoria Harbour,Mussels,-19.02,280.16,,8.39,76.59,,FSH4,H10,0.764
+HPMU10,Victoria Harbour,Mussels,-19.56,116.15,,8.46,31.8,,FSH5,A8,0.299
+HPMU11,Victoria Harbour,Mussels,-18.66,318.81,,8.03,94.25,,FSH5,A9,0.852
+HPMU12,Victoria Harbour,Mussels,-20.95,243.54,,8.25,56.2,,FSH5,A10,0.56
+HPMU13,Victoria Harbour,Mussels,-20.25,288.82,,7.87,75.78,,FSH5,A11,0.715
+HPMU14,Victoria Harbour,Mussels,-19.01,416,,9.05,112.77,,FSH5,A12,1.112
+HPMU15,Victoria Harbour,Mussels,-19.44,339.1,,8.44,92.02,,FSH5,B1,1.007
 HPMU2,Victoria Harbour,Mussels,-18.77,201.1,,8.19,57.06,,FSH4,H12,0.552
 HPMU3,Victoria Harbour,Mussels,-19.69,485.02,,8.24,127.16,,FSH5,A1,1.27
 HPMU4,Victoria Harbour,Mussels,-19.65,331.61,,8.41,87.43,,FSH5,A2,0.831
@@ -320,109 +334,95 @@ HPMU5,Victoria Harbour,Mussels,-18.11,100.49,,9.87,30.95,,FSH5,A3,0.271
 HPMU6,Victoria Harbour,Mussels,-22.26,71.46,Precision decreases for samples containing less than 100ugC,7.91,13.81,Precision decreases for samples containing less than 20ugN,FSH5,A4,0.169
 HPMU7,Victoria Harbour,Mussels,-19.18,265.45,,9.13,79.82,,FSH5,A5,0.714
 HPMU9,Victoria Harbour,Mussels,-19,169.41,,7.67,51.4,,FSH5,A7,0.441
-HPMU10,Victoria Harbour,Mussels,-19.56,116.15,,8.46,31.8,,FSH5,A8,0.299
-HPMU11,Victoria Harbour,Mussels,-18.66,318.81,,8.03,94.25,,FSH5,A9,0.852
-HPMU12,Victoria Harbour,Mussels,-20.95,243.54,,8.25,56.2,,FSH5,A10,0.56
-HPMU13,Victoria Harbour,Mussels,-20.25,288.82,,7.87,75.78,,FSH5,A11,0.715
-HPMU14,Victoria Harbour,Mussels,-19.01,416,,9.05,112.77,,FSH5,A12,1.112
-HPMU15,Victoria Harbour,Mussels,-19.44,339.1,,8.44,92.02,,FSH5,B1,1.007
-CBCR2,Coles Bay,Crab Muscle,-14.77,448.87,,11.66,129.29,,FSH5,B2,1.371
-CBCR3,Coles Bay,Crab Muscle,-14.21,321.34,,11.96,93.33,,FSH5,B4,0.941
-CBCR4,Coles Bay,Crab Muscle,-13.2,375.92,,12.02,112.55,,FSH5,B5,1.098
-CBCR5,Coles Bay,Crab Muscle,-13.52,429.17,,12.53,127.58,,FSH5,B7,1.237
-CBCR6,Coles Bay,Crab Muscle,-13.96,293.21,,12.07,85.6,,FSH5,B8,0.775
-CBCR7,Coles Bay,Crab Muscle,-13.93,540.01,,12.48,163.46,,FSH5,B9,1.415
-CBCR8,Coles Bay,Crab Muscle,-14.51,384.01,,12.24,111.15,,FSH5,B10,0.962
-CBCR9,Coles Bay,Crab Muscle,-13.55,468.1,,11.91,137.13,,FSH5,B11,1.224
-CBCR10,Coles Bay,Crab Muscle,-13.69,477.44,,12.85,144.4,,FSH5,C1,1.288
-CBCR11,Coles Bay,Crab Muscle,-13.42,240.22,,12.69,71.28,,FSH5,C2,0.63
-CBCR12,Coles Bay,Crab Muscle,-15.77,520.74,,11.14,159.39,,FSH5,C3,1.358
-CBCR13,Coles Bay,Crab Muscle,-14.32,265.02,,11.87,77.58,,FSH5,C4,0.69
-CBCR14,Coles Bay,Crab Muscle,-14.23,253.96,,11.76,72.8,,FSH5,C5,0.736
-CBCR15,Coles Bay,Crab Muscle,-14.19,256.23,,11.71,74.01,,FSH5,C6,0.79
-CBCR16,Coles Bay,Crab Muscle,-13.87,451.25,,12.28,131.97,,FSH5,C7,1.183
-CBCR17,Coles Bay,Crab Muscle,-12.74,378.51,,12.97,116.21,,FSH5,C8,1.015
-CBCR18,Coles Bay,Crab Muscle,-14.18,435.21,,12.73,127.89,,FSH5,C9,1.121
-EBSP1,Elliot Bay,Surfperch Liver,-16.1,326.89,,14.08,74.63,,FSH5,C10,0.761
-EBSP2,Elliot Bay,Surfperch Liver,-18.51,291.68,,13.89,70.6,,FSH5,C11,0.677
-EBSP3,Elliot Bay,Surfperch Liver,-18.15,239.76,,13.9,45.91,,FSH5,C12,0.541
-EBSP4,Elliot Bay,Surfperch Liver,-16.37,111.59,,14,25.17,,FSH5,D1,0.198
-EBSP5,Elliot Bay,Surfperch Liver,-18.94,246.54,,13.43,49.2,,FSH5,D2,0.57
-EBSP6,Elliot Bay,Surfperch Liver,-20,381.67,,12.88,79.71,,FSH5,D3,0.826
-EBSP7,Elliot Bay,Surfperch Liver,-21.5,467.36,,13.14,64.48,,FSH5,D5,0.964
-EBSP8,Elliot Bay,Surfperch Liver,-19.77,166.92,,13.3,34.15,,FSH5,D7,0.428
-EBSP9,Elliot Bay,Surfperch Liver,-19.55,459.61,,13.33,100.7,,FSH5,D8,1.127
-EBSP10,Elliot Bay,Surfperch Liver,-19.91,81.51,Precision decreases for samples containing less than 100ugC,13.33,17.8,Precision decreases for samples containing less than 20ugN,FSH5,D9,0.201
-EBSP11,Elliot Bay,Surfperch Liver,-19.82,301.93,,13.35,54.98,,FSH5,D10,0.692
-EBSP12,Elliot Bay,Surfperch Liver,-17.84,116.47,,13.35,23,,FSH5,D11,0.256
-EBSP13,Elliot Bay,Surfperch Liver,-16.73,520.6,,14,95.43,,FSH5,D12,1.125
-EBSP14,Elliot Bay,Surfperch Liver,-20.35,494.23,,13.01,67.65,,FSH5,E1,1.002
-EBSP15,Elliot Bay,Surfperch Liver,-20.38,586.71,,12.97,81.11,,FSH5,E2,1.194
-EBSP1,Elliot Bay,Surfperch Muscle,-15.02,399.14,,14.21,110.84,,FSH5,E3,1.128
-EBSP2,Elliot Bay,Surfperch Muscle,-16.62,356.74,,13.91,104.48,,FSH5,E4,1.067
-EBSP3,Elliot Bay,Surfperch Muscle,-15.92,349.06,,13.9,101.98,,FSH5,E5,0.945
-EBSP4,Elliot Bay,Surfperch Muscle,-13.45,446.7,,13.49,130.84,,FSH5,E6,1.221
-EBSP5,Elliot Bay,Surfperch Muscle,-15.91,193.16,,14.18,55.82,,FSH5,E7,1.004
-EBSP6,Elliot Bay,Surfperch Muscle,-17.6,354.23,,13.41,102.73,,FSH5,E8,1.446
-EBSP7,Elliot Bay,Surfperch Muscle,-17.64,557.12,,13.76,161.5,,FSH5,E10,1.395
-EBSP8,Elliot Bay,Surfperch Muscle,-16.26,240.18,,13.32,70.21,,FSH5,E12,0.646
-EBSP9,Elliot Bay,Surfperch Muscle,-17.13,340.82,,13.33,98.9,,FSH5,F1,0.894
-EBSP10,Elliot Bay,Surfperch Muscle,-17.82,366.82,,13.1,107.52,,FSH5,F2,1.012
-EBSP11,Elliot Bay,Surfperch Muscle,-17.35,449.17,,13.22,129.03,,FSH5,F3,1.126
-EBSP12,Elliot Bay,Surfperch Muscle,-14.52,468.79,,13.43,141.27,,FSH5,F4,1.22
-EBSP13,Elliot Bay,Surfperch Muscle,-14.84,279.81,,13.85,83.67,,FSH5,F5,0.775
-EBSP14,Elliot Bay,Surfperch Muscle,-14.91,451.92,,13.78,133.77,,FSH5,F6,1.111
-EBSP15,Elliot Bay,Surfperch Muscle,-15.99,379.46,,13.2,112.37,,FSH5,F7,0.959
-HPRF1,Victoria Harbour,Rockfish Muscle,-14.32,394.02,,15.25,118.89,,FSH5,F8,0.946
-HPRF2,Victoria Harbour,Rockfish Muscle,-14.33,323.89,,14.92,98.08,,FSH5,F9,0.793
-HPRF3,Victoria Harbour,Rockfish Muscle,-15.3,574.72,,14.27,165.56,,FSH5,F10,1.318
-HPRF4,Victoria Harbour,Rockfish Muscle,-14.87,406.75,,14.59,125.56,,FSH5,F11,0.964
-HPRF5,Victoria Harbour,Rockfish Muscle,-15.16,308.47,,14.3,91.97,,FSH5,G1,0.956
-HPRF6,Victoria Harbour,Rockfish Muscle,-17.02,376.76,,13.54,112.13,,FSH5,G2,0.839
-HPRF7,Victoria Harbour,Rockfish Muscle,-17.67,333.8,,14.1,89.45,,FSH5,G4,0.881
-HPRF15,Victoria Harbour,Rockfish Muscle,-14.9,370.69,,14.86,111.02,,FSH5,G5,0.868
-HPRF9,Victoria Harbour,Rockfish Muscle,-15.09,382.26,,14.48,112.05,,FSH5,G6,0.88
-HPRF10,Victoria Harbour,Rockfish Muscle,-14.32,273.45,,13.87,78.81,,FSH5,G7,0.648
-HPRF11,Victoria Harbour,Rockfish Muscle,-15.72,330.71,,14.26,99.21,,FSH5,G8,0.772
-HPRF12,Victoria Harbour,Rockfish Muscle,-17.11,366.34,,14.18,105.88,,FSH5,G9,0.863
-HPRF13,Victoria Harbour,Rockfish Muscle,-16.64,378.96,,14.14,112.26,,FSH5,G11,0.865
-HPRF14,Victoria Harbour,Rockfish Muscle,-14.51,259.56,,14.9,78.32,,FSH5,G12,0.617
-HPRF16,Victoria Harbour,Rockfish Muscle,-14.49,424.09,,14.69,130.28,,FSH5,H2,0.96
-HPRF17,Victoria Harbour,Rockfish Muscle,-14.08,381.04,,14.23,115.8,,FSH5,H3,0.959
-HPRF18,Victoria Harbour,Rockfish Muscle,-16.55,303.71,,14.03,91.59,,FSH5,H4,0.718
-HPRF19,Victoria Harbour,Rockfish Muscle,-16.74,305.34,,13.9,90.55,,FSH5,H5,0.723
-HPRF20,Victoria Harbour,Rockfish Muscle,-16.81,461.1,,14.31,137.69,,FSH5,H6,1.136
-HPRF21,Victoria Harbour,Rockfish Muscle,-14.25,293.15,,15.04,89.21,,FSH5,H7,0.69
-HPRF22,Victoria Harbour,Rockfish Muscle,-15.38,414.51,,14.06,120.78,,FSH5,H8,0.993
-HPRF24,Victoria Harbour,Rockfish Muscle,-15.15,443.2,,14.89,132.14,,FSH5,H9,1.042
-EBSS1,Elliot Bay,Sea Star Muscle,-13.44,105.82,,11.03,61.53,,FSH6,D1,1.097
-EBSS2,Elliot Bay,Sea Star Muscle,-12.45,261.58,,12.61,98.66,,FSH6,D2,1.353
-EBSS3,Elliot Bay,Sea Star Muscle,-10.2,186.15,,18.14,41.02,,FSH6,D3,1.352
-EBSS4,Elliot Bay,Sea Star Muscle,-11.79,228.55,,13.16,72.04,,FSH6,D4,0.997
-EBSS5,Elliot Bay,Sea Star Muscle,-13.39,157.89,,11.78,52.31,,FSH6,D5,0.901
-EBSS6,Elliot Bay,Sea Star Muscle,-11.53,224.87,,11.79,74.83,,FSH6,D7,1.235
-EBSS7,Elliot Bay,Sea Star Muscle,-14.27,151.45,,12.45,86.61,,FSH6,D8,1.351
-EBSS8,Elliot Bay,Sea Star Muscle,-10.24,185.4,,12.75,72.02,,FSH6,D9,1.435
-EBSS9,Elliot Bay,Sea Star Muscle,-11.08,168.12,,13.32,39.3,,FSH6,D10,0.935
-EBSS10,Elliot Bay,Sea Star Muscle,-11.46,294.47,,12.94,65.62,,FSH6,D11,1.417
-EBSS11,Elliot Bay,Sea Star Muscle,-11.58,199.73,,14.43,31.36,,FSH6,D12,0.885
-EBSS12,Elliot Bay,Sea Star Muscle,-10.72,346.87,,11.81,68.65,,FSH6,E1,1.089
-EBSS13,Elliot Bay,Sea Star Muscle,-10.94,188.94,,11.51,25.36,,FSH6,E2,0.642
-EBSS14,Elliot Bay,Sea Star Muscle,-10.64,258.39,,10.99,42.79,,FSH6,E3,0.837
-EBSS15,Elliot Bay,Sea Star Muscle,-11.2,235.99,,11.76,39.98,,FSH6,E4,0.999
-CBSS1,Coles Bay,Sea Star Muscle,-10.92,155.85,,13.63,39.68,,FSH6,E6,0.967
-CBSS2,Coles Bay,Sea Star Muscle,-12.72,164.3,,11.81,23.67,,FSH6,E7,0.836
-CBSS3,Coles Bay,Sea Star Muscle,-10.33,129.72,,13.42,31.94,,FSH6,E9,1.021
-CBSS4,Coles Bay,Sea Star Muscle,-10.12,180.07,,13.21,35.67,,FSH6,E11,0.875
-CBSS5,Coles Bay,Sea Star Muscle,-10.85,117.45,,11.81,20.04,,FSH6,E12,0.668
-CBSS6,Coles Bay,Sea Star Muscle,-9.25,164.52,,19.28,22.57,,FSH6,F1,1.072
-CBSS7,Coles Bay,Sea Star Muscle,-9.07,218.74,,12.18,16.65,Precision decreases for samples containing less than 20ugN,FSH6,F2,0.66
-CBSS8,Coles Bay,Sea Star Muscle,-9.27,109.55,,12.73,32.63,,FSH6,F3,1.251
-CBSS9,Coles Bay,Sea Star Muscle,-11.29,151.8,,12.75,53.16,,FSH6,F4,1.417
-CBSS10,Coles Bay,Sea Star Muscle,-11.65,144.54,,13.94,41.28,,FSH6,F5,1.115
-CBSS11,Coles Bay,Sea Star Muscle,-9.09,268.02,,11.54,42.12,,FSH6,F6,0.814
-CBSS12,Coles Bay,Sea Star Muscle,-17.09,183.41,,11.23,14.49,Precision decreases for samples containing less than 20ugN,FSH6,F7,0.453
-CBSS13,Coles Bay,Sea Star Muscle,-13.27,82.09,,13.15,49.92,,FSH6,F8,1.028
-CBSS14,Coles Bay,Sea Star Muscle,-9.47,118.92,,13.21,25.21,,FSH6,F9,0.715
-CBSS15,Coles Bay,Sea Star Muscle,-10.69,229.83,,12.82,34.68,,FSH6,F10,1.21
-CBSS16,Coles Bay,Sea Star Muscle,-8.38,194.76,,12.31,40.51,,FSH6,F11,1.022
+HPRF1,Victoria Harbour,Rockfish Livers,-17.91,495.76,,13.91,45.51,,FSH1,F9,0.991
+HPRF10,Victoria Harbour,Rockfish Livers,-17.51,683.44,,13.17,65.58,,FSH1,G7,1.213
+HPRF11,Victoria Harbour,Rockfish Livers,-18.61,362.55,,13.76,58.99,,FSH1,G8,0.9
+HPRF12,Victoria Harbour,Rockfish Livers,-19.71,406.21,,12.99,48.14,,FSH1,G9,0.789
+HPRF13,Victoria Harbour,Rockfish Livers,-19.61,452.38,,13.32,51,,FSH1,G11,0.866
+HPRF14,Victoria Harbour,Rockfish Livers,-18.18,758.86,,13.73,56.57,,FSH1,G12,1.489
+HPRF15,Victoria Harbour,Rockfish Livers,-18.43,631.12,,13.75,41.52,,FSH1,H1,1.177
+HPRF16,Victoria Harbour,Rockfish Livers,-18.93,650.91,,13.45,45.5,,FSH1,H3,1.164
+HPRF17,Victoria Harbour,Rockfish Livers,-17.43,465.96,,12.97,40.25,,FSH1,H4,0.87
+HPRF18,Victoria Harbour,Rockfish Livers,-19.84,705.9,,13.25,69.2,,FSH1,H5,1.311
+HPRF19,Victoria Harbour,Rockfish Livers,-20.16,517.1,,13.07,60.01,,FSH1,H6,1.021
+HPRF2,Victoria Harbour,Rockfish Livers,-18.07,353.93,,13.86,40.77,,FSH1,F10,0.655
+HPRF20,Victoria Harbour,Rockfish Livers,-19.96,781.07,,13.81,85.93,,FSH1,H8,1.372
+HPRF21,Victoria Harbour,Rockfish Livers,-17.62,696.33,,14.76,60.49,,FSH1,H9,1.264
+HPRF22,Victoria Harbour,Rockfish Livers,-17.28,843.86,,13.39,123.88,,FSH1,H10,1.261
+HPRF24,Victoria Harbour,Rockfish Livers,-19.22,585.59,,14.37,49.65,,FSH1,H11,1.071
+HPRF3,Victoria Harbour,Rockfish Livers,-18.77,418.81,,13.67,38.15,,FSH1,F11,0.815
+HPRF4,Victoria Harbour,Rockfish Livers,-18.53,572.98,,13.87,70.62,,FSH1,F12,1.065
+HPRF5,Victoria Harbour,Rockfish Livers,-17.86,277.31,,13.01,25.09,,FSH1,G2,0.552
+HPRF6,Victoria Harbour,Rockfish Livers,-20.04,730.4,,13.48,63.5,,FSH1,G3,1.387
+HPRF7,Victoria Harbour,Rockfish Livers,-19.11,636.34,,13.12,75.02,,FSH1,G5,1.373
+HPRF9,Victoria Harbour,Rockfish Livers,-18.51,460.01,,12.9,47.16,,FSH1,G6,0.883
+HPRF1,Victoria Harbour,Rockfish,-14.32,394.02,,15.25,118.89,,FSH5,F8,0.946
+HPRF10,Victoria Harbour,Rockfish,-14.32,273.45,,13.87,78.81,,FSH5,G7,0.648
+HPRF11,Victoria Harbour,Rockfish,-15.72,330.71,,14.26,99.21,,FSH5,G8,0.772
+HPRF12,Victoria Harbour,Rockfish,-17.11,366.34,,14.18,105.88,,FSH5,G9,0.863
+HPRF13,Victoria Harbour,Rockfish,-16.64,378.96,,14.14,112.26,,FSH5,G11,0.865
+HPRF14,Victoria Harbour,Rockfish,-14.51,259.56,,14.9,78.32,,FSH5,G12,0.617
+HPRF15,Victoria Harbour,Rockfish,-14.9,370.69,,14.86,111.02,,FSH5,G5,0.868
+HPRF16,Victoria Harbour,Rockfish,-14.49,424.09,,14.69,130.28,,FSH5,H2,0.96
+HPRF17,Victoria Harbour,Rockfish,-14.08,381.04,,14.23,115.8,,FSH5,H3,0.959
+HPRF18,Victoria Harbour,Rockfish,-16.55,303.71,,14.03,91.59,,FSH5,H4,0.718
+HPRF19,Victoria Harbour,Rockfish,-16.74,305.34,,13.9,90.55,,FSH5,H5,0.723
+HPRF2,Victoria Harbour,Rockfish,-14.33,323.89,,14.92,98.08,,FSH5,F9,0.793
+HPRF20,Victoria Harbour,Rockfish,-16.81,461.1,,14.31,137.69,,FSH5,H6,1.136
+HPRF21,Victoria Harbour,Rockfish,-14.25,293.15,,15.04,89.21,,FSH5,H7,0.69
+HPRF22,Victoria Harbour,Rockfish,-15.38,414.51,,14.06,120.78,,FSH5,H8,0.993
+HPRF24,Victoria Harbour,Rockfish,-15.15,443.2,,14.89,132.14,,FSH5,H9,1.042
+HPRF3,Victoria Harbour,Rockfish,-15.3,574.72,,14.27,165.56,,FSH5,F10,1.318
+HPRF4,Victoria Harbour,Rockfish,-14.87,406.75,,14.59,125.56,,FSH5,F11,0.964
+HPRF5,Victoria Harbour,Rockfish,-15.16,308.47,,14.3,91.97,,FSH5,G1,0.956
+HPRF6,Victoria Harbour,Rockfish,-17.02,376.76,,13.54,112.13,,FSH5,G2,0.839
+HPRF7,Victoria Harbour,Rockfish,-17.67,333.8,,14.1,89.45,,FSH5,G4,0.881
+HPRF9,Victoria Harbour,Rockfish,-15.09,382.26,,14.48,112.05,,FSH5,G6,0.88
+HPCU1,Victoria Harbour,Sea Cucumbers,-16.16,337.7,,8.1,85.62,,FSH2,D1,1.176
+HPCU10,Victoria Harbour,Sea Cucumbers,-16.38,247.02,,10.91,48.46,,FSH2,D11,1.177
+HPCU11,Victoria Harbour,Sea Cucumbers,-15.9,213.42,,10.18,51.76,,FSH2,D12,0.684
+HPCU12,Victoria Harbour,Sea Cucumbers,-16.4,237.23,,12.58,57.24,,FSH2,E1,0.783
+HPCU13,Victoria Harbour,Sea Cucumbers,-15.71,247.66,,9.79,62.87,,FSH2,E3,0.756
+HPCU14,Victoria Harbour,Sea Cucumbers,-15.88,148.62,,8.28,38.09,,FSH2,E4,0.882
+HPCU15,Victoria Harbour,Sea Cucumbers,-16.43,266.39,,9.92,56.29,,FSH2,E5,0.827
+HPCU2,Victoria Harbour,Sea Cucumbers,-16.53,227.79,,10.25,55.42,,FSH2,D2,0.757
+HPCU3,Victoria Harbour,Sea Cucumbers,-15.91,179.09,,7.78,45.46,,FSH2,D4,0.878
+HPCU4,Victoria Harbour,Sea Cucumbers,-16.41,300.44,,8.39,78.37,,FSH2,D5,0.945
+HPCU5,Victoria Harbour,Sea Cucumbers,-16.25,306.28,,9.19,76.31,,FSH2,D6,1.115
+HPCU6,Victoria Harbour,Sea Cucumbers,-17.04,264.63,,13.38,54.35,,FSH2,D7,0.849
+HPCU7,Victoria Harbour,Sea Cucumbers,-15.53,273.9,,12.1,68.32,,FSH2,D8,1.47
+HPCU8,Victoria Harbour,Sea Cucumbers,-15.77,144.1,,12.25,33.43,,FSH2,D9,0.725
+HPCU9,Victoria Harbour,Sea Cucumbers,-16.32,228.75,,11.36,51.27,,FSH2,D10,1.025
+HPSP1,Victoria Harbour,Surfperch Livers,-15.87,170.71,,12.9,34.92,,FSH3,H7,0.376
+HPSP10,Victoria Harbour,Surfperch Livers,-16.12,271,,11.94,48.38,,FSH4,A5,0.612
+HPSP11,Victoria Harbour,Surfperch Livers,-15.72,228.51,,11.43,46.17,,FSH4,A6,0.501
+HPSP12,Victoria Harbour,Surfperch Livers,-15.34,465.13,,11.68,77.95,,FSH4,A7,1.052
+HPSP13,Victoria Harbour,Surfperch Livers,-15.1,304.39,,12.48,45.81,,FSH4,A9,0.583
+HPSP14,Victoria Harbour,Surfperch Livers,-16.27,194.05,,11.54,39.15,,FSH4,A11,0.411
+HPSP15,Victoria Harbour,Surfperch Livers,-16.46,192.63,,11.81,38.15,,FSH4,A12,0.413
+HPSP16,Victoria Harbour,Surfperch Livers,-16.39,292.68,,12.37,61.25,,FSH4,B1,0.637
+HPSP17,Victoria Harbour,Surfperch Livers,-18.51,251.88,,11.73,50.08,,FSH4,B2,0.548
+HPSP2,Victoria Harbour,Surfperch Livers,-14.84,244.35,,12.74,50.6,,FSH3,H8,0.506
+HPSP3,Victoria Harbour,Surfperch Livers,-16.6,205.84,,12.41,41.69,,FSH3,H9,0.465
+HPSP4,Victoria Harbour,Surfperch Livers,-17.73,75.48,Precision decreases for samples containing less than 100ugC,11.86,17.67,Precision decreases for samples containing less than 20ugN,FSH3,H10,0.193
+HPSP5,Victoria Harbour,Surfperch Livers,-15.54,251.51,,11.97,48.67,,FSH3,H11,0.58
+HPSP6,Victoria Harbour,Surfperch Livers,-16.1,211.09,,11.73,37.52,,FSH3,H12,0.491
+HPSP7,Victoria Harbour,Surfperch Livers,-18.5,249.44,,11.52,55.5,,FSH4,A1,0.523
+HPSP9,Victoria Harbour,Surfperch Livers,-16.37,69.84,Precision decreases for samples containing less than 100ugC,11.15,12.19,Precision decreases for samples containing less than 20ugN,FSH4,A4,0.159
+HPSP1,Victoria Harbour,Surfperch,-14.74,462.6,,13.04,131.32,,FSH4,B5,1.043
+HPSP10,Victoria Harbour,Surfperch,-15.63,512.29,,12.68,151.49,,FSH4,C6,1.208
+HPSP11,Victoria Harbour,Surfperch,-14.1,390.83,,12.39,117.44,,FSH4,C7,0.938
+HPSP12,Victoria Harbour,Surfperch,-15.1,443.72,,12.63,131.52,,FSH4,C8,1.038
+HPSP13,Victoria Harbour,Surfperch,-12.5,526.34,,13.14,158.46,,FSH4,C9,1.224
+HPSP14,Victoria Harbour,Surfperch,-14.4,449.87,,13,133.5,,FSH4,C10,1.052
+HPSP15,Victoria Harbour,Surfperch,-15.13,481.84,,12.83,141.85,,FSH4,C11,1.116
+HPSP16,Victoria Harbour,Surfperch,-14.49,466.11,,13.04,138.08,,FSH4,C12,1.082
+HPSP17,Victoria Harbour,Surfperch,-16.74,504.72,,12.85,151.19,,FSH4,D1,1.177
+HPSP2,Victoria Harbour,Surfperch,-12.62,541.75,,13.38,153.97,,FSH4,B6,1.254
+HPSP3,Victoria Harbour,Surfperch,-15.22,330.4,,13.08,98.61,,FSH4,B7,0.766
+HPSP4,Victoria Harbour,Surfperch,-17.49,306.87,,12.75,90.29,,FSH4,B8,0.722
+HPSP5,Victoria Harbour,Surfperch,-14.63,388.09,,12.82,114.37,,FSH4,B9,0.9
+HPSP6,Victoria Harbour,Surfperch,-14.53,390.81,,12.86,116.83,,FSH4,B11,0.939
+HPSP7,Victoria Harbour,Surfperch,-16.84,373.13,,12.68,110.48,,FSH4,B12,0.861
+HPSP8,Victoria Harbour,Surfperch,-15.77,270.74,,12.86,81.19,,FSH4,C2,0.633
+HPSP9,Victoria Harbour,Surfperch,-14.66,378.45,,12.48,113.08,,FSH4,C4,0.891

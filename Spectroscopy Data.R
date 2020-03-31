@@ -39,7 +39,6 @@ plankton_tows$particle.type <-
             to = c('Unknown',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Natural',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
@@ -51,7 +50,11 @@ plankton_tows$particle.type <-
                    'Natural',
                    'Unknown'))
 summary(plankton_tows$particle.type)
-plankton_tows$particle.type[is.na(plankton_tows$particle.type)] <- 'Unknown'
+
+plankton_tows$particle.type[plankton_tows$shape == 'Fibre' &
+                              plankton_tows$colour == 'clear' &
+                              plankton_tows$raman.ID == 'Cellulose'] <-
+  'Natural'
 
 summary(plankton_tows$colour)
 
@@ -66,6 +69,30 @@ PT$ID <- as.factor(PT$ID)
 head(PT)
 
 PT$num <- ifelse(is.na(PT$length), 0, 1)  # Separate out samples that had 0 counts
+
+## Assign particle IDs based on probability
+
+
+for(i in 1:length(subset(PT, 
+                         particle.type == 
+                         'Unknown')$particle.number)) {
+  p.synthetic = 
+    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i] & 
+                                PT$colour == PT$colour[i] &
+                                PT$particle.type == 'Synthetic Polymer']) /
+    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i]  & 
+                                PT$colour == PT$colour[i]])
+  p.natural = 
+    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i] & 
+                                PT$colour == PT$colour[i] &
+                                PT$particle.type == 'Natural']) /
+    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i]  & 
+                                PT$colour == PT$colour[i]])
+  ID <- ifelse(p.synthetic > p.natural,
+               'Synthetic Polymer',
+               'Natural')
+  PT[PT$particle.type == 'Unkown'][i]
+}
 
 ## Separate blanks data
 
@@ -106,6 +133,10 @@ PT_polymer2 <-
 PT_polymer2$blank.mean[is.na(PT_polymer2$blank.mean)] <- 0
 
 PT_polymer2$adj.count <- with(PT_polymer2, count - blank.mean)
+
+PT_polymer2 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 5 samples each every site
 
 #### Plankton Jars ####
 
@@ -192,6 +223,10 @@ PJ_polymer2$blank.mean[is.na(PJ_polymer2$blank.mean)] <- 0
 PJ_polymer2$adj.count <- ceiling(with(PJ_polymer2, count - blank.mean))
 PJ_polymer2$adj.count[PJ_polymer2$adj.count < 0] <- 0
 
+PJ_polymer2 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 5 samples each every site
+
 #### Mussels ####
 
 ## Load mussels data
@@ -204,15 +239,31 @@ names(mussels)
 summary(mussels$size.fraction)
 summary(mussels$shape)
 summary(mussels$colour)
+summary(mussels$site)
 
 mussels$shape <- mapvalues(mussels$shape,
-                                 from = c('fibre',
-                                          'fragment'),
+                                 from = levels(mussels$shape),
                                  to = c('Fibre',
+                                        'Fibre',
+                                        'Film',
                                         'Fragment'))
 summary(mussels$shape)
 
+mussels$colour <- mapvalues(mussels$colour,
+                            from = 'clear\n',
+                            to = 'clear')
+
 summary(mussels$raman.ID)
+
+mussels$raman.ID <- mapvalues(mussels$raman.ID,
+                              from = c('Acrylic\n',
+                                       'Cellulose\n',
+                                       'Cellulosee',
+                                       'Dye\n'),
+                              to = c('Acyrlic',
+                                     'Cellulose',
+                                     'Cellulose',
+                                     'Dye'))
 
 mussels$particle.type <- 
   mapvalues(mussels$raman.ID,
@@ -220,9 +271,6 @@ mussels$particle.type <-
             to = c('Unknown',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Natural Anthropogenic',
-                   'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Unknown Anthropogenic',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
@@ -231,8 +279,6 @@ mussels$particle.type <-
                    'Synthetic Polymer',
                    'Natural Anthropogenic'))
 summary(mussels$particle.type)
-
-summary(mussels$colour)
 
 mussels$num <- with(mussels,
                           ifelse(is.na(length), 0, 1))
@@ -278,6 +324,10 @@ MU_polymer2$blank.mean[is.na(MU_polymer2$blank.mean)] <- 0
 MU_polymer2$adj.count <- ceiling(with(MU_polymer2, count - blank.mean))
 MU_polymer2$adj.count[MU_polymer2$adj.count < 0] <- 0
 
+MU_polymer2 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 19 samples CB, 15 EB, 15 VH
+
 #### Clams ####
 
 # Load clams data
@@ -292,19 +342,21 @@ summary(clams$shape)
 summary(clams$colour)
 
 clams$shape <- mapvalues(clams$shape,
-                           from = c('fibre',
-                                    'fragment'),
+                           from = levels(clams$shape),
                            to = c('Fibre',
-                                  'Fragment'))
+                                  'Fibre'))
 summary(clams$shape)
 
 summary(clams$raman.ID)
+
+clams$raman.ID <- mapvalues(clams$raman.ID,
+                            from = 'Cellulose\n',
+                            to = 'Cellulose')
 
 clams$particle.type <- 
   mapvalues(clams$raman.ID,
             from = levels(clams$raman.ID),
             to = c('Unknown',
-                   'Natural Anthropogenic',
                    'Natural Anthropogenic',
                    'Unknown Anthropogenic',
                    'Synthetic Polymer',
@@ -338,6 +390,10 @@ clams_polymer2$blank.mean[is.na(clams_polymer2$blank.mean)] <- 0
 
 clams_polymer2$adj.count <- ceiling(with(clams_polymer2, count - blank.mean))
 clams_polymer2$adj.count[clams_polymer2$adj.count < 0] <- 0
+
+clams_polymer2 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 13 samples CB, 15 EB
 
 #### Sea Cucumbers #####
 
@@ -425,6 +481,24 @@ CU_polymer2$blank.mean[is.na(CU_polymer2$blank.mean)] <- 0
 CU_polymer2$adj.count <- ceiling(with(CU_polymer2, count - blank.mean))
 CU_polymer2$adj.count[CU_polymer2$adj.count < 0] <- 0
 
+## Remove samples where all size fractions aren't counted yet
+
+CU_incomplete <- 
+  CU_polymer2 %>% 
+  group_by(ID) %>%
+  summarize(count = length(unique(size.fraction))) %>% 
+  filter(count < 2)
+
+CU_polymer2$incomplete <- CU_polymer2$ID %in% CU_incomplete$ID
+  
+CU_polymer3 <-
+  CU_polymer2 %>% 
+  filter(incomplete == 'FALSE')
+
+CU_polymer3 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 13 samples CB, 15 EB
+
 #### Sea Stars ####
 
 # Load sea_stars data
@@ -439,10 +513,12 @@ summary(sea_stars$shape)
 summary(sea_stars$colour)
 
 sea_stars$shape <- mapvalues(sea_stars$shape,
-                         from = c('fibre',
+                         from = c('fiber',
+                                  'fibre',
                                   'fibre ',
                                   'fragment'),
                          to = c('Fibre',
+                                'Fibre',
                                 'Fibre',
                                 'Fragment'))
 summary(sea_stars$shape)
@@ -515,15 +591,41 @@ SS_polymer2$adj.count[SS_polymer2$adj.count < 0] <- 0
 ## Add together samples that were divided
 
 SS_polymer2$ID <- mapvalues(SS_polymer2$ID,
-                            from = c('CBSS8 (1/4)', 
+                            from = c('CBSS3 1/2',
+                                     'CBSS3 2/2',
+                                     'CBSS8 (1/4)', 
                                      'CBSS8 (2/4)',
                                      'CBSS8 (3/4)',
                                      'CBSS8 (4/4)',
+                                     'EBSS10-1',
+                                     'EBSS10-2',
+                                     'EBSS10-3',
                                      'EBSS11 (1/3)',
                                      'EBSS11 (2/3)',
                                      'EBSS11 (3/3)'),
-                            to = c('CBSS8', 'CBSS8', 'CBSS8', 'CBSS8',
+                            to = c('CBSS3', 'CBSS3',
+                                   'CBSS8', 'CBSS8', 'CBSS8', 'CBSS8',
+                                   'EBSS10', 'EBSS10', 'EBSS10',
                                    'EBSS11', 'EBSS11', 'EBSS11'))
+
+## Remove samples where all size fractions aren't counted yet
+
+SS_incomplete <- 
+  SS_polymer2 %>% 
+  group_by(ID) %>%
+  summarize(count = length(unique(size.fraction))) %>% 
+  filter(count < 2)
+
+SS_polymer2$incomplete <- SS_polymer2$ID %in% SS_incomplete$ID
+
+SS_polymer3 <-
+  SS_polymer2 %>% 
+  filter(incomplete == 'FALSE')
+
+SS_polymer3 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 15 samples CB, 15 EB
+
 
 #### Crabs ####
 
@@ -537,6 +639,17 @@ names(crabs)
 summary(crabs$size.fraction)
 summary(crabs$shape)
 summary(crabs$colour)
+crabs$colour <- mapvalues(crabs$colour,
+                          from = c('Black',
+                                   'Blue',
+                                   'Brown',
+                                   'Clear',
+                                   'Purple'),
+                          to = c('black',
+                                 'blue',
+                                 'brown',
+                                 'clear',
+                                 'purple'))
 
 crabs$shape <- mapvalues(crabs$shape,
                                  from = c('fibre',
@@ -567,8 +680,7 @@ summary(crabs$particle.type)
 
 summary(crabs$colour)
 
-crabs$num <- with(crabs,
-                          ifelse(is.na(length), 0, 1))
+crabs$num <- with(crabs, ifelse(is.na(length), 0, 1))
 
 ## Separate blanks data
 
@@ -612,6 +724,24 @@ CR_polymer2$blank.mean[is.na(CR_polymer2$blank.mean)] <- 0
 CR_polymer2$adj.count <- ceiling(with(CR_polymer2, count - blank.mean))
 CR_polymer2$adj.count[CR_polymer2$adj.count < 0] <- 0
 
+## Remove samples where all size fractions aren't counted yet
+
+CR_incomplete <- 
+  CR_polymer2 %>% 
+  group_by(ID) %>%
+  summarize(count = length(unique(size.fraction))) %>% 
+  filter(count < 2)
+
+CR_polymer2$incomplete <- CR_polymer2$ID %in% CR_incomplete$ID
+
+CR_polymer3 <-
+  CR_polymer2 %>% 
+  filter(incomplete == 'FALSE')
+
+CR_polymer3 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 15 samples CB, 15 EB, 13 VH
+
 #### Surfperch ####
 
 # Load surfperch data
@@ -622,12 +752,17 @@ surfperch <- read.csv("surfperch.csv", header = TRUE)
 
 names(surfperch)
 summary(surfperch$size.fraction)
+surfperch$size.fraction <- mapvalues(surfperch$size.fraction,
+                                     from = '>1',
+                                     to = '1-150')
+
 summary(surfperch$shape)
 summary(surfperch$colour)
 
 surfperch$shape <- mapvalues(surfperch$shape,
                          from = levels(surfperch$shape),
                          to = c('Fibre',
+                                'Fibre',
                                 'Film',
                                 'Fragment',
                                 'Sphere'))
@@ -711,6 +846,25 @@ SP_polymer2$blank.mean[is.na(SP_polymer2$blank.mean)] <- 0
 SP_polymer2$adj.count <- ceiling(with(SP_polymer2, count - blank.mean))
 SP_polymer2$adj.count[SP_polymer2$adj.count < 0] <- 0
 
+## Remove samples where all size fractions aren't counted yet
+
+SP_incomplete <- 
+  SP_polymer2 %>% 
+  group_by(ID) %>%
+  summarize(count = length(unique(size.fraction)),
+            sample.type = length(unique(sample.type))) %>% 
+  filter(count < 2 | sample.type < 2)
+
+SP_polymer2$incomplete <- SP_polymer2$ID %in% SP_incomplete$ID
+
+SP_polymer3 <-
+  SP_polymer2 %>% 
+  filter(incomplete == 'FALSE')
+
+SP_polymer3 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 11 samples CB, 10 EB, 12 VH
+
 #### Flatfish ####
 
 # Load flatfish data
@@ -721,83 +875,28 @@ flatfish <- read.csv("flatfish.csv", header = TRUE)
 
 names(flatfish)
 summary(flatfish$size.fraction)
-summary(flatfish$shape)
-summary(flatfish$colour)
+flatfish$size.fraction <- mapvalues(flatfish$size.fraction,
+                                    from = '>1',
+                                    to = '1-150')
 
-flatfish$shape <- mapvalues(flatfish$shape,
-                             from = levels(flatfish$shape),
-                             to = c('Fibre',
-                                    'Fibre',
-                                    'Fragment'))
-summary(flatfish$shape)
+## Remove samples where all size fractions aren't counted yet
 
-levels(flatfish$raman.ID)
+FF_incomplete <- 
+  FF_polymer2 %>% 
+  group_by(ID) %>%
+  summarize(count = length(unique(size.fraction)),
+            sample.type = length(unique(sample.type))) %>% 
+  filter(count < 2 | sample.type < 2)
 
-flatfish$raman.ID <-
-  mapvalues(flatfish$raman.ID,
-            from = c('Wool\n'),
-            to = c('Wool'))
+FF_polymer2$incomplete <- FF_polymer2$ID %in% FF_incomplete$ID
 
-flatfish$particle.type <- 
-  mapvalues(flatfish$raman.ID,
-            from = levels(flatfish$raman.ID),
-            to = c('Unknown',
-                   'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Semi-synthetic',
-                   'Unknown',
-                   'Natural Anthropogenic'))
-summary(flatfish$particle.type)
+FF_polymer3 <-
+  FF_polymer2 %>% 
+  filter(incomplete == 'FALSE')
 
-summary(flatfish$colour)
-
-flatfish$num <- with(flatfish,
-                      ifelse(is.na(length), 0, 1))
-
-## Separate blanks data
-
-FF_blanks <- subset(flatfish, sample.type == 'Blanks')
-FF <- subset(flatfish, 
-             sample.type == 'Flatfish Guts' |
-               sample.type == 'Flatfish Livers'  , )
-FF$ID <- as.character(FF$ID)
-FF$ID <- as.factor(FF$ID)
-
-## Summarize blanks data
-
-summary(FF_blanks)
-FF_blanks_particle_type <- 
-  FF_blanks %>% 
-  group_by(ID, shape, colour, blank.match, raman.ID, particle.type) %>% 
-  summarize(blank.count = sum(num))
-
-FF_blanks_means <- 
-  FF_blanks_particle_type %>% 
-  group_by(shape, colour, blank.match, raman.ID, particle.type) %>% 
-  summarize(blank.mean = mean(blank.count))
-
-## Summarize FF data
-
-FF_polymer <- 
-  FF %>% 
-  group_by(ID, site, sample.type, size.fraction, shape, colour, blank.match, 
-           particle.type, raman.ID) %>% 
-  summarize(count = sum(num))
-
-## Blank subtract
-
-FF_polymer2 <-
-  left_join(FF_polymer, 
-            FF_blanks_means, 
-            by = c('shape', 'colour', 'blank.match', 'raman.ID', 
-                   'particle.type'))
-
-FF_polymer2$blank.mean[is.na(FF_polymer2$blank.mean)] <- 0
-
-FF_polymer2$adj.count <- ceiling(with(FF_polymer2, count - blank.mean))
-FF_polymer2$adj.count[FF_polymer2$adj.count < 0] <- 0
+FF_polymer3 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 10 samples CB
 
 #### Rockfish ####
 
@@ -809,6 +908,10 @@ rockfish <- read.csv("rockfish.csv", header = TRUE)
 
 names(rockfish)
 summary(rockfish$size.fraction)
+rockfish$size.fraction <- mapvalues(rockfish$size.fraction,
+                                    from = '1-150',
+                                    to = '>1')
+
 summary(rockfish$shape)
 summary(rockfish$colour)
 
@@ -905,3 +1008,22 @@ RF_polymer2$ID <- mapvalues(RF_polymer2$ID,
                                    'HPRF21',
                                    'HPRF21',
                                    'HPRF4'))
+
+## Remove samples where all size fractions aren't counted yet
+
+RF_incomplete <- 
+  RF_polymer2 %>% 
+  group_by(ID) %>%
+  summarize(count = length(unique(size.fraction)),
+            sample.type = length(unique(sample.type))) %>% 
+  filter(count < 3 | sample.type < 2)
+
+RF_polymer2$incomplete <- RF_polymer2$ID %in% RF_incomplete$ID
+
+RF_polymer3 <-
+  RF_polymer2 %>% 
+  filter(incomplete == 'FALSE')
+
+RF_polymer2 %>% 
+  group_by(site) %>% 
+  summarize(num.samples = length(unique(ID)))  ## 10 samples CB, 21 EB, 22 VH

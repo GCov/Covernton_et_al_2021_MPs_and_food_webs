@@ -7,7 +7,7 @@ CBMU12,Coles Bay,Mussels,554,BB,>1,fibre,clear,456.46,yes,"Too much fluorescence
 CBMU12,Coles Bay,Mussels,555,BB,>1,fibre,clear,554.19,yes,,Cellulose,1
 CBMU12,Coles Bay,Mussels,556,BB,>1,fibre,clear,6095.93,yes,*may be contaminent as it was not embedded in filter paper,Cellulosee,1
 CBMU13,Coles Bay,Mussels,,BB,>1,fibre,clear,1531.06,no,dropped,,1
-CBMU13,Coles Bay,Mussels,557,BB,>1,fibre,blue,1583.47,yes,,Dye,1
+CBMU13,Coles Bay,Mussels,557,BB,>1,fibre,blue,1583.47,yes,,Cellulose,1
 CBMU13,Coles Bay,Mussels,558,BB,>1,fibre,red,569.19,yes,,Cellulose,1
 CBMU13,Coles Bay,Mussels,559,BB,>1,fibre,clear,713.37,yes,,Cellulose,1
 CBMU13,Coles Bay,Mussels,560,BB,>1,fibre,pink,3035.35,yes,,Cellulose,1
@@ -60,7 +60,7 @@ CBMU8,Coles Bay,Mussels,548,BB,>1,fibre,clear,939.54,yes,,Cellulose,1
 CBMU8,Coles Bay,Mussels,549,BB,>1,fragment,red,225.67,yes,,Cellulose,1
 CBMU9,Coles Bay,Mussels,550,BB,>1,fibre,clear,719.55,yes,,Cellulose,1
 CBMU9,Coles Bay,Mussels,551,BB,>1,fibre,clear,646.16,yes,,Cellulose,1
-CBMU9,Coles Bay,Mussels,552,BB,>1,fibre,blue,693.5,yes,,Dye,1
+CBMU9,Coles Bay,Mussels,552,BB,>1,fibre,blue,693.5,yes,,Cellulose,1
 CBMU9,Coles Bay,Mussels,553,BB,>1,fibre,clear,733.57,yes,,Wool,1
 CBPB1,Coles Bay,Blanks,NA,NA,>1,NA,NA,NA,NA,NA,,1
 CBPB2,Coles Bay,Blanks,645,BB,>1,fibre,black,618.31,yes,,Cellulose,1
@@ -81,7 +81,7 @@ EBMU12,Elliot Bay,Mussels,608,BB,>1,fibre,blue,909.35,yes,Probably denim,Unknown
 EBMU13,Elliot Bay,Mussels,609,BB,>1,fibre,blue,578.82,yes,,Polyester,2
 EBMU13,Elliot Bay,Mussels,610,BB,>1,fibre,blue,1983.59,yes,Probably denim,Unknown,2
 EBMU15,Elliot Bay,Mussels,611,BB,>1,fibre,clear,456.11,yes,,Polyester,2
-EBMU15,Elliot Bay,Mussels,612,BB,>1,fibre,blue,1091.82,yes,,Dye,2
+EBMU15,Elliot Bay,Mussels,612,BB,>1,fibre,blue,1091.82,yes,,Cellulose,2
 EBMU3,Elliot Bay,Mussels,594,BB,>1,fibre,clear,1632.75,yes,,Cellulose,2
 EBMU3,Elliot Bay,Mussels,595,BB,>1,fibre,black,879.24,yes,Too much fluorescence to get a good spectra,Unknown,2
 EBMU3,Elliot Bay,Mussels,596,BB,>1,fibre,black,9240.14,yes,,Unknown,2
@@ -99,7 +99,7 @@ EBPB1,Elliot Bay,Blanks,648,BB,>1,fibre,blue,2840.79,yes,,Polyester,2
 EBPB2,Elliot Bay,Blanks,NA,NA,>1,NA,NA,NA,NA,,,2
 HPMU1,Victoria Harbour,Mussels,613,BB,>1,fibre,clear,1454.53,yes,,Cellulose,3
 HPMU11,Victoria Harbour,Mussels,634,BB,>1,fibre,red,1254,yes,,Cellulose,3
-HPMU11,Victoria Harbour,Mussels,635,BB,>1,fibre,green,1072.88,yes,,Dye,3
+HPMU11,Victoria Harbour,Mussels,635,BB,>1,fibre,green,1072.88,yes,,Cellulose,3
 HPMU11,Victoria Harbour,Mussels,636,BB,>1,fibre,blue,2360.55,yes,,Cellulose,3
 HPMU14,Victoria Harbour,Mussels,NA,BB,>1,NA,NA,NA,NA,,,3
 HPMU15,Victoria Harbour,Mussels,637,BB,>1,fibre,clear,6212.61,yes,Could be human hair,Wool,3
