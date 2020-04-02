@@ -54,9 +54,7 @@ summary(plankton_tows$particle.type)
 plankton_tows$particle.type[plankton_tows$shape == 'Fibre' &
                               plankton_tows$colour == 'clear' &
                               plankton_tows$raman.ID == 'Cellulose'] <-
-  'Natural'
-
-summary(plankton_tows$colour)
+  'Natural'  # call clear cellulosic fibres natural to be safe
 
 ## Clean up plankton tow field data 
 
@@ -68,31 +66,8 @@ PT$ID <- as.factor(PT$ID)
 
 head(PT)
 
-PT$num <- ifelse(is.na(PT$length), 0, 1)  # Separate out samples that had 0 counts
-
-## Assign particle IDs based on probability
-
-
-for(i in 1:length(subset(PT, 
-                         particle.type == 
-                         'Unknown')$particle.number)) {
-  p.synthetic = 
-    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i] & 
-                                PT$colour == PT$colour[i] &
-                                PT$particle.type == 'Synthetic Polymer']) /
-    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i]  & 
-                                PT$colour == PT$colour[i]])
-  p.natural = 
-    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i] & 
-                                PT$colour == PT$colour[i] &
-                                PT$particle.type == 'Natural']) /
-    length(PT$particle.number[PT$sample.type ==  PT$sample.type[i]  & 
-                                PT$colour == PT$colour[i]])
-  ID <- ifelse(p.synthetic > p.natural,
-               'Synthetic Polymer',
-               'Natural')
-  PT[PT$particle.type == 'Unkown'][i]
-}
+PT$num <- 
+  ifelse(is.na(PT$length), 0, 1)  # Separate out samples that had 0 counts
 
 ## Separate blanks data
 
@@ -154,13 +129,21 @@ summary(plankton_jars$colour)
 summary(plankton_jars$shape)
 
 plankton_jars$shape <- mapvalues(plankton_jars$shape,
-                                 from = c('fibre',
+                                 from = c('fiber',
+                                          'fibre',
                                           'fragment'),
                                  to = c('Fibre',
+                                        'Fibre',
                                         'Fragment'))
 summary(plankton_jars$shape)
 
 summary(plankton_jars$raman.ID)
+plankton_jars$raman.ID <-
+  mapvalues(plankton_jars$raman.ID,
+            from = c('Cellulose\n',
+                     'Plastic Dye'),
+            to = c('Cellulose',
+                   'Plastics Dye'))
 
 plankton_jars$particle.type <- 
   mapvalues(plankton_jars$raman.ID,
@@ -168,8 +151,7 @@ plankton_jars$particle.type <-
             to = c('Unknown',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
+                   'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
@@ -179,7 +161,12 @@ plankton_jars$particle.type <-
                    'Natural Anthropogenic'))
 summary(plankton_jars$particle.type)
 
-summary(plankton_jars$colour)
+plankton_jars$particle.type[plankton_jars$shape == 'Fibre' &
+                              plankton_jars$colour == 'clear' &
+                              plankton_jars$raman.ID == 'Cellulose'] <-
+  'Natural'  ## WTF THIS ISN'T WORKING
+
+# call clear cellulosic fibres natural to be safe
 
 plankton_jars$num <- with(plankton_jars,
                           ifelse(length == 'na', 0, 1))

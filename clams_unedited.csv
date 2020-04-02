@@ -1,0 +1,55 @@
+ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
+CBC3,Coles Bay,Clams,522,NP,>1,fibre,black,429.81,yes,,Polyester,1
+CBC5,Coles Bay,Clams,523,NP,>1,fibre,clear,304.21,yes,,Cellulose,1
+CBC5,Coles Bay,Clams,524,NP,>1,fibre,clear,3103.46,yes,,Cellulose,1
+CBC5,Coles Bay,Clams,#839,NP,>1,fibre,orange,380.94,no ,dropped,,1
+CBC6,Coles Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
+CBC11,Coles Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
+CBC12,Coles Bay,Clams,NA,NP,>1,NA,NA,NA,NA,,,1
+CBC13,Coles Bay,Clams,525,NP,>1,fibre,green,1494.03,yes,"Good spectra but can't get a match
+",Unknown,1
+CBC14,Coles Bay,Clams,526,NP,>1,fibre,clear,531.42,yes,,Cellulose,1
+CBC14,Coles Bay,Clams,527,NP,>1,fibre,clear,1127.75,yes,,Polyester,1
+CBC15,Coles Bay,Clams,639,BB,>1,fibre,clear,1469.31,yes,,Cellulose,1
+CBC15,Coles Bay,Clams,,BB,>1,fibre,black,954.71,no ,dropped,,1
+CBC15,Coles Bay,Clams,640,BB,>1,fibre,blue,1344.26,yes,Probably denim,Unknown,1
+CBC15,Coles Bay,Clams,641,BB,>1,fibre,clear,1086.55,yes,,Polyester,1
+EBC1,Elliot Bay,Clams,642,BB,>1,fibre,clear,2118.76,yes,,Cellulose,2
+EBC2,Elliot Bay,Clams,NA,BB,>1,NA,NA,NA,NA,,,2
+EBC3,Elliot Bay,Clams,643,BB,>1,fibre,clear,845.41,yes,,Polyester,2
+EBC3,Elliot Bay,Clams,644,BB,>1,fibre,blue,2374.13,yes,Probably denim,Unknown,2
+EBC5,Elliot Bay,Clams,649,BB,>1,fibre,blue,1843.88,yes,Probably denim,Unknown,2
+EBC5,Elliot Bay,Clams,650,BB,>1,fibre,blue,4077.9,yes,Cellulose spectra and rayon structure,Rayon,2
+EBC6,Elliot Bay,Clams,651,BB,>1,fibre,yellow,3138.33,yes,,Dye,2
+EBC6,Elliot Bay,Clams,652,BB,>1,fibre,clear,1004.99,yes,,Cellulose,2
+EBC6,Elliot Bay,Clams,653,BB,>1,fibre,clear,1431.12,yes,,Wool,2
+EBC6,Elliot Bay,Clams,654,BB,>1,fibre,blue,1343.53,yes,Probably denim,Unknown,2
+EBC6,Elliot Bay,Clams,655,BB,>1,fibre,clear,991.16,yes,,Polyester,2
+EBC9,Elliot Bay,Clams,656,BB,>1,fibre,clear,2323.48,yes,Spectra looks like wool but physically looks like a plant fiber,Unknown,2
+EBC9,Elliot Bay,Clams,,BB,>1,fibre,clear,594.97,no,dropped,,2
+EBC12,Elliot Bay,Clams,657,BB,>1,fibre,blue,769.92,yes,,Dye,2
+EBC12,Elliot Bay,Clams,658,BB,>1,fibre,green,484.18,yes,,"Cellulose
+",2
+EBC12,Elliot Bay,Clams,659,BB,>1,fibre,red,557.11,yes,,Polyester,2
+EBC12,Elliot Bay,Clams,660,BB,>1,fibre,black,388.85,yes,Could not find for Raman,,2
+EBC12,Elliot Bay,Clams,,BB,>1,fibre,red,940.2,no,dropped,,2
+EBC13,Elliot Bay,Clams,661,BB,>1,fibre,clear,907.02,yes,,Cellulose,2
+EBC14,Elliot Bay,Clams,,BB,>1,fibre,red,278.55,no,dropped,,2
+EBC14,Elliot Bay,Clams,662,BB,>1,fibre,clear,2308.43,yes,,Rayon,2
+EBC15,Elliot Bay,Clams,NA,BB,>1,NA,NA,NA,NA,,,2
+CBC1,Coles Bay,Clams,NA,BB,>1,NA,NA,NA,NA,NA,,1
+CBC2,Coles Bay,Clams,NA,BB,>1,NA,NA,NA,NA,NA,,1
+CBC4,Coles Bay,Clams,NA,BB,>1,NA,NA,NA,NA,NA,,1
+CBC8,Coles Bay,Clams,1026,BB,>1,fiber,blue,3650.53,yes,,,1
+CBC8,Coles Bay,Clams,1027,BB,>1,fiber,blue,487.76,yes,,,1
+CBC9,Coles Bay,Clams,1028,BB,>1,fiber,black,3842.69,yes,,,1
+CBC9,Coles Bay,Clams,,BB,>1,fiber,red,1028.68,no,dropped,,1
+CBC9,Coles Bay,Clams,1029,BB,>1,fiber,clear,1030.98,yes,,,1
+EBC4,Elliot Bay,Clams,1030,BB,>1,fiber,purple,6139.27,yes,,,2
+EBC4,Elliot Bay,Clams,,BB,>1,fiber,brown,1006.82,no,dropped,,2
+EBC4,Elliot Bay,Clams,1031,BB,>1,fiber,clear,928.66,yes,,,2
+EBC7,Elliot Bay,Clams,1032,BB,>1,fiber,black,2113.22,yes,,,2
+EBC7,Elliot Bay,Clams,1033,BB,>1,fiber,black,1157.51,yes,,,2
+EBC8,Elliot Bay,Clams,1034,BB,>1,fiber,red,2530,yes,,,2
+EBC10,Elliot Bay,Clams,,BB,>1,fiber,yellow,1808.86,no,dropped,,2
+EBC11,Elliot Bay,Clams,1035,BB,>1,fiber,green,235.47,yes,,,2
