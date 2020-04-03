@@ -38,7 +38,7 @@ CBSS13,Coles Bay,Sea Stars,354,NP,>150,fibre,black,232.15,yes,,Cellulose,1
 CBSS14,Coles Bay,Sea Stars,355,NP,>150,fibre,blue,397.87,yes,,Unknown,1
 CBSS15,Coles Bay,Sea Stars,356,NP,>150,fibre,clear,219.67,yes,,Salt,1
 CBSS15,Coles Bay,Sea Stars,357,NP,>150,fibre,blue,521.49,yes,,Cellulose,1
-CBSS15,Coles Bay,Sea Stars,358,NP,>150,fibre,black,794.78,yes,,Cellulose,1
+CBSS15,Coles Bay,Sea Stars,358,NP,>150,fibre,black,794.78,yes,,Dye,1
 CBSS15,Coles Bay,Sea Stars,359,NP,>150,fibre,blue,7713.97,yes,,Polyurethane,1
 CBSS15,Coles Bay,Sea Stars,360,NP,>150,fibre,red,706.37,yes,,Cellulose,1
 CBSS16,Coles Bay,Sea Stars,361,NP,>150,fragment,multi-colour,458.86,yes,"Get strong dye sigNAtures on coloured areas. On the clear areas it's a messy sigNAture, but best matches Polyurethane and alkyd resin, both of which are used in paint or varnish. Either way should probably confirm on ATR or micro-FTIR",Paint,1
@@ -66,7 +66,7 @@ EBSS12,Elliot Bay,Sea Stars,374,NP,>150,fibre,orange,269.87,yes,,Cellulose,2
 EBSS12,Elliot Bay,Sea Stars,375,NP,>150,fibre,red,958.33,yes,,Acrylic,2
 EBSS12,Elliot Bay,Sea Stars,376,NP,>150,fibre,clear,503.75,yes,,Polyester,2
 EBSS13,Elliot Bay,Sea Stars,377,NP,>150,fibre,green,672.25,yes,,Cellulose,2
-EBSS14,Elliot Bay,Sea Stars,378,NP,>150,fibre,green,189.88,yes,,Cellulose,2
+EBSS14,Elliot Bay,Sea Stars,378,NP,>150,fibre,green,189.88,yes,,Dye,2
 EBSS14,Elliot Bay,Sea Stars,379,NP,>150,fibre,clear,2281.22,yes,,Unknown,2
 EBSS15,Elliot Bay,Sea Stars,NA,NP,>150,NA,NA,NA,NA,,,2
 EBSSB1,Elliot Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2

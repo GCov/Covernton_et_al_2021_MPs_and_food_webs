@@ -161,15 +161,18 @@ plankton_jars$particle.type <-
                    'Natural Anthropogenic'))
 summary(plankton_jars$particle.type)
 
-plankton_jars$particle.type[plankton_jars$shape == 'Fibre' &
-                              plankton_jars$colour == 'clear' &
+plankton_jars$particle.type <- as.character(plankton_jars$particle.type)
+
+plankton_jars$particle.type[plankton_jars$colour == 'clear' &
+                              plankton_jars$shape == 'Fibre' &
                               plankton_jars$raman.ID == 'Cellulose'] <-
-  'Natural'  ## WTF THIS ISN'T WORKING
+  'Natural'  # call clear cellulosic fibres natural to be safe
 
-# call clear cellulosic fibres natural to be safe
+plankton_jars$particle.type <- as.factor(plankton_jars$particle.type)
 
-plankton_jars$num <- with(plankton_jars,
-                          ifelse(length == 'na', 0, 1))
+plankton_jars$num <- 
+  with(plankton_jars,
+       ifelse(is.na(length), 0, 1))  # Separate out samples that had 0 counts
 
 ## Separate blanks data
 
@@ -244,13 +247,11 @@ summary(mussels$raman.ID)
 
 mussels$raman.ID <- mapvalues(mussels$raman.ID,
                               from = c('Acrylic\n',
-                                       'Cellulose\n',
-                                       'Cellulosee',
-                                       'Dye\n'),
+                                       'Acyrlic',
+                                       'Cellulosee'),
                               to = c('Acyrlic',
-                                     'Cellulose',
-                                     'Cellulose',
-                                     'Dye'))
+                                     'Acrylic',
+                                     'Cellulose'))
 
 mussels$particle.type <- 
   mapvalues(mussels$raman.ID,
@@ -258,7 +259,6 @@ mussels$particle.type <-
             to = c('Unknown',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Semi-synthetic',
@@ -266,6 +266,15 @@ mussels$particle.type <-
                    'Synthetic Polymer',
                    'Natural Anthropogenic'))
 summary(mussels$particle.type)
+
+mussels$particle.type <- as.character(mussels$particle.type)
+
+mussels$particle.type[mussels$colour == 'clear' &
+                              mussels$shape == 'Fibre' &
+                              mussels$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+mussels$particle.type <- as.factor(mussels$particle.type)
 
 mussels$num <- with(mussels,
                           ifelse(is.na(length), 0, 1))
@@ -313,7 +322,8 @@ MU_polymer2$adj.count[MU_polymer2$adj.count < 0] <- 0
 
 MU_polymer2 %>% 
   group_by(site) %>% 
-  summarize(num.samples = length(unique(ID)))  ## 19 samples CB, 15 EB, 15 VH
+  summarize(num.samples = 
+              length(unique(ID)))  ## 19 samples CB, 15 EB, 15 VH
 
 #### Clams ####
 

@@ -1,13 +1,13 @@
 ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
 EBRF1,Elliot Bay,Rockfish Livers,813,BB,>1,fiber,clear,2217.35,yes,"Cellulose spectra, looks like rayon",Rayon,1
-EBRF1,Elliot Bay,Rockfish Livers,814,BB,>1,fiber,black,348.16,yes,,Cellulose,1
+EBRF1,Elliot Bay,Rockfish Livers,814,BB,>1,fiber,black,348.16,yes,,Dye,1
 EBRF2,Elliot Bay,Rockfish Livers,,BB,>1,fragment,yellow,109.47,no,dropped,,1
 EBRF2,Elliot Bay,Rockfish Livers,,BB,>1,fiber,blue,716.29,no,dropped,,1
 EBRF3,Elliot Bay,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,1
 EBRF5,Elliot Bay,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,1
 EBRF6,Elliot Bay,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,1
 EBRF7,Elliot Bay,Rockfish Livers,815,BB,>1,fiber,red,1377.67,yes,,Additive,1
-EBRF7,Elliot Bay,Rockfish Livers,816,BB,>1,fiber,blue,769.69,yes,,Cellulose,1
+EBRF7,Elliot Bay,Rockfish Livers,816,BB,>1,fiber,blue,769.69,yes,,Dye,1
 EBRF7,Elliot Bay,Rockfish Livers,817,BB,>1,fiber,clear,629.08,yes,,Cellulose,1
 EBRF7,Elliot Bay,Rockfish Livers,818,BB,>1,fiber,red,460.74,yes,,"Cellulose
 ",1
@@ -42,8 +42,10 @@ HPRF15,Victoria Harbour,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,2
 HPRF17,Victoria Harbour,Rockfish Livers,830,BB,>1,fiber,black,396.19,yes,,Unknown,2
 HPRF18,Victoria Harbour,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,2
 HPRF20,Victoria Harbour,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,2
-HPRF24,Victoria Harbour,Rockfish Livers,831,BB,>1,fiber,blue,171.16,yes,,Cellulose,2
-HPRF24,Victoria Harbour,Rockfish Livers,832,BB,>1,fragment,red,100.01,yes,,Unknown,2
+HPRF24,Victoria Harbour,Rockfish Livers,831,BB,>1,fiber,blue,171.16,yes,,"Dye
+",2
+HPRF24,Victoria Harbour,Rockfish Livers,832,BB,>1,fragment,red,100.01,yes,,"Dye
+",2
 CBRF3,Coles Bay,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,3
 CBRF5,Coles Bay,Rockfish Livers,812,BB,>1,fiber,blue,4143.05,yes,Possibly denim,Unknown,3
 CBRF8,Coles Bay,Rockfish Livers,NA,BB,>1,NA,NA,NA,NA,,,3
@@ -70,7 +72,7 @@ CBRFPB1,Coles Bay,Blanks,848,BB,1-150,fiber,red,189.05,yes,"Red dye signature, p
 CBRFPB1,Coles Bay,Blanks,849,BB,1-150,fiber,brown,2253.9,yes,,Cellulose,3
 CBRFPB2,Coles Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,3
 CBRF1,Coles Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,*lots of debris,,4
-CBRF1,Coles Bay,Rockfish: Ingested Animals,836,BB,150-1000,fiber,blue,1805.93,yes,*lots of debris,Cellulose,4
+CBRF1,Coles Bay,Rockfish: Ingested Animals,836,BB,150-1000,fiber,blue,1805.93,yes,*lots of debris,Dye,4
 CBRF1,Coles Bay,Rockfish: Ingested Animals,837,BB,150-1000,fiber,blue,1747.27,yes,Possibly denim,Unknown,4
 CBRF1,Coles Bay,Rockfish: Ingested Animals,838,BB,150-1000,fiber,clear,4055.65,yes,,Bone,4
 CBRF1,Coles Bay,Rockfish: Ingested Animals,839,BB,150-1000,fiber,brown,587.95,yes,,Cellulose,4
@@ -117,9 +119,10 @@ EBRF15,Elliot Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,1
 EBRF16,Elliot Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,*thick debris,,1
 EBRF16A,Elliot Bay,Rockfish: Ingested Animals,NA,BB,1-150,NA,NA,NA,NA,,,1
 EBRF16B,Elliot Bay,Rockfish: Ingested Animals,NA,BB,1-150,NA,NA,NA,NA,,,1
-EBRF18,Elliot Bay,Rockfish Guts,881,BB,1-150,fiber,black,419.94,yes,,Unknown,1
-EBRF18,Elliot Bay,Rockfish Guts,882,BB,1-150,fragment,blue,519.22,yes,,Unknown,1
-EBRF18,Elliot Bay,Rockfish Guts,883,BB,1-150,fiber,black,2231.31,yes,,Cellulose,1
+EBRF18,Elliot Bay,Rockfish Guts,881,BB,1-150,fiber,black,419.94,yes,,Dye,1
+EBRF18,Elliot Bay,Rockfish Guts,,BB,1-150,fragment,blue,53.95,no,too small,,1
+EBRF18,Elliot Bay,Rockfish Guts,882,BB,1-150,fragment,blue,519.22,yes,,Dye,1
+EBRF18,Elliot Bay,Rockfish Guts,883,BB,1-150,fiber,black,2231.31,yes,,Dye,1
 EBRF18,Elliot Bay,Rockfish: Ingested Animals,NA,BB,1-150,NA,NA,NA,NA,,,1
 EBRF19,Elliot Bay,Rockfish Guts,885,BB,1-150,fiber,blue,2727.02,yes,,Cellulose,1
 EBRF19,Elliot Bay,Rockfish Guts,886,BB,1-150,fiber,blue,2612.81,yes,Could be denim,Unknown,1
@@ -128,7 +131,7 @@ EBRFPB1,Elliot Bay,Blanks,888,BB,1-150,fiber,blue,2089.09,yes,Could be denim,Unk
 EBRFPB1,Elliot Bay,Blanks,889,BB,1-150,fiber,black,4190.73,yes,,Polyester,1
 EBRFPB1,Elliot Bay,Blanks,890,BB,1-150,fiber,black,3077.39,yes,Cellulose spectra physically looks like rayon,Rayon,1
 EBRFPB3,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,1
-EBRF1,Elliot Bay,Rockfish Guts,867,BB,150-1000,fiber,blue,1975.38,yes,,Cellulose,5
+EBRF1,Elliot Bay,Rockfish Guts,867,BB,150-1000,fiber,blue,1975.38,yes,,Dye,5
 EBRF1,Elliot Bay,Rockfish: Ingested Animals,NA,BB,150-1000,NA,NA,NA,NA,,,5
 EBRF2,Elliot Bay,Rockfish Guts,NA,BB,150-1000,NA,NA,NA,NA,,,5
 EBRF3,Elliot Bay,Rockfish Guts,NA,BB,150-1000,NA,NA,NA,NA,,,5
@@ -146,10 +149,10 @@ EBRF11,Elliot Bay,Rockfish Guts,873,BB,150-1000,fiber,black,816.11,yes,,Cellulos
 EBRF12,Elliot Bay,Rockfish Guts,NA,BB,150-1000,NA,NA,NA,NA,,,5
 EBRF13,Elliot Bay,Rockfish Guts,NA,BB,150-1000,NA,NA,NA,NA,"labelled ""exposed""",,5
 EBRF13,Elliot Bay,Rockfish: Ingested Animals,NA,BB,150-1000,NA,NA,NA,NA,,,5
-EBRF14,Elliot Bay,Rockfish Guts,875,BB,150-1000,fiber,black,837.87,yes,,Cellulose,5
+EBRF14,Elliot Bay,Rockfish Guts,875,BB,150-1000,fiber,black,837.87,yes,,Dye,5
 EBRF15,Elliot Bay,Rockfish Guts,NA,BB,150-1000,NA,NA,NA,NA,,,5
 EBRF16,Elliot Bay,Rockfish Guts,,BB,150-1000,fiber,blue,1649.29,no,dropped,,5
-EBRF16A,Elliot Bay,Rockfish: Ingested Animals,876,BB,150-1000,fiber,black,498.97,yes,,Cellulose,5
+EBRF16A,Elliot Bay,Rockfish: Ingested Animals,876,BB,150-1000,fiber,black,498.97,yes,,Dye,5
 EBRF16A,Elliot Bay,Rockfish: Ingested Animals,877,BB,150-1000,fiber,black,515.37,yes,Could be denim,Unknown,5
 EBRF16A,Elliot Bay,Rockfish: Ingested Animals,878,BB,150-1000,fiber,black,642.18,yes,Can't get a good spectra without fluorescing,Unknown,5
 EBRF16A,Elliot Bay,Rockfish: Ingested Animals,879,BB,150-1000,fragment,black,330.36,yes,Can't get a good spectra without burning,Unknown,5
@@ -194,7 +197,7 @@ EBRF18,Elliot Bay,Rockfish: Ingested Animals,NA,BB,>1000,NA,NA,NA,NA,,,
 EBRF20,Elliot Bay,Rockfish Guts,NA,BB,>1000,NA,NA,NA,NA,,,
 EBRF21,Elliot Bay,Rockfish Guts,NA,BB,>1000,NA,NA,NA,NA,,,
 HPRF2,Victoria Harbour,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2
-HPRF3,Victoria Harbour,Rockfish Guts,895,BB,1-150,fragment,blue,112.1,yes,,Unknown,2
+HPRF3,Victoria Harbour,Rockfish Guts,895,BB,1-150,fragment,blue,112.1,yes,,Dye,2
 HPRF4,Victoria Harbour,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2
 HPRF4B,Victoria Harbour,Rockfish Guts,896,BB,1-150,fiber,brown,278.91,yes,Can't get a good spectra without burning,Unknown,2
 HPRF4B,Victoria Harbour,Rockfish Guts,,BB,1-150,fragment,blue,73.11,no,too small,,2
@@ -211,7 +214,7 @@ HPRF12,Victoria Harbour,Rockfish Guts,910,BB,1-150,fiber,red,658.68,yes,,Cellulo
 HPRF12,Victoria Harbour,Rockfish: Ingested Animals,911,BB,1-150,fiber,black,304.73,yes,,Polyester,2
 HPRF13,Victoria Harbour,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2
 HPRF13,Victoria Harbour,Rockfish: Ingested Animals,912,BB,1-150,fiber,green,738.89,yes,,Cellulose,2
-HPRF14,Victoria Harbour,Rockfish Guts,913,BB,1-150,fiber,black,425.74,yes,,Cellulose,2
+HPRF14,Victoria Harbour,Rockfish Guts,913,BB,1-150,fiber,black,425.74,yes,,Dye,2
 HPRF14,Victoria Harbour,Rockfish: Ingested Animals,NA,BB,1-150,NA,NA,NA,NA,,,2
 HPRF15,Victoria Harbour,Rockfish Guts,914,BB,1-150,fiber,black,2691.61,yes,,Cellulose,2
 HPRF17,Victoria Harbour,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,2

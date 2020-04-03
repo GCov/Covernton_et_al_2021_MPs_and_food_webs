@@ -2,7 +2,7 @@ ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,o
 CBFF1,Coles Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
 CBFF10,Coles Bay,Flatfish Guts,386,NP,>150,fibre,orange,417.59,yes,,Cellulose,2
 CBFF11,Coles Bay,Flatfish Guts,387,NP,>150,fibre,clear,8614.33,yes,,Polyester,2
-CBFF12,Coles Bay,Flatfish Guts,388,NP,>150,fibre,red,1252.51,yes,,Nylon,2
+CBFF12,Coles Bay,Flatfish Guts,388,NP,>150,fibre,red,1252.51,yes,,Dye,2
 CBFF12,Coles Bay,Flatfish Guts,389,NP,>150,fibre,blue,749.2,yes,,Unknown,2
 CBFF13,Coles Bay,Flatfish Guts,#825,NP,>150,fibre,clear,979.58,no,dropped,,2
 CBFF13,Coles Bay,Flatfish Guts,390,NP,>150,fibre,red,447.05,yes,,Cellulose,2
@@ -20,7 +20,7 @@ CBFF7,Coles Bay,Flatfish Guts,398,NP,>150,fibre,clear,935.54,yes,,Polyester,2
 CBFF7,Coles Bay,Flatfish Guts,399,NP,>150,fibre,red,6473.73,yes,Cellulose sigNAture and has physical structure of Rayon,Rayon,2
 CBFF9,Coles Bay,Flatfish Guts,385,NP,>150,fibre,blue,505.43,yes,,Cellulose,2
 CBFF8,Coles Bay,Flatfish Guts,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBFF1,Coles Bay,Flatfish Guts,749,BB,1-150,fibre,blue,312.93,yes,,Unknown,2
+CBFF1,Coles Bay,Flatfish Guts,749,BB,1-150,fibre,blue,312.93,yes,,Dye,2
 CBFF1,Coles Bay,Flatfish Guts,750,BB,1-150,fibre,blue,342.83,yes,,Polyester,2
 CBFF1,Coles Bay,Flatfish Guts,751,BB,1-150,fibre,blue,219.58,yes,Probably denim,Unknown,2
 CBFF1,Coles Bay,Flatfish Guts,,BB,1-150,fibre,clear,492.07,no,dropped,,2
@@ -37,7 +37,7 @@ CBFF3,Coles Bay,Flatfish Guts,,BB,1-150,fibre,black,735.59,no,dropped,,2
 CBFF3,Coles Bay,Flatfish Guts,760,BB,1-150,fibre,blue,962.16,yes,,Cellulose,2
 CBFF3,Coles Bay,Flatfish Guts,761,BB,1-150,fibre,olive,905.69,yes,,Polyester,2
 CBFF6,Coles Bay,Flatfish Guts,762,BB,1-150,fibre,yellow,874.18,yes,Can't get good match with spectra,Unknown,2
-CBFF6,Coles Bay,Flatfish Guts,763,BB,1-150,fibre,black,532.81,yes,,Unknown,2
+CBFF6,Coles Bay,Flatfish Guts,763,BB,1-150,fibre,black,532.81,yes,,Dye,2
 CBFF6,Coles Bay,Flatfish Guts,764,BB,1-150,fibre,red,245.29,yes,Could not find for Raman,,2
 CBFF6,Coles Bay,Flatfish Guts,765,BB,1-150,fibre,blue,2927.35,yes,Too much fluorescence to get a good spectra,Unknown,2
 CBFF6,Coles Bay,Flatfish Guts,766,BB,1-150,fibre,blue,420.42,yes,,Cellulose,2
