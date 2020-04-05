@@ -1,211 +1,211 @@
-ID,site,sample.type,particle.number,aNAlyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
-CBCU1,Coles Bay,Sea Cucumbers,280,NP,>150,fibre,purple,2793.62,yes,,Polyester,2
-CBCU1,Coles Bay,Sea Cucumbers,281,NP,>150,fibre,black,249.44,yes,,Cellulose,2
-CBCU4,Coles Bay,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,2
-CBCU10,Coles Bay,Sea Cucumbers,299,NP,>150,fibre,blue,565.94,yes,,Cellulose,2
-CBCU10,Coles Bay,Sea Cucumbers,300,NP,>150,fibre,yellow,233.67,yes,Can't get a good Raman sigNAture,Unknown,2
-CBCU10,Coles Bay,Sea Cucumbers,301,NP,>150,fibre,black,244.24,yes,,Polyester,2
-CBCU10,Coles Bay,Sea Cucumbers,302,NP,>150,fibre,blue,1004.95,yes,,Cellulose,2
-CBCU10,Coles Bay,Sea Cucumbers,303,NP,>150,fibre,black,352.65,yes,,Polyester,2
-CBCU11,Coles Bay,Sea Cucumbers,304,NP,>150,fibre,red,151.23,yes,,Cellulose,2
-CBCU11,Coles Bay,Sea Cucumbers,305,NP,>150,fibre,purple,549.58,yes,Too much fluorescence to get a good sigNAture,Unknown,2
-CBCU12,Coles Bay,Sea Cucumbers,#820,NP,>150,fibre,clear,136.3,yes,,,2
-CBCU12,Coles Bay,Sea Cucumbers,306,NP,>150,fibre,red,437.89,yes,,Polyester,2
-CBCU12,Coles Bay,Sea Cucumbers,307,NP,>150,fibre,clear,300.12,yes,,Polyester,2
-CBCU13,Coles Bay,Sea Cucumbers,308,NP,>150,fibre,blue,275.94,yes,,Polyester,2
-CBCU13,Coles Bay,Sea Cucumbers,309,NP,>150,fibre,orange,291.47,yes,,Nylon,2
-CBCU13,Coles Bay,Sea Cucumbers,#821,NP,>150,fibre,clear,184.71,no,dropped,,2
-CBCU14,Coles Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,NA,,2
-CBCU15,Coles Bay,Sea Cucumbers,310,NP,>150,fibre,clear,324.08,yes,,Kevlar,2
-CBCU15,Coles Bay,Sea Cucumbers,311,NP,>150,fibre,red,819.29,yes,,Cellulose,2
-CBCU16,Coles Bay,Sea Cucumbers,312,NP,>150,fibre,black,377.62,yes,Too much fluorescence to get a good spectra,Unknown,2
-CBCU17,Coles Bay,Sea Cucumbers,313,NP,>150,fibre,black,251.78,yes,,Cellulose,2
-CBCU17,Coles Bay,Sea Cucumbers,314,NP,>150,fibre,clear,585.04,yes,,Cellulose,2
-CBCU17,Coles Bay,Sea Cucumbers,315,NP,>150,fibre,red,264.2,yes,,Cellulose,2
-CBCU17,Coles Bay,Sea Cucumbers,316,NP,>150,fibre,blue,828.4,yes,,Unknown,2
-CBCU18,Coles Bay,Sea Cucumbers,317,NP,>150,fibre,clear,589.19,yes,,Polyester,2
-CBCU18,Coles Bay,Sea Cucumbers,318,NP,>150,fibre,blue,535.79,yes,,Polyester,2
-CBCU18,Coles Bay,Sea Cucumbers,319,NP,>150,fibre,clear,104.58,yes,,Mineral,2
-CBCU2,Coles Bay,Sea Cucumbers,282,NP,>150,fibre,black,282,yes,,Polyester,2
-CBCU2,Coles Bay,Sea Cucumbers,283,NP,>150,fibre,clear,501.4,yes,,Polyester,2
-CBCU3,Coles Bay,Sea Cucumbers,285,NP,>150,fibre,blue,1193.55,yes,,Unknown,2
-CBCU5,Coles Bay,Sea Cucumbers,289,NP,>150,fibre,red,415.27,yes,,Cellulose,2
-CBCU5,Coles Bay,Sea Cucumbers,290,NP,>150,fibre,clear,1854.44,yes,,Unknown,2
-CBCU6,Coles Bay,Sea Cucumbers,291,NP,>150,fibre,purple,1026.17,yes,,Polyester,2
-CBCU6,Coles Bay,Sea Cucumbers,292,NP,>150,fibre,blue,1510.34,yes,,Unknown,2
-CBCU7,Coles Bay,Sea Cucumbers,293,NP,>150,fibre,blue,1436.9,yes,,Unknown,2
-CBCU7,Coles Bay,Sea Cucumbers,294,NP,>150,fibre,black,504.56,yes,,Polyester,2
-CBCU7,Coles Bay,Sea Cucumbers,295,NP,>150,fibre,red,1239.07,yes,,Cellulose,2
-CBCU7,Coles Bay,Sea Cucumbers,296,NP,>150,fibre,clear,968.79,no,Suspect that this is rayon,Cellulose,2
-CBCU7,Coles Bay,Sea Cucumbers,297,NP,>150,fibre,blue,576.87,yes,,Cellulose,2
-CBCU7,Coles Bay,Sea Cucumbers,298,NP,>150,fibre,black,570.95,yes,,Polyester,2
-CBCU8,Coles Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,,,,2
-CBCU9,Coles Bay,Sea Cucumbers,#819,NP,>150,fibre,clear,649.25,no,dropped,,2
-CBCUB1,Coles Bay,Blanks,320,NP,>150,fibre,clear,873.22,yes,,Polyester,2
-CBCUB2,Coles Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
-CBCUB3,Coles Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,2
-CBCU10,Coles Bay,Sea Cucumbers,480,NP,1-150,fibre,yellow,350.81,yes,,Nylon,1
-CBCU10,Coles Bay,Sea Cucumbers,481,NP,1-150,fibre,blue,272.29,yes,,Cellulose,1
-CBCU11,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU12,Coles Bay,Sea Cucumbers,#836,NP,1-150,fibre,clear,1131.37,no,dropped,,1
-CBCU14,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU15,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU16,Coles Bay,Sea Cucumbers,482,NP,1-150,fibre,clear,245.08,yes,,Unknown,1
-CBCU17,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU18,Coles Bay,Sea Cucumbers,483,NP,1-150,fibre,black,450.44,yes,,Polyester,1
-CBCU4,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU5,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU6,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCU8,Coles Bay,Sea Cucumbers,#834,NP,1-150,fibre,clear,218.37,no,dropped,,1
-CBCU9,Coles Bay,Sea Cucumbers,479,NP,1-150,fibre,clear,524.05,yes,Can't get a good spectra,Unknown,1
-CBCU9,Coles Bay,Sea Cucumbers,#835,NP,1-150,fragment,yellow,146.21,no,dropped,,1
-CBCUPB1,Coles Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,1
-CBCUPB2,Coles Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,1
-EBCU1,Elliot Bay,Sea Cucumbers,216,NP,>150,fibre,green,2762.76,yes,Too much fluorescence to get a good Raman sigNAture,Unknown,3
-EBCU1,Elliot Bay,Sea Cucumbers,217,NP,>150,fibre,black,468.08,yes,,Cellulose,3
-EBCU10,Elliot Bay,Sea Cucumbers,240,NP,>150,fibre,blue,2252.22,yes,,Unknown,3
-EBCU10,Elliot Bay,Sea Cucumbers,#525,NP,>150,fibre,blue,1970.72,no,"dropped, bounced",,3
-EBCU10,Elliot Bay,Sea Cucumbers,241,NP,>150,fibre,blue,609.23,yes,,Unknown,3
-EBCU11,Elliot Bay,Sea Cucumbers,242,NP,>150,fibre,blue,391.09,yes,,Cellulose,3
-EBCU12,Elliot Bay,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,3
-EBCU13,Elliot Bay,Sea Cucumbers,260,NP,>150,fibre,blue,644.91,yes,,Unknown,3
-EBCU13,Elliot Bay,Sea Cucumbers,264,NP,>150,fibre,black,2118.83,yes,,Cellulose,3
-EBCU14,Elliot Bay,Sea Cucumbers,265,NP,>150,fibre,brown,942.97,yes,"Cellulose sigNAture, but physically looks like rayon",Rayon,3
-EBCU15,Elliot Bay,Sea Cucumbers,270,NP,>150,fibre,clear,1112.82,yes,,Cellulose,3
-EBCU16,Elliot Bay,Sea Cucumbers,274,NP,>150,fibre,blue,965.8,yes,,Polyester,3
-EBCU16,Elliot Bay,Sea Cucumbers,276,NP,>150,fibre,green,550.27,yes,,Cellulose,3
-EBCU2,Elliot Bay,Sea Cucumbers,219,NP,>150,fibre,black,1109.75,yes,Can't get a good spectra without burning,Unknown,3
-EBCU2,Elliot Bay,Sea Cucumbers,#417,NP,>150,fibre,black,228.01,yes,,,3
-EBCU3,Elliot Bay,Sea Cucumbers,220,NP,>150,fibre,brown,818.8,yes,,Cellulose,3
-EBCU3,Elliot Bay,Sea Cucumbers,221,NP,>150,fibre,red,1021.89,yes,,Cellulose,3
-EBCU3,Elliot Bay,Sea Cucumbers,222,NP,>150,fibre,clear,1225.78,yes,,Polyester,3
-EBCU3,Elliot Bay,Sea Cucumbers,223,NP,>150,fibre,black,361.14,yes,,Cellulose,3
-EBCU3,Elliot Bay,Sea Cucumbers,224,NP,>150,fibre,clear,146.51,yes,,Cellulose,3
-EBCU3,Elliot Bay,Sea Cucumbers,225,NP,>150,fibre,red,912.26,yes,,Cellulose,3
-EBCU3,Elliot Bay,Sea Cucumbers,226,NP,>150,fibre,clear,1054.15,yes,Could not find for raman,,3
-EBCU4,Elliot Bay,Sea Cucumbers,227,NP,>150,fibre,blue,2252.3,yes,,Unknown,3
-EBCU5,Elliot Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,,,3
-EBCU6,Elliot Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,,,3
-EBCU7,Elliot Bay,Sea Cucumbers,231,NP,>150,fibre,red,1071.73,yes,,Cellulose,3
-EBCU7,Elliot Bay,Sea Cucumbers,233,NP,>150,fibre,green,246.01,yes,Can't get a good spectra,Unknown,3
-EBCU8,Elliot Bay,Sea Cucumbers,236,NP,>150,fibre,black,1766.99,yes,,Polyester,3
-EBCU9,Elliot Bay,Sea Cucumbers,237,NP,>150,fibre,red,666.59,yes,,Cellulose,3
-EBCU9,Elliot Bay,Sea Cucumbers,239,NP,>150,fibre,black,1136.34,yes,,Cellulose,3
-EBCUB1,Elliot Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,3
-EBCUB2,Elliot Bay,Blanks,#760,NP,>150,fibre,blue,222.15,no,dropped,,3
-EBCUB2,Elliot Bay,Blanks,278,NP,>150,fibre,blue,542.66,yes,,Polyester,3
-EBCU1,Elliot Bay,Sea Cucumbers,#837,NP,1-150,fibre,clear,1950.65,no,dropped,,4
-EBCU11,Elliot Bay,Sea Cucumbers,486,NP,1-150,fibre,red,469.94,yes,,Cellulose,4
-EBCU11,Elliot Bay,Sea Cucumbers,487,NP,1-150,fibre,black,1752.46,yes,,Polyester,4
-EBCU12,Elliot Bay,Sea Cucumbers,488,NP,1-150,fibre,clear,557.74,yes,,Polyester,4
-EBCU12,Elliot Bay,Sea Cucumbers,489,NP,1-150,fibre,clear,1978.66,yes,,Polyester,4
-EBCU14,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,4
-EBCU15,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,4
-EBCU16,Elliot Bay,Sea Cucumbers,493,NP,1-150,fibre,clear,822.51,yes,,Polyester,4
-EBCU2,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,4
-EBCU3,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,4
-EBCU6,Elliot Bay,Sea Cucumbers,484,NP,1-150,fibre,clear,386.13,yes,"Good modal sigNAture, physically looks like rayon",Rayon,4
-EBCU7,Elliot Bay,Sea Cucumbers,485,NP,1-150,fibre,red,630.03,yes,,Polyester,4
-EBCU8,Elliot Bay,Sea Cucumbers,494,NP,1-150,fibre,black,887.04,yes,,Polyester,4
-EBCU8,Elliot Bay,Sea Cucumbers,495,NP,1-150,fibre,black,465.21,yes,,Polyester,4
-EBCU8,Elliot Bay,Sea Cucumbers,496,NP,1-150,fibre,red,3366.18,yes,,Polyester,4
-EBCUB1,Elliot Bay,Blanks,490,NP,1-150,fibre,black,422.55,yes,,Polyester,4
-EBCUB1,Elliot Bay,Blanks,491,NP,1-150,fibre,blue,522.25,yes,,Polyester,4
-EBCUB2,Elliot Bay,Blanks,492,NP,1-150,fibre,clear,435.39,yes,Too much fluorescence to get a good sigNAture,Unknown,4
-HPCU1,Victoria Harbour,Sea Cucumbers,131,NP,>150,fibre,orange,1141.48,yes,,Unknown,5
-HPCU1,Victoria Harbour,Sea Cucumbers,133,NP,>150,fibre,blue,584.98,yes,,Unknown,5
-HPCU1,Victoria Harbour,Sea Cucumbers,134,NP,>150,fibre,clear,234.77,yes,Really good match to modal and physical structure looks like rayon,Rayon,5
-HPCU1,Victoria Harbour,Sea Cucumbers,135,NP,>150,fibre,blue,740.03,yes,,Cellulose,5
-HPCU1,Victoria Harbour,Sea Cucumbers,136,NP,>150,fibre,red,5230.96,yes,,Cellulose,5
-HPCU1,Victoria Harbour,Sea Cucumbers,139,NP,>150,fibre,blue,171.61,yes,,Polyester,5
-HPCU10,Victoria Harbour,Sea Cucumbers,182,NP,>150,fibre,purple,235.66,yes,,Cellulose,5
-HPCU10,Victoria Harbour,Sea Cucumbers,184,NP,>150,fibre,purple,795.95,yes,Can't get a good spectra,Unknown,5
-HPCU11,Victoria Harbour,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,5
-HPCU12,Victoria Harbour,Sea Cucumbers,188,NP,>150,fibre,red,874.49,yes,,Nylon,5
-HPCU12,Victoria Harbour,Sea Cucumbers,189,NP,>150,fibre,red,851.48,yes,,Cellulose,5
-HPCU12,Victoria Harbour,Sea Cucumbers,190,NP,>150,fibre,blue,181.25,yes,Looks kind of like acrylic if carbon peak is excluded,Unknown,5
-HPCU12,Victoria Harbour,Sea Cucumbers,191,NP,>150,fibre,red,2659.06,yes,,Cellulose,5
-HPCU13,Victoria Harbour,Sea Cucumbers,192,NP,>150,fibre,blue,448.84,yes,,Cellulose,5
-HPCU13,Victoria Harbour,Sea Cucumbers,193,NP,>150,fibre,blue,406.65,yes,Probably denim,Unknown,5
-HPCU14,Victoria Harbour,Sea Cucumbers,194,NP,>150,fibre,clear,442.93,yes,,Polyester,5
-HPCU14,Victoria Harbour,Sea Cucumbers,195,NP,>150,fibre,green,159.58,yes,Can't get a good spectra,Unknown,5
-HPCU14,Victoria Harbour,Sea Cucumbers,196,NP,>150,fibre,clear,510.09,yes,Can't get a good spectra,Unknown,5
-HPCU14,Victoria Harbour,Sea Cucumbers,197,NP,>150,fibre,blue,366.67,yes,,Unknown,5
-HPCU14,Victoria Harbour,Sea Cucumbers,198,NP,>150,fibre,black,664.03,yes,,Polyester,5
-HPCU14,Victoria Harbour,Sea Cucumbers,200,NP,>150,fibre,red,792.17,yes,,Cellulose,5
-HPCU15,Victoria Harbour,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,5
-HPCU2,Victoria Harbour,Sea Cucumbers,141,NP,>150,fibre,blue,748.2,yes,Probably denim,Unknown,5
-HPCU2,Victoria Harbour,Sea Cucumbers,142,NP,>150,fibre,black,151.18,yes,Can't get a good spectra without burning,Unknown,5
-HPCU2,Victoria Harbour,Sea Cucumbers,144,NP,>150,fibre,green,1042.58,yes,,Cellulose,5
-HPCU2,Victoria Harbour,Sea Cucumbers,#255,NP,>150,fibre,black,1035.64,no,dropped,,5
-HPCU2,Victoria Harbour,Sea Cucumbers,#257,NP,>150,fibre,black,693.98,yes,,,5
-HPCU2,Victoria Harbour,Sea Cucumbers,,NP,>150,fibre,pink,1160.98,no,"dropped, bounced",,5
-HPCU2,Victoria Harbour,Sea Cucumbers,146,NP,>150,fibre,blue,883.98,yes,Probably denim,,5
-HPCU2,Victoria Harbour,Sea Cucumbers,147,NP,>150,fibre,black,361.42,yes,,Cellulose,5
-HPCU3,Victoria Harbour,Sea Cucumbers,148,NP,>150,fibre,red,253.92,yes,,Cellulose,5
-HPCU3,Victoria Harbour,Sea Cucumbers,150,NP,>150,fibre,blue,101.79,yes,Could not find for Raman,,5
-HPCU3,Victoria Harbour,Sea Cucumbers,151,NP,>150,fibre,black,2164.39,yes,,Polyester,5
-HPCU3,Victoria Harbour,Sea Cucumbers,#265,NP,>150,fibre,red,428.17,no,dropped,,5
-HPCU4,Victoria Harbour,Sea Cucumbers,152,NP,>150,fibre,blue,901.57,yes,,Cellulose,5
-HPCU4,Victoria Harbour,Sea Cucumbers,153,NP,>150,fibre,blue,2594.65,yes,Looks kind of like acrylic if carbon peak is excluded,Unknown,5
-HPCU5,Victoria Harbour,Sea Cucumbers,154,NP,>150,fibre,blue,321.13,yes,,Unknown,5
-HPCU5,Victoria Harbour,Sea Cucumbers,156,NP,>150,fibre,blue,889.83,yes,,Unknown,5
-HPCU5,Victoria Harbour,Sea Cucumbers,158,NP,>150,fibre,green,1067.86,yes,Could not find for Raman,,5
-HPCU5,Victoria Harbour,Sea Cucumbers,160,NP,>150,fibre,black,917.27,yes,,Cellulose,5
-HPCU6,Victoria Harbour,Sea Cucumbers,163,NP,>150,fibre,clear,1655.43,yes,,Polyester,5
-HPCU6,Victoria Harbour,Sea Cucumbers,166,NP,>150,fibre,red,1067.94,yes,,Cellulose,5
-HPCU6,Victoria Harbour,Sea Cucumbers,168,NP,>150,fibre,blue,1548.56,yes,,Unknown,5
-HPCU6,Victoria Harbour,Sea Cucumbers,169,NP,>150,fibre,red,736.66,yes,,Cellulose,5
-HPCU6,Victoria Harbour,Sea Cucumbers,170,NP,>150,fibre,blue,674.53,yes,Looks kind of like acrylic if carbon peak is excluded,Unknown,5
-HPCU6,Victoria Harbour,Sea Cucumbers,171,NP,>150,fibre,blue,1304.2,yes,,Cellulose,5
-HPCU6,Victoria Harbour,Sea Cucumbers,172,NP,>150,fibre,black,417.84,yes,,Cellulose,5
-HPCU6,Victoria Harbour,Sea Cucumbers,173,NP,>150,fibre,blue,727.75,yes,,Cellulose,5
-HPCU7,Victoria Harbour,Sea Cucumbers,174,NP,>150,fibre ,clear,1353.25,yes,,Polyester,5
-HPCU7,Victoria Harbour,Sea Cucumbers,175,NP,>150,fibre,blue,228.5,yes,Could not find for Raman,,5
-HPCU7,Victoria Harbour,Sea Cucumbers,#298,NP,>150,fibre,black,373.1,no,dropped,,5
-HPCU7,Victoria Harbour,Sea Cucumbers,176,NP,>150,fibre,blue,323.88,yes,Looks kind of like acrylic if carbon peak is excluded,Unknown,5
-HPCU7,Victoria Harbour,Sea Cucumbers,#300,NP,>150,fibre,blue,595.04,no,dropped,,5
-HPCU7,Victoria Harbour,Sea Cucumbers,#301,NP,>150,fibre,blue,63.13,no,tiny**,,5
-HPCU7,Victoria Harbour,Sea Cucumbers,#302,NP,>150,fibre,black,268.34,no,"dropped, bounced",,5
-HPCU8,Victoria Harbour,Sea Cucumbers,177,NP,>150,fibre,purple,711.72,yes,Looks kind of like acrylic if carbon peak is excluded,Unknown,5
-HPCU8,Victoria Harbour,Sea Cucumbers,#307,NP,>150,fibre,red,608.32,no,dropped,,5
-HPCU8,Victoria Harbour,Sea Cucumbers,178,NP,>150,fibre,black,1413.86,yes,,Cellulose,5
-HPCU9,Victoria Harbour,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,5
-HPCUB1,Victoria Harbour,Blanks,205,NP,>150,fibre,blue,1663.56,yes,,Unknown,5
-HPCUB2,Victoria Harbour,Blanks,NA,NA,>150,NA,NA,NA,NA,,,5
-HPCUB3,Victoria Harbour,Blanks,213,NP,>150,fibre,red,2077.43,yes,,Cellulose,5
-HPCU1,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,6
-HPCU10,Victoria Harbour,Sea Cucumbers,502,NP,1-150,fibre,clear,351.52,yes,,Cellulose,6
-HPCU11,Victoria Harbour,Sea Cucumbers,503,NP,1-150,fibre,clear,4950.58,yes,,Acrylic,6
-HPCU11,Victoria Harbour,Sea Cucumbers,504,NP,1-150,fibre,black,433.16,yes,,Polyester,6
-HPCU11,Victoria Harbour,Sea Cucumbers,505,NP,1-150,fibre,black,285.71,yes,,Cellulose,6
-HPCU13,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,6
-HPCU15,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,6
-HPCU2,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,6
-HPCU5,Victoria Harbour,Sea Cucumbers,497,NP,1-150,fibre,clear,1714.76,yes,,Polyester,6
-HPCU6,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,6
-HPCU7,Victoria Harbour,Sea Cucumbers,498,NP,1-150,fibre,clear,231.68,yes,,Mineral,6
-HPCU7,Victoria Harbour,Sea Cucumbers,499,NP,1-150,fibre,green,440.76,yes,,Acrylic,6
-HPCU8,Victoria Harbour,Sea Cucumbers,500,NP,1-150,fibre,clear,570.29,yes,,Polyester,6
-HPCU8,Victoria Harbour,Sea Cucumbers,501,NP,1-150,fibre,purple,604.34,yes,,Polyester,6
-HPCU9,Victoria Harbour,Sea Cucumbers,NA,NA,1-150,NA,NA,NA,NA,NA,,6
-HPCUB1,Victoria Harbour,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,6
-HPCUB2,Victoria Harbour,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,6
-CBCU1,Coles Bay,Sea Cucumbers,1048,BB,1-150,fiber,red,530.42,yes,,,1
-CBCU1,Coles Bay,Sea Cucumbers,1049,BB,1-150,fiber,black,1417.57,yes,,,1
-CBCU2,Coles Bay,Sea Cucumbers,1050,BB,1-150,fiber,black,744.15,yes,,,1
-CBCU3,Coles Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,1
-CBCUPB3,Coles Bay,Blanks,1051,BB,1-150,fiber,red,893.22,yes,,,1
-EBCU4,Elliot Bay,Sea Cucumbers,1052,BB,1-150,fiber,clear,1532.38,yes,,,4
-EBCU4,Elliot Bay,Sea Cucumbers,,BB,1-150,fiber,green,573.43,no,dropped,,4
-EBCU5,Elliot Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,4
-EBCU9,Elliot Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,4
-EBCU10,Elliot Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,4
-EBCUPB3,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,4
-HPCU3,Victoria Harbour,Sea Cucumbers,1053,BB,1-150,fiber,blue,2317.02,yes,,,6
-HPCU4,Victoria Harbour,Sea Cucumbers,1054,BB,1-150,fiber,red,1494.22,yes,,,6
-HPCU4,Victoria Harbour,Sea Cucumbers,1055,BB,1-150,fiber,blue,933.54,yes,,,6
-HPCU9,Victoria Harbour,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,6
-HPCU12,Victoria Harbour,Sea Cucumbers,1056,BB,1-150,fiber,clear,1668.51,yes,,,6
-HPCU14,Victoria Harbour,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,6
-HPCUPB3,Victoria Harbour,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,6
+ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
+CBCU1,Coles Bay,Sea Cucumbers,280,NP,>150,fibre,purple,2793.62,yes,,Polyester,10
+CBCU1,Coles Bay,Sea Cucumbers,281,NP,>150,fibre,black,249.44,yes,,Cellulose,10
+CBCU4,Coles Bay,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,10
+CBCU10,Coles Bay,Sea Cucumbers,299,NP,>150,fibre,blue,565.94,yes,,Cellulose,10
+CBCU10,Coles Bay,Sea Cucumbers,300,NP,>150,fibre,yellow,233.67,yes,Can't get a good Raman sigNAture,Unknown,10
+CBCU10,Coles Bay,Sea Cucumbers,301,NP,>150,fibre,black,244.24,yes,,Polyester,10
+CBCU10,Coles Bay,Sea Cucumbers,302,NP,>150,fibre,blue,1004.95,yes,,Cellulose,10
+CBCU10,Coles Bay,Sea Cucumbers,303,NP,>150,fibre,black,352.65,yes,,Polyester,10
+CBCU11,Coles Bay,Sea Cucumbers,304,NP,>150,fibre,red,151.23,yes,,Cellulose,10
+CBCU11,Coles Bay,Sea Cucumbers,305,NP,>150,fibre,purple,549.58,yes,Too much fluorescence to get a good sigNAture,Unknown,10
+CBCU12,Coles Bay,Sea Cucumbers,#820,NP,>150,fibre,clear,136.3,yes,,,10
+CBCU12,Coles Bay,Sea Cucumbers,306,NP,>150,fibre,red,437.89,yes,,Polyester,10
+CBCU12,Coles Bay,Sea Cucumbers,307,NP,>150,fibre,clear,300.12,yes,,Polyester,10
+CBCU13,Coles Bay,Sea Cucumbers,308,NP,>150,fibre,blue,275.94,yes,,Polyester,10
+CBCU13,Coles Bay,Sea Cucumbers,309,NP,>150,fibre,orange,291.47,yes,,Nylon,10
+CBCU13,Coles Bay,Sea Cucumbers,#821,NP,>150,fibre,clear,184.71,no,dropped,,10
+CBCU14,Coles Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,NA,,10
+CBCU15,Coles Bay,Sea Cucumbers,310,NP,>150,fibre,clear,324.08,yes,,Kevlar,10
+CBCU15,Coles Bay,Sea Cucumbers,311,NP,>150,fibre,red,819.29,yes,,Cellulose,10
+CBCU16,Coles Bay,Sea Cucumbers,312,NP,>150,fibre,black,377.62,yes,Too much fluorescence to get a good spectra,Unknown,10
+CBCU17,Coles Bay,Sea Cucumbers,313,NP,>150,fibre,black,251.78,yes,,Cellulose,10
+CBCU17,Coles Bay,Sea Cucumbers,314,NP,>150,fibre,clear,585.04,yes,,Cellulose,10
+CBCU17,Coles Bay,Sea Cucumbers,315,NP,>150,fibre,red,264.2,yes,,Cellulose,10
+CBCU17,Coles Bay,Sea Cucumbers,316,NP,>150,fibre,blue,828.4,yes,,Cellulose,10
+CBCU18,Coles Bay,Sea Cucumbers,317,NP,>150,fibre,clear,589.19,yes,,Polyester,10
+CBCU18,Coles Bay,Sea Cucumbers,318,NP,>150,fibre,blue,535.79,yes,,Polyester,10
+CBCU18,Coles Bay,Sea Cucumbers,319,NP,>150,fibre,clear,104.58,yes,,Mineral,10
+CBCU2,Coles Bay,Sea Cucumbers,282,NP,>150,fibre,black,282,yes,,Polyester,10
+CBCU2,Coles Bay,Sea Cucumbers,283,NP,>150,fibre,clear,501.4,yes,,Polyester,10
+CBCU3,Coles Bay,Sea Cucumbers,285,NP,>150,fibre,blue,1193.55,yes,,Cellulose,10
+CBCU5,Coles Bay,Sea Cucumbers,289,NP,>150,fibre,red,415.27,yes,,Cellulose,10
+CBCU5,Coles Bay,Sea Cucumbers,290,NP,>150,fibre,clear,1854.44,yes,,Unknown,10
+CBCU6,Coles Bay,Sea Cucumbers,291,NP,>150,fibre,purple,1026.17,yes,,Polyester,10
+CBCU6,Coles Bay,Sea Cucumbers,292,NP,>150,fibre,blue,1510.34,yes,,Cellulose,10
+CBCU7,Coles Bay,Sea Cucumbers,293,NP,>150,fibre,blue,1436.9,yes,,Unknown,10
+CBCU7,Coles Bay,Sea Cucumbers,294,NP,>150,fibre,black,504.56,yes,,Polyester,10
+CBCU7,Coles Bay,Sea Cucumbers,295,NP,>150,fibre,red,1239.07,yes,,Cellulose,10
+CBCU7,Coles Bay,Sea Cucumbers,296,NP,>150,fibre,clear,968.79,no,Suspect that this is rayon,Cellulose,10
+CBCU7,Coles Bay,Sea Cucumbers,297,NP,>150,fibre,blue,576.87,yes,,Cellulose,10
+CBCU7,Coles Bay,Sea Cucumbers,298,NP,>150,fibre,black,570.95,yes,,Polyester,10
+CBCU8,Coles Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,,,,10
+CBCU9,Coles Bay,Sea Cucumbers,#819,NP,>150,fibre,clear,649.25,no,dropped,,10
+CBCUB1,Coles Bay,Blanks,320,NP,>150,fibre,clear,873.22,yes,,Polyester,10
+CBCUB2,Coles Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,10
+CBCUB3,Coles Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,10
+CBCU10,Coles Bay,Sea Cucumbers,480,NP,1-150,fibre,yellow,350.81,yes,,Nylon,11
+CBCU10,Coles Bay,Sea Cucumbers,481,NP,1-150,fibre,blue,272.29,yes,,Cellulose,11
+CBCU11,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCU12,Coles Bay,Sea Cucumbers,#836,NP,1-150,fibre,clear,1131.37,no,dropped,,11
+CBCU14,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCU15,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCU16,Coles Bay,Sea Cucumbers,482,NP,1-150,fibre,clear,245.08,yes,,Unknown,11
+CBCU17,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCU18,Coles Bay,Sea Cucumbers,483,NP,1-150,fibre,black,450.44,yes,,Polyester,11
+CBCU4,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCU5,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCU6,Coles Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCU8,Coles Bay,Sea Cucumbers,#834,NP,1-150,fibre,clear,218.37,no,dropped,,11
+CBCU9,Coles Bay,Sea Cucumbers,479,NP,1-150,fibre,clear,524.05,yes,Can't get a good spectra,Unknown,11
+CBCU9,Coles Bay,Sea Cucumbers,#835,NP,1-150,fragment,yellow,146.21,no,dropped,,11
+CBCUPB1,Coles Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,11
+CBCUPB2,Coles Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,11
+EBCU1,Elliot Bay,Sea Cucumbers,216,NP,>150,fibre,green,2762.76,yes,Too much fluorescence to get a good Raman sigNAture,Unknown,12
+EBCU1,Elliot Bay,Sea Cucumbers,217,NP,>150,fibre,black,468.08,yes,,Cellulose,12
+EBCU10,Elliot Bay,Sea Cucumbers,240,NP,>150,fibre,blue,2252.22,yes,,Cellulose,12
+EBCU10,Elliot Bay,Sea Cucumbers,#525,NP,>150,fibre,blue,1970.72,no,"dropped, bounced",,12
+EBCU10,Elliot Bay,Sea Cucumbers,241,NP,>150,fibre,blue,609.23,yes,,Cellulose,12
+EBCU11,Elliot Bay,Sea Cucumbers,242,NP,>150,fibre,blue,391.09,yes,,Cellulose,12
+EBCU12,Elliot Bay,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,12
+EBCU13,Elliot Bay,Sea Cucumbers,260,NP,>150,fibre,blue,644.91,yes,,Cellulose,12
+EBCU13,Elliot Bay,Sea Cucumbers,264,NP,>150,fibre,black,2118.83,yes,,Cellulose,12
+EBCU14,Elliot Bay,Sea Cucumbers,265,NP,>150,fibre,brown,942.97,yes,"Cellulose sigNAture, but physically looks like rayon",Rayon,12
+EBCU15,Elliot Bay,Sea Cucumbers,270,NP,>150,fibre,clear,1112.82,yes,,Cellulose,12
+EBCU16,Elliot Bay,Sea Cucumbers,274,NP,>150,fibre,blue,965.8,yes,,Polyester,12
+EBCU16,Elliot Bay,Sea Cucumbers,276,NP,>150,fibre,green,550.27,yes,,Cellulose,12
+EBCU2,Elliot Bay,Sea Cucumbers,219,NP,>150,fibre,black,1109.75,yes,Can't get a good spectra without burning,Unknown,12
+EBCU2,Elliot Bay,Sea Cucumbers,#417,NP,>150,fibre,black,228.01,yes,,,12
+EBCU3,Elliot Bay,Sea Cucumbers,220,NP,>150,fibre,brown,818.8,yes,,Cellulose,12
+EBCU3,Elliot Bay,Sea Cucumbers,221,NP,>150,fibre,red,1021.89,yes,,Cellulose,12
+EBCU3,Elliot Bay,Sea Cucumbers,222,NP,>150,fibre,clear,1225.78,yes,,Polyester,12
+EBCU3,Elliot Bay,Sea Cucumbers,223,NP,>150,fibre,black,361.14,yes,,Cellulose,12
+EBCU3,Elliot Bay,Sea Cucumbers,224,NP,>150,fibre,clear,146.51,yes,,Cellulose,12
+EBCU3,Elliot Bay,Sea Cucumbers,225,NP,>150,fibre,red,912.26,yes,,Cellulose,12
+EBCU3,Elliot Bay,Sea Cucumbers,226,NP,>150,fibre,clear,1054.15,yes,Could not find for raman,,12
+EBCU4,Elliot Bay,Sea Cucumbers,227,NP,>150,fibre,blue,2252.3,yes,,Cellulose,12
+EBCU5,Elliot Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,,,12
+EBCU6,Elliot Bay,Sea Cucumbers,NA,NA,>150,NA,NA,NA,NA,,,12
+EBCU7,Elliot Bay,Sea Cucumbers,231,NP,>150,fibre,red,1071.73,yes,,Cellulose,12
+EBCU7,Elliot Bay,Sea Cucumbers,233,NP,>150,fibre,green,246.01,yes,Can't get a good spectra,Unknown,12
+EBCU8,Elliot Bay,Sea Cucumbers,236,NP,>150,fibre,black,1766.99,yes,,Polyester,12
+EBCU9,Elliot Bay,Sea Cucumbers,237,NP,>150,fibre,red,666.59,yes,,Cellulose,12
+EBCU9,Elliot Bay,Sea Cucumbers,239,NP,>150,fibre,black,1136.34,yes,,Cellulose,12
+EBCUB1,Elliot Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,12
+EBCUB2,Elliot Bay,Blanks,#760,NP,>150,fibre,blue,222.15,no,dropped,,12
+EBCUB2,Elliot Bay,Blanks,278,NP,>150,fibre,blue,542.66,yes,,Polyester,12
+EBCU1,Elliot Bay,Sea Cucumbers,#837,NP,1-150,fibre,clear,1950.65,no,dropped,,13
+EBCU11,Elliot Bay,Sea Cucumbers,486,NP,1-150,fibre,red,469.94,yes,,Cellulose,13
+EBCU11,Elliot Bay,Sea Cucumbers,487,NP,1-150,fibre,black,1752.46,yes,,Polyester,13
+EBCU12,Elliot Bay,Sea Cucumbers,488,NP,1-150,fibre,clear,557.74,yes,,Polyester,13
+EBCU12,Elliot Bay,Sea Cucumbers,489,NP,1-150,fibre,clear,1978.66,yes,,Polyester,13
+EBCU14,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,13
+EBCU15,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,13
+EBCU16,Elliot Bay,Sea Cucumbers,493,NP,1-150,fibre,clear,822.51,yes,,Polyester,13
+EBCU2,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,13
+EBCU3,Elliot Bay,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,13
+EBCU6,Elliot Bay,Sea Cucumbers,484,NP,1-150,fibre,clear,386.13,yes,"Good modal sigNAture, physically looks like rayon",Rayon,13
+EBCU7,Elliot Bay,Sea Cucumbers,485,NP,1-150,fibre,red,630.03,yes,,Polyester,13
+EBCU8,Elliot Bay,Sea Cucumbers,494,NP,1-150,fibre,black,887.04,yes,,Polyester,13
+EBCU8,Elliot Bay,Sea Cucumbers,495,NP,1-150,fibre,black,465.21,yes,,Polyester,13
+EBCU8,Elliot Bay,Sea Cucumbers,496,NP,1-150,fibre,red,3366.18,yes,,Polyester,13
+EBCUB1,Elliot Bay,Blanks,490,NP,1-150,fibre,black,422.55,yes,,Polyester,13
+EBCUB1,Elliot Bay,Blanks,491,NP,1-150,fibre,blue,522.25,yes,,Polyester,13
+EBCUB2,Elliot Bay,Blanks,492,NP,1-150,fibre,clear,435.39,yes,Too much fluorescence to get a good sigNAture,Unknown,13
+HPCU1,Victoria Harbour,Sea Cucumbers,131,NP,>150,fibre,orange,1141.48,yes,,Unknown,14
+HPCU1,Victoria Harbour,Sea Cucumbers,133,NP,>150,fibre,blue,584.98,yes,,Cellulose,14
+HPCU1,Victoria Harbour,Sea Cucumbers,134,NP,>150,fibre,clear,234.77,yes,Really good match to modal and physical structure looks like rayon,Rayon,14
+HPCU1,Victoria Harbour,Sea Cucumbers,135,NP,>150,fibre,blue,740.03,yes,,Cellulose,14
+HPCU1,Victoria Harbour,Sea Cucumbers,136,NP,>150,fibre,red,5230.96,yes,,Cellulose,14
+HPCU1,Victoria Harbour,Sea Cucumbers,139,NP,>150,fibre,blue,171.61,yes,,Polyester,14
+HPCU10,Victoria Harbour,Sea Cucumbers,182,NP,>150,fibre,purple,235.66,yes,,Cellulose,14
+HPCU10,Victoria Harbour,Sea Cucumbers,184,NP,>150,fibre,purple,795.95,yes,Can't get a good spectra,Unknown,14
+HPCU11,Victoria Harbour,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,14
+HPCU12,Victoria Harbour,Sea Cucumbers,188,NP,>150,fibre,red,874.49,yes,,Nylon,14
+HPCU12,Victoria Harbour,Sea Cucumbers,189,NP,>150,fibre,red,851.48,yes,,Cellulose,14
+HPCU12,Victoria Harbour,Sea Cucumbers,190,NP,>150,fibre,blue,181.25,yes,Looks kind of like acrylic if carbon peak is excluded,Cellulose,14
+HPCU12,Victoria Harbour,Sea Cucumbers,191,NP,>150,fibre,red,2659.06,yes,,Cellulose,14
+HPCU13,Victoria Harbour,Sea Cucumbers,192,NP,>150,fibre,blue,448.84,yes,,Cellulose,14
+HPCU13,Victoria Harbour,Sea Cucumbers,193,NP,>150,fibre,blue,406.65,yes,Probably denim,Cellulose,14
+HPCU14,Victoria Harbour,Sea Cucumbers,194,NP,>150,fibre,clear,442.93,yes,,Polyester,14
+HPCU14,Victoria Harbour,Sea Cucumbers,195,NP,>150,fibre,green,159.58,yes,Can't get a good spectra,Unknown,14
+HPCU14,Victoria Harbour,Sea Cucumbers,196,NP,>150,fibre,clear,510.09,yes,Can't get a good spectra,Unknown,14
+HPCU14,Victoria Harbour,Sea Cucumbers,197,NP,>150,fibre,blue,366.67,yes,,Cellulose,14
+HPCU14,Victoria Harbour,Sea Cucumbers,198,NP,>150,fibre,black,664.03,yes,,Polyester,14
+HPCU14,Victoria Harbour,Sea Cucumbers,200,NP,>150,fibre,red,792.17,yes,,Cellulose,14
+HPCU15,Victoria Harbour,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,14
+HPCU2,Victoria Harbour,Sea Cucumbers,141,NP,>150,fibre,blue,748.2,yes,Probably denim,Cellulose,14
+HPCU2,Victoria Harbour,Sea Cucumbers,142,NP,>150,fibre,black,151.18,yes,Can't get a good spectra without burning,Unknown,14
+HPCU2,Victoria Harbour,Sea Cucumbers,144,NP,>150,fibre,green,1042.58,yes,,Cellulose,14
+HPCU2,Victoria Harbour,Sea Cucumbers,#255,NP,>150,fibre,black,1035.64,no,dropped,,14
+HPCU2,Victoria Harbour,Sea Cucumbers,#257,NP,>150,fibre,black,693.98,yes,,,14
+HPCU2,Victoria Harbour,Sea Cucumbers,,NP,>150,fibre,pink,1160.98,no,"dropped, bounced",,14
+HPCU2,Victoria Harbour,Sea Cucumbers,146,NP,>150,fibre,blue,883.98,yes,Probably denim,,14
+HPCU2,Victoria Harbour,Sea Cucumbers,147,NP,>150,fibre,black,361.42,yes,,Cellulose,14
+HPCU3,Victoria Harbour,Sea Cucumbers,148,NP,>150,fibre,red,253.92,yes,,Cellulose,14
+HPCU3,Victoria Harbour,Sea Cucumbers,150,NP,>150,fibre,blue,101.79,yes,Could not find for Raman,,14
+HPCU3,Victoria Harbour,Sea Cucumbers,151,NP,>150,fibre,black,2164.39,yes,,Polyester,14
+HPCU3,Victoria Harbour,Sea Cucumbers,#265,NP,>150,fibre,red,428.17,no,dropped,,14
+HPCU4,Victoria Harbour,Sea Cucumbers,152,NP,>150,fibre,blue,901.57,yes,,Cellulose,14
+HPCU4,Victoria Harbour,Sea Cucumbers,153,NP,>150,fibre,blue,2594.65,yes,Looks kind of like acrylic if carbon peak is excluded,Cellulose,14
+HPCU5,Victoria Harbour,Sea Cucumbers,154,NP,>150,fibre,blue,321.13,yes,,Cellulose,14
+HPCU5,Victoria Harbour,Sea Cucumbers,156,NP,>150,fibre,blue,889.83,yes,,Cellulose,14
+HPCU5,Victoria Harbour,Sea Cucumbers,158,NP,>150,fibre,green,1067.86,yes,Could not find for Raman,,14
+HPCU5,Victoria Harbour,Sea Cucumbers,160,NP,>150,fibre,black,917.27,yes,,Cellulose,14
+HPCU6,Victoria Harbour,Sea Cucumbers,163,NP,>150,fibre,clear,1655.43,yes,,Polyester,14
+HPCU6,Victoria Harbour,Sea Cucumbers,166,NP,>150,fibre,red,1067.94,yes,,Cellulose,14
+HPCU6,Victoria Harbour,Sea Cucumbers,168,NP,>150,fibre,blue,1548.56,yes,,Cellulose,14
+HPCU6,Victoria Harbour,Sea Cucumbers,169,NP,>150,fibre,red,736.66,yes,,Cellulose,14
+HPCU6,Victoria Harbour,Sea Cucumbers,170,NP,>150,fibre,blue,674.53,yes,Looks kind of like acrylic if carbon peak is excluded,Cellulose,14
+HPCU6,Victoria Harbour,Sea Cucumbers,171,NP,>150,fibre,blue,1304.2,yes,,Cellulose,14
+HPCU6,Victoria Harbour,Sea Cucumbers,172,NP,>150,fibre,black,417.84,yes,,Cellulose,14
+HPCU6,Victoria Harbour,Sea Cucumbers,173,NP,>150,fibre,blue,727.75,yes,,Cellulose,14
+HPCU7,Victoria Harbour,Sea Cucumbers,174,NP,>150,fibre ,clear,1353.25,yes,,Polyester,14
+HPCU7,Victoria Harbour,Sea Cucumbers,175,NP,>150,fibre,blue,228.5,yes,Could not find for Raman,,14
+HPCU7,Victoria Harbour,Sea Cucumbers,#298,NP,>150,fibre,black,373.1,no,dropped,,14
+HPCU7,Victoria Harbour,Sea Cucumbers,176,NP,>150,fibre,blue,323.88,yes,Looks kind of like acrylic if carbon peak is excluded,Cellulose,14
+HPCU7,Victoria Harbour,Sea Cucumbers,#300,NP,>150,fibre,blue,595.04,no,dropped,,14
+HPCU7,Victoria Harbour,Sea Cucumbers,#301,NP,>150,fibre,blue,63.13,no,tiny**,,14
+HPCU7,Victoria Harbour,Sea Cucumbers,#302,NP,>150,fibre,black,268.34,no,"dropped, bounced",,14
+HPCU8,Victoria Harbour,Sea Cucumbers,177,NP,>150,fibre,purple,711.72,yes,Looks kind of like acrylic if carbon peak is excluded,Cellulose,14
+HPCU8,Victoria Harbour,Sea Cucumbers,#307,NP,>150,fibre,red,608.32,no,dropped,,14
+HPCU8,Victoria Harbour,Sea Cucumbers,178,NP,>150,fibre,black,1413.86,yes,,Cellulose,14
+HPCU9,Victoria Harbour,Sea Cucumbers,NA,NA,NA,NA,NA,NA,NA,,,14
+HPCUB1,Victoria Harbour,Blanks,205,NP,>150,fibre,blue,1663.56,yes,,Cellulose,14
+HPCUB2,Victoria Harbour,Blanks,NA,NA,>150,NA,NA,NA,NA,,,14
+HPCUB3,Victoria Harbour,Blanks,213,NP,>150,fibre,red,2077.43,yes,,Cellulose,14
+HPCU1,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,15
+HPCU10,Victoria Harbour,Sea Cucumbers,502,NP,1-150,fibre,clear,351.52,yes,,Cellulose,15
+HPCU11,Victoria Harbour,Sea Cucumbers,503,NP,1-150,fibre,clear,4950.58,yes,,Acrylic,15
+HPCU11,Victoria Harbour,Sea Cucumbers,504,NP,1-150,fibre,black,433.16,yes,,Polyester,15
+HPCU11,Victoria Harbour,Sea Cucumbers,505,NP,1-150,fibre,black,285.71,yes,,Cellulose,15
+HPCU13,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,15
+HPCU15,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,15
+HPCU2,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,15
+HPCU5,Victoria Harbour,Sea Cucumbers,497,NP,1-150,fibre,clear,1714.76,yes,,Polyester,15
+HPCU6,Victoria Harbour,Sea Cucumbers,NA,NP,1-150,NA,NA,NA,NA,,,15
+HPCU7,Victoria Harbour,Sea Cucumbers,498,NP,1-150,fibre,clear,231.68,yes,,Mineral,15
+HPCU7,Victoria Harbour,Sea Cucumbers,499,NP,1-150,fibre,green,440.76,yes,,Acrylic,15
+HPCU8,Victoria Harbour,Sea Cucumbers,500,NP,1-150,fibre,clear,570.29,yes,,Polyester,15
+HPCU8,Victoria Harbour,Sea Cucumbers,501,NP,1-150,fibre,purple,604.34,yes,,Polyester,15
+HPCU9,Victoria Harbour,Sea Cucumbers,NA,NA,1-150,NA,NA,NA,NA,NA,,15
+HPCUB1,Victoria Harbour,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,15
+HPCUB2,Victoria Harbour,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,15
+CBCU1,Coles Bay,Sea Cucumbers,1048,BB,1-150,fiber,red,530.42,yes,,,11
+CBCU1,Coles Bay,Sea Cucumbers,1049,BB,1-150,fiber,black,1417.57,yes,,,11
+CBCU2,Coles Bay,Sea Cucumbers,1050,BB,1-150,fiber,black,744.15,yes,,,11
+CBCU3,Coles Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,11
+CBCUPB3,Coles Bay,Blanks,1051,BB,1-150,fiber,red,893.22,yes,,,11
+EBCU4,Elliot Bay,Sea Cucumbers,1052,BB,1-150,fiber,clear,1532.38,yes,,,13
+EBCU4,Elliot Bay,Sea Cucumbers,,BB,1-150,fiber,green,573.43,no,dropped,,13
+EBCU5,Elliot Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,13
+EBCU9,Elliot Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,13
+EBCU10,Elliot Bay,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,13
+EBCUPB3,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,13
+HPCU3,Victoria Harbour,Sea Cucumbers,1053,BB,1-150,fiber,blue,2317.02,yes,,,15
+HPCU4,Victoria Harbour,Sea Cucumbers,1054,BB,1-150,fiber,red,1494.22,yes,,,15
+HPCU4,Victoria Harbour,Sea Cucumbers,1055,BB,1-150,fiber,blue,933.54,yes,,,15
+HPCU9,Victoria Harbour,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,15
+HPCU12,Victoria Harbour,Sea Cucumbers,1056,BB,1-150,fiber,clear,1668.51,yes,,,15
+HPCU14,Victoria Harbour,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,15
+HPCUPB3,Victoria Harbour,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,15

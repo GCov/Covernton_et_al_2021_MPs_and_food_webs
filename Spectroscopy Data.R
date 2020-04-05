@@ -355,14 +355,21 @@ clams$particle.type <-
             from = levels(clams$raman.ID),
             to = c('Unknown',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Synthetic Polymer',
+                   'Synthetic Polymerr',
                    'Semi-synthetic',
                    'Unknown',
                    'Natural Anthropogenic'))
 summary(clams$particle.type)
 
-summary(clams$colour)
+clams$particle.type <- as.character(clams$particle.type)
+
+clams$particle.type[clams$colour == 'clear' &
+                        clams$shape == 'Fibre' &
+                        clams$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+clams$particle.type <- as.factor(clams$particle.type)
 
 clams$num <- with(clams,
                     ifelse(is.na(length), 0, 1))
@@ -422,17 +429,22 @@ sea_cucumbers$particle.type <-
             to = c('Unknown',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Synthetic Polymer',
                    'Natural',
-                   'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Semi-synthetic',
                    'Unknown'))
 summary(sea_cucumbers$particle.type)
 
-summary(sea_cucumbers$colour)
+sea_cucumbers$particle.type <- as.character(sea_cucumbers$particle.type)
+
+sea_cucumbers$particle.type[sea_cucumbers$colour == 'clear' &
+                      sea_cucumbers$shape == 'Fibre' &
+                      sea_cucumbers$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+sea_cucumbers$particle.type <- as.factor(sea_cucumbers$particle.type)
 
 sea_cucumbers$num <- with(sea_cucumbers,
                           ifelse(is.na(length), 0, 1))
@@ -494,7 +506,7 @@ CU_polymer3 <-
 
 CU_polymer3 %>% 
   group_by(site) %>% 
-  summarize(num.samples = length(unique(ID)))  ## 13 samples CB, 15 EB
+  summarize(num.samples = length(unique(ID)))  ## 16 samples CB, 15 EB, 15 VH
 
 #### Sea Stars ####
 
@@ -518,6 +530,7 @@ sea_stars$shape <- mapvalues(sea_stars$shape,
                                 'Fibre',
                                 'Fibre',
                                 'Fragment'))
+sea_stars$shape[sea_stars$shape == ''] <- NA
 summary(sea_stars$shape)
 
 summary(sea_stars$raman.ID)
@@ -528,7 +541,6 @@ sea_stars$particle.type <-
             to = c('Unknown',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
@@ -539,7 +551,14 @@ sea_stars$particle.type <-
                    'Natural Anthropogenic'))
 summary(sea_stars$particle.type)
 
-summary(sea_stars$colour)
+sea_stars$particle.type <- as.character(sea_stars$particle.type)
+
+sea_stars$particle.type[sea_stars$colour == 'clear' &
+                              sea_stars$shape == 'Fibre' &
+                              sea_stars$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+sea_stars$particle.type <- as.factor(sea_stars$particle.type)
 
 sea_stars$num <- with(sea_stars,
                   ifelse(is.na(length), 0, 1))
@@ -607,6 +626,7 @@ SS_polymer2$ID <- mapvalues(SS_polymer2$ID,
 
 ## Remove samples where all size fractions aren't counted yet
 
+
 SS_incomplete <- 
   SS_polymer2 %>% 
   group_by(ID) %>%
@@ -668,14 +688,20 @@ crabs$particle.type <-
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Unknown',
                    'Natural Anthropogenic'))
 summary(crabs$particle.type)
 
-summary(crabs$colour)
+crabs$particle.type <- as.character(crabs$particle.type)
+
+crabs$particle.type[crabs$colour == 'clear' &
+                              crabs$shape == 'Fibre' &
+                              crabs$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+crabs$particle.type <- as.factor(crabs$particle.type)
 
 crabs$num <- with(crabs, ifelse(is.na(length), 0, 1))
 
@@ -745,7 +771,7 @@ CR_polymer3 %>%
 
 surfperch <- read.csv("surfperch.csv", header = TRUE)
 
-## Clean up crabs data
+## Clean up surfperch data
 
 names(surfperch)
 summary(surfperch$size.fraction)
@@ -772,9 +798,11 @@ surfperch$raman.ID <-
             from = c('Cellulose\n',
                      'Nylon\n',
                      'Polyester\n',
+                     'Polyster',
                      'Unknown\n'),
             to = c('Cellulose',
                    'Nylon',
+                   'Polyester',
                    'Polyester',
                    'Unknown'))
 
@@ -784,8 +812,6 @@ surfperch$particle.type <-
             to = c('Unknown',
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
-                   'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
@@ -795,7 +821,14 @@ surfperch$particle.type <-
                    'Natural Anthropogenic'))
 summary(surfperch$particle.type)
 
-summary(surfperch$colour)
+surfperch$particle.type <- as.character(surfperch$particle.type)
+
+surfperch$particle.type[surfperch$colour == 'clear' &
+                      surfperch$shape == 'Fibre' &
+                      surfperch$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+surfperch$particle.type <- as.factor(surfperch$particle.type)
 
 surfperch$num <- with(surfperch,
                   ifelse(is.na(length), 0, 1))
@@ -864,17 +897,104 @@ SP_polymer3 %>%
 
 #### Flatfish ####
 
-# Load flatfish data
+# Load surfperch data
 
 flatfish <- read.csv("flatfish.csv", header = TRUE)
 
-## Clean up crabs data
+## Clean up flatfish data
 
 names(flatfish)
 summary(flatfish$size.fraction)
 flatfish$size.fraction <- mapvalues(flatfish$size.fraction,
-                                    from = '>1',
-                                    to = '1-150')
+                                     from = '>1',
+                                     to = '1-150')
+
+summary(flatfish$shape)
+summary(flatfish$colour)
+
+flatfish$shape <- mapvalues(flatfish$shape,
+                             from = levels(flatfish$shape),
+                             to = c('Fibre',
+                                    'Fibre',
+                                    'Fragment'))
+summary(flatfish$shape)
+
+levels(flatfish$raman.ID)
+
+flatfish$raman.ID <-
+  mapvalues(flatfish$raman.ID,
+            from = c('Paint Chip',
+                     'Wool\n'),
+            to = c('Paint',
+                   'Wool'))
+
+flatfish$particle.type <- 
+  mapvalues(flatfish$raman.ID,
+            from = levels(flatfish$raman.ID),
+            to = c('Unknown',
+                   'Natural Anthropogenic',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Semi-synthetic',
+                   'Unknown',
+                   'Natural Anthropogenic'))
+summary(flatfish$particle.type)
+
+flatfish$particle.type <- as.character(flatfish$particle.type)
+
+flatfish$particle.type[flatfish$colour == 'clear' &
+                          flatfish$shape == 'Fibre' &
+                          flatfish$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+flatfish$particle.type <- as.factor(flatfish$particle.type)
+
+flatfish$num <- with(flatfish,
+                      ifelse(is.na(length), 0, 1))
+
+## Separate blanks data
+
+FF_blanks <- subset(flatfish, sample.type == 'Blanks')
+FF <- subset(flatfish, 
+             sample.type == 'Flatfish Guts' |
+               sample.type == 'Flatfish Livers'  , )
+FF$ID <- as.character(FF$ID)
+FF$ID <- as.factor(FF$ID)
+
+## Summarize blanks data
+
+summary(FF_blanks)
+FF_blanks_particle_type <- 
+  FF_blanks %>% 
+  group_by(ID, shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.count = sum(num))
+
+FF_blanks_means <- 
+  FF_blanks_particle_type %>% 
+  group_by(shape, colour, blank.match, raman.ID, particle.type) %>% 
+  summarize(blank.mean = mean(blank.count))
+
+## Summarize FF data
+
+FF_polymer <- 
+  FF %>% 
+  group_by(ID, site, sample.type, size.fraction, shape, colour, blank.match, 
+           particle.type, raman.ID) %>% 
+  summarize(count = sum(num))
+
+## Blank subtract
+
+FF_polymer2 <-
+  left_join(FF_polymer, 
+            FF_blanks_means, 
+            by = c('shape', 'colour', 'blank.match', 'raman.ID', 
+                   'particle.type'))
+
+FF_polymer2$blank.mean[is.na(FF_polymer2$blank.mean)] <- 0
+
+FF_polymer2$adj.count <- ceiling(with(FF_polymer2, count - blank.mean))
+FF_polymer2$adj.count[FF_polymer2$adj.count < 0] <- 0
 
 ## Remove samples where all size fractions aren't counted yet
 
@@ -894,6 +1014,7 @@ FF_polymer3 <-
 FF_polymer3 %>% 
   group_by(site) %>% 
   summarize(num.samples = length(unique(ID)))  ## 10 samples CB
+
 
 #### Rockfish ####
 
@@ -922,10 +1043,8 @@ levels(rockfish$raman.ID)
 
 rockfish$raman.ID <-
   mapvalues(rockfish$raman.ID,
-            from = c('Cellulose\n',
-                     'Dye\n'),
-            to = c('Cellulose',
-                   'Dye'))
+            from = c('Cellulose\n'),
+            to = c('Cellulose'))
 
 rockfish$particle.type <- 
   mapvalues(rockfish$raman.ID,
@@ -934,7 +1053,6 @@ rockfish$particle.type <-
                    'Synthetic Polymer',
                    'Natural',
                    'Natural Anthropogenic',
-                   'Unknown Anthropogenic',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
@@ -944,6 +1062,15 @@ rockfish$particle.type <-
 summary(rockfish$particle.type)
 
 summary(rockfish$colour)
+
+rockfish$particle.type <- as.character(rockfish$particle.type)
+
+rockfish$particle.type[rockfish$colour == 'clear' &
+                         rockfish$shape == 'Fibre' &
+                         rockfish$raman.ID == 'Cellulose'] <-
+  'Natural'  # call clear cellulosic fibres natural to be safe
+
+rockfish$particle.type <- as.factor(rockfish$particle.type)
 
 rockfish$num <- with(rockfish,
                      ifelse(is.na(length), 0, 1))
@@ -1023,4 +1150,5 @@ RF_polymer3 <-
 
 RF_polymer2 %>% 
   group_by(site) %>% 
-  summarize(num.samples = length(unique(ID)))  ## 10 samples CB, 21 EB, 22 VH
+  summarize(num.samples = 
+              length(unique(ID)))  ## 10 samples CB, 21 EB, 22 VH
