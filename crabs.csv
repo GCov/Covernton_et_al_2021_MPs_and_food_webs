@@ -1,9 +1,9 @@
 ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
 EBCR1,Elliot Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,2nd priority for Raman,,
 EBCR2,Elliot Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,don't need to Raman,,
-EBCR18,Elliot Bay,Crabs,1,NP,>1 mm,fibre ,Blue,2950.87,,Probably denim,Cellulose,
-EBCR18,Elliot Bay,Crabs,2,NP,>1 mm,fibre,clear,2975.181,,Probably chitin,Cellulose,
-EBCR18,Elliot Bay,Crabs,4,NP,>1 mm,fibre,clear,4725.418,,,Wool,
+EBCR3,Elliot Bay,Crabs,1,NP,>1 mm,fibre ,Blue,2950.87,,Probably denim,Cellulose,
+EBCR3,Elliot Bay,Crabs,2,NP,>1 mm,fibre,clear,2975.181,,Probably chitin,Cellulose,
+EBCR3,Elliot Bay,Crabs,4,NP,>1 mm,fibre,clear,4725.418,,,Wool,
 EBCR4,Elliot Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 EBCR5,Elliot Bay,Crabs,1,NP,>1 mm,fibre,brown,18086.1818,,,,
 EBCR5,Elliot Bay,Crabs,2,NP,>1 mm,fibre,clear,18487.92,,,Cellulose,
@@ -38,7 +38,7 @@ CBCR9,Coles Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 CBCR10,Coles Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 CBCR11,Coles Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 CBCR12,Coles Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
-CBCR118,Coles Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
+CBCR13,Coles Bay,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 CBCR14,Coles Bay,Crabs,1,NP,>1 mm,fibre,clear,15184.02,,could not find for Raman,,
 CBCR15,Coles Bay,Crabs,1,NP,>1 mm,fibre,Clear,11180.05,,,,
 CBCR15,Coles Bay,Crabs,2,NP,>1 mm,fibre,Clear,818.97,,,,
@@ -58,7 +58,7 @@ CBCR18,Coles Bay,Crabs,1,NP,>1 mm,fibre,Blue,2214.17,,,Cellulose,
 CBCR18,Coles Bay,Crabs,2,NP,>1 mm,fibre,Blue,21857.54,,,Cellulose,
 HPCR1,Victoria Harbour,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 HPCR2,Victoria Harbour,Crabs,5,NP,>1 mm,NA,NA,NA,,,,
-HPCR18,Victoria Harbour,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
+HPCR3,Victoria Harbour,Crabs,NA,NP,>1 mm,NA,NA,NA,,,,
 HPCR4,Victoria Harbour,Crabs,2,NP,>1 mm,fibre,Black,18010.54,,,Cellulose,
 HPCR4,Victoria Harbour,Crabs,18,NP,>1 mm,fibre,Clear,2414.55,,,Unknown,
 HPCR4,Victoria Harbour,Crabs,4,NP,>1 mm,fibre,Clear,4805.17,,,Cellulose,
@@ -95,7 +95,7 @@ CBCR7,Coles Bay,Crabs,792,BB,<1000,fiber,clear,17018.22,,,,16
 CBCR7,Coles Bay,Crabs,7918,BB,<1000,fiber,clear,2769.55,,,,16
 CBCR10,Coles Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,16
 CBCR12,Coles Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,16
-CBCR118,Coles Bay,Crabs,794,BB,<1000,fiber,black,570.71,yes,,,16
+CBCR13,Coles Bay,Crabs,794,BB,<1000,fiber,black,570.71,yes,,,16
 CBCR14,Coles Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,16
 CBCR15,Coles Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,16
 CBCR16,Coles Bay,Crabs,795,BB,<1000,fiber,blue,1020.21,,*lots of debris,,16
@@ -107,7 +107,7 @@ CBCR18,Coles Bay,Crabs,800,BB,<1000,fiber,black,8218.47,yes,,,16
 CBCRPB1,Coles Bay,Blanks,801,BB,<1000,fragment,yellow,109.57,yes,,,16
 CBCRPB18,Coles Bay,Blanks,NA,BB,<1000,NA,NA,NA,NA,,,16
 EBCR2,Elliot Bay,Crabs,802,BB,<1000,fiber,blue,586.96,yes,,,17
-EBCR18,Elliot Bay,Crabs,8018,BB,<1000,fiber,gold,868.79,yes,*lots of debris,,17
+EBCR3,Elliot Bay,Crabs,8018,BB,<1000,fiber,gold,868.79,yes,*lots of debris,,17
 EBCR5,Elliot Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,17
 EBCR6,Elliot Bay,Crabs,804,BB,<1000,fiber,black,667.15,yes,,,17
 EBCR7,Elliot Bay,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,17
@@ -122,7 +122,7 @@ EBCRPB1,Elliot Bay,Blanks,807,BB,<1000,fiber,black,951.69,yes,,,17
 EBCRPB2,Elliot Bay,Blanks,808,BB,<1000,fiber,black,567.29,yes,,,17
 HPCR1,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,18
 HPCR2,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,18
-HPCR18,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,18
+HPCR3,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,18
 HPCR4,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,18
 HPCR7,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,18
 HPCR8,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,*lots of debris,,18

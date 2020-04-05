@@ -41,9 +41,9 @@ CBSS15,Coles Bay,Sea Stars,357,NP,>150,fibre,blue,521.49,yes,,Cellulose,19
 CBSS15,Coles Bay,Sea Stars,358,NP,>150,fibre,black,794.78,yes,,Cellulose,19
 CBSS15,Coles Bay,Sea Stars,359,NP,>150,fibre,blue,7713.97,yes,,Polyurethane,19
 CBSS15,Coles Bay,Sea Stars,360,NP,>150,fibre,red,706.37,yes,,Cellulose,19
-CBSS16,Coles Bay,Sea Stars,361,NP,>150,fragment,multi-colour,458.86,yes,"Get strong dye sigNAtures on coloured areas. On the clear areas it's a messy sigNAture, but best matches Polyurethane and alkyd resin, both of which are used in paint or varnish. Either way should probably confirm on ATR or micro-FTIR",Paint,19
-CBSS16,Coles Bay,Sea Stars,362,NP,>150,fibre,black,1080.37,yes,,Polyester,19
-CBSS16,Coles Bay,Sea Stars,363,NP,>150,fibre,clear,150.56,yes,,Cellulose,19
+CBSS15,Coles Bay,Sea Stars,361,NP,>150,fragment,multi-colour,458.86,yes,"Get strong dye sigNAtures on coloured areas. On the clear areas it's a messy sigNAture, but best matches Polyurethane and alkyd resin, both of which are used in paint or varnish. Either way should probably confirm on ATR or micro-FTIR",Paint,19
+CBSS15,Coles Bay,Sea Stars,362,NP,>150,fibre,black,1080.37,yes,,Polyester,19
+CBSS15,Coles Bay,Sea Stars,363,NP,>150,fibre,clear,150.56,yes,,Cellulose,19
 CBSSB1,Coles Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,19
 CBSSB2,Coles Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,19
 CBSSB3,Coles Bay,Blanks,NA,NA,>150,NA,NA,NA,NA,,,19
@@ -104,7 +104,7 @@ CBSS10,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22
 CBSS11,Coles Bay,Sea Stars,516,NP,1-150,fibre,blue,511.45,yes,,Polyester,22
 CBSS13,Coles Bay,Sea Stars,517,NP,1-150,fibre,red,430.76,yes,,Cellulose,22
 CBSS14,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22
-CBSS16,Coles Bay,Sea Stars,518,NP,1-150,fibre,clear,491.08,yes,,Polyester,22
+CBSS15,Coles Bay,Sea Stars,518,NP,1-150,fibre,clear,491.08,yes,,Polyester,22
 CBSSPB2,Coles Bay,Blanks,519,NP,1-150,fibre,clear,322.84,yes,,Cellulose,22
 CBSSPB2,Coles Bay,Blanks,520,NP,1-150,fibre,black,743.74,yes,,Polyester,22
 CBSSPB3,Coles Bay,Blanks,521,NP,1-150,fibre,black,1297.58,yes,,Polyester,22
