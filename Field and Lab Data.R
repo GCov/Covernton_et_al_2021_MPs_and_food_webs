@@ -56,6 +56,17 @@ animal_info$ID <- as.factor(animal_info$ID)
 
 summary(animal_info)
 
+summary(animal_info$sample.type)
+
+animal_info$sample.type <- 
+  mapvalues(animal_info$sample.type,
+            from = c('Flatfish Guts',
+                     'Rockfish Guts',
+                     'Surfperch Guts'),
+            to = c('Flatfish',
+                   'Rockfish',
+                   'Surfperch'))
+
 ggplot(animal_info) +  # plot size distribution by species
   geom_density_ridges(aes(x = log(total.body.wet.weight),
                           y = reorder(species, total.body.wet.weight, mean)),

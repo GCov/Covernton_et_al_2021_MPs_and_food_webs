@@ -17,10 +17,10 @@ summary(isotopes)
 theme1 <-
   theme_bw() +
   theme(
-    text = element_text(size = 10),
-    axis.text = element_text(size = 8),
+    text = element_text(size = 8),
+    axis.text = element_text(size = 7),
     strip.background = element_blank(),
-    strip.text = element_text(size = 10),
+    strip.text = element_text(size = 8),
     panel.grid = element_blank(),
     legend.title = element_blank()
   )
