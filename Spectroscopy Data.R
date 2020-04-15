@@ -186,26 +186,23 @@ full_spec_data$colour <-
             to = c('Black',
                    'Blue',
                    'Clear',
-                   'Clear',
                    'Green',
                    'Orange',
                    'Pink',
+                   'Purple',
                    'Red',
                    'Yellow',
                    'Brown',
-                   'Purple',
+                   'olive',
+                   'yellow green',
                    'Black',
                    'Blue',
                    'Brown',
                    'Clear',
-                   'Gold',
                    'Purple',
-                   NA,
                    'Multi-colour',
                    'Multi-colour',
-                   'Grey',
-                   'White',
-                   'Olive'))
+                   'White'))
 
 summary(full_spec_data$colour)
 
@@ -217,9 +214,7 @@ full_spec_data$shape <- mapvalues(full_spec_data$shape,
                                         'Fibre',
                                         'Film',
                                         'Fragment',
-                                        'Fibre',
-                                        NA,
-                                        'Sphere'))
+                                        'Fibre'))
 summary(full_spec_data$shape)
 
 summary(full_spec_data$raman.ID)
@@ -230,6 +225,7 @@ full_spec_data$raman.ID <-
                      'Acrylic\n',
                      'Cellulosee',
                      'Cellulose\n',
+                     'Unknown\n',
                      'Nylon\n',
                      'Polyester\n',
                      'Wool\n',
@@ -238,6 +234,7 @@ full_spec_data$raman.ID <-
                    'Acrylic',
                    'Cellulose',
                    'Cellulose',
+                   'Unknown',
                    'Nylon',
                    'Polyester',
                    'Wool',
@@ -277,6 +274,7 @@ full_spec_data$particle.type[full_spec_data$shape == 'Fibre' &
                               full_spec_data$colour == 'Clear' &
                               full_spec_data$raman.ID == 'Cellulose'] <-
   'Natural'  # call clear cellulosic fibres natural to be safe
+
 summary(full_spec_data$particle.type)
 
 
@@ -285,6 +283,8 @@ full_spec_data$num <-
          0, 1)  # Separate out samples that had 0 counts
 
 #### Estimate the particle type for unkown particles ####
+
+### THIS ISN'T WORKING AND I DON'T KNOW WHY (maybe just CV?)
 
 ## Construct a multinomial regression model for known particle types
 
@@ -299,7 +299,7 @@ moddata$particle.type <- as.factor(moddata$particle.type)
 
 particle.mod1 <-
   multinom(particle.type ~
-             colour + shape + sample.type,
+             raman.ID,
            data = moddata)
 summary(particle.mod1)
 
@@ -319,15 +319,22 @@ folds <- cut(seq(1,nrow(cvdata)),breaks=10,labels=FALSE)
 
 success_rate <- numeric()
 
-for(i in 1:10){
-  testIndexes <- which(folds==i,arr.ind=TRUE)
-  testData <- cvdata[testIndexes, ]
-  trainData <- cvdata[-testIndexes, ]
+
+for (i in 1:10) {
+  testIndexes <- which(folds == i, arr.ind = TRUE)
+  testData <- cvdata[testIndexes,]
+  trainData <- cvdata[-testIndexes,]
   model <- multinom(particle.type ~
                       colour + shape + sample.type,
-                      data = trainData)
-  test <- predict(model, newdata = testData)
-  successes <- ifelse(test == testData$particle.type, 1, 0)
+                    data = trainData)
+  test <- predict(model,
+                  newdata = subset(testData,
+                                   particle.type == 'Synthetic Polymer'))
+  successes <- ifelse(test == subset(testData,
+                                     particle.type == 
+                                       'Synthetic Polymer')$particle.type,
+                      1,
+                      0)
   success_rate[i] <- mean(successes)
 }
 
