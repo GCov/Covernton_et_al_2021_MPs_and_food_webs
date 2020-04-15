@@ -1,232 +1,230 @@
-ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
-HPSP1,Victoria Harbour,Surfperch Guts,94,NP,>150,fibre,red,624.24,yes,,Cellulose,23
-HPSP1,Victoria Harbour,Surfperch Guts,#125,NP,>150,fibre,black,1511.22,no,dropped,,23
-HPSP1,Victoria Harbour,Surfperch Guts,95,NP,>150,fibre,black,519.83,yes,,Unknown,23
-HPSP1,Victoria Harbour,Surfperch Guts,96,NP,>150,fibre,black,623.05,yes,,Cellulose,23
-HPSP1,Victoria Harbour,Surfperch Guts,#126,NP,>150,sphere,gray,42.74,no,tiny,,23
-HPSP1,Victoria Harbour,Surfperch Guts,#127,NP,>150,fibre,blue,39.27,no,tiny,,23
-HPSP2,Victoria Harbour,Surfperch Guts,403,NP,>150,fibre,black,461.67,yes,,Polyester,23
-HPSP3,Victoria Harbour,Surfperch Guts,404,NP,>150,fibre,blue,532.08,yes,,Polyester,23
-HPSP3,Victoria Harbour,Surfperch Guts,405,NP,>150,fibre,clear,938.08,yes,,Polyester,23
-HPSP4,Victoria Harbour,Surfperch Guts,406,NP,>150,fibre,blue,317.92,yes,Too much fluorescence to get a good sigNAture,Unknown,23
-HPSP4,Victoria Harbour,Surfperch Guts,407,NP,>150,fibre,clear,5347.7,yes,Really good match for modal and physically looks like rayon,Rayon,23
-HPSP4,Victoria Harbour,Surfperch Guts,408,NP,>150,fibre,green,501.33,yes,,Cellulose,23
-HPSP5,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSP6,Victoria Harbour,Surfperch Guts,409,NP,>150,fibre,clear,470.78,yes,,Cellulose,23
-HPSP7,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSP8,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSP9,Victoria Harbour,Surfperch Guts,410,NP,>150,fibre,black,893.7,yes,,Polyester,23
-HPSP10,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSP11,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSP12,Victoria Harbour,Surfperch Guts,411,NP,>150,fibre,blue,276.35,yes,,Cellulose,23
-HPSP12,Victoria Harbour,Surfperch Guts,412,NP,>150,fibre,brown,375.64,yes,,Polyester,23
-HPSP13,Victoria Harbour,Surfperch Guts,413,NP,>150,fibre,black,784.4,yes,,Polyester,23
-HPSP14,Victoria Harbour,Surfperch Guts,414,NP,>150,fibre,blue,828.34,yes,Probably denim,Cellulose,23
-HPSP14,Victoria Harbour,Surfperch Guts,415,NP,>150,fibre,black,1408.96,yes,,Polyester,23
-HPSP15,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSP16,Victoria Harbour,Surfperch Guts,416,NP,>150,film,clear,132.75,yes,Can't get a good spectra,Unknown,23
-HPSP17,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSPGB1,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSPGB2,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,23
-HPSPGB3,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,23
-CBSP1,Coles Bay,Surfperch Guts,417,NP,>150,fibre,clear,1185.93,yes,,Polyester,24
-CBSP2,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24
-CBSP3,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24
-CBSP4,Coles Bay,Surfperch Guts,418,NP,>150,fibre,black,3330.72,yes,,Polyester,24
-CBSP5,Coles Bay,Surfperch Guts,419,NP,>150,fibre,blue,1660.07,yes,Probably denim,Cellulose,24
-CBSP5,Coles Bay,Surfperch Guts,420,NP,>150,fibre,black,479.73,yes,,Polyester,24
-CBSP6,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24
-CBSP7,Coles Bay,Surfperch Guts,421,NP,>150,fibre,pink,814.55,yes,,Cellulose,24
-CBSP7,Coles Bay,Surfperch Guts,422,NP,>150,fibre,black,537.94,yes,,Polyester,24
-CBSP8,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24
-CBSP9,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24
-CBSP10,Coles Bay,Surfperch Guts,423,NP,>150,fibre,red,1085.54,yes,,Cellulose,24
-CBSP10,Coles Bay,Surfperch Guts,#826,NP,>150,fibre,clear,492.61,no,dropped,,24
-CBSP11,Coles Bay,Surfperch Guts,424,NP,>150,fibre,clear,350.32,yes,,Polyester,24
-CBSP12,Coles Bay,Surfperch Guts,425,NP,>150,fibre,black,456.61,yes,,Polyester,24
-CBSP13,Coles Bay,Surfperch Guts,#827,NP,>150,fibre,clear,128.55,no,dropped,,24
-CBSP13,Coles Bay,Surfperch Guts,426,NP,>150,fibre,clear,365.57,yes,Can't get a good Raman spectra,Unknown,24
-CBSP13,Coles Bay,Surfperch Guts,427,NP,>150,fibre,pink,334.18,yes,,Cellulose,24
-CBSP13,Coles Bay,Surfperch Guts,428,NP,>150,fibre,clear,778.28,yes,,Cellulose,24
-CBSP14,Coles Bay,Surfperch Guts,#828,NP,>150,fibre,clear,353.13,no,dropped,,24
-CBSP14,Coles Bay,Surfperch Guts,#829,NP,>150,fibre,clear,79.01,no,#tiny,,24
-CBSP14,Coles Bay,Surfperch Guts,429,NP,>150,fibre,green,2646.48,yes,,Cellulose,24
-CBSP15,Coles Bay,Surfperch Guts,430,NP,>150,fibre,pink,196.63,yes,,Cellulose,24
-CBSP16,Coles Bay,Surfperch Guts,431,NP,>150,fibre,clear,895.43,yes,,Polyester,24
-CBSP16,Coles Bay,Surfperch Guts,432,NP,>150,fibre,black,697.38,yes,,Polyester,24
-CBSP16,Coles Bay,Surfperch Guts,433,NP,>150,fibre,black,771.87,yes,,Cellulose,24
-CBSPGB1,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,24
-CBSPGB2,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,24
-CBSPGB3,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,24
-EBSP1,Elliot Bay,Surfperch Guts,434,NP,>150,fibre,clear,671.54,yes,Too much fluorescence to get a good Raman sigNAture,Unknown,25
-EBSP1,Elliot Bay,Surfperch Guts,#830,NP,>150,fibre,clear,131.01,no,dropped,,25
-EBSP1,Elliot Bay,Surfperch Guts,435,NP,>150,fibre,black,530.71,yes,,Polyester,25
-EBSP1,Elliot Bay,Surfperch Guts,#831,NP,>150,fibre,clear,272.4,no,dropped,,25
-EBSP1,Elliot Bay,Surfperch Guts,436,NP,>150,fibre,clear,169.69,yes,Could not find for Raman,,25
-EBSP1,Elliot Bay,Surfperch Guts,437,NP,>150,fibre,clear,151.23,yes,,Salt,25
-EBSP2,Elliot Bay,Surfperch Guts,438,NP,>150,fibre,black,616.3,yes,,Polyester,25
-EBSP2,Elliot Bay,Surfperch Guts,#832,NP,>150,fibre,clear,737.04,no,dropped,,25
-EBSP3,Elliot Bay,Surfperch Guts,439,NP,>150,fragment,black,127.06,yes,Could not find for Raman,,25
-EBSP3,Elliot Bay,Surfperch Guts,440,NP,>150,fibre,clear,2570.88,yes,,Polyester,25
-EBSP3,Elliot Bay,Surfperch Guts,441,NP,>150,fibre,brown,521.8,yes,Can't get a good spectra without burning,Unknown,25
-EBSP4,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSP5,Elliot Bay,Surfperch Guts,442,NP,>150,fibre,black,1069.84,yes,,Polyster,25
-EBSP5,Elliot Bay,Surfperch Guts,443,NP,>150,fibre,red,465.61,yes,,Cellulose,25
-EBSP6,Elliot Bay,Surfperch Guts,444,NP,>150,fibre,black,819.85,yes,,Cellulose,25
-EBSP7,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSP8,Elliot Bay,Surfperch Guts,445,NP,>150,fibre,clear,305.57,yes,,Unknown,25
-EBSP9,Elliot Bay,Surfperch Guts,446,NP,>150,fibre,black,316.93,yes,,Polyester,25
-EBSP10,Elliot Bay,Surfperch Guts,447,NP,>150,fibre,clear,674.89,yes,,Cellulose,25
-EBSP11,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSP12,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSP13,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSP14,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSP15,Elliot Bay,Surfperch Guts,448,NP,>150,fibre,clear,965.68,yes,,Wool,25
-EBSPGB1,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSPGB2,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,25
-EBSPGB3,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,25
-CBSP1,Coles Bay,Surfperch Guts,,BB,1-150,fibre,clear,724.79,NA,dropped,,26
-CBSP1,Coles Bay,Surfperch Guts,664,BB,1-150,fibre,blue,1015.71,yes,Probably denim,Cellulose,26
-CBSP4,Coles Bay,Surfperch Guts,663,BB,1-150,fibre,blue,405.6,yes,Too much fluorescence to get a good sigNAture,Unknown,26
-CBSP5,Coles Bay,Surfperch Guts,665,BB,1-150,fibre,red,990.1,yes,,Cellulose,26
-CBSP6,Coles Bay,Surfperch Guts,,BB,1-150,fibre,clear,980.3,no,dropped,,26
-CBSP7,Coles Bay,Surfperch Guts,666,BB,1-150,fibre,black,1073.43,yes,,Unknown,26
-CBSP7,Coles Bay,Surfperch Guts,667,BB,1-150,fibre,blue,519.02,yes,Probably denim,Cellulose,26
-CBSP8,Coles Bay,Surfperch Guts,668,BB,1-150,fibre,blue,3461.09,yes,,Polyester,26
-CBSP8,Coles Bay,Surfperch Guts,669,BB,1-150,fibre,clear,1143.02,yes,*sorry bad placement of fiber- landed right on black line and may be hard to see,Cellulose,26
-CBSP8,Coles Bay,Surfperch Guts,670,BB,1-150,fibre,red,317.55,yes,,Polyester,26
-CBSP9,Coles Bay,Surfperch Guts,671,BB,1-150,fibre,black,2361.48,yes,,Cellulose,26
-CBSP10,Coles Bay,Surfperch Guts,,BB,1-150,fibre,blue,2072.92,no,dropped,,26
-CBSP12,Coles Bay,Surfperch Guts,672,BB,1-150,fibre,clear,2251.8,yes,,Polyester,26
-CBSP15,Coles Bay,Surfperch Guts,673,BB,1-150,fibre,blue,341.87,yes,Probably denim,Cellulose,26
-CBSP15,Coles Bay,Surfperch Guts,674,BB,1-150,fibre,blue,669.71,yes,Too much fluorescence to get a good spectra,Unknown,26
-CBSP16,Coles Bay,Surfperch Guts,675,BB,1-150,fibre,clear,966.65,yes,,Polyester,26
-CBSP16,Coles Bay,Surfperch Guts,676,BB,1-150,fibre,blue,1533.04,yes,Probably denim,Cellulose,26
-CBSP16,Coles Bay,Surfperch Guts,677,BB,1-150,fibre,clear,614.2,yes,,Cellulose,26
-CBSP16,Coles Bay,Surfperch Guts,678,BB,1-150,fibre,blue,337.92,yes,,Cellulose,26
-EBSP2,Elliot Bay,Surfperch Guts,682,BB,1-150,fibre,blue,778.2,yes,Probably denim,Cellulose,26
-CBSPGPB1,,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,26
-CBSPGPB2,,Blanks,679,BB,1-150,fibre,blue,574.54,yes,Probably denim,Cellulose,26
-EBSP1,Elliot Bay,Surfperch Guts,680,BB,1-150,fibre,white,568.54,yes,,Polyester,27
-EBSP1,Elliot Bay,Surfperch Guts,681,BB,1-150,fibre,blue,462.55,yes,Probably denim,Cellulose,27
-EBSP2,Elliot Bay,Surfperch Guts,683,BB,1-150,fibre,green,635.15,yes,,Cellulose,27
-EBSP2,Elliot Bay,Surfperch Guts,684,BB,1-150,fibre,blue,452.51,yes,,Cellulose,27
-EBSP2,Elliot Bay,Surfperch Guts,685,BB,1-150,fibre,blue,532.01,yes,,Cellulose,27
-EBSP2,Elliot Bay,Surfperch Guts,686,BB,1-150,fibre,black,742.63,yes,,Cellulose,27
-EBSP3,Elliot Bay,Surfperch Guts,687,BB,1-150,fibre,black,250.49,yes,,Polyester,27
-EBSP5,Elliot Bay,Surfperch Guts,688,BB,1-150,fibre,red,824.55,yes,,Polyurethane,27
+ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match,user.id
+HPSP1,Victoria Harbour,Surfperch Guts,94,NP,>150,fibre,red,624.24,yes,,Cellulose,23,N
+HPSP1,Victoria Harbour,Surfperch Guts,#125,NP,>150,fibre,black,1511.22,no,dropped,,23,N
+HPSP1,Victoria Harbour,Surfperch Guts,95,NP,>150,fibre,black,519.83,yes,,Unknown,23,N
+HPSP1,Victoria Harbour,Surfperch Guts,96,NP,>150,fibre,black,623.05,yes,,Cellulose,23,N
+HPSP2,Victoria Harbour,Surfperch Guts,403,NP,>150,fibre,black,461.67,yes,,Polyester,23,N
+HPSP3,Victoria Harbour,Surfperch Guts,404,NP,>150,fibre,blue,532.08,yes,,Polyester,23,S
+HPSP3,Victoria Harbour,Surfperch Guts,405,NP,>150,fibre,clear,938.08,yes,,Polyester,23,S
+HPSP4,Victoria Harbour,Surfperch Guts,406,NP,>150,fibre,blue,317.92,yes,Too much fluorescence to get a good sigNAture,Unknown,23,S
+HPSP4,Victoria Harbour,Surfperch Guts,407,NP,>150,fibre,clear,5347.7,yes,Really good match for modal and physically looks like rayon,Rayon,23,S
+HPSP4,Victoria Harbour,Surfperch Guts,408,NP,>150,fibre,green,501.33,yes,,Cellulose,23,S
+HPSP5,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSP6,Victoria Harbour,Surfperch Guts,409,NP,>150,fibre,clear,470.78,yes,,Cellulose,23,S
+HPSP7,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSP8,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSP9,Victoria Harbour,Surfperch Guts,410,NP,>150,fibre,black,893.7,yes,,Polyester,23,S
+HPSP10,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSP11,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSP12,Victoria Harbour,Surfperch Guts,411,NP,>150,fibre,blue,276.35,yes,,Cellulose,23,S
+HPSP12,Victoria Harbour,Surfperch Guts,412,NP,>150,fibre,brown,375.64,yes,,Polyester,23,S
+HPSP13,Victoria Harbour,Surfperch Guts,413,NP,>150,fibre,black,784.4,yes,,Polyester,23,S
+HPSP14,Victoria Harbour,Surfperch Guts,414,NP,>150,fibre,blue,828.34,yes,Probably denim,Cellulose,23,S
+HPSP14,Victoria Harbour,Surfperch Guts,415,NP,>150,fibre,black,1408.96,yes,,Polyester,23,S
+HPSP15,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSP16,Victoria Harbour,Surfperch Guts,416,NP,>150,film,clear,132.75,yes,Can't get a good spectra,Unknown,23,N
+HPSP17,Victoria Harbour,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSPGB1,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSPGB2,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+HPSPGB3,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,23,NA
+CBSP1,Coles Bay,Surfperch Guts,417,NP,>150,fibre,clear,1185.93,yes,,Polyester,24,S
+CBSP2,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+CBSP3,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+CBSP4,Coles Bay,Surfperch Guts,418,NP,>150,fibre,black,3330.72,yes,,Polyester,24,S
+CBSP5,Coles Bay,Surfperch Guts,419,NP,>150,fibre,blue,1660.07,yes,Probably denim,Cellulose,24,S
+CBSP5,Coles Bay,Surfperch Guts,420,NP,>150,fibre,black,479.73,yes,,Polyester,24,S
+CBSP6,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+CBSP7,Coles Bay,Surfperch Guts,421,NP,>150,fibre,pink,814.55,yes,,Cellulose,24,N
+CBSP7,Coles Bay,Surfperch Guts,422,NP,>150,fibre,black,537.94,yes,,Polyester,24,S
+CBSP8,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+CBSP9,Coles Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+CBSP10,Coles Bay,Surfperch Guts,423,NP,>150,fibre,pink,1085.54,yes,,Cellulose,24,S
+CBSP10,Coles Bay,Surfperch Guts,#826,NP,>150,fibre,clear,492.61,no,dropped,,24,N
+CBSP11,Coles Bay,Surfperch Guts,424,NP,>150,fibre,clear,350.32,yes,,Polyester,24,S
+CBSP12,Coles Bay,Surfperch Guts,425,NP,>150,fibre,black,456.61,yes,,Polyester,24,S
+CBSP13,Coles Bay,Surfperch Guts,#827,NP,>150,fibre,clear,128.55,no,dropped,,24,S
+CBSP13,Coles Bay,Surfperch Guts,426,NP,>150,fibre,clear,365.57,yes,Can't get a good Raman spectra,Unknown,24,S
+CBSP13,Coles Bay,Surfperch Guts,427,NP,>150,fibre,pink,334.18,yes,,Cellulose,24,S
+CBSP13,Coles Bay,Surfperch Guts,428,NP,>150,fibre,clear,778.28,yes,,Cellulose,24,S
+CBSP14,Coles Bay,Surfperch Guts,#828,NP,>150,fibre,clear,353.13,no,dropped,,24,S
+CBSP14,Coles Bay,Surfperch Guts,#829,NP,>150,fibre,clear,79.01,no,#tiny,,24,S
+CBSP14,Coles Bay,Surfperch Guts,429,NP,>150,fibre,green,2646.48,yes,,Cellulose,24,N
+CBSP15,Coles Bay,Surfperch Guts,430,NP,>150,fibre,pink,196.63,yes,,Cellulose,24,S
+CBSP16,Coles Bay,Surfperch Guts,431,NP,>150,fibre,clear,895.43,yes,,Polyester,24,S
+CBSP16,Coles Bay,Surfperch Guts,432,NP,>150,fibre,black,697.38,yes,,Polyester,24,S
+CBSP16,Coles Bay,Surfperch Guts,433,NP,>150,fibre,black,771.87,yes,,Cellulose,24,S
+CBSPGB1,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+CBSPGB2,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+CBSPGB3,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,24,NA
+EBSP1,Elliot Bay,Surfperch Guts,434,NP,>150,fibre,clear,671.54,yes,Too much fluorescence to get a good Raman sigNAture,Unknown,25,S
+EBSP1,Elliot Bay,Surfperch Guts,#830,NP,>150,fibre,clear,131.01,no,dropped,,25,S
+EBSP1,Elliot Bay,Surfperch Guts,435,NP,>150,fibre,black,530.71,yes,,Polyester,25,S
+EBSP1,Elliot Bay,Surfperch Guts,#831,NP,>150,fibre,clear,272.4,no,dropped,,25,N
+EBSP1,Elliot Bay,Surfperch Guts,436,NP,>150,fibre,clear,169.69,yes,Could not find for Raman,,25,N
+EBSP1,Elliot Bay,Surfperch Guts,437,NP,>150,fibre,clear,151.23,yes,,Salt,25,N
+EBSP2,Elliot Bay,Surfperch Guts,438,NP,>150,fibre,black,616.3,yes,,Polyester,25,N
+EBSP2,Elliot Bay,Surfperch Guts,#832,NP,>150,fibre,clear,737.04,no,dropped,,25,N
+EBSP3,Elliot Bay,Surfperch Guts,439,NP,>150,fragment,black,127.06,yes,Could not find for Raman,,25,N
+EBSP3,Elliot Bay,Surfperch Guts,440,NP,>150,fibre,black,2570.88,yes,,Polyester,25,S
+EBSP3,Elliot Bay,Surfperch Guts,441,NP,>150,fibre,brown,521.8,yes,Can't get a good spectra without burning,Unknown,25,S
+EBSP4,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSP5,Elliot Bay,Surfperch Guts,442,NP,>150,fibre,black,1069.84,yes,,Polyster,25,S
+EBSP5,Elliot Bay,Surfperch Guts,443,NP,>150,fibre,pink,465.61,yes,,Cellulose,25,S
+EBSP6,Elliot Bay,Surfperch Guts,444,NP,>150,fibre,black,819.85,yes,,Cellulose,25,N
+EBSP7,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSP8,Elliot Bay,Surfperch Guts,445,NP,>150,fibre,clear,305.57,yes,,Unknown,25,S
+EBSP9,Elliot Bay,Surfperch Guts,446,NP,>150,fibre,black,316.93,yes,,Polyester,25,S
+EBSP10,Elliot Bay,Surfperch Guts,447,NP,>150,fibre,clear,674.89,yes,,Cellulose,25,N
+EBSP11,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSP12,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSP13,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSP14,Elliot Bay,Surfperch Guts,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSP15,Elliot Bay,Surfperch Guts,448,NP,>150,fibre,clear,965.68,yes,,Wool,25,N
+EBSPGB1,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSPGB2,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+EBSPGB3,,Blanks,NA,NA,>150,NA,NA,NA,NA,,,25,NA
+CBSP1,Coles Bay,Surfperch Guts,,BB,1-150,fibre,clear,724.79,NA,dropped,,26,S
+CBSP1,Coles Bay,Surfperch Guts,664,BB,1-150,fibre,blue,1015.71,yes,Probably denim,Cellulose,26,S
+CBSP4,Coles Bay,Surfperch Guts,663,BB,1-150,fibre,blue,405.6,yes,Too much fluorescence to get a good sigNAture,Unknown,26,S
+CBSP5,Coles Bay,Surfperch Guts,665,BB,1-150,fibre,pink,990.1,yes,,Cellulose,26,N
+CBSP6,Coles Bay,Surfperch Guts,,BB,1-150,fibre,clear,980.3,no,dropped,,26,N
+CBSP7,Coles Bay,Surfperch Guts,666,BB,1-150,fibre,black,1073.43,yes,,Unknown,26,N
+CBSP7,Coles Bay,Surfperch Guts,667,BB,1-150,fibre,blue,519.02,yes,Probably denim,Cellulose,26,N
+CBSP8,Coles Bay,Surfperch Guts,668,BB,1-150,fibre,blue,3461.09,yes,,Polyester,26,S
+CBSP8,Coles Bay,Surfperch Guts,669,BB,1-150,fibre,clear,1143.02,yes,*sorry bad placement of fiber- landed right on black line and may be hard to see,Cellulose,26,N
+CBSP8,Coles Bay,Surfperch Guts,670,BB,1-150,fibre,pink,317.55,yes,,Polyester,26,S
+CBSP9,Coles Bay,Surfperch Guts,671,BB,1-150,fibre,black,2361.48,yes,,Cellulose,26,N
+CBSP10,Coles Bay,Surfperch Guts,,BB,1-150,fibre,blue,2072.92,no,dropped,,26,N
+CBSP12,Coles Bay,Surfperch Guts,672,BB,1-150,fibre,clear,2251.8,yes,,Polyester,26,S
+CBSP15,Coles Bay,Surfperch Guts,673,BB,1-150,fibre,blue,341.87,yes,Probably denim,Cellulose,26,N
+CBSP15,Coles Bay,Surfperch Guts,674,BB,1-150,fibre,blue,669.71,yes,Too much fluorescence to get a good spectra,Unknown,26,S
+CBSP16,Coles Bay,Surfperch Guts,675,BB,1-150,fibre,clear,966.65,yes,,Polyester,26,S
+CBSP16,Coles Bay,Surfperch Guts,676,BB,1-150,fibre,blue,1533.04,yes,Probably denim,Cellulose,26,N
+CBSP16,Coles Bay,Surfperch Guts,677,BB,1-150,fibre,clear,614.2,yes,,Cellulose,26,N
+CBSP16,Coles Bay,Surfperch Guts,678,BB,1-150,fibre,blue,337.92,yes,,Cellulose,26,N
+EBSP2,Elliot Bay,Surfperch Guts,682,BB,1-150,fibre,blue,778.2,yes,Probably denim,Cellulose,26,N
+CBSPGPB1,,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,26,NA
+CBSPGPB2,,Blanks,679,BB,1-150,fibre,blue,574.54,yes,Probably denim,Cellulose,26,N
+EBSP1,Elliot Bay,Surfperch Guts,680,BB,1-150,fibre,white,568.54,yes,,Polyester,27,S
+EBSP1,Elliot Bay,Surfperch Guts,681,BB,1-150,fibre,blue,462.55,yes,Probably denim,Cellulose,27,N
+EBSP2,Elliot Bay,Surfperch Guts,683,BB,1-150,fibre,olive,635.15,yes,,Cellulose,27,S
+EBSP2,Elliot Bay,Surfperch Guts,684,BB,1-150,fibre,blue,452.51,yes,,Cellulose,27,N
+EBSP2,Elliot Bay,Surfperch Guts,685,BB,1-150,fibre,blue,532.01,yes,,Cellulose,27,S
+EBSP2,Elliot Bay,Surfperch Guts,686,BB,1-150,fibre,black,742.63,yes,,Cellulose,27,S
+EBSP3,Elliot Bay,Surfperch Guts,687,BB,1-150,fibre,black,250.49,yes,,Polyester,27,S
+EBSP5,Elliot Bay,Surfperch Guts,688,BB,1-150,fibre,purple,824.55,yes,,Polyurethane,27,S
 EBSP5,Elliot Bay,Surfperch Guts,689,BB,1-150,fibre,clear,621.83,yes,,"Nylon
-",27
-EBSP5,Elliot Bay,Surfperch Guts,690,BB,1-150,fibre,red,567.95,yes,,Cellulose,27
-EBSP5,Elliot Bay,Surfperch Guts,691,BB,1-150,fibre,clear,1546.62,yes,,Cellulose,27
-EBSP7,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27
-EBSP9,Elliot Bay,Surfperch Guts,692,BB,1-150,fibre,red,244.06,yes,Physical structure looks like rayon and spectra is cellulose,Rayon,27
-EBSP9,Elliot Bay,Surfperch Guts,693,BB,1-150,fibre,red,527.72,yes,Could not find for Raman,,27
-EBSP10,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27
-EBSP11,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27
-EBSP13,Elliot Bay,Surfperch Guts,,BB,1-150,fibre,clear,506.65,no,dropped,,27
-EBSP14,Elliot Bay,Surfperch Guts,694,BB,1-150,fibre,blue,827.13,yes,Probably denim,Cellulose,27
-EBSPGPB1,,Blanks,695,BB,1-150,fibre,black,671.52,yes,,Polyester,27
-EBSPGPB3,,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,27
-HPSP2,Victoria Harbour,Surfperch Guts,696,BB,1-150,fibre,clear,810.46,yes,,Cellulose,28
-HPSP5,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28
-HPSP6,Victoria Harbour,Surfperch Guts,697,BB,1-150,fibre,blue,790.78,yes,,Polyester,28
-HPSP6,Victoria Harbour,Surfperch Guts,698,BB,1-150,fibre,red,591.02,yes,,Cellulose,28
-HPSP8,Victoria Harbour,Surfperch Guts,699,BB,1-150,fibre,black,646.66,yes,Cellulose sigNAture and physically looks like rayon,Rayon,28
-HPSP8,Victoria Harbour,Surfperch Guts,700,BB,1-150,fibre,blue,1089.33,yes,Probably denim,Cellulose,28
-HPSP8,Victoria Harbour,Surfperch Guts,701,BB,1-150,fibre,blue,759.02,yes,Probably denim,Cellulose,28
-HPSP9,Victoria Harbour,Surfperch Guts,702,BB,1-150,fibre,clear,2807.39,yes,,Cellulose,28
+",27,S
+EBSP5,Elliot Bay,Surfperch Guts,690,BB,1-150,fibre,pink,567.95,yes,,Cellulose,27,S
+EBSP5,Elliot Bay,Surfperch Guts,691,BB,1-150,fibre,yellow,1546.62,yes,,Cellulose,27,N
+EBSP7,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
+EBSP9,Elliot Bay,Surfperch Guts,692,BB,1-150,fibre,red,244.06,yes,Physical structure looks like rayon and spectra is cellulose,Rayon,27,N
+EBSP9,Elliot Bay,Surfperch Guts,693,BB,1-150,fibre,black,527.72,yes,Could not find for Raman,,27,S
+EBSP10,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
+EBSP11,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
+EBSP13,Elliot Bay,Surfperch Guts,,BB,1-150,fibre,clear,506.65,no,dropped,,27,N
+EBSP14,Elliot Bay,Surfperch Guts,694,BB,1-150,fibre,blue,827.13,yes,Probably denim,Cellulose,27,S
+EBSPGPB1,,Blanks,695,BB,1-150,fibre,black,671.52,yes,,Polyester,27,S
+EBSPGPB3,,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
+HPSP2,Victoria Harbour,Surfperch Guts,696,BB,1-150,fibre,clear,810.46,yes,,Cellulose,28,N
+HPSP5,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,NA
+HPSP6,Victoria Harbour,Surfperch Guts,697,BB,1-150,fibre,blue,790.78,yes,,Polyester,28,S
+HPSP6,Victoria Harbour,Surfperch Guts,698,BB,1-150,fibre,pink,591.02,yes,,Cellulose,28,N
+HPSP8,Victoria Harbour,Surfperch Guts,699,BB,1-150,fibre,black,646.66,yes,Cellulose sigNAture and physically looks like rayon,Rayon,28,N
+HPSP8,Victoria Harbour,Surfperch Guts,700,BB,1-150,fibre,blue,1089.33,yes,Probably denim,Cellulose,28,N
+HPSP8,Victoria Harbour,Surfperch Guts,701,BB,1-150,fibre,blue,759.02,yes,Probably denim,Cellulose,28,N
+HPSP9,Victoria Harbour,Surfperch Guts,702,BB,1-150,fibre,clear,2807.39,yes,,Cellulose,28,S
 HPSP9,Victoria Harbour,Surfperch Guts,703,BB,1-150,fibre,blue,2191.93,yes,"Probably denim
-",Cellulose,28
-HPSP9,Victoria Harbour,Surfperch Guts,704,BB,1-150,fibre,blue,615.65,yes,,Cellulose,28
-HPSP10,Victoria Harbour,Surfperch Guts,705,BB,1-150,fibre,clear,2017.44,yes,,Cellulose,28
-HPSP10,Victoria Harbour,Surfperch Guts,706,BB,1-150,fibre,black,2190.27,yes,,Acrylic,28
-HPSP10,Victoria Harbour,Surfperch Guts,707,BB,1-150,fibre,clear,1328.97,yes,,Polyester,28
-HPSP10,Victoria Harbour,Surfperch Guts,708,BB,1-150,fibre,blue,379.75,yes,Probably denim,Cellulose,28
-HPSP11,Victoria Harbour,Surfperch Guts,709,BB,1-150,fibre,black,844.51,yes,Can't get a good spectra without burning,Unknown,28
-HPSP11,Victoria Harbour,Surfperch Guts,710,BB,1-150,fibre,clear,1070.54,yes,,Cellulose,28
-HPSP13,Victoria Harbour,Surfperch Guts,711,BB,1-150,fibre,blue,592.37,yes,,Polyester,28
-HPSP14,Victoria Harbour,Surfperch Guts,712,BB,1-150,fibre,black,676.63,yes,,Polyester,28
-HPSP15,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28
-HPSP16,Victoria Harbour,Surfperch Guts,713,BB,1-150,fibre,red,534.99,yes,,"Cellulose
-",28
+",Cellulose,28,N
+HPSP9,Victoria Harbour,Surfperch Guts,704,BB,1-150,fibre,blue,615.65,yes,,Cellulose,28,N
+HPSP10,Victoria Harbour,Surfperch Guts,705,BB,1-150,fibre,clear,2017.44,yes,,Cellulose,28,N
+HPSP10,Victoria Harbour,Surfperch Guts,706,BB,1-150,fibre,brown,2190.27,yes,,Acrylic,28,S
+HPSP10,Victoria Harbour,Surfperch Guts,707,BB,1-150,fibre,clear,1328.97,yes,,Polyester,28,N
+HPSP10,Victoria Harbour,Surfperch Guts,708,BB,1-150,fibre,blue,379.75,yes,Probably denim,Cellulose,28,N
+HPSP11,Victoria Harbour,Surfperch Guts,709,BB,1-150,fibre,black,844.51,yes,Can't get a good spectra without burning,Unknown,28,N
+HPSP11,Victoria Harbour,Surfperch Guts,710,BB,1-150,fibre,clear,1070.54,yes,,Cellulose,28,N
+HPSP13,Victoria Harbour,Surfperch Guts,711,BB,1-150,fibre,blue,592.37,yes,,Polyester,28,S
+HPSP14,Victoria Harbour,Surfperch Guts,712,BB,1-150,fibre,black,676.63,yes,,Polyester,28,S
+HPSP15,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,NA
+HPSP16,Victoria Harbour,Surfperch Guts,713,BB,1-150,fibre,pink,534.99,yes,,"Cellulose
+",28,S
 HPSP16,Victoria Harbour,Surfperch Guts,714,BB,1-150,fibre,black,589.33,yes,,"Cellulose
-",28
-HPSP16,Victoria Harbour,Surfperch Guts,715,BB,1-150,fibre,blue,545.92,yes,Probably denim,Cellulose,28
+",28,S
+HPSP16,Victoria Harbour,Surfperch Guts,715,BB,1-150,fibre,blue,545.92,yes,Probably denim,Cellulose,28,N
 HPSP16,Victoria Harbour,Surfperch Guts,716,BB,1-150,fibre,black,1946.22,yes,,"Polyester
-",28
-HPSP17,Victoria Harbour,Surfperch Guts,717,BB,1-150,fibre,blue,917.04,yes,Too much fluorescence to get a good sigNAture,Unknown,28
-HPSP17,Victoria Harbour,Surfperch Guts,,BB,1-150,fibre,black,596.86,no,dropped,,28
-HPSP17,Victoria Harbour,Surfperch Guts,718,BB,1-150,fibre,black,412.93,yes,,Cellulose,28
-HPSPGPB1,,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,28
-HPSPGPB2,,Blanks,719,BB,1-150,fibre,blue,1123.93,yes,Probably denim,Cellulose,28
-HPSPGPB2,,Blanks,720,BB,1-150,fibre,clear,605.24,yes,,Wool,28
-CBSP1,Coles Bay,Surfperch Livers,721,BB,>1,fibre,clear,201.6,yes,,Polyester,29
-CBSP1,Coles Bay,Surfperch Livers,722,BB,>1,fibre,black,257.45,yes,,Cellulose,29
-CBSP4,Coles Bay,Surfperch Livers,723,BB,>1,fibre,clear,848.02,yes,,Polyester,29
-CBSP4,Coles Bay,Surfperch Livers,724,BB,>1,fibre,clear,1126.83,yes,,Rayon,29
-CBSP4,Coles Bay,Surfperch Livers,725,BB,>1,fibre,red,1154.48,yes,,Polyester,29
-CBSP5,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29
-CBSP6,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29
-CBSP7,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29
-CBSP8,Coles Bay,Surfperch Livers,726,BB,>1,fibre,clear,493.21,yes,,Polyester,29
-CBSP8,Coles Bay,Surfperch Livers,727,BB,>1,fibre,red,504.41,yes,,Cellulose,29
-CBSP8,Coles Bay,Surfperch Livers,728,BB,>1,fibre,blue,559.15,yes,,Polyester,29
+",28,S
+HPSP17,Victoria Harbour,Surfperch Guts,717,BB,1-150,fibre,blue,917.04,yes,Too much fluorescence to get a good sigNAture,Unknown,28,N
+HPSP17,Victoria Harbour,Surfperch Guts,,BB,1-150,fibre,black,596.86,no,dropped,,28,N
+HPSP17,Victoria Harbour,Surfperch Guts,718,BB,1-150,fibre,black,412.93,yes,,Cellulose,28,N
+HPSPGPB1,,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,28,NA
+HPSPGPB2,,Blanks,719,BB,1-150,fibre,blue,1123.93,yes,Probably denim,Cellulose,28,N
+HPSPGPB2,,Blanks,720,BB,1-150,fibre,clear,605.24,yes,,Wool,28,S
+CBSP1,Coles Bay,Surfperch Livers,721,BB,>1,fibre,clear,201.6,yes,,Polyester,29,S
+CBSP1,Coles Bay,Surfperch Livers,722,BB,>1,fibre,black,257.45,yes,,Cellulose,29,S
+CBSP4,Coles Bay,Surfperch Livers,723,BB,>1,fibre,clear,848.02,yes,,Polyester,29,S
+CBSP4,Coles Bay,Surfperch Livers,724,BB,>1,fibre,clear,1126.83,yes,,Rayon,29,S
+CBSP4,Coles Bay,Surfperch Livers,725,BB,>1,fibre,red,1154.48,yes,,Polyester,29,S
+CBSP5,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29,NA
+CBSP6,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29,NA
+CBSP7,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29,NA
+CBSP8,Coles Bay,Surfperch Livers,726,BB,>1,fibre,clear,493.21,yes,,Polyester,29,S
+CBSP8,Coles Bay,Surfperch Livers,727,BB,>1,fibre,red,504.41,yes,,Cellulose,29,N
+CBSP8,Coles Bay,Surfperch Livers,728,BB,>1,fibre,blue,559.15,yes,,Polyester,29,S
 CBSP9,Coles Bay,Surfperch Livers,729,BB,>1,fibre,clear,1175.19,yes,"Too much fluorescenced to get a good spectra
-",Cellulose,29
-CBSP10,Coles Bay,Surfperch Livers,730,BB,>1,fibre,blue,416.7,yes,,Polyester,29
-CBSP10,Coles Bay,Surfperch Livers,731,BB,>1,fibre,blue,531.1,yes,Probably denim,Cellulose,29
-CBSP10,Coles Bay,Surfperch Livers,,BB,>1,fibre,clear,816,no,dropped,,29
-CBSP10,Coles Bay,Surfperch Livers,,BB,>1,fibre,clear,941.73,no,dropped,,29
-CBSP12,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29
-CBSP15,Coles Bay,Surfperch Livers,732,BB,>1,fibre,clear,1099.9,yes,,Cellulose,29
-CBSP16,Coles Bay,Surfperch Livers,733,BB,>1,fibre,clear,910.27,yes,,Cellulose,29
-CBSPLPB1,,Blanks,734,BB,>1,fibre,clear,944.77,yes,,Polyester,29
-CBSPLPB3,,Blanks,735,BB,>1,fibre,clear,1311.28,yes,,Cellulose,29
-EBSP1,Elliot Bay,Surfperch Livers,,BB,>1,fibre,red,534.44,no,dropped,,30
-EBSP1,Elliot Bay,Surfperch Livers,736,BB,>1,fibre,yellow,1878.71,yes,,Cellulose,30
-EBSP1,Elliot Bay,Surfperch Livers,737,BB,>1,fibre,black,374.19,yes,,Cellulose,30
-EBSP1,Elliot Bay,Surfperch Livers,,BB,>1,fibre,clear,1123.45,no,dropped,,30
-EBSP2,Elliot Bay,Surfperch Livers,738,BB,>1,fibre,blue,1214.98,yes,,Cellulose,30
-EBSP3,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-EBSP5,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-EBSP8,Elliot Bay,Surfperch Livers,739,BB,>1,fibre,red,2610.6,yes,,Cellulose,30
-EBSP9,Elliot Bay,Surfperch Livers,740,BB,>1,fibre,red,908.74,,,Cellulose,30
-EBSP10,Elliot Bay,Surfperch Livers,741,BB,>1,fibre,blue,851.44,,Too much fluorescence to get a good spectra,Unknown,30
-EBSP11,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-EBSP13,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-EBSP14,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-EBSPB1,,Blanks,NA,BB,>1,NA,NA,NA,NA,,,30
-EBSPB3,,Blanks,NA,BB,>1,NA,NA,NA,NA,,,30
-HPSP2,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-HPSP5,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-HPSP6,Victoria Harbour,Surfperch Livers,742,BB,>1,fibre,clear,1157.88,yes,,Polyester,30
-HPSP8,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-HPSP9,Victoria Harbour,Surfperch Livers,743,BB,>1,fibre,blue,794.56,yes,Probably Denim,Cellulose,30
-HPSP10,Victoria Harbour,Surfperch Livers,744,BB,>1,fibre,clear,607.78,yes,,Wool,30
-HPSP11,Victoria Harbour,Surfperch Livers,745,BB,>1,fibre,black,255.61,yes,Can't get good spectra without burning,Unknown,30
-HPSP12,Victoria Harbour,Surfperch Livers,746,BB,>1,fibre,black,886.12,yes,***I have sample,Polyester,30
-HPSP12,Victoria Harbour,Surfperch Livers,747,BB,>1,fibre,black,684.5,yes,,Cellulose,30
-HPSP14,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-HPSP15,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-HPSP16,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30
-HPSP17,Victoria Harbour,Surfperch Livers,748,BB,>1,fibre,clear,779.8,yes,,Polyester,30
-CBSP2,Coles Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,26
-CBSP3,Coles Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,26
-CBSP11,Coles Bay,Surfperch Guts,1057,BB,1-150,fiber,blue,809.7,yes,,,26
-CBSP13,Coles Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,26
-CBSPPB3,Coles Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,26
-EBSP4,Elliot Bay,Surfperch Guts,1058,BB,1-150,fiber,black,556.52,yes,,,27
-EBSP4,Elliot Bay,Surfperch Guts,1059,BB,1-150,fiber,blue,1059.72,yes,,,27
-EBSP6,Elliot Bay,Surfperch Guts,1060,BB,1-150,fiber,black,450.51,yes,,,27
-EBSP8,Elliot Bay,Surfperch Guts,1061,BB,1-150,fiber,black,446.5,yes,,,27
-EBSP8,Elliot Bay,Surfperch Guts,,BB,1-150,fiber,blue,594.87,no,dropped,,27
-EBSP12,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27
-EBSP15,Elliot Bay,Surfperch Guts,1062,BB,1-150,fiber,blue,407.39,yes,,,27
-EBSP15,Elliot Bay,Surfperch Guts,1063,BB,1-150,fiber,blue,3869.02,yes,,,27
-EBSPPB2,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,27
-HPSP1,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28
-HPSP3,Victoria Harbour,Surfperch Guts,1064,BB,1-150,fiber,black,2048.22,yes,,,28
-HPSP3,Victoria Harbour,Surfperch Guts,1065,BB,1-150,fiber,black,1460.53,yes,,,28
-HPSP4,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28
-HPSPPB3,Victoria Harbour,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,28
+",Cellulose,29,S
+CBSP10,Coles Bay,Surfperch Livers,730,BB,>1,fibre,blue,416.7,yes,,Polyester,29,S
+CBSP10,Coles Bay,Surfperch Livers,731,BB,>1,fibre,blue,531.1,yes,Probably denim,Cellulose,29,S
+CBSP10,Coles Bay,Surfperch Livers,,BB,>1,fibre,clear,816,no,dropped,,29,S
+CBSP10,Coles Bay,Surfperch Livers,,BB,>1,fibre,clear,941.73,no,dropped,,29,S
+CBSP12,Coles Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,29,NA
+CBSP15,Coles Bay,Surfperch Livers,732,BB,>1,fibre,clear,1099.9,yes,,Cellulose,29,S
+CBSP16,Coles Bay,Surfperch Livers,733,BB,>1,fibre,clear,910.27,yes,,Cellulose,29,S
+CBSPLPB1,,Blanks,734,BB,>1,fibre,clear,944.77,yes,,Polyester,29,S
+CBSPLPB3,,Blanks,735,BB,>1,fibre,blue,1311.28,yes,,Cellulose,29,N
+EBSP1,Elliot Bay,Surfperch Livers,,BB,>1,fibre,purple,534.44,no,dropped,,30,N
+EBSP1,Elliot Bay,Surfperch Livers,736,BB,>1,fibre,yellow,1878.71,yes,,Cellulose,30,N
+EBSP1,Elliot Bay,Surfperch Livers,737,BB,>1,fibre,blue,374.19,yes,,Cellulose,30,S
+EBSP1,Elliot Bay,Surfperch Livers,,BB,>1,fibre,clear,1123.45,no,dropped,,30,N
+EBSP2,Elliot Bay,Surfperch Livers,738,BB,>1,fibre,blue,1214.98,yes,,Cellulose,30,N
+EBSP3,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+EBSP5,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+EBSP8,Elliot Bay,Surfperch Livers,739,BB,>1,fibre,pink,2610.6,yes,,Cellulose,30,N
+EBSP9,Elliot Bay,Surfperch Livers,740,BB,>1,fibre,pink,908.74,,,Cellulose,30,N
+EBSP10,Elliot Bay,Surfperch Livers,741,BB,>1,fibre,blue,851.44,,Too much fluorescence to get a good spectra,Unknown,30,S
+EBSP11,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+EBSP13,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+EBSP14,Elliot Bay,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+EBSPB1,,Blanks,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+EBSPB3,,Blanks,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+HPSP2,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+HPSP5,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+HPSP6,Victoria Harbour,Surfperch Livers,742,BB,>1,fibre,clear,1157.88,yes,,Polyester,30,S
+HPSP8,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+HPSP9,Victoria Harbour,Surfperch Livers,743,BB,>1,fibre,blue,794.56,yes,Probably Denim,Cellulose,30,N
+HPSP10,Victoria Harbour,Surfperch Livers,744,BB,>1,fibre,clear,607.78,yes,,Wool,30,N
+HPSP11,Victoria Harbour,Surfperch Livers,745,BB,>1,fibre,black,255.61,yes,Can't get good spectra without burning,Unknown,30,S
+HPSP12,Victoria Harbour,Surfperch Livers,746,BB,>1,fibre,black,886.12,yes,***I have sample,Polyester,30,N
+HPSP12,Victoria Harbour,Surfperch Livers,747,BB,>1,fibre,black,684.5,yes,,Cellulose,30,N
+HPSP14,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+HPSP15,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+HPSP16,Victoria Harbour,Surfperch Livers,NA,BB,>1,NA,NA,NA,NA,,,30,NA
+HPSP17,Victoria Harbour,Surfperch Livers,748,BB,>1,fibre,clear,779.8,yes,,Polyester,30,S
+CBSP2,Coles Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,26,NA
+CBSP3,Coles Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,26,NA
+CBSP11,Coles Bay,Surfperch Guts,1057,BB,1-150,fiber,blue,809.7,yes,,,26,N
+CBSP13,Coles Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,26,NA
+CBSPPB3,Coles Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,26,NA
+EBSP4,Elliot Bay,Surfperch Guts,1058,BB,1-150,fiber,black,556.52,yes,,,27,S
+EBSP4,Elliot Bay,Surfperch Guts,1059,BB,1-150,fiber,blue,1059.72,yes,,,27,S
+EBSP6,Elliot Bay,Surfperch Guts,1060,BB,1-150,fiber,black,450.51,yes,,,27,S
+EBSP8,Elliot Bay,Surfperch Guts,1061,BB,1-150,fiber,black,446.5,yes,,,27,S
+EBSP8,Elliot Bay,Surfperch Guts,,BB,1-150,fiber,blue,594.87,no,dropped,,27,N
+EBSP12,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
+EBSP15,Elliot Bay,Surfperch Guts,1062,BB,1-150,fiber,blue,407.39,yes,,,27,N
+EBSP15,Elliot Bay,Surfperch Guts,1063,BB,1-150,fiber,purple,3869.02,yes,,,27,S
+EBSPPB2,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
+HPSP1,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,NA
+HPSP3,Victoria Harbour,Surfperch Guts,1064,BB,1-150,fiber,black,2048.22,yes,,,28,S
+HPSP3,Victoria Harbour,Surfperch Guts,1065,BB,1-150,fiber,red,1460.53,yes,,,28,N
+HPSP4,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,
+HPSPPB3,Victoria Harbour,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,28,

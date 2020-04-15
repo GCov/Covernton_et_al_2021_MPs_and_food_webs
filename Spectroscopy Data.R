@@ -6,6 +6,7 @@ library(ggplot2)
 library(dplyr)
 library(nnet)
 library(MuMIn)
+library(boot)
 
 #### Load spectroscopy data ####
 
@@ -294,6 +295,8 @@ moddata <- subset(full_spec_data,
 moddata$particle.type <- as.character(moddata$particle.type)
 moddata$particle.type <- as.factor(moddata$particle.type)
 
+## Fit intial model
+
 particle.mod1 <-
   multinom(particle.type ~
              colour + shape + sample.type,
@@ -334,7 +337,28 @@ range(success_rate)
 pred_data <- subset(full_spec_data,
                     particle.type == 'Unknown')
 
-predict.mlr <- predict(particle.mod1, newdata = pred_data)
+predict.mlr <- predict(particle.mod1, newdata = pred_data, type = 'class')
+
+# ## 2nd choice particles for p<0.8 for a class
+# 
+# predict.probs <- 
+#   as.data.frame(predict(particle.mod1, 
+#                         newdata = pred_data, 
+#                         type = 'probs'))
+# 
+# predict.mlr2 <- character()
+# 
+# for(i in 1:length(pred_data$particle.type)) {
+#   predictions <- predict.probs[i,]
+#   max <- max(predictions)
+#   second <- max(predictions[predictions != max])
+#   name <- ifelse(max >= 0.8,
+#                  names(predictions)[which(predictions == max, 
+#                                           arr.ind = T)[, "col"]],
+#                  names(predictions)[which(predictions == second,
+#                                           arr.ind = T)[, "col"]])
+#   predict.mlr2[i] <- name
+# }
 
 full_spec_data$particle.type[full_spec_data$particle.type == 'Unknown' &
                                !is.na(full_spec_data$particle.type)] <-
@@ -342,6 +366,12 @@ full_spec_data$particle.type[full_spec_data$particle.type == 'Unknown' &
 
 full_spec_data$particle.type <- as.character(full_spec_data$particle.type)
 full_spec_data$particle.type <- as.factor(full_spec_data$particle.type)
+
+## See what the predictions were for each unknown particle
+
+pred_data$predict <- as.factor(predict.mlr)
+
+plot(predict ~ colour, data = pred_data)
 
 #### Blank subtract ####
 

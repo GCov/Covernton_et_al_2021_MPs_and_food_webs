@@ -1,100 +1,100 @@
-ID,site,sample.type,particle.number,aNAlyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match
-EBPJ1,Elliot Bay,Plankton Jars,449,NP,>1,fibre,black,523.54,yes,Can't get a good spectra without burning,Unknown,5
-EBPJ1,Elliot Bay,Plankton Jars,450,NP,>1,fibre,blue,1696.29,yes,,Cellulose,5
-EBPJ1,Elliot Bay,Plankton Jars,451,NP,>1,fibre,clear,1536.35,yes,,Polyester,5
-EBPJ1,Elliot Bay,Plankton Jars,452,NP,>1,fibre,brown,2222.09,yes,,Polyester,5
-EBPJ2,Elliot Bay,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,5
-EBPJ3,Elliot Bay,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,5
-CBPJ1,Coles Bay,Plankton Jars,453,NP,>1,fibre,blue,689.74,yes,p-(meta-Phylene terephthalamide),Kevlar,5
-CBPJ1,Coles Bay,Plankton Jars,#833,NP,>1,fibre,black,260.95,yes,,,5
-CBPJ3,Coles Bay,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,5
-CBPJ4,Coles Bay,Plankton Jars,454,NP,>1,fibre,clear,2562.11,yes,,Polyester,5
-HPPJ1,Victoria Harbour,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,6
-HPPJ2,Victoria Harbour,Plankton Jars,455,NP,>1,fibre,clear,744.24,yes,,Polyester,6
-HPPJ2,Victoria Harbour,Plankton Jars,456,NP,>1,fibre,blue,714.18,yes,,Cellulose,6
-HPPJ3,Victoria Harbour,Plankton Jars,457,NP,>1,fibre,pink,4442.99,yes,,Polyester,6
-HPPJ3,Victoria Harbour,Plankton Jars,458,NP,>1,fibre,black,587.34,yes,,Polyester,6
-HPPJ3,Victoria Harbour,Plankton Jars,459,NP,>1,fibre,orange,12663.46,yes,,Polyester,6
-HPPJ5,Victoria Harbour,Plankton Jars,460,NP,>1,fibre,green,318.15,yes,,Cellulose,6
-HPPJ5,Victoria Harbour,Plankton Jars,461,NP,>1,fibre,blue,3058.19,yes,,Polyester,6
-HPPJ5,Victoria Harbour,Plankton Jars,462,NP,>1,fibre,green,360.69,yes,,Cellulose,6
-HPPJ5,Victoria Harbour,Plankton Jars,463,NP,>1,fibre,pink,3251.05,yes,,Wool,6
-HPPJ5,Victoria Harbour,Plankton Jars,464,NP,>1,fibre,blue,572.75,yes,Could not find for Raman,,6
-HPPJ5,Victoria Harbour,Plankton Jars,465,NP,>1,fibre,red,654.16,yes,,Polyester,6
-HPPJ5,Victoria Harbour,Plankton Jars,466,NP,>1,fibre,pink,330.48,yes,,Polyester,6
-Sep10PB1],,Blanks,467,NP,>1,fibre,blue,5201.65,yes,,Polyester,6
-Sep10PB2],,Blanks,468,NP,>1,fibre,purple,2607.04,yes,,Cellulose,6
-Sep10PB2],,Blanks,469,NP,>1,fibre,green,509.07,yes,Too much fluorescence to get a good sigNAture,Unknown,6
-Sep10PB2],,Blanks,470,NP,>1,fibre,clear,882.78,yes,,Polyester,6
-Sep10PB2],,Blanks,471,NP,>1,fibre,clear,1224.85,yes,Could not find for Raman,,6
-Sep10PB2],,Blanks,472,NP,>1,fibre,clear,307.44,yes,,Cellulose,6
-Sep10PB2],,Blanks,473,NP,>1,fibre,clear,369.66,yes,,Cellulose,6
-Sep10PB2],,Blanks,474,NP,>1,fibre,clear,420.92,yes,,Cellulose,6
-Sep10PB2],,Blanks,475,NP,>1,fibre,purple,1271.56,yes,,Cellulose,6
-Sep10PB2],,Blanks,476,NP,>1,fibre,purple,360.31,yes,,Cellulose,6
-Aug28PB2,,Blanks,NA,NA,>1,NA,NA,NA,NA,,,5
-Aug28PB3,,Blanks,477,NP,>1,fragment,rainbow,309.66,yes,,Polystyrene,5
-CBPJ2,Coles Bay,Plankton Jars,942,BB,>1,fiber,black,820.85,yes,,Cellulose,5
-CBPJ5,Coles Bay,Plankton Jars,943,BB,>1,fragment,brown,719.99,yes,Can't get a good spectra without burning,Unknown,5
-CBPJ5,Coles Bay,Plankton Jars,944,BB,>1,fiber,blue,1382.83,yes,Could be denim,Cellulose,5
-CBPJ5,Coles Bay,Plankton Jars,945,BB,>1,fiber,black,768.01,yes,,Cellulose,5
-CBPJ5,Coles Bay,Plankton Jars,946,BB,>1,fiber,red,1999.63,yes,,Cellulose,5
-CBPJ5,Coles Bay,Plankton Jars,947,BB,>1,fiber,blue,498.86,yes,Could be denim,Cellulose,5
-CBPJ5,Coles Bay,Plankton Jars,948,BB,>1,fiber,black,709.64,yes,Could not find for Raman,,5
-CBPJ5,Coles Bay,Plankton Jars,949,BB,>1,fiber,red,615.01,yes,"Spectra kind of like dyed cellulose, physically looks like Rayon",Rayon,5
-CBPJ5,Coles Bay,Plankton Jars,950,BB,>1,fiber,purple,1665.48,yes,,Plastics Dye,5
-CBPJ5,Coles Bay,Plankton Jars,951,BB,>1,fiber,blue,1569.9,yes,,Polyester,5
-CBPJ5,Coles Bay,Plankton Jars,952,BB,>1,fiber,blue,1553.71,yes,Could be denim,Cellulose,5
-CBPJ5,Coles Bay,Plankton Jars,953,BB,>1,fiber,clear,4136.24,yes,,Polyester,5
-CBPJ5,Coles Bay,Plankton Jars,954,BB,>1,fiber,red,218.87,yes,,Nylon,5
-CBPJ5,Coles Bay,Plankton Jars,955,BB,>1,fiber,black,931.02,yes,,Polyester,5
-CBPJ5,Coles Bay,Plankton Jars,956,BB,>1,fiber,clear,2426.27,yes,,Cellulose,5
-CBPJ5,Coles Bay,Plankton Jars,957,BB,>1,fiber,clear,2125.79,yes,,Acrylic,5
-EBPJ4,Elliot Bay,Plankton Jars,958,BB,>1,fiber,red,490.84,yes,,Polyester,5
-EBPJ4,Elliot Bay,Plankton Jars,959,BB,>1,fiber,red,395.73,yes,,Cellulose,5
-EBPJ4,Elliot Bay,Plankton Jars,,BB,>1,fiber,red,444.59,no,dropped,,5
-EBPJ4,Elliot Bay,Plankton Jars,960,BB,>1,fiber,black,331.52,yes,,Cellulose,5
-EBPJ4,Elliot Bay,Plankton Jars,961,BB,>1,fiber,blue,994.84,yes,Could be denim,Cellulose,5
-EBPJ5,Elliot Bay,Plankton Jars,962,BB,>1,fiber,blue,1083.63,yes,Could be denim,Cellulose,5
-EBPJ5,Elliot Bay,Plankton Jars,,BB,>1,fiber,blue,452.14,no,dropped,,5
-EBPJ5,Elliot Bay,Plankton Jars,963,BB,>1,fiber,blue,387.9,yes,,Cellulose,5
-EBPJ5,Elliot Bay,Plankton Jars,964,BB,>1,fiber,blue,432.9,yes,Could be denim,Cellulose,5
-EBPJ5,Elliot Bay,Plankton Jars,965,BB,>1,fiber,blue,1184.04,yes,,Cellulose,5
-EBPJ5,Elliot Bay,Plankton Jars,966,BB,>1,fiber,red,4530.02,yes,,Cellulose,5
-EBPJ5,Elliot Bay,Plankton Jars,967,BB,>1,fiber,red,559.9,no,dropped,,5
-EBPJ5,Elliot Bay,Plankton Jars,967,BB,>1,fiber,blue,759.98,yes,Could be denim,Cellulose,5
-EBPJ5,Elliot Bay,Plankton Jars,968,BB,>1,fiber,black,1207.79,yes,,Polyester,5
-EBPJ5,Elliot Bay,Plankton Jars,969,BB,>1,fiber,blue,1279.76,yes,,Cellulose,5
-Aug28PB1,,Blanks,NA,BB,>1,NA,NA,NA,NA,,,5
-HPPJ4,Victoria Harbour,Plankton Jars,970,BB,>1,fiber,red,1310.29,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,971,BB,>1,fiber,purple,431.07,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,972,BB,>1,fiber,green,1379.56,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,973,BB,>1,fiber,black,667.66,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,974,BB,>1,fiber,black,882.21,yes,Could be denim,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,975,BB,>1,fiber,blue,15331.1,yes,"Cellulose spectra, physically looks like rayon",Rayon,6
-HPPJ4,Victoria Harbour,Plankton Jars,976,BB,>1,fiber,blue,3965.22,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,,BB,>1,fiber,black,527.83,no,dropped,,6
-HPPJ4,Victoria Harbour,Plankton Jars,977,BB,>1,fiber,blue,1826.83,yes,"Cellulose spectra, physically looks like rayon",Rayon,6
-HPPJ4,Victoria Harbour,Plankton Jars,978,BB,>1,fiber,black,1799.1,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,979,BB,>1,fiber,blue,379.79,yes,Could be denim,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,980,BB,>1,fiber,blue,360.05,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,981,BB,>1,fiber,red,1285.49,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,982,BB,>1,fragment,red,112.67,yes,,Plastic Dye,6
-HPPJ4,Victoria Harbour,Plankton Jars,983,BB,>1,fiber,red,1013.05,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,984,BB,>1,fiber,black,540.33,yes,,Unknown,6
-HPPJ4,Victoria Harbour,Plankton Jars,985,BB,>1,fiber,black,1923.6,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,986,BB,>1,fiber,black,894.49,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,987,BB,>1,fiber,black,661.05,yes,Could be denim,Unknown,6
-HPPJ4,Victoria Harbour,Plankton Jars,988,BB,>1,fiber,red,2517.02,yes,,Cellulose,6
+ID,site,sample.type,particle.number,aNAlyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match,user.id
+EBPJ1,Elliot Bay,Plankton Jars,449,NP,>1,fibre,black,523.54,yes,Can't get a good spectra without burning,Unknown,5,S
+EBPJ1,Elliot Bay,Plankton Jars,450,NP,>1,fibre,blue,1696.29,yes,,Cellulose,5,S
+EBPJ1,Elliot Bay,Plankton Jars,451,NP,>1,fibre,clear,1536.35,yes,,Polyester,5,S
+EBPJ1,Elliot Bay,Plankton Jars,452,NP,>1,fibre,brown,2222.09,yes,,Polyester,5,S
+EBPJ2,Elliot Bay,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,5,NA
+EBPJ3,Elliot Bay,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,5,NA
+CBPJ1,Coles Bay,Plankton Jars,453,NP,>1,fibre,blue,689.74,yes,p-(meta-Phylene terephthalamide),Kevlar,5,S
+CBPJ1,Coles Bay,Plankton Jars,#833,NP,>1,fibre,black,260.95,yes,,,5,S
+CBPJ3,Coles Bay,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,5,NA
+CBPJ4,Coles Bay,Plankton Jars,454,NP,>1,fibre,clear,2562.11,yes,,Polyester,5,S
+HPPJ1,Victoria Harbour,Plankton Jars,NA,NA,>1,NA,NA,NA,NA,,,6,NA
+HPPJ2,Victoria Harbour,Plankton Jars,455,NP,>1,fibre,clear,744.24,yes,,Polyester,6,S
+HPPJ2,Victoria Harbour,Plankton Jars,456,NP,>1,fibre,blue,714.18,yes,,Cellulose,6,S
+HPPJ3,Victoria Harbour,Plankton Jars,457,NP,>1,fibre,pink,4442.99,yes,,Polyester,6,S
+HPPJ3,Victoria Harbour,Plankton Jars,458,NP,>1,fibre,black,587.34,yes,,Polyester,6,S
+HPPJ3,Victoria Harbour,Plankton Jars,459,NP,>1,fibre,orange,12663.46,yes,,Polyester,6,S
+HPPJ5,Victoria Harbour,Plankton Jars,460,NP,>1,fibre,green,318.15,yes,,Cellulose,6,S
+HPPJ5,Victoria Harbour,Plankton Jars,461,NP,>1,fibre,blue,3058.19,yes,,Polyester,6,S
+HPPJ5,Victoria Harbour,Plankton Jars,462,NP,>1,fibre,green,360.69,yes,,Cellulose,6,S
+HPPJ5,Victoria Harbour,Plankton Jars,463,NP,>1,fibre,pink,3251.05,yes,,Wool,6,S
+HPPJ5,Victoria Harbour,Plankton Jars,464,NP,>1,fibre,blue,572.75,yes,Could not find for Raman,,6,S
+HPPJ5,Victoria Harbour,Plankton Jars,465,NP,>1,fibre,red,654.16,yes,,Polyester,6,S
+HPPJ5,Victoria Harbour,Plankton Jars,466,NP,>1,fibre,pink,330.48,yes,,Polyester,6,S
+Sep10PB1],,Blanks,467,NP,>1,fibre,blue,5201.65,yes,,Polyester,6,S
+Sep10PB2],,Blanks,468,NP,>1,fibre,purple,2607.04,yes,,Cellulose,6,S
+Sep10PB2],,Blanks,469,NP,>1,fibre,green,509.07,yes,Too much fluorescence to get a good sigNAture,Unknown,6,S
+Sep10PB2],,Blanks,470,NP,>1,fibre,clear,882.78,yes,,Polyester,6,S
+Sep10PB2],,Blanks,471,NP,>1,fibre,clear,1224.85,yes,Could not find for Raman,,6,S
+Sep10PB2],,Blanks,472,NP,>1,fibre,clear,307.44,yes,,Cellulose,6,N
+Sep10PB2],,Blanks,473,NP,>1,fibre,clear,369.66,yes,,Cellulose,6,N
+Sep10PB2],,Blanks,474,NP,>1,fibre,clear,420.92,yes,,Cellulose,6,N
+Sep10PB2],,Blanks,475,NP,>1,fibre,purple,1271.56,yes,,Cellulose,6,S
+Sep10PB2],,Blanks,476,NP,>1,fibre,purple,360.31,yes,,Cellulose,6,S
+Aug28PB2,,Blanks,NA,NA,>1,NA,NA,NA,NA,,,5,NA
+Aug28PB3,,Blanks,477,NP,>1,fragment,rainbow,309.66,yes,,Polystyrene,5,S
+CBPJ2,Coles Bay,Plankton Jars,942,BB,>1,fiber,black,820.85,yes,,Cellulose,5,N
+CBPJ5,Coles Bay,Plankton Jars,943,BB,>1,fragment,brown,719.99,yes,Can't get a good spectra without burning,Unknown,5,S
+CBPJ5,Coles Bay,Plankton Jars,944,BB,>1,fiber,blue,1382.83,yes,Could be denim,Cellulose,5,N
+CBPJ5,Coles Bay,Plankton Jars,945,BB,>1,fiber,black,768.01,yes,,Cellulose,5,N
+CBPJ5,Coles Bay,Plankton Jars,946,BB,>1,fiber,red,1999.63,yes,,Cellulose,5,N
+CBPJ5,Coles Bay,Plankton Jars,947,BB,>1,fiber,blue,498.86,yes,Could be denim,Cellulose,5,N
+CBPJ5,Coles Bay,Plankton Jars,948,BB,>1,fiber,black,709.64,yes,Could not find for Raman,,5,N
+CBPJ5,Coles Bay,Plankton Jars,949,BB,>1,fiber,red,615.01,yes,"Spectra kind of like dyed cellulose, physically looks like Rayon",Rayon,5,S
+CBPJ5,Coles Bay,Plankton Jars,950,BB,>1,fiber,blue,1665.48,yes,,Plastics Dye,5,N
+CBPJ5,Coles Bay,Plankton Jars,951,BB,>1,fiber,blue,1569.9,yes,,Polyester,5,N
+CBPJ5,Coles Bay,Plankton Jars,952,BB,>1,fiber,blue,1553.71,yes,Could be denim,Cellulose,5,N
+CBPJ5,Coles Bay,Plankton Jars,953,BB,>1,fiber,clear,4136.24,yes,,Polyester,5,N
+CBPJ5,Coles Bay,Plankton Jars,954,BB,>1,fiber,red,218.87,yes,,Nylon,5,S
+CBPJ5,Coles Bay,Plankton Jars,955,BB,>1,fiber,black,931.02,yes,,Polyester,5,S
+CBPJ5,Coles Bay,Plankton Jars,956,BB,>1,fiber,clear,2426.27,yes,,Cellulose,5,N
+CBPJ5,Coles Bay,Plankton Jars,957,BB,>1,fiber,clear,2125.79,yes,,Acrylic,5,S
+EBPJ4,Elliot Bay,Plankton Jars,958,BB,>1,fiber,red,490.84,yes,,Polyester,5,S
+EBPJ4,Elliot Bay,Plankton Jars,959,BB,>1,fiber,red,395.73,yes,,Cellulose,5,N
+EBPJ4,Elliot Bay,Plankton Jars,,BB,>1,fiber,red,444.59,no,dropped,,5,N
+EBPJ4,Elliot Bay,Plankton Jars,960,BB,>1,fiber,black,331.52,yes,,Cellulose,5,N
+EBPJ4,Elliot Bay,Plankton Jars,961,BB,>1,fiber,blue,994.84,yes,Could be denim,Cellulose,5,N
+EBPJ5,Elliot Bay,Plankton Jars,962,BB,>1,fiber,blue,1083.63,yes,Could be denim,Cellulose,5,N
+EBPJ5,Elliot Bay,Plankton Jars,,BB,>1,fiber,blue,452.14,no,dropped,,5,N
+EBPJ5,Elliot Bay,Plankton Jars,963,BB,>1,fiber,blue,387.9,yes,,Cellulose,5,N
+EBPJ5,Elliot Bay,Plankton Jars,964,BB,>1,fiber,blue,432.9,yes,Could be denim,Cellulose,5,N
+EBPJ5,Elliot Bay,Plankton Jars,965,BB,>1,fiber,blue,1184.04,yes,,Cellulose,5,N
+EBPJ5,Elliot Bay,Plankton Jars,966,BB,>1,fiber,orange,4530.02,yes,,Cellulose,5,N
+EBPJ5,Elliot Bay,Plankton Jars,967,BB,>1,fiber,red,559.9,no,dropped,,5,N
+EBPJ5,Elliot Bay,Plankton Jars,967,BB,>1,fiber,blue,759.98,yes,Could be denim,Cellulose,5,S
+EBPJ5,Elliot Bay,Plankton Jars,968,BB,>1,fiber,black,1207.79,yes,,Polyester,5,S
+EBPJ5,Elliot Bay,Plankton Jars,969,BB,>1,fiber,blue,1279.76,yes,,Cellulose,5,N
+Aug28PB1,,Blanks,NA,BB,>1,NA,NA,NA,NA,,,5,NA
+HPPJ4,Victoria Harbour,Plankton Jars,970,BB,>1,fiber,red,1310.29,yes,,Cellulose,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,971,BB,>1,fiber,purple,431.07,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,972,BB,>1,fiber,green,1379.56,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,973,BB,>1,fiber,black,667.66,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,974,BB,>1,fiber,black,882.21,yes,Could be denim,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,975,BB,>1,fiber,purple,15331.1,yes,"Cellulose spectra, physically looks like rayon",Rayon,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,976,BB,>1,fiber,blue,3965.22,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,,BB,>1,fiber,black,527.83,no,dropped,,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,977,BB,>1,fiber,blue,1826.83,yes,"Cellulose spectra, physically looks like rayon",Rayon,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,978,BB,>1,fiber,black,1799.1,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,979,BB,>1,fiber,blue,379.79,yes,Could be denim,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,980,BB,>1,fiber,blue,360.05,yes,,Cellulose,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,981,BB,>1,fiber,red,1285.49,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,982,BB,>1,fragment,red,112.67,yes,,Plastic Dye,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,983,BB,>1,fiber,red,1013.05,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,984,BB,>1,fiber,black,540.33,yes,,Unknown,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,985,BB,>1,fiber,black,1923.6,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,986,BB,>1,fiber,black,894.49,yes,,Cellulose,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,987,BB,>1,fiber,black,661.05,yes,Could be denim,Unknown,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,988,BB,>1,fiber,red,2517.02,yes,,Cellulose,6,N
 HPPJ4,Victoria Harbour,Plankton Jars,989,BB,>1,fiber,blue,1096.95,yes,,"Cellulose
-",6
-HPPJ4,Victoria Harbour,Plankton Jars,990,BB,>1,fiber,blue,1251.42,yes,no photo,Unknown,6
-HPPJ4,Victoria Harbour,Plankton Jars,991,BB,>1,fiber,clear,1887.82,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,992,BB,>1,fiber,brown,304.51,yes,Can't get good spectra without burning,Unknown,6
-HPPJ4,Victoria Harbour,Plankton Jars,993,BB,>1,fiber,black,449.28,yes,"Cellulose spectra, physically looks like rayon",Rayon,6
-HPPJ4,Victoria Harbour,Plankton Jars,994,BB,>1,fiber,green,539.15,yes,,Polyester,6
-HPPJ4,Victoria Harbour,Plankton Jars,995,BB,>1,fiber,blue,2063.92,yes,Could be denim,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,996,BB,>1,fiber,clear,1056.53,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,997,BB,>1,fiber,black,1224.64,yes,,Cellulose,6
-HPPJ4,Victoria Harbour,Plankton Jars,998,BB,>1,fiber,blue,776.61,yes,,Cellulose,6
-Sep10PB3,,Blanks,999,BB,>1,fiber,black,1790.3,yes,Can't get good spectra without burning but physically looks like rayon,Rayon,6
+",6,S
+HPPJ4,Victoria Harbour,Plankton Jars,990,BB,>1,fiber,blue,1251.42,yes,no photo,Unknown,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,991,BB,>1,fiber,clear,1887.82,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,992,BB,>1,fiber,brown,304.51,yes,Can't get good spectra without burning,Unknown,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,993,BB,>1,fiber,black,449.28,yes,"Cellulose spectra, physically looks like rayon",Rayon,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,994,BB,>1,fiber,green,539.15,yes,,Polyester,6,S
+HPPJ4,Victoria Harbour,Plankton Jars,995,BB,>1,fiber,blue,2063.92,yes,Could be denim,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,996,BB,>1,fiber,clear,1056.53,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,997,BB,>1,fiber,black,1224.64,yes,,Cellulose,6,N
+HPPJ4,Victoria Harbour,Plankton Jars,998,BB,>1,fiber,blue,776.61,yes,,Cellulose,6,N
+Sep10PB3,,Blanks,999,BB,>1,fiber,black,1790.3,yes,Can't get good spectra without burning but physically looks like rayon,Rayon,6,S
