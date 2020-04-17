@@ -6,6 +6,9 @@ library(ggplot2)
 library(dplyr)
 library(ggridges)
 library(colorspace)
+library(glmmTMB)
+library(MuMIn)
+library(broom.mixed)
 
 ## Define standard error function
 
@@ -99,35 +102,239 @@ gutdata <-
   group_by(ID, particle.type, site, sample.type,
            total.body.wet.weight, species, deltaC, deltaN,
            trophic.position) %>% 
-  summarize(count = sum(count))
+  summarize(count = sum(count),
+            tissue.weight = sum(tissue.dry.weight))
+
+#### Model ####
+
+overdisp_fun <- function(model) {
+  rdf <- df.residual(model)
+  rp <- residuals(model,type="pearson")
+  Pearson.chisq <- sum(rp^2)
+  prat <- Pearson.chisq/rdf
+  pval <- pchisq(Pearson.chisq, df=rdf, lower.tail=FALSE)
+  c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
+}  # specify overdispersion assessment function
+
+## Model gut data according to indivual
+
+gutdata2 <- subset(gutdata, !is.na(trophic.position) & 
+                     particle.type != 'Natural')
+
+Imod1 <- glmmTMB(count ~ trophic.position*site*particle.type + 
+                          (1 | sample.type),
+                        family = poisson(), data = gutdata2, REML = TRUE)
+
+overdisp_fun(Imod1)  # model is overdispersed
+
+Imod2 <- update(Imod1, ziformula = ~.)  # refit with ZI
+
+AICc(Imod1, Imod2)  # better fit with ZI according to AICc
+
+## Diagnostics
+plot(resid(Imod2) ~ fitted(Imod2))  # could be slight issue with het. variance
+plot(resid(Imod2) ~ gutdata2$trophic.position)
+plot(resid(Imod2) ~ gutdata2$site)
+plot(resid(Imod2) ~ gutdata2$particle.type)
+plot(resid(Imod2) ~ gutdata2$sample.type)  # these don't look too bad
+
+Imod3 <- update(Imod2, family = nbinom1())  # try with NB distribution
+
+AICc(Imod2, Imod3)  # better fit as NB model
+
+## Diagnostics
+plot(resid(Imod3) ~ fitted(Imod3))
+plot(resid(Imod3) ~ gutdata2$trophic.position)
+plot(resid(Imod3) ~ gutdata2$site)
+plot(resid(Imod3) ~ gutdata2$particle.type)
+plot(resid(Imod3) ~ gutdata2$sample.type)  # these don't look too bad
+
+## Try dropping terms
+
+drop1(Imod3)  # can drop 3-way interaction
+
+Imod4 <- update(Imod3, . ~ . -trophic.position:site:particle.type)
+
+AICc(Imod3, Imod4)  # confirms better fit
+
+drop1(Imod4)  # can drop trophic.position:particle.type
+
+Imod5 <- update(Imod4, . ~ . -trophic.position:particle.type)
+
+AICc(Imod4, Imod5)  # Imod5 is better fit
+
+drop1(Imod5)  # can drop trophic.position:site
+
+Imod6 <- update(Imod5, . ~ . -trophic.position:site)
+
+AICc(Imod5, Imod6)  # Imod6 is better fit
+
+drop1(Imod6)  # can drop site:particle.type
+
+Imod7 <- update(Imod6, . ~ . -site:particle.type)
+
+AICc(Imod6, Imod7)  # Imod7 is better fit
+
+drop1(Imod7) # stop here
+
+Imod7$call  # view final model formula
+
+Imod8 <- update(Imod7, REML = TRUE)  # refit with REML
+
+
+## Diagnostics
+plot(resid(Imod8) ~ fitted(Imod8))
+plot(resid(Imod8) ~ gutdata2$trophic.position)
+plot(resid(Imod8) ~ gutdata2$site)
+plot(resid(Imod8) ~ gutdata2$particle.type)
+plot(resid(Imod8) ~ gutdata2$sample.type)  # these don't look too bad (?)
+
+
+## Inference
+
+tidy(Imod8)
+exp(fixef(Imod8)$cond[2])
+# Average of 1.28 particle increase per trophic level, p = 0.002
+
+
+## Predict
+
+Imod.pred <- gutdata2
+
+preds1 <- predict(Imod8, type = 'conditional', re.form = NA, se.fit = TRUE)
+
+Imod.pred$fitted <- preds1$fit
+
+Imod.pred$lower <- with(Imod.pred, fitted - 1.96*preds1$se.fit)
+Imod.pred$upper <- with(Imod.pred, fitted + 1.96*preds1$se.fit)  
+# 95% CI for preds
+# Note that predictions are for averaged REs and ZI
+
+
+## Now model according to gut dry weight
+
+Cmod1 <- glmmTMB(
+  count ~ trophic.position * site * particle.type +
+    (1 | sample.type) + offset(log(tissue.weight)),
+  family = poisson(link = log),
+  data = gutdata2,
+  REML = FALSE
+)
+
+overdisp_fun(Cmod1)  # overdispersed
+
+Cmod2 <- update(Cmod1, 
+                ziformula = ~. + offset(log(tissue.weight)))  # Add ZI structure
+
+plot(resid(Cmod2) ~ fitted(Cmod2))  # variance still looks a bit weird
+
+AICc(Cmod1, Cmod2)  # better fit with ZI
+
+Cmod3 <- update(Cmod2, family = nbinom1())  # try NB error structure
+
+AICc(Cmod2, Cmod3)  # Cmod3 is a better fit
+
+plot(resid(Cmod3) ~ fitted(Cmod3))
+
+## Try dropping terms
+
+drop1(Cmod3)  # can drop trophic.position:site:particle.type
+
+Cmod4 <- update(Cmod3, . ~ . -trophic.position:site:particle.type)
+
+AICc(Cmod3, Cmod4)  # Cmod4 is better fit
+
+drop1(Cmod4)  # can drop site:particle.type
+
+Cmod5 <- update(Cmod4, . ~ . -site:particle.type)
+
+AICc(Cmod4, Cmod5)  # Cmod5 is better fit
+
+drop1(Cmod5)  # stop here
+
+
+## Diagnostics
+
+plot(resid(Cmod5) ~ fitted(Cmod5))
+plot(resid(Cmod5) ~ gutdata2$trophic.position)
+plot(resid(Cmod5) ~ gutdata2$site)
+plot(resid(Cmod5) ~ gutdata2$particle.type)
+plot(resid(Cmod5) ~ gutdata2$sample.type)  # need to remove 2 outliers
+
+
+
 
 #### Plot ####
 
+## Gut concentration in terms of individual against trophic position
+
 tiff('Trophic Position MP Plot.tiff',
+     res = 300,
+     width = 16,
+     height = 12,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot(Imod.pred) +
+  geom_ribbon(aes(x = trophic.position,
+                  ymax = upper,
+                  ymin = lower),
+              fill = 'turquoise',
+              alpha = 0.3,
+              size = 0.5) +
+  geom_line(aes(x = trophic.position,
+                y = fitted),
+            linetype = 'dashed', 
+            size = 0.5) +
+  geom_point(aes(x = trophic.position,
+                 y = count,
+                 colour = reorder(sample.type, trophic.position, mean)),
+             size = 1, shape = 1, alpha = 0.8) +
+  facet_grid(particle.type ~ site) +
+  labs(x = 'Trophic Position',
+       y = expression(paste('Particles '*ind^-1))) +
+  scale_colour_manual(values = qualitative_hcl(palette = 'Dark2', n = 8)) +
+  scale_y_continuous(trans = 'log1p', breaks = c(0, 1, 5, 10, 15, 20)) +
+  theme1
+
+dev.off()
+
+
+
+## Gut concentration in terms of g dry weight of gut
+
+tiff('Trophic Position MP Weight Plot.tiff',
      res = 300,
      width = 17,
      height = 14,
      units = 'cm',
      pointsize = 12)
 
-ggplot(subset(gutdata, !is.na(trophic.position))) +
-  geom_smooth(aes(x = trophic.position,
-                  y = log(count + 1)),
-              method = 'lm',
-              colour = 'red',
-              alpha = 0.5,
+ggplot(gutdata2) +
+  geom_ribbon(aes(x = trophic.position,
+                  ymax = prediction2 + (2*se2),
+                  ymin = prediction2 - (2*se2)),
+              fill = 'orange',
+              alpha = 0.3,
               size = 0.5) +
+  geom_line(aes(x = trophic.position,
+                y = prediction2),
+            linetype = 'dashed', 
+            size = 0.5) +
   geom_point(aes(x = trophic.position,
-                 y = log(count + 1),
+                 y = count/tissue.weight,
                  colour = reorder(species, trophic.position, mean)),
              size = 0.5) +
+  scale_y_continuous(trans = 'log1p') +
   facet_grid(particle.type ~ site) +
   labs(x = 'Trophic Position',
-       y = 'ln(MPs + 1) (particles/ind)') +
+       y = 'Particles/ind') +
   scale_colour_manual(values = sequential_hcl(palette = 'Viridis', n = 14)) +
   theme1
 
 dev.off()
+
+
 
 tiff('Animal Type Plot.tiff',
      res = 300,
@@ -137,6 +344,9 @@ tiff('Animal Type Plot.tiff',
      pointsize = 12)
 
 ggplot(subset(gutdata, particle.type == 'Synthetic Polymer')) +
+  geom_jitter(aes(x = sample.type,
+                  y = count),
+              size = 0.3, alpha = 0.5, colour = 'red') +
   geom_boxplot(aes(x = sample.type,
                    y = count),
                size = 0.5) +
@@ -147,3 +357,4 @@ ggplot(subset(gutdata, particle.type == 'Synthetic Polymer')) +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 dev.off()
+

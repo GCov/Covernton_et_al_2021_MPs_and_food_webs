@@ -21,6 +21,7 @@ theme1 <-
     axis.text = element_text(size = 7),
     strip.background = element_blank(),
     strip.text = element_text(size = 8),
+    legend.text = element_text(size = 10),
     panel.grid = element_blank(),
     legend.title = element_blank()
   )

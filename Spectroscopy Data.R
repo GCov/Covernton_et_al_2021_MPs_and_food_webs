@@ -284,8 +284,6 @@ full_spec_data$num <-
 
 #### Estimate the particle type for unkown particles ####
 
-### THIS ISN'T WORKING AND I DON'T KNOW WHY (maybe just CV?)
-
 ## Construct a multinomial regression model for known particle types
 
 moddata <- subset(full_spec_data,
@@ -295,77 +293,56 @@ moddata <- subset(full_spec_data,
 moddata$particle.type <- as.character(moddata$particle.type)
 moddata$particle.type <- as.factor(moddata$particle.type)
 
+## Split data into training/test data (70/30)
+
+moddata$row.number <- as.numeric(rownames(moddata))
+moddata <- ungroup(moddata)
+
+set.seed(123)
+train <- sample_frac(moddata, size = 0.7)
+moddata$subset <- moddata$row.number %in% train$row.number
+test <- subset(moddata, subset != 'TRUE')
+
 ## Fit intial model
 
 particle.mod1 <-
   multinom(particle.type ~
-             raman.ID,
-           data = moddata)
+             colour*shape*user.id + sample.type,
+           data = train)
 summary(particle.mod1)
 
-## Cross validation
+## Test model accuracy by building a classification table
 
-## Randomly shuffle the data
+# Predicting the values for train dataset
+train$predicted <- predict(particle.mod1, newdata = train, "class")
 
-cvdata <- moddata[sample(nrow(moddata)),]
+# Building classification table
+ctable1 <- table(train$particle.type, train$predicted)
 
-cvdata$blank.match <- as.factor(cvdata$blank.match)
+# Calculating accuracy - sum of diagonal elements divided by total obs
+round((sum(diag(ctable1))/sum(ctable1))*100,2)
 
-## Create 10 equally size folds
+## Repeat for test data
 
-folds <- cut(seq(1,nrow(cvdata)),breaks=10,labels=FALSE)
+test$predicted <- predict(particle.mod1, newdata = test, "class")
 
-## Perform 10 fold cross validation
+# Building classification table
+ctable2 <- table(test$particle.type, test$predicted)
 
-success_rate <- numeric()
+# Calculating accuracy - sum of diagonal elements divided by total obs
+round((sum(diag(ctable2))/sum(ctable2))*100,2)
 
+## Refit to all data
 
-for (i in 1:10) {
-  testIndexes <- which(folds == i, arr.ind = TRUE)
-  testData <- cvdata[testIndexes,]
-  trainData <- cvdata[-testIndexes,]
-  model <- multinom(particle.type ~
-                      colour + shape + sample.type,
-                    data = trainData)
-  test <- predict(model,
-                  newdata = subset(testData,
-                                   particle.type == 'Synthetic Polymer'))
-  successes <- ifelse(test == subset(testData,
-                                     particle.type == 
-                                       'Synthetic Polymer')$particle.type,
-                      1,
-                      0)
-  success_rate[i] <- mean(successes)
-}
-
-mean(success_rate)
-range(success_rate)
+particle.mod2 <- multinom(particle.type ~
+                            colour*shape*user.id + sample.type,
+                          data = moddata)
+summary(particle.mod1)
 
 pred_data <- subset(full_spec_data,
                     particle.type == 'Unknown')
 
 predict.mlr <- predict(particle.mod1, newdata = pred_data, type = 'class')
-
-# ## 2nd choice particles for p<0.8 for a class
-# 
-# predict.probs <- 
-#   as.data.frame(predict(particle.mod1, 
-#                         newdata = pred_data, 
-#                         type = 'probs'))
-# 
-# predict.mlr2 <- character()
-# 
-# for(i in 1:length(pred_data$particle.type)) {
-#   predictions <- predict.probs[i,]
-#   max <- max(predictions)
-#   second <- max(predictions[predictions != max])
-#   name <- ifelse(max >= 0.8,
-#                  names(predictions)[which(predictions == max, 
-#                                           arr.ind = T)[, "col"]],
-#                  names(predictions)[which(predictions == second,
-#                                           arr.ind = T)[, "col"]])
-#   predict.mlr2[i] <- name
-# }
 
 full_spec_data$particle.type[full_spec_data$particle.type == 'Unknown' &
                                !is.na(full_spec_data$particle.type)] <-
@@ -558,3 +535,4 @@ animal_data3$sample.type <-
             to = c('Surfperch',
                    'Flatfish',
                    'Rockfish'))
+
