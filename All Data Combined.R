@@ -211,6 +211,7 @@ Imod.pred$upper <- with(Imod.pred, fitted + 1.96*preds1$se.fit)
 # Note that predictions are for averaged REs and ZI
 
 
+
 ## Now model according to gut dry weight
 
 Cmod1 <- glmmTMB(
@@ -220,6 +221,8 @@ Cmod1 <- glmmTMB(
   data = gutdata2,
   REML = FALSE
 )
+
+plot(resid(Cmod1, type = 'pearson') ~ fitted(Cmod1))
 
 overdisp_fun(Cmod1)  # overdispersed
 
@@ -234,7 +237,14 @@ Cmod3 <- update(Cmod2, family = nbinom1())  # try NB error structure
 
 AICc(Cmod2, Cmod3)  # Cmod3 is a better fit
 
-plot(resid(Cmod3) ~ fitted(Cmod3))
+plot(resid(Cmod3) ~ fitted(Cmod3))  # seem to be some outliers here
+
+## test for outliers
+
+library(DHARMa)
+
+res <- simulateResiduals(Cmod3)
+plot(res, asFactor = T)  # can keep the outliers in
 
 ## Try dropping terms
 
@@ -259,10 +269,28 @@ plot(resid(Cmod5) ~ fitted(Cmod5))
 plot(resid(Cmod5) ~ gutdata2$trophic.position)
 plot(resid(Cmod5) ~ gutdata2$site)
 plot(resid(Cmod5) ~ gutdata2$particle.type)
-plot(resid(Cmod5) ~ gutdata2$sample.type)  # need to remove 2 outliers
+plot(resid(Cmod5) ~ gutdata2$sample.type)
 
 
+## Inference
 
+tidy(Cmod5)
+
+
+## Predictions
+
+Cmod.pred <- gutdata2
+
+preds2 <- predict(Cmod5, type = 'conditional', re.form = NA, se.fit = TRUE)
+
+Cmod.pred$fitted <- preds2$fit
+
+Cmod.pred$lower <- with(Cmod.pred, fitted - 1.96*preds2$se.fit)
+Cmod.pred$upper <- with(Cmod.pred, fitted + 1.96*preds2$se.fit)  
+# 95% CI for preds
+# Note that predictions are for averaged REs and ZI
+
+Cmod.pred$lower[Cmod.pred$lower < 0] <- 0
 
 #### Plot ####
 
@@ -293,7 +321,7 @@ ggplot(Imod.pred) +
   facet_grid(particle.type ~ site) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
-  scale_colour_manual(values = qualitative_hcl(palette = 'Dark2', n = 8)) +
+  scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', n = 8)) +
   scale_y_continuous(trans = 'log1p', breaks = c(0, 1, 5, 10, 15, 20)) +
   theme1
 
@@ -305,31 +333,33 @@ dev.off()
 
 tiff('Trophic Position MP Weight Plot.tiff',
      res = 300,
-     width = 17,
-     height = 14,
+     width = 16,
+     height = 12,
      units = 'cm',
      pointsize = 12)
 
-ggplot(gutdata2) +
+ggplot(Cmod.pred) +
   geom_ribbon(aes(x = trophic.position,
-                  ymax = prediction2 + (2*se2),
-                  ymin = prediction2 - (2*se2)),
-              fill = 'orange',
+                  ymax = upper/tissue.weight,
+                  ymin = lower/tissue.weight),
+              fill = 'purple',
               alpha = 0.3,
               size = 0.5) +
   geom_line(aes(x = trophic.position,
-                y = prediction2),
+                y = fitted/tissue.weight),
             linetype = 'dashed', 
             size = 0.5) +
   geom_point(aes(x = trophic.position,
                  y = count/tissue.weight,
-                 colour = reorder(species, trophic.position, mean)),
-             size = 0.5) +
-  scale_y_continuous(trans = 'log1p') +
+                 colour = reorder(sample.type, trophic.position, mean)),
+             size = 1, shape = 1, alpha = 0.8) +
+  scale_y_continuous(trans = 'log1p', 
+                     breaks = c(0, 1, 10, 100, 1000, 10000)) +
   facet_grid(particle.type ~ site) +
   labs(x = 'Trophic Position',
-       y = 'Particles/ind') +
-  scale_colour_manual(values = sequential_hcl(palette = 'Viridis', n = 14)) +
+       y = expression(paste('Particles '*g^-1))) +
+  scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', 
+                                               n = 8, rev = TRUE)) +
   theme1
 
 dev.off()
