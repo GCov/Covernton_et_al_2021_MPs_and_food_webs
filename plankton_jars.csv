@@ -1,4 +1,4 @@
-ID,site,sample.type,particle.number,aNAlyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match,user.id
+ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match,user.id
 EBPJ1,Elliot Bay,Plankton Jars,449,NP,>1,fibre,black,523.54,yes,Can't get a good spectra without burning,Unknown,5,S
 EBPJ1,Elliot Bay,Plankton Jars,450,NP,>1,fibre,blue,1696.29,yes,,Cellulose,5,S
 EBPJ1,Elliot Bay,Plankton Jars,451,NP,>1,fibre,clear,1536.35,yes,,Polyester,5,S

@@ -48,7 +48,7 @@ summary(PT$raman.ID)
 PT$particle.type <- 
   mapvalues(PT$raman.ID,
             from = levels(PT$raman.ID),
-            to = c('Unknown',
+            to = c(NA,
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
                    'Natural',
@@ -64,7 +64,7 @@ PT$particle.type <-
 
 PT$particle.type[is.na(PT$particle.type)] <-
   with(subset(PT, is.na(particle.type)), 
-       ifelse(length == 'NA',
+       ifelse(is.na(length),
               NA,
               'Unknown'))
 
@@ -112,7 +112,7 @@ PJ$raman.ID <-
 PJ$particle.type <- 
   mapvalues(PJ$raman.ID,
             from = levels(PJ$raman.ID),
-            to = c('Unknown',
+            to = c(NA,
                    'Synthetic Polymer',
                    'Natural Anthropogenic',
                    'Synthetic Polymer',
@@ -145,6 +145,8 @@ summary(PJ$particle.type)
 
 PJ$num <- 
   ifelse(is.na(PJ$length), 0, 1)  # Separate out samples that had 0 counts
+
+
 
 ## Load all other data
 
@@ -282,11 +284,15 @@ full_spec_data$num <-
   ifelse(is.na(full_spec_data$length),
          0, 1)  # Separate out samples that had 0 counts
 
-#### Estimate the particle type for unkown particles ####
+
+
+#### Estimate the particle type for unknown particles ####
 
 ## Construct a multinomial regression model for known particle types
 
-moddata <- subset(full_spec_data,
+moddata <- rbind(full_spec_data, PT[c(1:14, 22:23)], PJ)
+
+moddata <- subset(moddata,
                   particle.type != 'Unknown' &
                     particle.type != 'NA')
 
@@ -309,7 +315,6 @@ particle.mod1 <-
   multinom(particle.type ~
              colour*shape*user.id + sample.type,
            data = train)
-summary(particle.mod1)
 
 ## Test model accuracy by building a classification table
 
@@ -337,25 +342,43 @@ round((sum(diag(ctable2))/sum(ctable2))*100,2)
 particle.mod2 <- multinom(particle.type ~
                             colour*shape*user.id + sample.type,
                           data = moddata)
-summary(particle.mod1)
+
+predPT_data <- subset(PT, particle.type == 'Unknown')
+
+predPJ_data <- subset(PJ, particle.type == 'Unknown')
 
 pred_data <- subset(full_spec_data,
                     particle.type == 'Unknown')
 
-predict.mlr <- predict(particle.mod1, newdata = pred_data, type = 'class')
+## predict
+
+predictPT.mlr <- predict(particle.mod2, newdata = predPT_data, type = 'class')
+
+predictPJ.mlr <- predict(particle.mod2, newdata = predPJ_data, type = 'class')
+
+predict.mlr <- predict(particle.mod2, newdata = pred_data, type = 'class')
+
+
+## add predicitons back to original data
+
+PT[PT$particle.type == 'Unknown' &
+     !is.na(PT$particle.type), ]$particle.type <- predictPT.mlr
+
+PJ[PJ$particle.type == 'Unknown' &
+     !is.na(PJ$particle.type),]$particle.type <- predictPJ.mlr
 
 full_spec_data$particle.type[full_spec_data$particle.type == 'Unknown' &
                                !is.na(full_spec_data$particle.type)] <-
   predict.mlr
 
+PT$particle.type <- as.character(PT$particle.type)
+PT$particle.type <- as.factor(PT$particle.type)
+
+PJ$particle.type <- as.character(PJ$particle.type)
+PJ$particle.type <- as.factor(PJ$particle.type)
+
 full_spec_data$particle.type <- as.character(full_spec_data$particle.type)
 full_spec_data$particle.type <- as.factor(full_spec_data$particle.type)
-
-## See what the predictions were for each unknown particle
-
-pred_data$predict <- as.factor(predict.mlr)
-
-plot(predict ~ colour, data = pred_data)
 
 #### Blank subtract ####
 
