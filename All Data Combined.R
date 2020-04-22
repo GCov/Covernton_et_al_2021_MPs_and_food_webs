@@ -9,6 +9,7 @@ library(colorspace)
 library(glmmTMB)
 library(MuMIn)
 library(broom.mixed)
+library(cowplot)
 
 ## Define standard error function
 
@@ -58,6 +59,69 @@ foodweb2$colour <- as.factor(foodweb2$colour)
 
 #### Summarize ####
 
+## First summarize plankton tow data across size categories, colour and shape
+
+PT_data3 <-
+  PT_data2 %>% 
+  group_by(ID, site, sample.type, particle.type, sample.volume) %>% 
+  summarize(count = sum(adj.count))
+
+## Make sure each sample has all levels of particle type
+
+PT_data3$ID <- as.character(PT_data3$ID)
+PT_data3$ID <- as.factor(PT_data3$ID)
+
+all_typesPT <- expand.grid(ID = levels(PT_data3$ID),
+                           particle.type = levels(PT_data3$particle.type))
+
+infoPT <- PT_data3[c(1:3, 5)] %>% 
+  group_by(ID, site, sample.type) %>% 
+  summarize(sample.volume = unique(sample.volume))
+
+all_typesPT2 <- left_join(all_typesPT, infoPT, by = 'ID')
+
+countsPT <- subset(PT_data3[c(1,4,6)], count > 0)
+
+PT_data4 <- left_join(all_typesPT2, countsPT, by = c('ID', 'particle.type'))
+
+PT_data4$count[is.na(PT_data4$count)] <- 0
+
+summary(PT_data4)
+
+## Do the same for PJ
+
+## First summarize plankton jar data across size categories, colour and shape
+
+PJ_data3 <-
+  PJ_data2 %>% 
+  group_by(ID, site, sample.type, particle.type) %>% 
+  summarize(count = sum(adj.count))
+
+## Make sure each sample has all levels of particle type
+
+PJ_data3$ID <- as.character(PJ_data3$ID)
+PJ_data3$ID <- as.factor(PJ_data3$ID)
+
+all_typesPJ <- expand.grid(ID = levels(PJ_data3$ID),
+                           particle.type = levels(PJ_data3$particle.type))
+
+infoPJ <- PJ_data3[c(1:3)] %>% 
+  group_by(ID, site, sample.type) %>% 
+  summarize()
+
+all_typesPJ2 <- left_join(all_typesPJ, infoPJ, by = 'ID')
+
+countsPJ <- subset(PJ_data3[c(1,4:5)], count > 0)
+
+PJ_data4 <- left_join(all_typesPJ2, countsPJ, by = c('ID', 'particle.type'))
+
+PJ_data4$count[is.na(PJ_data4$count)] <- 0
+
+summary(PJ_data4)
+
+
+## Now summarize animal data
+
 ## Combine across size categories, colour, and shape
 
 foodweb3 <- 
@@ -73,7 +137,13 @@ foodweb3 <-
 all_types <- expand.grid(ID = levels(foodweb3$ID), 
                          particle.type = levels(foodweb3$particle.type))
 
-info <- foodweb3[c(1:3, 5:23)]
+info <- 
+  foodweb3[c(1:3, 5:23)] %>% 
+  group_by(ID, site, sample.type, shell.l, shell.w, shell.h, arm.length,
+           tissue.wet.weight, tissue.dry.weight, shell.weight,
+           total.body.wet.weight, density.sep, species, carapace.length,
+           TL, SL, sex, babies, parasites, deltaC, deltaN, trophic.position) %>% 
+  summarize()
 
 all_types2 <- left_join(all_types, info, by = 'ID')
 
@@ -366,25 +436,81 @@ dev.off()
 
 
 
-tiff('Animal Type Plot.tiff',
+## Plot Plankton Jars
+
+
+A <-
+  ggplot(PJ_data4) +
+  geom_boxplot(aes(x = site,
+                   y = count),
+               size = 0.5,
+               fill = 'purple',
+               alpha = 0.5) +
+  facet_grid(particle.type ~ ., scales = 'free_x') +
+  scale_y_continuous(limits = c(0, 20),
+                     breaks = seq(from = 0, to = 20, by = 5)) +
+  labs(x = '',
+       y = expression(paste('Particles ' ~ L ^ -1))) +
+  theme1
+
+
+## Plot plankton tows
+
+B <-
+  ggplot(PT_data4) +
+  geom_boxplot(aes(x = site,
+                   y = count/sample.volume),
+               size = 0.5,
+               fill = 'orange',
+               alpha = 0.5) +
+  facet_grid(particle.type ~ ., scales = 'free_x') +
+  labs(x = '',
+       y = expression(paste('Particles '~L^-1))) +
+  scale_y_continuous(limits = c(0, 0.120),
+                     breaks = seq(from = 0, to = 0.120, by = 0.04)) +
+  theme1 
+
+
+## Plot animal gut data
+
+gutdata$sample.type <- factor(gutdata$sample.type, 
+                              levels = c('Mussels',
+                                         'Clams',
+                                         'Sea Cucumbers',
+                                         'Crabs',
+                                         'Sea Stars',
+                                         'Flatfish',
+                                         'Surfperch',
+                                         'Rockfish'))
+
+C <-
+  ggplot(gutdata) +
+  geom_boxplot(
+    aes(x = sample.type,
+        y = count),
+    size = 0.5,
+    fill = 'blue',
+    alpha = 0.5,
+    outlier.size = 0.5
+  ) +
+  facet_grid(particle.type ~ site, scales = 'free_x') +
+  labs(x = 'Type of Animal',
+       y = expression(paste('Particles '~ind^-1))) +
+  theme1 +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+water_plots <- plot_grid(A, B, labels = c('A', 'B'), nrow = 1,
+                         align = 'v')
+
+tiff('All Samples Plot.tiff',
      res = 300,
      width = 16,
-     height = 8,
+     height = 20,
      units = 'cm',
      pointsize = 12)
 
-ggplot(subset(gutdata, particle.type == 'Synthetic Polymer')) +
-  geom_jitter(aes(x = sample.type,
-                  y = count),
-              size = 0.3, alpha = 0.5, colour = 'red') +
-  geom_boxplot(aes(x = sample.type,
-                   y = count),
-               size = 0.5) +
-  facet_grid(. ~ site, scales = 'free_x') +
-  labs(x = 'Type of Animal',
-       y = 'MPs (particles/ind)') +
-  theme1 + 
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+plot_grid(water_plots, C, labels = c('', 'C'), nrow = 2,
+          rel_heights = c(1, 1.5))
 
 dev.off()
 
