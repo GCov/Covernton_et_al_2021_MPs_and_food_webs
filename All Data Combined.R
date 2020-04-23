@@ -197,18 +197,18 @@ Imod1 <- glmmTMB(count ~ trophic.position*site*particle.type +
 
 overdisp_fun(Imod1)  # model is overdispersed
 
-Imod2 <- update(Imod1, ziformula = ~.)  # refit with ZI
+Imod2 <- update(Imod1, ziformula = ~ 1)  # refit with ZI
 
 AICc(Imod1, Imod2)  # better fit with ZI according to AICc
 
 ## Diagnostics
-plot(resid(Imod2) ~ fitted(Imod2))  # could be slight issue with het. variance
+plot(resid(Imod2) ~ fitted(Imod2))
 plot(resid(Imod2) ~ gutdata2$trophic.position)
 plot(resid(Imod2) ~ gutdata2$site)
 plot(resid(Imod2) ~ gutdata2$particle.type)
 plot(resid(Imod2) ~ gutdata2$sample.type)  # these don't look too bad
 
-Imod3 <- update(Imod2, family = nbinom1())  # try with NB distribution
+Imod3 <- update(Imod2, family = nbinom1(), ziformula = ~ 0)  # try with NB distribution
 
 AICc(Imod2, Imod3)  # better fit as NB model
 
@@ -227,21 +227,21 @@ Imod4 <- update(Imod3, . ~ . -trophic.position:site:particle.type)
 
 AICc(Imod3, Imod4)  # confirms better fit
 
-drop1(Imod4)  # can drop trophic.position:particle.type
+drop1(Imod4)  # can drop trophic.position:site
 
-Imod5 <- update(Imod4, . ~ . -trophic.position:particle.type)
+Imod5 <- update(Imod4, . ~ . -trophic.position:site)
 
 AICc(Imod4, Imod5)  # Imod5 is better fit
 
-drop1(Imod5)  # can drop trophic.position:site
+drop1(Imod5)  # can drop trophic.position:particle.type
 
-Imod6 <- update(Imod5, . ~ . -trophic.position:site)
+Imod6 <- update(Imod5, . ~ . -trophic.position:particle.type)
 
 AICc(Imod5, Imod6)  # Imod6 is better fit
 
-drop1(Imod6)  # can drop site:particle.type
+drop1(Imod6)  # can drop trophic.position
 
-Imod7 <- update(Imod6, . ~ . -site:particle.type)
+Imod7 <- update(Imod6, . ~ . -trophic.position)
 
 AICc(Imod6, Imod7)  # Imod7 is better fit
 
@@ -263,8 +263,6 @@ plot(resid(Imod8) ~ gutdata2$sample.type)  # these don't look too bad (?)
 ## Inference
 
 tidy(Imod8)
-exp(fixef(Imod8)$cond[2])
-# Average of 1.28 particle increase per trophic level, p = 0.002
 
 
 ## Predict
@@ -330,28 +328,84 @@ Cmod5 <- update(Cmod4, . ~ . -site:particle.type)
 
 AICc(Cmod4, Cmod5)  # Cmod5 is better fit
 
-drop1(Cmod5)  # stop here
+drop1(Cmod5)  # can drop trophic.position:particle.type
+
+Cmod6 <- update(Cmod5, . ~ . -trophic.position:particle.type)
+
+AICc(Cmod5, Cmod6)  # Cmod6 is a better fit
+
+drop1(Cmod6)  # stop here
 
 
 ## Diagnostics
 
-plot(resid(Cmod5) ~ fitted(Cmod5))
-plot(resid(Cmod5) ~ gutdata2$trophic.position)
-plot(resid(Cmod5) ~ gutdata2$site)
-plot(resid(Cmod5) ~ gutdata2$particle.type)
-plot(resid(Cmod5) ~ gutdata2$sample.type)
+plot(resid(Cmod6) ~ fitted(Cmod6))
+plot(resid(Cmod6) ~ gutdata2$trophic.position)
+plot(resid(Cmod6) ~ gutdata2$site)
+plot(resid(Cmod6) ~ gutdata2$particle.type)
+plot(resid(Cmod6) ~ gutdata2$sample.type)
+
+res <- simulateResiduals(Cmod6)
+plot(res, asFactor = T)  # significant outlier
+
+gutdata2$residuals <- resid(Cmod6)
+plot(gutdata2$residuals)
+
+subset(gutdata2, residuals < -15)  # remove CBMU1
+
+gutdata3 <- subset(gutdata2, ID != CBMU1)
+
+# Now go through  the modeling process again without the outlier
+
+Cmod7 <-
+  glmmTMB(
+    count ~ trophic.position * site * particle.type +
+      (1 | sample.type) + offset(log(tissue.weight)),
+    family = poisson(link = log),
+    data = gutdata3,
+    REML = FALSE
+  )
+
+overdisp_fun(Cmod7)  # still overdispersed
+
+Cmod8 <- update(Cmod7, ziformula = ~ . + offset(log(tissue.weight)))
+
+AICc(Cmod7, Cmod8)  # Better fit with ZI
+
+Cmod9 <- update(Cmod8, family = nbinom1())  # NB model won't converge
+
+drop1(Cmod8)  # can drop the 3-way interaction
+
+Cmod9 <- update(Cmod8, . ~ . -trophic.position:site:particle.type)
+
+drop1(Cmod9)  # can drop trophic.position:particle.type
+
+Cmod10 <- update(Cmod9, . ~ . -trophic.position:particle.type)
+
+drop1(Cmod10)  # stop here
+
+Cmod10$call
+
+plot(resid(Cmod10) ~ fitted(Cmod10))
+plot(resid(Cmod10) ~ gutdata3$trophic.position)
+plot(resid(Cmod10) ~ gutdata3$site)
+plot(resid(Cmod10) ~ gutdata3$particle.type)
+plot(resid(Cmod10) ~ gutdata3$sample.type)
+
+res <- simulateResiduals(Cmod10)
+plot(res, asFactor = T)  # good
 
 
 ## Inference
 
-tidy(Cmod5)
+tidy(Cmod10)
 
 
 ## Predictions
 
-Cmod.pred <- gutdata2
+Cmod.pred <- gutdata3
 
-preds2 <- predict(Cmod5, type = 'conditional', re.form = NA, se.fit = TRUE)
+preds2 <- predict(Cmod10, type = 'conditional', re.form = NA, se.fit = TRUE)
 
 Cmod.pred$fitted <- preds2$fit
 
@@ -361,6 +415,197 @@ Cmod.pred$upper <- with(Cmod.pred, fitted + 1.96*preds2$se.fit)
 # Note that predictions are for averaged REs and ZI
 
 Cmod.pred$lower[Cmod.pred$lower < 0] <- 0
+
+
+## Model liver data
+
+liverdata <- 
+  foodweb4 %>% 
+  filter(!is.na(trophic.position) & particle.type != 'Natural' &
+           particle.type != 'Semi-synthetic') %>%
+  filter(sample.type == 'Flatfish Livers' |
+           sample.type == 'Surfperch Livers' |
+           sample.type == 'Rockfish Livers')
+
+liverdata$sample.type <- as.character(liverdata$sample.type)
+liverdata$sample.type <- as.factor(liverdata$sample.type)
+
+liverdata$particle.type <- as.character(liverdata$particle.type)
+liverdata$particle.type <- as.factor(liverdata$particle.type)
+
+liverdata$species <- as.character(liverdata$species)
+liverdata$species <- as.factor(liverdata$species)
+
+Lmod1 <- glmmTMB(
+  count ~ trophic.position * site * particle.type +
+    (1 | sample.type),
+  family = poisson(link = log),
+  data = liverdata,
+  REML = FALSE
+)
+
+plot(resid(Lmod1, type = 'pearson') ~ fitted(Lmod1))
+overdisp_fun(Lmod1)  # not overdispersed
+
+res <- simulateResiduals(Lmod1)
+plot(res, asFactor = T)
+
+summary(Lmod1)
+
+Lmod2 <- update(Lmod1, family = nbinom1())  # convergence issues, NB not good
+
+## removing terms
+
+drop1(Lmod1)  # can remove 3-way interaction
+
+Lmod2 <- update(Lmod1, . ~ . -trophic.position:site:particle.type)
+
+AICc(Lmod1, Lmod2)  # Lmod2 better fit
+
+drop1(Lmod2)  # try removing site:particle.type
+
+Lmod3 <- update(Lmod2, . ~ . -site:particle.type)
+
+AICc(Lmod2, Lmod3)  # Lmod 3 is better fit
+
+drop1(Lmod3)  # try removing trophic.position:site
+
+Lmod4 <- update(Lmod3, . ~ . -trophic.position:site)
+
+AICc(Lmod3, Lmod4)  # Lmod4 is better fit
+
+drop1(Lmod4)  # can remove site
+
+Lmod5 <- update(Lmod4, . ~ . -site)
+
+AICc(Lmod4, Lmod5)  # Lmod5 is better fit
+
+drop1(Lmod5)  # stop here
+
+Lmod6 <- update(Lmod5, REML = TRUE)  # refit with REML
+
+summary(Lmod6)
+
+
+## Diagnostics
+
+plot(resid(Lmod6) ~ fitted(Lmod6))
+plot(resid(Lmod6) ~ liverdata$trophic.position)
+plot(resid(Lmod6) ~ liverdata$site)
+plot(resid(Lmod6) ~ liverdata$particle.type)
+plot(resid(Lmod6) ~ liverdata$sample.type)
+
+
+## Inference
+
+tidy(Lmod6)  # trophic level not significant, p = 0.09
+
+
+## Predictions
+
+Lmod.pred <- liverdata
+
+preds3 <- predict(Lmod6, type = 'response', re.form = NA, se.fit = TRUE)
+
+Lmod.pred$fitted <- preds3$fit
+
+Lmod.pred$lower <- with(Lmod.pred, fitted - 1.96*preds3$se.fit)
+Lmod.pred$upper <- with(Lmod.pred, fitted + 1.96*preds3$se.fit)  
+# 95% CI for preds
+# Note that predictions are for averaged REs
+
+Lmod.pred$lower[Lmod.pred$lower < 0] <- 0  # Make sure 95% CI doesn't go under 0
+
+
+
+## Liver concentration in terms of dry tissue weight
+
+LCmod1 <- glmmTMB(
+  count ~ trophic.position * site * particle.type +
+    (1 | sample.type) + offset(log(tissue.dry.weight)),
+  family = poisson(link = log),
+  data = liverdata,
+  REML = FALSE
+)
+
+plot(resid(LCmod1, type = 'pearson') ~ fitted(LCmod1))
+overdisp_fun(LCmod1)  # overdispersed
+
+LCmod2 <- update(LCmod1, 
+                 ziformula = ~ . + offset(log(tissue.dry.weight)))
+# model won't converge
+
+res <- simulateResiduals(LCmod1)
+plot(res, asFactor = T)  # significant skew in residuals
+
+plot(resid(LCmod1, type = 'pearson') ~ liverdata$species)
+plot(resid(LCmod1, type = 'pearson') ~ liverdata$total.body.wet.weight)
+plot(resid(LCmod1, type = 'pearson') ~ liverdata$TL)  
+# body size and species may help explain skew
+
+LCmod2 <- update(LCmod1, . ~ . + total.body.wet.weight + species)  
+# add total length and species to model
+
+plot(resid(LCmod2, type = 'pearson') ~ fitted(LCmod2))
+overdisp_fun(LCmod2)  # still overdispersed
+AICc(LCmod1, LCmod2)  # better fit with body length and species
+
+LCmod3 <- update(LCmod2, family = nbinom2())  # try NB
+
+AICc(LCmod2, LCmod3)  # Poisson model is better fit
+
+summary(LCmod2)
+
+drop1(LCmod2)  # drop trophic.position:site:particle.type
+
+LCmod3 <- update(LCmod2, . ~ . -trophic.position:site:particle.type)
+
+AICc(LCmod2, LCmod3)  # LCmod3 is a better fit
+
+drop1(LCmod3)  # drop trophic.position:site
+
+LCmod4 <- update(LCmod3, . ~ . -trophic.position:site)
+
+AICc(LCmod3, LCmod4) # LCmod4 is a better fit
+
+drop1(LCmod4)  # can drop site:particle.type
+
+LCmod5 <- update(LCmod4, . ~ . -site:particle.type)
+
+AICc(LCmod4, LCmod5)  # LCmod5 is a better fit
+
+drop1(LCmod5)  # stop here
+
+
+## Diagnostics
+
+plot(resid(LCmod5) ~ fitted(LCmod5))
+plot(resid(LCmod5) ~ liverdata$trophic.position)
+plot(resid(LCmod5) ~ liverdata$site)
+plot(resid(LCmod5) ~ liverdata$particle.type)
+plot(resid(LCmod5) ~ liverdata$sample.type)  # residual plots looks good
+
+
+## Inference
+
+tidy(LCmod5)
+
+
+## Prediction
+
+LCmod.pred <- liverdata
+
+preds4 <- predict(LCmod3, type = 'link', se.fit = TRUE)
+
+LCmod.pred$fitted <- preds4$fit
+
+LCmod.pred$lower <- with(LCmod.pred, fitted - 1.96*preds3$se.fit)
+LCmod.pred$upper <- with(LCmod.pred, fitted + 1.96*preds3$se.fit)  
+# 95% CI for preds
+# Note that predictions are for averaged REs
+
+
+
 
 #### Plot ####
 
@@ -392,7 +637,6 @@ ggplot(Imod.pred) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
   scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', n = 8)) +
-  scale_y_continuous(trans = 'log1p', breaks = c(0, 1, 5, 10, 15, 20)) +
   theme1
 
 dev.off()
@@ -430,6 +674,76 @@ ggplot(Cmod.pred) +
        y = expression(paste('Particles '*g^-1))) +
   scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', 
                                                n = 8, rev = TRUE)) +
+  theme1
+
+dev.off()
+
+
+
+## Liver concentration in terms of particles/individual
+
+tiff('Trophic Position MP Liver Plot.tiff',
+     res = 300,
+     width = 16,
+     height = 12,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot(Lmod.pred) +
+  geom_ribbon(aes(x = trophic.position,
+                  ymax = upper,
+                  ymin = lower),
+              fill = 'green',
+              alpha = 0.3,
+              size = 0.5) +
+  geom_line(aes(x = trophic.position,
+                y = fitted),
+            linetype = 'dashed', 
+            size = 0.5) +
+  geom_point(aes(x = trophic.position,
+                 y = count,
+                 colour = reorder(sample.type, trophic.position, mean)),
+             size = 1, shape = 1, alpha = 0.8) +
+  facet_grid(particle.type ~ site) +
+  labs(x = 'Trophic Position',
+       y = expression(paste('Particles '*ind^-1))) +
+  scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', n = 3)) +
+  theme1
+
+dev.off()
+
+
+## Liver concentration in terms of dry tissue weight
+
+tiff('Trophic Position MP Liver Weight Plot.tiff',
+     res = 300,
+     width = 16,
+     height = 12,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot(LCmod.pred) +
+  geom_ribbon(aes(x = trophic.position,
+                  ymax = exp(upper)/tissue.dry.weight,
+                  ymin = exp(lower)/tissue.dry.weight,
+                  fill = species),
+              alpha = 0.3,
+              size = 0.5) +
+  geom_line(aes(x = trophic.position,
+                y = exp(fitted)/tissue.dry.weight,
+                colour = species),
+            linetype = 'dashed', 
+            size = 0.5) +
+  geom_point(aes(x = trophic.position,
+                 y = count/tissue.dry.weight,
+                 colour = reorder(species, trophic.position, mean)),
+             size = 1, shape = 1, alpha = 0.8) +
+  scale_y_continuous(trans = 'log1p', breaks = c(0, 1, 10, 100, 1000)) +
+  facet_grid(particle.type ~ site) +
+  labs(x = 'Trophic Position',
+       y = expression(paste('Particles '*ind^-1))) +
+  scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', n = 5)) +
+  scale_fill_manual(values = qualitative_hcl(palette = 'Dark3', n = 5)) +
   theme1
 
 dev.off()
