@@ -290,24 +290,24 @@ full_spec_data$num <-
 
 ## Construct a multinomial regression model for known particle types
 
-moddata <- rbind(full_spec_data, PT[c(1:14, 22:23)], PJ)
+moddata1 <- rbind(full_spec_data, PT[c(1:14, 22:23)], PJ)
 
-moddata <- subset(moddata,
-                  particle.type != 'Unknown' &
-                    particle.type != 'NA')
+moddata2 <- subset(moddata,
+                   particle.type != 'Unknown' &
+                     particle.type != 'NA')
 
-moddata$particle.type <- as.character(moddata$particle.type)
-moddata$particle.type <- as.factor(moddata$particle.type)
+moddata2$particle.type <- as.character(moddata2$particle.type)
+moddata2$particle.type <- as.factor(moddata2$particle.type)
 
 ## Split data into training/test data (70/30)
 
-moddata$row.number <- as.numeric(rownames(moddata))
-moddata <- ungroup(moddata)
+moddata2$row.number <- as.numeric(rownames(moddata2))
+moddata2 <- ungroup(moddata2)
 
 set.seed(123)
-train <- sample_frac(moddata, size = 0.7)
-moddata$subset <- moddata$row.number %in% train$row.number
-test <- subset(moddata, subset != 'TRUE')
+train <- sample_frac(moddata2, size = 0.7)
+moddata2$subset <- moddata2$row.number %in% train$row.number
+test <- subset(moddata2, subset != 'TRUE')
 
 ## Fit intial model
 
@@ -341,7 +341,7 @@ round((sum(diag(ctable2))/sum(ctable2))*100,2)
 
 particle.mod2 <- multinom(particle.type ~
                             colour*shape*user.id + sample.type,
-                          data = moddata)
+                          data = moddata2)
 
 predPT_data <- subset(PT, particle.type == 'Unknown')
 
@@ -559,3 +559,185 @@ animal_data3$sample.type <-
                    'Flatfish',
                    'Rockfish'))
 
+#### Plot breakdown by Raman ID, shape, and colour ####
+
+moddata3 <- moddata1 %>% filter(num == 1)
+moddata3$raman.ID[is.na(moddata3$raman.ID)] <- 'Unknown'
+moddata3$raman.ID[moddata3$raman.ID == ''] <- 'Unknown'
+moddata3$raman.ID <- as.character(moddata3$raman.ID)
+moddata3$raman.ID <- as.factor(moddata3$raman.ID)
+
+moddata3$site <- as.character(moddata3$site)
+moddata3$site[moddata3$sample.type == 'Blanks'] <- 'Blanks'
+moddata3$site <- as.factor(moddata3$site)
+
+moddata3$raman.ID <- mapvalues(moddata3$raman.ID,
+                               from = c('Polyster', 'Salt Crystal', 
+                                        'Additive', 'Plastics Additive',
+                                        'Plastics Dye', 'Unknown Polymer'),
+                               to = c('Polyester', 'Salt', 'Unknown Synthetic',
+                                      'Unknown Synthetic', 'Unknown Synthetic',
+                                      'Unknown Synthetic'))
+
+moddata3$raman.ID <- factor(moddata3$raman.ID,
+                            levels = c('Unknown',
+                                       'Acrylic',
+                                       'Nylon',
+                                       'Kevlar',
+                                       'Paint',
+                                       'Polyacrylonitrile',
+                                       'Polyester',
+                                       'Polypropylene',
+                                       'Polystyrene',
+                                       'Polyurethane',
+                                       'Styrene copolymer',
+                                       'Unknown Synthetic',
+                                       'Rayon',
+                                       'Cellulose',
+                                       'Wool',
+                                       'Bone',
+                                       'Mineral',
+                                       'Salt'))
+
+moddata3$sample.type <- factor(moddata3$sample.type,
+                               levels = c('Blanks',
+                                          'Plankton Jars',
+                                          'Plankton Tows',
+                                          'Mussels',
+                                          'Clams',
+                                          'Sea Cucumbers',
+                                          'Crabs',
+                                          'Sea Stars',
+                                          'Flatfish Guts',
+                                          'Flatfish Livers',
+                                          'Surfperch Guts',
+                                          'Surfperch Livers',
+                                          'Rockfish Guts',
+                                          'Rockfish: Ingested Animals',
+                                          'Rockfish Livers'))
+
+
+tiff(
+  'Polymer Plot.tiff',
+  res = 300,
+  width = 16.5,
+  height = 11.43,
+  units = 'cm',
+  pointsize = 12
+)
+
+ggplot(moddata3) +
+  geom_bar(
+    aes(x = sample.type,
+        y = num,
+        fill = raman.ID),
+    colour = 'black',
+    size = 0.25,
+    position = 'fill',
+    stat = 'identity'
+  ) +
+  labs(x = 'Sample Type', y = 'Proportion of Particles') +
+  facet_grid(. ~ shape, scales = 'free_x', space = 'free_x') +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_fill_manual(values =
+                      qualitative_hcl(n = length(unique(moddata3$raman.ID)),
+                                      palette = 'Dark3')) +
+  guides(fill = guide_legend(ncol = 1)) +
+  theme1 +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.text = element_text(size = 6),
+    legend.margin = margin(0, 0, 0, 0),
+    legend.key.size = unit(0.75, 'line')
+  )
+
+dev.off()
+
+## And by colour
+
+summary(moddata3$colour)
+moddata3$colour <- mapvalues(
+  moddata3$colour,
+  from = c(
+    'olive',
+    'yellow green',
+    'black',
+    'blue',
+    'brown',
+    'clear',
+    'green',
+    'orange',
+    'pink',
+    'purple',
+    'red',
+    'yellow',
+    'rainbow'
+  ),
+  to = c(
+    'Olive',
+    'Yellow Green',
+    'Black',
+    'Blue',
+    'Brown',
+    'Clear',
+    'Green',
+    'Orange',
+    'Pink',
+    'Purple',
+    'Red',
+    'Yellow',
+    'Multi-colour'
+  )
+)
+summary(moddata3$colour)
+
+tiff(
+  'Colour Plot.tiff',
+  res = 300,
+  width = 16.5,
+  height = 11.43,
+  units = 'cm',
+  pointsize = 12
+)
+
+ggplot(moddata3) +
+  geom_bar(
+    aes(x = sample.type,
+        y = num,
+        fill = colour),
+    colour = 'black',
+    size = 0.25,
+    position = 'fill',
+    stat = 'identity'
+  ) +
+  labs(x = 'Sample Type', y = 'Proportion or Particles') +
+  facet_grid(. ~ shape, scales = 'free_x', space = 'free_x') +
+  scale_fill_manual(
+    values = c(
+      'Black',
+      'Steel Blue',
+      'Azure2',
+      'Forest Green',
+      'Orange',
+      'Pink',
+      'Blue Violet',
+      'Red3',
+      'Gold',
+      'Saddle Brown',
+      'Dark Olive Green',
+      'Yellow Green',
+      'Turquoise',
+      'White'
+    )
+  ) +
+  scale_y_continuous(expand = c(0, 0)) +
+  guides(fill = guide_legend(ncol = 1)) +
+  theme1 +
+  theme(
+    axis.text.x = element_text(angle = 45, hjust = 1),
+    legend.text = element_text(size = 6),
+    legend.margin = margin(0, 0, 0, 0),
+    legend.key.size = unit(0.75, 'line')
+  )
+
+dev.off()

@@ -759,13 +759,15 @@ A <-
                    y = count),
                size = 0.5,
                fill = 'purple',
-               alpha = 0.5) +
-  facet_grid(particle.type ~ ., scales = 'free_x') +
-  scale_y_continuous(limits = c(0, 20),
-                     breaks = seq(from = 0, to = 20, by = 5)) +
+               alpha = 0.5,
+               outlier.size = 0.5) +
+  facet_grid(particle.type ~ ., scales = 'free',
+             space = 'free_x') +
   labs(x = '',
        y = expression(paste('Particles ' ~ L ^ -1))) +
-  theme1
+  theme1 +
+  theme(strip.text = element_text(size = 7),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 ## Plot plankton tows
@@ -776,13 +778,15 @@ B <-
                    y = count/sample.volume),
                size = 0.5,
                fill = 'orange',
-               alpha = 0.5) +
-  facet_grid(particle.type ~ ., scales = 'free_x') +
+               alpha = 0.5,
+               outlier.size = 0.5) +
+  facet_grid(particle.type ~ ., scales = 'free',
+             space = 'free_x') +
   labs(x = '',
        y = expression(paste('Particles '~L^-1))) +
-  scale_y_continuous(limits = c(0, 0.120),
-                     breaks = seq(from = 0, to = 0.120, by = 0.04)) +
-  theme1 
+  theme1 +
+  theme(strip.text = element_text(size = 7),
+        axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 ## Plot animal gut data
@@ -807,24 +811,26 @@ C <-
     alpha = 0.5,
     outlier.size = 0.5
   ) +
-  facet_grid(particle.type ~ site, scales = 'free_x') +
+  facet_grid(particle.type ~ site, scales = 'free',
+             space = 'free_x') +
   labs(x = 'Type of Animal',
        y = expression(paste('Particles '~ind^-1))) +
   theme1 +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        strip.text = element_text(size = 7))
 
 water_plots <- plot_grid(A, B, labels = c('A', 'B'), nrow = 1,
-                         align = 'v')
+                         align = 'v', rel_heights = c(1,1))
 
 tiff('All Samples Plot.tiff',
      res = 300,
-     width = 16,
-     height = 20,
+     width = 16.7,
+     height = 16,
      units = 'cm',
      pointsize = 12)
 
-plot_grid(water_plots, C, labels = c('', 'C'), nrow = 2,
-          rel_heights = c(1, 1.5))
+plot_grid(water_plots, C, labels = c('', 'C'), nrow = 1,
+          rel_widths = c(1, 1.5))
 
 dev.off()
 
