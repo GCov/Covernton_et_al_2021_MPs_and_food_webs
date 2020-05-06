@@ -10,6 +10,7 @@ library(glmmTMB)
 library(MuMIn)
 library(broom.mixed)
 library(cowplot)
+library(sjPlot)
 
 ## Define standard error function
 
@@ -384,22 +385,32 @@ Cmod10 <- update(Cmod9, . ~ . -trophic.position:particle.type)
 
 drop1(Cmod10)  # stop here
 
-Cmod10$call
+Cmod11 <- update(Cmod10, REML = TRUE)
 
-plot(resid(Cmod10) ~ fitted(Cmod10))
-plot(resid(Cmod10) ~ gutdata3$trophic.position)
-plot(resid(Cmod10) ~ gutdata3$site)
-plot(resid(Cmod10) ~ gutdata3$particle.type)
-plot(resid(Cmod10) ~ gutdata3$sample.type)
+Cmod11$call
 
-res <- simulateResiduals(Cmod10)
+plot(resid(Cmod11) ~ fitted(Cmod11))
+plot(resid(Cmod11) ~ gutdata3$trophic.position)
+plot(resid(Cmod11) ~ gutdata3$site)
+plot(resid(Cmod11) ~ gutdata3$particle.type)
+plot(resid(Cmod11) ~ gutdata3$sample.type)
+
+res <- simulateResiduals(Cmod11)
 plot(res, asFactor = T)  # good
 
 
 ## Inference
 
-tidy(Cmod10)
+tidy(Cmod11)
+summary(Cmod11)
 
+plot_model(Cmod11)
+
+Cmod.test1 <- update(Cmod11, . ~ . -site:particle.type)
+Cmod.test2 <- update(Cmod11, . ~ . -trophic.position:site)
+
+anova(Cmod11, Cmod.test1)  # site:particle.type significant, p<0.001
+anova(Cmod11, Cmod.test2)  # trophic.position:site signficant, p=0.005
 
 ## Predictions
 
@@ -588,7 +599,9 @@ plot(resid(LCmod5) ~ liverdata$sample.type)  # residual plots looks good
 
 ## Inference
 
-tidy(LCmod5)
+LCmod5$call
+summary(LCmod5)
+plot_model(LCmod5)
 
 
 ## Prediction
@@ -647,8 +660,8 @@ dev.off()
 
 tiff('Trophic Position MP Weight Plot.tiff',
      res = 300,
-     width = 16,
-     height = 12,
+     width = 16.7,
+     height = 11,
      units = 'cm',
      pointsize = 12)
 
@@ -666,10 +679,11 @@ ggplot(Cmod.pred) +
   geom_point(aes(x = trophic.position,
                  y = count/tissue.weight,
                  colour = reorder(sample.type, trophic.position, mean)),
-             size = 1, shape = 1, alpha = 0.8) +
+             size = 1, shape = 1, alpha = 1) +
   scale_y_continuous(trans = 'log1p', 
                      breaks = c(0, 1, 10, 100, 1000, 10000)) +
-  facet_grid(particle.type ~ site) +
+  facet_grid(particle.type ~ site,
+             labeller = label_wrap_gen(width = 9)) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*g^-1))) +
   scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', 
@@ -685,7 +699,7 @@ dev.off()
 tiff('Trophic Position MP Liver Plot.tiff',
      res = 300,
      width = 16,
-     height = 12,
+     height = 8,
      units = 'cm',
      pointsize = 12)
 
@@ -693,7 +707,7 @@ ggplot(Lmod.pred) +
   geom_ribbon(aes(x = trophic.position,
                   ymax = upper,
                   ymin = lower),
-              fill = 'green',
+              fill = 'yellow',
               alpha = 0.3,
               size = 0.5) +
   geom_line(aes(x = trophic.position,
@@ -703,8 +717,9 @@ ggplot(Lmod.pred) +
   geom_point(aes(x = trophic.position,
                  y = count,
                  colour = reorder(sample.type, trophic.position, mean)),
-             size = 1, shape = 1, alpha = 0.8) +
-  facet_grid(particle.type ~ site) +
+             size = 1, shape = 1, alpha = 1) +
+  facet_grid(particle.type ~ site,
+             labeller = label_wrap_gen(width = 9)) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
   scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', n = 3)) +
@@ -718,7 +733,7 @@ dev.off()
 tiff('Trophic Position MP Liver Weight Plot.tiff',
      res = 300,
      width = 16,
-     height = 12,
+     height = 8,
      units = 'cm',
      pointsize = 12)
 
@@ -737,9 +752,10 @@ ggplot(LCmod.pred) +
   geom_point(aes(x = trophic.position,
                  y = count/tissue.dry.weight,
                  colour = reorder(species, trophic.position, mean)),
-             size = 1, shape = 1, alpha = 0.8) +
+             size = 1, shape = 1, alpha = 1) +
   scale_y_continuous(trans = 'log1p', breaks = c(0, 1, 10, 100, 1000)) +
-  facet_grid(particle.type ~ site) +
+  facet_grid(particle.type ~ site,
+             labeller = label_wrap_gen(width = 9)) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
   scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', n = 5)) +
@@ -754,7 +770,7 @@ dev.off()
 
 
 A <-
-  ggplot(PJ_data4) +
+  ggplot(subset(PJ_data4, particle.type != 'Natural')) +
   geom_boxplot(aes(x = site,
                    y = count),
                size = 0.5,
@@ -762,7 +778,8 @@ A <-
                alpha = 0.5,
                outlier.size = 0.5) +
   facet_grid(particle.type ~ ., scales = 'free',
-             space = 'free_x') +
+             space = 'free_x',
+             labeller = label_wrap_gen(width = 10)) +
   labs(x = '',
        y = expression(paste('Particles ' ~ L ^ -1))) +
   theme1 +
@@ -773,7 +790,7 @@ A <-
 ## Plot plankton tows
 
 B <-
-  ggplot(PT_data4) +
+  ggplot(subset(PT_data4, particle.type != 'Natural')) +
   geom_boxplot(aes(x = site,
                    y = count/sample.volume),
                size = 0.5,
@@ -781,7 +798,8 @@ B <-
                alpha = 0.5,
                outlier.size = 0.5) +
   facet_grid(particle.type ~ ., scales = 'free',
-             space = 'free_x') +
+             space = 'free_x',
+             labeller = label_wrap_gen(width = 10)) +
   labs(x = '',
        y = expression(paste('Particles '~L^-1))) +
   theme1 +
@@ -802,7 +820,7 @@ gutdata$sample.type <- factor(gutdata$sample.type,
                                          'Rockfish'))
 
 C <-
-  ggplot(gutdata) +
+  ggplot(subset(gutdata, particle.type != 'Natural')) +
   geom_boxplot(
     aes(x = sample.type,
         y = count),
@@ -812,7 +830,8 @@ C <-
     outlier.size = 0.5
   ) +
   facet_grid(particle.type ~ site, scales = 'free',
-             space = 'free_x') +
+             space = 'free_x',
+             labeller = label_wrap_gen(width = 10)) +
   labs(x = 'Type of Animal',
        y = expression(paste('Particles '~ind^-1))) +
   theme1 +
@@ -825,12 +844,12 @@ water_plots <- plot_grid(A, B, labels = c('A', 'B'), nrow = 1,
 tiff('All Samples Plot.tiff',
      res = 300,
      width = 16.7,
-     height = 16,
+     height = 10,
      units = 'cm',
      pointsize = 12)
 
 plot_grid(water_plots, C, labels = c('', 'C'), nrow = 1,
-          rel_widths = c(1, 1.5))
+          rel_widths = c(1, 1.4))
 
 dev.off()
 

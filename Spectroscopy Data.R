@@ -7,6 +7,7 @@ library(dplyr)
 library(nnet)
 library(MuMIn)
 library(boot)
+library(colorspace)
 
 #### Load spectroscopy data ####
 
@@ -621,7 +622,7 @@ tiff(
   'Polymer Plot.tiff',
   res = 300,
   width = 16.5,
-  height = 11.43,
+  height = 14,
   units = 'cm',
   pointsize = 12
 )
@@ -637,7 +638,10 @@ ggplot(moddata3) +
     stat = 'identity'
   ) +
   labs(x = 'Sample Type', y = 'Proportion of Particles') +
-  facet_grid(. ~ shape, scales = 'free_x', space = 'free_x') +
+  facet_grid(particle.type ~ shape, 
+             scales = 'free_x', 
+             space = 'free_x',
+             labeller = label_wrap_gen(width = 10)) +
   scale_y_continuous(expand = c(0, 0)) +
   scale_fill_manual(values =
                       qualitative_hcl(n = length(unique(moddata3$raman.ID)),
@@ -695,7 +699,7 @@ tiff(
   'Colour Plot.tiff',
   res = 300,
   width = 16.5,
-  height = 11.43,
+  height = 14,
   units = 'cm',
   pointsize = 12
 )
@@ -710,8 +714,11 @@ ggplot(moddata3) +
     position = 'fill',
     stat = 'identity'
   ) +
-  labs(x = 'Sample Type', y = 'Proportion or Particles') +
-  facet_grid(. ~ shape, scales = 'free_x', space = 'free_x') +
+  labs(x = 'Sample Type', y = 'Proportion of Particles') +
+  facet_grid(particle.type ~ shape, 
+             scales = 'free_x', 
+             space = 'free_x',
+             labeller = label_wrap_gen(width = 10)) +
   scale_fill_manual(
     values = c(
       'Black',
