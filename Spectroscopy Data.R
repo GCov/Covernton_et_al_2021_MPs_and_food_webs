@@ -300,7 +300,61 @@ moddata2 <- subset(moddata,
 moddata2$particle.type <- as.character(moddata2$particle.type)
 moddata2$particle.type <- as.factor(moddata2$particle.type)
 
-## Split data into training/test data (70/30)
+## Fit intial model
+
+pm1 <-
+  multinom(particle.type ~
+             colour*shape*user.id + sample.type + site,
+           data = moddata2)
+
+## Model selection
+
+pm1.1 <- update(pm1, . ~ . -colour:shape:user.id)
+pm1.2 <- update(pm1, . ~ . -sample.type)
+pm1.3 <- update(pm1, . ~ . -site)
+
+AICc(pm1.1, pm1.2, pm1.3)  # can drop site
+
+pm1.4 <- update(pm1.3, . ~ . -colour:shape:user.id)
+pm1.5 <- update(pm1.3, . ~ . -sample.type)
+
+AICc(pm1.3, pm1.4, pm1.5)  # can drop the 3-way interaction
+
+pm1.6 <- update(pm1.4, . ~ . -colour:shape)
+pm1.7 <- update(pm1.4, . ~ . -colour:user.id)
+pm1.8 <- update(pm1.4, . ~ . -shape:user.id)
+pm1.9 <- update(pm1.4, . ~ . -sample.type)
+
+AICc(pm1.4, pm1.6, pm1.7, pm1.8, pm1.9)  # can drop colour:user.id
+
+pm1.10 <- update(pm1.7, . ~ . -colour:shape)
+pm1.11 <- update(pm1.7, . ~ . -shape:user.id)
+pm1.12 <- update(pm1.7, . ~ . -sample.type)
+
+AICc(pm1.7, pm1.10, pm1.11, pm1.12)  # can drop sample.type
+
+pm1.13 <- update(pm1.12, . ~ . -colour:shape)
+pm1.14 <- update(pm1.12, . ~ . -shape:user.id)
+
+AICc(pm1.12, pm1.13, pm1.14)  # can drop shape:user.id
+
+pm1.15 <- update(pm1.14, . ~ . -colour:shape)
+pm1.16 <- update(pm1.14, . ~ . -user.id)
+
+AICc(pm1.14, pm1.15, pm1.16)  # can drop colour:shape
+
+pm1.17 <- update(pm1.15, . ~ . -colour)
+pm1.18 <- update(pm1.15, . ~ . -shape)
+pm1.19 <- update(pm1.15, . ~ . -user.id)
+
+AICc(pm1.15, pm1.17, pm1.18, pm1.19)  # can drop shape
+
+pm1.20 <- update(pm1.18, . ~ . -colour)
+pm1.21 <- update(pm1.18, . ~ . -user.id)
+
+AICc(pm1.18, pm1.20, pm1.21)  # stop here
+
+## Cross-validation: Split data into training/test data (70/30)
 
 moddata2$row.number <- as.numeric(rownames(moddata2))
 moddata2 <- ungroup(moddata2)
@@ -310,17 +364,12 @@ train <- sample_frac(moddata2, size = 0.7)
 moddata2$subset <- moddata2$row.number %in% train$row.number
 test <- subset(moddata2, subset != 'TRUE')
 
-## Fit intial model
 
-particle.mod1 <-
-  multinom(particle.type ~
-             colour*shape*user.id + sample.type,
-           data = train)
 
 ## Test model accuracy by building a classification table
 
 # Predicting the values for train dataset
-train$predicted <- predict(particle.mod1, newdata = train, "class")
+train$predicted <- predict(pm1.18, newdata = train, "class")
 
 # Building classification table
 ctable1 <- table(train$particle.type, train$predicted)
@@ -338,11 +387,7 @@ ctable2 <- table(test$particle.type, test$predicted)
 # Calculating accuracy - sum of diagonal elements divided by total obs
 round((sum(diag(ctable2))/sum(ctable2))*100,2)
 
-## Refit to all data
-
-particle.mod2 <- multinom(particle.type ~
-                            colour*shape*user.id + sample.type,
-                          data = moddata2)
+## Predict unknown values
 
 predPT_data <- subset(PT, particle.type == 'Unknown')
 
@@ -351,13 +396,11 @@ predPJ_data <- subset(PJ, particle.type == 'Unknown')
 pred_data <- subset(full_spec_data,
                     particle.type == 'Unknown')
 
-## predict
+predictPT.mlr <- predict(pm1.18, newdata = predPT_data, type = 'class')
 
-predictPT.mlr <- predict(particle.mod2, newdata = predPT_data, type = 'class')
+predictPJ.mlr <- predict(pm1.18, newdata = predPJ_data, type = 'class')
 
-predictPJ.mlr <- predict(particle.mod2, newdata = predPJ_data, type = 'class')
-
-predict.mlr <- predict(particle.mod2, newdata = pred_data, type = 'class')
+predict.mlr <- predict(pm1.18, newdata = pred_data, type = 'class')
 
 
 ## add predicitons back to original data
@@ -721,7 +764,7 @@ ggplot(moddata3) +
              labeller = label_wrap_gen(width = 10)) +
   scale_fill_manual(
     values = c(
-      'Black',
+      'Grey16',
       'Steel Blue',
       'Azure2',
       'Forest Green',

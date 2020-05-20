@@ -9,8 +9,9 @@ library(colorspace)
 library(glmmTMB)
 library(MuMIn)
 library(broom.mixed)
-library(cowplot)
 library(sjPlot)
+library(cowplot)
+library(DHARMa)
 
 ## Define standard error function
 
@@ -246,11 +247,15 @@ Imod7 <- update(Imod6, . ~ . -trophic.position)
 
 AICc(Imod6, Imod7)  # Imod7 is better fit
 
-drop1(Imod7) # stop here
+drop1(Imod7) # can drop site:particle.type
 
-Imod7$call  # view final model formula
+Imod8 <- update(Imod7, . ~ . -site:particle.type)
 
-Imod8 <- update(Imod7, REML = TRUE)  # refit with REML
+AICc(Imod7, Imod8)  # Imod8 is a better fit
+
+Imod8$call  # view final model formula
+
+Imod8 <- update(Imod8, REML = TRUE)  # refit with REML
 
 
 ## Diagnostics
@@ -270,12 +275,14 @@ tidy(Imod8)
 
 Imod.pred <- gutdata2
 
-preds1 <- predict(Imod8, type = 'conditional', re.form = NA, se.fit = TRUE)
+ilink <- family(Imod8)$linkinv
 
-Imod.pred$fitted <- preds1$fit
+preds1 <- predict(Imod8, type = 'link', re.form = NA, se.fit = TRUE)
 
-Imod.pred$lower <- with(Imod.pred, fitted - 1.96*preds1$se.fit)
-Imod.pred$upper <- with(Imod.pred, fitted + 1.96*preds1$se.fit)  
+Imod.pred$fitted <- ilink(preds1$fit)
+
+Imod.pred$lower <- ilink(with(Imod.pred, fitted - 1.96*preds1$se.fit))
+Imod.pred$upper <- ilink(with(Imod.pred, fitted + 1.96*preds1$se.fit))  
 # 95% CI for preds
 # Note that predictions are for averaged REs and ZI
 
@@ -308,13 +315,6 @@ AICc(Cmod2, Cmod3)  # Cmod3 is a better fit
 
 plot(resid(Cmod3) ~ fitted(Cmod3))  # seem to be some outliers here
 
-## test for outliers
-
-library(DHARMa)
-
-res <- simulateResiduals(Cmod3)
-plot(res, asFactor = T)  # can keep the outliers in
-
 ## Try dropping terms
 
 drop1(Cmod3)  # can drop trophic.position:site:particle.type
@@ -323,15 +323,15 @@ Cmod4 <- update(Cmod3, . ~ . -trophic.position:site:particle.type)
 
 AICc(Cmod3, Cmod4)  # Cmod4 is better fit
 
-drop1(Cmod4)  # can drop site:particle.type
+drop1(Cmod4)  # can drop trophic.position:particle.type
 
-Cmod5 <- update(Cmod4, . ~ . -site:particle.type)
+Cmod5 <- update(Cmod4, . ~ . -trophic.position:particle.type)
 
 AICc(Cmod4, Cmod5)  # Cmod5 is better fit
 
 drop1(Cmod5)  # can drop trophic.position:particle.type
 
-Cmod6 <- update(Cmod5, . ~ . -trophic.position:particle.type)
+Cmod6 <- update(Cmod5, . ~ . -site:particle.type)
 
 AICc(Cmod5, Cmod6)  # Cmod6 is a better fit
 
@@ -347,7 +347,7 @@ plot(resid(Cmod6) ~ gutdata2$particle.type)
 plot(resid(Cmod6) ~ gutdata2$sample.type)
 
 res <- simulateResiduals(Cmod6)
-plot(res, asFactor = T)  # significant outlier
+plot(res, asFactor = T)  # outliers could be an issue
 
 gutdata2$residuals <- resid(Cmod6)
 plot(gutdata2$residuals)
@@ -473,15 +473,15 @@ Lmod2 <- update(Lmod1, . ~ . -trophic.position:site:particle.type)
 
 AICc(Lmod1, Lmod2)  # Lmod2 better fit
 
-drop1(Lmod2)  # try removing site:particle.type
+drop1(Lmod2)  # try removing trophic.position:site
 
-Lmod3 <- update(Lmod2, . ~ . -site:particle.type)
+Lmod3 <- update(Lmod2, . ~ . -trophic.position:site)
 
 AICc(Lmod2, Lmod3)  # Lmod 3 is better fit
 
-drop1(Lmod3)  # try removing trophic.position:site
+drop1(Lmod3)  # try removing site:particle.type
 
-Lmod4 <- update(Lmod3, . ~ . -trophic.position:site)
+Lmod4 <- update(Lmod3, . ~ . -site:particle.type)
 
 AICc(Lmod3, Lmod4)  # Lmod4 is better fit
 
@@ -837,6 +837,8 @@ C <-
   theme1 +
   theme(axis.text.x = element_text(angle = 45, hjust = 1),
         strip.text = element_text(size = 7))
+
+detach("package:sjPlot", unload=TRUE)  # so plot_grid will work
 
 water_plots <- plot_grid(A, B, labels = c('A', 'B'), nrow = 1,
                          align = 'v', rel_heights = c(1,1))
