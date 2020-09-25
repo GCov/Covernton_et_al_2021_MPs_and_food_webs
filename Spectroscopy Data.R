@@ -22,9 +22,14 @@ summary(PT_field$sample.volume)
 
 PT <- left_join(plankton_tows, PT_field, by = 'ID')
 
+names(PT)
 PT$ID <- as.factor(PT$ID)
-
-head(PT)
+PT$site <- as.factor(PT$site)
+PT$sample.type <- as.factor(PT$sample.type)
+PT$size.fraction <- as.factor(PT$size.fraction)
+PT$shape <- as.factor(PT$shape)
+PT$colour <- as.factor(PT$colour)
+PT$raman.ID <- as.factor(PT$raman.ID)
 
 ## Clean up plankton tow data
 
@@ -82,6 +87,14 @@ PT$num <-
 ## Load plankton jars data
 
 PJ <- read.csv("plankton_jars.csv", header = TRUE)  # plankton jars
+
+PJ$ID <- as.factor(PJ$ID)
+PJ$site <- as.factor(PJ$site)
+PJ$sample.type <- as.factor(PJ$sample.type)
+PJ$size.fraction <- as.factor(PJ$size.fraction)
+PJ$shape <- as.factor(PJ$shape)
+PJ$colour <- as.factor(PJ$colour)
+PJ$raman.ID <- as.factor(PJ$raman.ID)
 
 ## Clean up plankton jars data
 
@@ -178,6 +191,14 @@ full_spec_data <-
 
 names(full_spec_data)
 full_spec_data$blank.match <- as.factor(full_spec_data$blank.match)
+full_spec_data$ID <- as.factor(full_spec_data$ID)
+full_spec_data$site <- as.factor(full_spec_data$site)
+full_spec_data$sample.type <- as.factor(full_spec_data$sample.type)
+full_spec_data$size.fraction <- as.factor(full_spec_data$size.fraction)
+full_spec_data$shape <- as.factor(full_spec_data$shape)
+full_spec_data$colour <- as.factor(full_spec_data$colour)
+full_spec_data$raman.ID <- as.factor(full_spec_data$raman.ID)
+
 summary(full_spec_data$blank.match)
 summary(full_spec_data$size.fraction)
 summary(full_spec_data$shape)
@@ -480,17 +501,17 @@ animal_data <- subset(animals_particle_type, sample.type != 'Blanks')
 
 PT_blanks_means <- 
   PT_blanks %>% 
-  group_by(shape, colour, blank.match, particle.type) %>% 
+  group_by(blank.match, particle.type) %>% 
   summarize(blank.mean = mean(count))
 
 PJ_blanks_means <- 
   PJ_blanks %>% 
-  group_by(shape, colour, blank.match, particle.type) %>% 
+  group_by(blank.match, particle.type) %>% 
   summarize(blank.mean = mean(count))
 
 animal_blanks_means <- 
   animal_blanks %>% 
-  group_by(shape, colour, blank.match, particle.type) %>% 
+  group_by(blank.match, particle.type) %>% 
   summarize(blank.mean = mean(count))
 
 ## Blank subtract
@@ -500,7 +521,7 @@ animal_blanks_means <-
 PT_data2 <-
   left_join(PT_data, 
             PT_blanks_means, 
-            by = c('shape', 'colour', 'blank.match', 'particle.type'))
+            by = c('blank.match', 'particle.type'))
 
 PT_data2$blank.mean[is.na(PT_data2$blank.mean)] <- 0
 
@@ -512,7 +533,7 @@ PT_data2$adj.count[PT_data2$adj.count < 0] <- 0
 PJ_data2 <-
   left_join(PJ_data, 
             PJ_blanks_means, 
-            by = c('shape', 'colour', 'blank.match', 'particle.type'))
+            by = c('blank.match', 'particle.type'))
 
 PJ_data2$blank.mean[is.na(PJ_data2$blank.mean)] <- 0
 
@@ -524,7 +545,7 @@ PJ_data2$adj.count[PJ_data2$adj.count < 0] <- 0
 animal_data2 <-
   left_join(animal_data, 
             animal_blanks_means, 
-            by = c('shape', 'colour', 'blank.match', 'particle.type'))
+            by = c('blank.match', 'particle.type'))
 
 animal_data2$blank.mean[is.na(animal_data2$blank.mean)] <- 0
 

@@ -132,9 +132,17 @@ foodweb3 <-
            arm.length, tissue.wet.weight, tissue.dry.weight, shell.weight,
            total.body.wet.weight, density.sep, species, carapace.length,
            TL, SL, sex, babies, parasites, deltaC, deltaN, trophic.position) %>% 
-  summarize(count = sum(adj.count))
+  summarize(adj.count = sum(adj.count),
+            blank.mean = mean(blank.mean),
+            orig.count = sum(count))
 
 ## Make sure each sample has all levels of particle type
+
+foodweb3$ID <- as.character(foodweb3$ID)
+foodweb3$ID <- as.factor(foodweb3$ID)
+
+foodweb3$sample.type <- as.character(foodweb3$sample.type)
+foodweb3$sample.type <- as.factor(foodweb3$sample.type)
 
 all_types <- expand.grid(ID = levels(foodweb3$ID), 
                          particle.type = levels(foodweb3$particle.type))
@@ -149,15 +157,19 @@ info <-
 
 all_types2 <- left_join(all_types, info, by = 'ID')
 
-counts <- subset(foodweb3[c(1,4,24)], count > 0)
+counts <- foodweb3[c(1,4,24:26)]
 
 foodweb4 <- left_join(all_types2, counts, by = c('ID', 'particle.type'))
 
-foodweb4$count[is.na(foodweb4$count)] <- 0
+foodweb4$adj.count[is.na(foodweb4$adj.count)] <- 0
+foodweb4$blank.mean[is.na(foodweb4$blank.mean)] <- 0
+foodweb4$orig.count[is.na(foodweb4$orig.count)] <- 0
 
 summary(foodweb4)
 
-foodweb4 <- subset(foodweb4, !is.na(species))
+subset(foodweb4, is.na(species))
+foodweb4$species[foodweb4$ID == "CBSS16"] <- "Dermasterias imbricata"
+foodweb4$species[foodweb4$ID == "HPRF1"] <- "Sebastes caurinus"
 
 gutdata <- subset(foodweb4,
                   sample.type != 'Surfperch Livers' &
@@ -174,7 +186,9 @@ gutdata <-
   group_by(ID, particle.type, site, sample.type,
            total.body.wet.weight, species, deltaC, deltaN,
            trophic.position) %>% 
-  summarize(count = sum(count),
+  summarize(adj.count = sum(adj.count),
+            blank.mean = mean(blank.mean),
+            orig.count = sum(orig.count),
             tissue.weight = sum(tissue.dry.weight))
 
 #### Model ####
@@ -188,7 +202,7 @@ overdisp_fun <- function(model) {
   c(chisq=Pearson.chisq,ratio=prat,rdf=rdf,p=pval)
 }  # specify overdispersion assessment function
 
-## Model gut data according to indivual
+## Model gut data according to individual
 
 gutdata2 <- subset(gutdata, !is.na(trophic.position) & 
                      particle.type != 'Natural')
@@ -272,19 +286,19 @@ tidy(Imod8)
 
 
 ## Predict
+# 95% CI for preds
+# Note that predictions are for averaged REs and ZI
 
 Imod.pred <- gutdata2
 
-ilink <- family(Imod8)$linkinv
+Imod.ilink <- family(Imod8)$linkinv
 
 preds1 <- predict(Imod8, type = 'link', re.form = NA, se.fit = TRUE)
 
 Imod.pred$fitted <- ilink(preds1$fit)
 
-Imod.pred$lower <- ilink(with(Imod.pred, fitted - 1.96*preds1$se.fit))
-Imod.pred$upper <- ilink(with(Imod.pred, fitted + 1.96*preds1$se.fit))  
-# 95% CI for preds
-# Note that predictions are for averaged REs and ZI
+Imod.pred$lower <- Imod.ilink(preds1$fit - 1.96*preds1$se.fit)
+Imod.pred$upper <- Imod.ilink(preds1$fit + 1.96*preds1$se.fit)
 
 
 
@@ -414,18 +428,19 @@ anova(Cmod11, Cmod.test2)  # trophic.position:site signficant, p=0.005
 
 ## Predictions
 
-Cmod.pred <- gutdata3
+Cmod.pred <- data.frame(gutdata3)
 
-preds2 <- predict(Cmod10, type = 'conditional', re.form = NA, se.fit = TRUE)
+Cmod.ilink <- family(Cmod11)$linkinv
 
-Cmod.pred$fitted <- preds2$fit
+preds2 <- predict(Cmod11, type = 'link', re.form = NA, 
+                  se.fit = TRUE)
 
-Cmod.pred$lower <- with(Cmod.pred, fitted - 1.96*preds2$se.fit)
-Cmod.pred$upper <- with(Cmod.pred, fitted + 1.96*preds2$se.fit)  
+Cmod.pred$fitted <- ilink(preds2$fit)
+
+Cmod.pred$lower <- Cmod.ilink(preds2$fit - 1.96*preds2$se.fit)
+Cmod.pred$upper <- Cmod.ilink(preds2$fit + 1.96*preds2$se.fit)  
 # 95% CI for preds
 # Note that predictions are for averaged REs and ZI
-
-Cmod.pred$lower[Cmod.pred$lower < 0] <- 0
 
 
 ## Model liver data
@@ -518,14 +533,14 @@ Lmod.pred <- liverdata
 
 preds3 <- predict(Lmod6, type = 'response', re.form = NA, se.fit = TRUE)
 
-Lmod.pred$fitted <- preds3$fit
+Lmod.ilink <- family(Lmod6)$linkinv
 
-Lmod.pred$lower <- with(Lmod.pred, fitted - 1.96*preds3$se.fit)
-Lmod.pred$upper <- with(Lmod.pred, fitted + 1.96*preds3$se.fit)  
+Lmod.pred$fitted <- Lmod.ilink(preds3$fit)
+
+Lmod.pred$lower <- Lmod.ilink(with(preds3, fit - 1.96*se.fit))
+Lmod.pred$upper <- Lmod.ilink(with(preds3, fit + 1.96*se.fit))  
 # 95% CI for preds
 # Note that predictions are for averaged REs
-
-Lmod.pred$lower[Lmod.pred$lower < 0] <- 0  # Make sure 95% CI doesn't go under 0
 
 
 
@@ -608,12 +623,14 @@ plot_model(LCmod5)
 
 LCmod.pred <- liverdata
 
-preds4 <- predict(LCmod3, type = 'link', se.fit = TRUE)
+preds4 <- predict(LCmod3, type = 'link', re.form = NA, se.fit = TRUE)
 
-LCmod.pred$fitted <- preds4$fit
+LCmod.ilink <- family(LCmod3)$linkinv
 
-LCmod.pred$lower <- with(LCmod.pred, fitted - 1.96*preds3$se.fit)
-LCmod.pred$upper <- with(LCmod.pred, fitted + 1.96*preds3$se.fit)  
+LCmod.pred$fitted <- LCmod.ilink(preds4$fit)
+
+LCmod.pred$lower <- LCmod.ilink(with(preds4, fit - 1.96*se.fit))
+LCmod.pred$upper <- LCmod.ilink(with(preds4, fit + 1.96*se.fit))  
 # 95% CI for preds
 # Note that predictions are for averaged REs
 
@@ -757,7 +774,7 @@ ggplot(LCmod.pred) +
   facet_grid(particle.type ~ site,
              labeller = label_wrap_gen(width = 9)) +
   labs(x = 'Trophic Position',
-       y = expression(paste('Particles '*ind^-1))) +
+       y = expression(paste('Particles '*g^-1))) +
   scale_colour_manual(values = qualitative_hcl(palette = 'Dark3', n = 5)) +
   scale_fill_manual(values = qualitative_hcl(palette = 'Dark3', n = 5)) +
   theme1
