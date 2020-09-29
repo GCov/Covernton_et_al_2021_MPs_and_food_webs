@@ -314,7 +314,7 @@ full_spec_data$num <-
 
 moddata1 <- rbind(full_spec_data, PT[c(1:14, 22:23)], PJ)
 
-moddata2 <- subset(moddata,
+moddata2 <- subset(moddata1,
                    particle.type != 'Unknown' &
                      particle.type != 'NA')
 
@@ -400,7 +400,7 @@ round((sum(diag(ctable1))/sum(ctable1))*100,2)
 
 ## Repeat for test data
 
-test$predicted <- predict(particle.mod1, newdata = test, "class")
+test$predicted <- predict(pm1.18, newdata = test, "class")
 
 # Building classification table
 ctable2 <- table(test$particle.type, test$predicted)
@@ -424,7 +424,7 @@ predictPJ.mlr <- predict(pm1.18, newdata = predPJ_data, type = 'class')
 predict.mlr <- predict(pm1.18, newdata = pred_data, type = 'class')
 
 
-## add predicitons back to original data
+## add predictions back to original data
 
 PT[PT$particle.type == 'Unknown' &
      !is.na(PT$particle.type), ]$particle.type <- predictPT.mlr

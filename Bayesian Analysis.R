@@ -27,16 +27,16 @@ MPgutdata$species <- as.factor(MPgutdata$species)
 model1 <- function() {
   # Likelihood
   for(i in 1:N) {
-    y[i] ~ dpois(lambda[i])
-    lambda[i] <- true[i] + contam[i]
-    contam[i] ~ dpois(blank.mean[i])
-    log(true[i]) <- 
+    y[i] ~ dpois(lambda_y[i])
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    true[i] ~ dpois(lambda_true[i])
+    log(lambda_true[i]) <- 
      alpha_species[species[i]] + 
       beta_TP[site[i]]*TP[i] + 
       gamma_site[site[i]]
     
     ## Fitted values
-    fitted[i] ~ dpois(lambda[i])
+    fitted[i] ~ dpois(lambda_y[i])
   }
   
   ## Priors
@@ -74,7 +74,7 @@ model1data <-
   list(
     y = MPgutdata$orig.count,
     N = nrow(MPgutdata),
-    blank.mean = MPgutdata$blank.mean,
+    lambda_blanks = MPgutdata$blank.mean,
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
     site = as.integer(MPgutdata$site),
@@ -89,9 +89,9 @@ run1 <- jags.parallel(
   parameters.to.save = model1param,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 5000,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 2,
   jags.seed = 3234,
   model = model1
 )
@@ -101,7 +101,7 @@ run1mcmc <- as.mcmc(run1)
 xyplot(run1mcmc, layout = c(6, ceiling(nvar(run1mcmc)/6)))
 
 #### Diagnostics ####
-model1param2 <- c("fitted", "contam")
+model1param2 <- c("fitted", "true")
 
 run2 <- jags.parallel(
   data = model1data,
@@ -109,9 +109,9 @@ run2 <- jags.parallel(
   parameters.to.save = model1param2,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 5000,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 2,
   jags.seed = 3234,
   model = model1
 )
@@ -203,39 +203,42 @@ dev.off()
 
 ## Extract 'true' estimate
 
-MPgutdata$true.est <- 
-  apply(run2$BUGSoutput$sims.list$fitted - 
-          run2$BUGSoutput$sims.list$contam, 2, mean)
+MPgutdata$true.est <- apply(run2$BUGSoutput$sims.list$true, 2, mean)
+MPgutdata$true.est.upper95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile, 
+                                    probs = 0.975)
+MPgutdata$true.est.lower95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile, 
+                                    probs = 0.025)
 
 set.seed(5126)
 
 MPgutsim <- data.frame(trophic.position = seq(from = 0, 
                                               to = 4, 
-                                              length.out = 1000),
+                                              length.out = 2000),
                        site = sample(c(1:3), 
-                                     1000, 
+                                     2000, 
                                      replace = TRUE),
                        species = sample(c(1:14),
-                                        1000,
+                                        2000,
                                         replace = TRUE),
                        blank.mean = sample(MPgutdata$blank.mean,
-                                           1000,
+                                           2000,
                                            replace = TRUE))
 
 MPgutsim$stand.trophic.position <-
   (MPgutsim$trophic.position - mean(MPgutdata$trophic.position)) /
   sd(MPgutdata$trophic.position - mean(MPgutdata$trophic.position))
 
-for(i in 1:1000){
-  true <-
+for(i in 1:2000){
+  lambda_true <-
     exp(
       run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]] * 
         MPgutsim$stand.trophic.position[i] +
         run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]]
     )
-  contam = rpois(true, MPgutsim$blank.mean[i])
-  lambda <- true + contam
-  y <- rpois(lambda, lambda)
+  lambda_blanks = MPgutsim$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  true <- as.numeric(rpois(lambda_true, lambda_true))
+  y <- as.numeric(rpois(lambda_y, lambda_y))
   MPgutsim$mean[i] <- mean(true)
   MPgutsim$upper25[i] <- quantile(true, 0.625)
   MPgutsim$lower25[i] <- quantile(true, 0.375)
@@ -302,9 +305,14 @@ ggplot() +
                aes(x = trophic.position,
                  y = orig.count),
              size = 0.75, shape = 1, alpha = 0.8) +
+  geom_errorbar(data = MPgutdata,
+                aes(x = trophic.position,
+                    ymin = true.est.lower95,
+                    ymax = true.est.upper95),
+                size = 0.5, alpha = 0.3, colour = pal[1]) +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
-                 y = adj.count),
+                 y = true.est),
              size = 1.5, shape = 1, alpha = 0.3, colour = pal[1]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
@@ -315,7 +323,7 @@ ggplot() +
                      expand = c(0, 0.1)) +
   theme1
 
-dev.off()
+9dev.off()
 
 
 #### MP Model by Weight ####
