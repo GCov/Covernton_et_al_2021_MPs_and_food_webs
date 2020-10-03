@@ -191,6 +191,19 @@ gutdata <-
             orig.count = sum(orig.count),
             tissue.weight = sum(tissue.dry.weight))
 
+## Add column indicating how many sample filters were combined for each overall sample
+
+gutdata$num.samples <- 1
+
+gutdata$num.samples[gutdata$ID == "CBSS3" |
+                      gutdata$ID == "EBRF16"|
+                      gutdata$ID == "HPRF21"] <- 2
+
+gutdata$num.samples[gutdata$ID == "EBSS10" |
+                      gutdata$ID == "EBSS11"] <- 3
+
+gutdata$num.samples[gutdata$ID == "CBSS8"] <- 4
+
 #### Model ####
 
 overdisp_fun <- function(model) {

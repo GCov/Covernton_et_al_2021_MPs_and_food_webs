@@ -28,7 +28,7 @@ model1 <- function() {
   # Likelihood
   for(i in 1:N) {
     y[i] ~ dpois(lambda_y[i])
-    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]*num.samples[i]
     true[i] ~ dpois(lambda_true[i])
     log(lambda_true[i]) <- 
      alpha_species[species[i]] + 
@@ -75,6 +75,7 @@ model1data <-
     y = MPgutdata$orig.count,
     N = nrow(MPgutdata),
     lambda_blanks = MPgutdata$blank.mean,
+    num.samples = MPgutdata$num.samples,
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
     site = as.integer(MPgutdata$site),
@@ -323,7 +324,7 @@ ggplot() +
                      expand = c(0, 0.1)) +
   theme1
 
-9dev.off()
+dev.off()
 
 
 #### MP Model by Weight ####
