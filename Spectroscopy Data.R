@@ -445,12 +445,82 @@ PJ$particle.type <- as.factor(PJ$particle.type)
 full_spec_data$particle.type <- as.character(full_spec_data$particle.type)
 full_spec_data$particle.type <- as.factor(full_spec_data$particle.type)
 
+#### Make sure each sample has all levels of particle type ####
+
+## plankton tows
+
+PT$ID <- as.character(PT$ID)
+PT$ID <- as.factor(PT$ID)
+
+all_typesPT <- expand.grid(ID = levels(PT$ID),
+                           particle.type = levels(PT$particle.type))
+
+infoPT <- PT[c(1:3, 6, 13, 21)] %>% 
+  group_by(ID, site, sample.type, size.fraction, blank.match, sample.volume) %>% 
+  summarize()
+
+all_typesPT2 <- left_join(all_typesPT, infoPT, by = 'ID')
+
+countsPT <- PT[ ,c(1, 4:12, 14, 22)]
+
+PT2 <- left_join(all_typesPT2,
+                 countsPT,
+                 by = c('ID', 'particle.type', 'size.fraction'))
+
+## plankton jars
+PJ$ID <- as.character(PJ$ID)
+PJ$ID <- as.factor(PJ$ID)
+
+all_typesPJ <- expand.grid(ID = levels(PJ$ID),
+                           particle.type = levels(PJ$particle.type))
+
+infoPJ <- PJ[c(1:3, 6, 13)] %>% 
+  group_by(ID, site, sample.type, size.fraction, blank.match) %>% 
+  summarize()
+
+all_typesPJ2 <- left_join(all_typesPJ, infoPJ, by = 'ID')
+
+countsPJ <- PJ[ ,c(1, 4:12, 14:15)]
+
+PJ2 <- left_join(all_typesPJ2,
+                 countsPJ,
+                 by = c('ID', 'particle.type', 'size.fraction'))
+
+
+## animal samples
+
+full_spec_data$ID <- as.character(full_spec_data$ID)
+full_spec_data$ID <- as.factor(full_spec_data$ID)
+
+full_spec_data$sample.type <- as.character(full_spec_data$sample.type)
+full_spec_data$sample.type <- as.factor(full_spec_data$sample.type)
+
+all_types <- expand.grid(ID = levels(full_spec_data$ID), 
+                         particle.type = levels(full_spec_data$particle.type))
+
+info <- 
+  full_spec_data[ ,c(1:3, 5:6, 13)] %>% 
+  group_by(ID, site, sample.type, size.fraction, blank.match) %>% 
+  summarize()
+
+all_types2 <- left_join(all_types, info, by = 'ID')
+
+counts <- full_spec_data[ ,c(1, 4:12, 14:15)]
+
+full_spec_data2 <- left_join(all_types2,
+                             counts,
+                             by = c('ID',
+                                    'particle.type', 
+                                    'size.fraction'))
+
 #### Blank subtract ####
 
 ## Summarize by particle type
 
+PT2$num <- ifelse(is.na(PT2$length), 0, 1)
+
 PT_particle_type <-
-  PT %>%
+  PT2 %>%
   group_by(ID,
            site,
            shape,
@@ -462,8 +532,10 @@ PT_particle_type <-
            sample.volume) %>%
   summarize(count = sum(num))  # plankton tows
 
+PJ2$num <- ifelse(is.na(PJ2$length), 0, 1)
+
 PJ_particle_type <-
-  PJ %>%
+  PJ2 %>%
   group_by(ID,
            site,
            shape,
@@ -474,8 +546,10 @@ PJ_particle_type <-
            particle.type) %>%
   summarize(count = sum(num))  # plankton jars
 
+full_spec_data2$num <- ifelse(is.na(full_spec_data2$length), 0, 1)
+
 animals_particle_type <-
-  full_spec_data %>%
+  full_spec_data2 %>%
   group_by(ID,
            site,
            shape,

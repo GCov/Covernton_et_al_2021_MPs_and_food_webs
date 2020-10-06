@@ -66,29 +66,9 @@ foodweb2$colour <- as.factor(foodweb2$colour)
 PT_data3 <-
   PT_data2 %>% 
   group_by(ID, site, sample.type, particle.type, sample.volume) %>% 
-  summarize(count = sum(adj.count))
-
-## Make sure each sample has all levels of particle type
-
-PT_data3$ID <- as.character(PT_data3$ID)
-PT_data3$ID <- as.factor(PT_data3$ID)
-
-all_typesPT <- expand.grid(ID = levels(PT_data3$ID),
-                           particle.type = levels(PT_data3$particle.type))
-
-infoPT <- PT_data3[c(1:3, 5)] %>% 
-  group_by(ID, site, sample.type) %>% 
-  summarize(sample.volume = unique(sample.volume))
-
-all_typesPT2 <- left_join(all_typesPT, infoPT, by = 'ID')
-
-countsPT <- subset(PT_data3[c(1,4,6)], count > 0)
-
-PT_data4 <- left_join(all_typesPT2, countsPT, by = c('ID', 'particle.type'))
-
-PT_data4$count[is.na(PT_data4$count)] <- 0
-
-summary(PT_data4)
+  summarize(adj.count = sum(adj.count),
+            orig.count = sum(count),
+            blank.mean = sum(blank.mean))
 
 ## Do the same for PJ
 
@@ -97,29 +77,9 @@ summary(PT_data4)
 PJ_data3 <-
   PJ_data2 %>% 
   group_by(ID, site, sample.type, particle.type) %>% 
-  summarize(count = sum(adj.count))
-
-## Make sure each sample has all levels of particle type
-
-PJ_data3$ID <- as.character(PJ_data3$ID)
-PJ_data3$ID <- as.factor(PJ_data3$ID)
-
-all_typesPJ <- expand.grid(ID = levels(PJ_data3$ID),
-                           particle.type = levels(PJ_data3$particle.type))
-
-infoPJ <- PJ_data3[c(1:3)] %>% 
-  group_by(ID, site, sample.type) %>% 
-  summarize()
-
-all_typesPJ2 <- left_join(all_typesPJ, infoPJ, by = 'ID')
-
-countsPJ <- subset(PJ_data3[c(1,4:5)], count > 0)
-
-PJ_data4 <- left_join(all_typesPJ2, countsPJ, by = c('ID', 'particle.type'))
-
-PJ_data4$count[is.na(PJ_data4$count)] <- 0
-
-summary(PJ_data4)
+  summarize(adj.count = sum(adj.count),
+            orig.count = sum(count),
+            blank.mean = sum(blank.mean))
 
 
 ## Now summarize animal data
@@ -133,45 +93,16 @@ foodweb3 <-
            total.body.wet.weight, density.sep, species, carapace.length,
            TL, SL, sex, babies, parasites, deltaC, deltaN, trophic.position) %>% 
   summarize(adj.count = sum(adj.count),
-            blank.mean = mean(blank.mean),
+            blank.mean = sum(blank.mean),
             orig.count = sum(count))
 
-## Make sure each sample has all levels of particle type
+summary(foodweb3)
 
-foodweb3$ID <- as.character(foodweb3$ID)
-foodweb3$ID <- as.factor(foodweb3$ID)
+subset(foodweb3, is.na(species))
+foodweb3$species[foodweb3$ID == "CBSS16"] <- "Dermasterias imbricata"
+foodweb3$species[foodweb3$ID == "HPRF1"] <- "Sebastes caurinus"
 
-foodweb3$sample.type <- as.character(foodweb3$sample.type)
-foodweb3$sample.type <- as.factor(foodweb3$sample.type)
-
-all_types <- expand.grid(ID = levels(foodweb3$ID), 
-                         particle.type = levels(foodweb3$particle.type))
-
-info <- 
-  foodweb3[c(1:3, 5:23)] %>% 
-  group_by(ID, site, sample.type, shell.l, shell.w, shell.h, arm.length,
-           tissue.wet.weight, tissue.dry.weight, shell.weight,
-           total.body.wet.weight, density.sep, species, carapace.length,
-           TL, SL, sex, babies, parasites, deltaC, deltaN, trophic.position) %>% 
-  summarize()
-
-all_types2 <- left_join(all_types, info, by = 'ID')
-
-counts <- foodweb3[c(1,4,24:26)]
-
-foodweb4 <- left_join(all_types2, counts, by = c('ID', 'particle.type'))
-
-foodweb4$adj.count[is.na(foodweb4$adj.count)] <- 0
-foodweb4$blank.mean[is.na(foodweb4$blank.mean)] <- 0
-foodweb4$orig.count[is.na(foodweb4$orig.count)] <- 0
-
-summary(foodweb4)
-
-subset(foodweb4, is.na(species))
-foodweb4$species[foodweb4$ID == "CBSS16"] <- "Dermasterias imbricata"
-foodweb4$species[foodweb4$ID == "HPRF1"] <- "Sebastes caurinus"
-
-gutdata <- subset(foodweb4,
+gutdata <- subset(foodweb3,
                   sample.type != 'Surfperch Livers' &
                   sample.type != 'Flatfish Livers' &
                   sample.type != 'Rockfish Livers')
@@ -187,22 +118,12 @@ gutdata <-
            total.body.wet.weight, species, deltaC, deltaN,
            trophic.position) %>% 
   summarize(adj.count = sum(adj.count),
-            blank.mean = mean(blank.mean),
+            blank.mean = sum(blank.mean),
             orig.count = sum(orig.count),
             tissue.weight = sum(tissue.dry.weight))
 
-## Add column indicating how many sample filters were combined for each overall sample
 
-gutdata$num.samples <- 1
-
-gutdata$num.samples[gutdata$ID == "CBSS3" |
-                      gutdata$ID == "EBRF16"|
-                      gutdata$ID == "HPRF21"] <- 2
-
-gutdata$num.samples[gutdata$ID == "EBSS10" |
-                      gutdata$ID == "EBSS11"] <- 3
-
-gutdata$num.samples[gutdata$ID == "CBSS8"] <- 4
+---------------------------------
 
 #### Model ####
 

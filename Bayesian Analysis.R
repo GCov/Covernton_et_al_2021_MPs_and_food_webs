@@ -7,11 +7,513 @@ library(DHARMa)
 library(reshape2)
 library(plyr)
 
-pal <- c("#c52f01",  #rust
-         "#b88100",  #dark goldenrod 
-         "#0076a9",  #celadon blue
-         "#5a8400",  #avocado
-         "#011e44")  #oxford blue
+pal <- c("#FFC857",  # Maximum yellow red
+         "#E9724C",  # Burnt sienna
+         "#C5283D",  # Cardinal
+         "#481D24",  # Dark sienna
+         "#255F85")  # Blue sapphire
+
+#### Plankton tow model ####
+
+PTdata_synth <- subset(PT_data3, particle.type == "Synthetic Polymer")
+PTdata_synth$particle.type <- as.character(PTdata_synth$particle.type)
+PTdata_synth$particle.type <- as.factor(PTdata_synth$particle.type)
+PTdata_synth$site <- as.character(PTdata_synth$site)
+PTdata_synth$site <- as.factor(PTdata_synth$site) 
+
+PTmod <- function() {
+  # Likelihood
+  for(i in 1:N) {
+    y[i] ~ dpois(lambda_y[i])
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    true[i] ~ dpois(lambda_true[i])
+    log(lambda_true[i]) <- 
+      alpha_site[site[i]]
+    
+    ## Fitted values
+    fitted[i] ~ dpois(lambda_y[i])
+  }
+  
+  ## Priors
+  
+  for(j in 1:nsite) {
+    alpha_site[j] ~ dnorm(0, 1)
+  }
+}
+
+## Generate initial values for MCMC
+
+PTmodinit <- function()
+{
+  list(
+    "alpha_site" = rnorm(3)
+  )
+}
+
+## Keep track of parameters
+
+PTmodparam <- c("alpha_site")
+
+## Specify data
+
+PTmoddata <-
+  list(
+    y = PTdata_synth$orig.count,
+    N = nrow(PTdata_synth),
+    lambda_blanks = PTdata_synth$blank.mean,
+    site = as.integer(PTdata_synth$site),
+    nsite = length(unique(PTdata_synth$site))
+  )
+
+## Run the model
+PTmodrun1 <- jags.parallel(
+  data = PTmoddata,
+  inits = PTmodinit,
+  parameters.to.save = PTmodparam,
+  n.chains = 3,
+  n.cluster = 8,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 6193,
+  model = PTmod
+)
+
+PTmodrun1
+PTmodrun1mcmc <- as.mcmc(PTmodrun1)
+xyplot(PTmodrun1mcmc, layout = c(6, ceiling(nvar(PTmodrun1mcmc)/6)))
+
+#### Diagnostics ####
+PTmodparam2 <- c("fitted", "true")
+
+PTmodrun2 <- jags.parallel(
+  data = PTmoddata,
+  inits = PTmodinit,
+  parameters.to.save = PTmodparam2,
+  n.chains = 3,
+  n.cluster = 8,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 6193,
+  model = PTmod
+)
+
+PTmod.response <- t(PTmodrun2$BUGSoutput$sims.list$fitted)
+PTmod.observed <- PTdata_synth$orig.count
+PTmod.fitted <- apply(t(PTmodrun2$BUGSoutput$sims.list$fitted),
+                      1,
+                      median)
+
+check.PTmod <- createDHARMa(
+  simulatedResponse = PTmod.response,
+  observedResponse = PTmod.observed,
+  fittedPredictedResponse = PTmod.fitted,
+  integerResponse = T
+)
+
+plot(check.PTmod)
+
+#### Inference ####
+
+PTmodrun1long <- extract.post(PTmodrun1)
+
+PTmodrun1long$variable <- mapvalues(
+  PTmodrun1long$variable,
+  from = levels(PTmodrun1long$variable),
+  to = c("Coles Bay",
+         "Elliott Bay",
+         "Victoria Harbour")
+)
+
+PTmodrun1long$order <- c(nrow(PTmodrun1long):1)
+
+png(
+  'MP PT Model Posteriors.png',
+  width = 9,
+  height = 7,
+  units = 'cm',
+  res = 500
+)
+
+ggplot(PTmodrun1long) +
+  geom_density_ridges(
+    aes(x = exp(value),
+        y = reorder(variable, order, mean)),
+    fill = pal[5],
+    colour = pal[5],
+    alpha = 0.5, 
+    size = 0.25
+  ) +
+  coord_cartesian(xlim = c(0, 8)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  labs(x = "",
+       y = "Parameter") +
+  theme1
+
+dev.off()
+
+
+#### Predictions ####
+
+## Extract 'true' estimate
+
+PTdata_synth$true.est <- apply(PTmodrun2$BUGSoutput$sims.list$true, 2, mean)
+PTdata_synth$true.est.upper95 <- apply(PTmodrun2$BUGSoutput$sims.list$true, 2, quantile, 
+                                    probs = 0.975)
+PTdata_synth$true.est.lower95 <- apply(PTmodrun2$BUGSoutput$sims.list$true, 2, quantile, 
+                                    probs = 0.025)
+
+set.seed(5126)
+
+PT_sim <- data.frame(
+  site = c(1:3),
+  blank.mean = sample(PTdata_synth$blank.mean,
+                      3,
+                      replace = FALSE)
+)
+
+for(i in 1:3){
+  lambda_true <-
+    exp(
+      PTmodrun1$BUGSoutput$sims.list$alpha_site[, PT_sim$site[i]]
+    )
+  lambda_blanks = PT_sim$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  true <- as.numeric(rpois(lambda_true, lambda_true))
+  y <- as.numeric(rpois(lambda_y, lambda_y))
+  PT_sim$mean[i] <- mean(true)
+  PT_sim$upper25[i] <- quantile(true, 0.625)
+  PT_sim$lower25[i] <- quantile(true, 0.375)
+  PT_sim$upper50[i] <- quantile(true, 0.75)
+  PT_sim$lower50[i] <- quantile(true, 0.25)
+  PT_sim$upper75[i] <- quantile(true, 0.875)
+  PT_sim$lower75[i] <- quantile(true, 0.125)
+  PT_sim$upper95[i] <- quantile(true, 0.975)
+  PT_sim$lower95[i] <- quantile(true, 0.025)
+  PT_sim$yupper95[i] <- quantile(y, 0.975)
+  PT_sim$ylower95[i] <- quantile(y, 0.025)
+}
+
+PT_sim$site <- as.factor(PT_sim$site)
+
+PT_sim$site <- mapvalues(PT_sim$site,
+                           from = levels(PT_sim$site),
+                           to = c("Coles Bay",
+                                  "Elliot Bay",
+                                  "Victoria Harbour"))
+
+tiff('Plankton Tows MP Bayesian Plot.tiff',
+     res = 500,
+     width = 9,
+     height = 8,
+     units = 'cm',
+     pointsize = 12)
+
+set.seed(123)
+
+ggplot() +
+  geom_linerange(data = PT_sim,
+              aes(x = site,
+                  ymax = upper95,
+                  ymin = lower95),
+              alpha = 0.05,
+              size = 0.5,
+              colour = pal[3]) +
+  geom_linerange(data = PT_sim,
+              aes(x = site,
+                  ymax = upper75,
+                  ymin = lower75),
+              alpha = 0.25,
+              size = 0.5,
+              colour = pal[3]) +
+  geom_linerange(data = PT_sim,
+              aes(x = site,
+                  ymax = upper50,
+                  ymin = lower50),
+              alpha = 0.5,
+              size = 0.5,
+              colour = pal[3]) +
+  geom_linerange(data = PT_sim,
+              aes(x = site,
+                  ymax = upper25,
+                  ymin = lower25),
+              alpha = 0.75,
+              size = 0.5,
+              colour = pal[3]) +
+  geom_point(data = PT_sim,
+            aes(x = site,
+                y = mean),
+            size = 2,
+            colour = pal[4],) +
+  geom_jitter(data = PTdata_synth,
+             aes(x = site,
+                 y = orig.count),
+             size = 0.75, shape = 1, alpha = 0.8, colour = pal[5],
+             height = 0) +
+  labs(x = 'Site',
+       y = expression(paste('Particles '*L^-1))) +
+  scale_y_continuous(limits = c(0, 10),
+                     expand = c(0, 0.25),
+                     breaks = seq(from = 0,
+                                  to = 10,
+                                  by = 2)) +
+  theme1
+
+dev.off()
+
+
+#### Plankton jar model ####
+
+PJdata_synth <- subset(PJ_data3, particle.type == "Synthetic Polymer")
+PJdata_synth$particle.type <- as.character(PJdata_synth$particle.type)
+PJdata_synth$particle.type <- as.factor(PJdata_synth$particle.type)
+PJdata_synth$site <- as.character(PJdata_synth$site)
+PJdata_synth$site <- as.factor(PJdata_synth$site) 
+
+PJmod <- function() {
+  # Likelihood
+  for(i in 1:N) {
+    y[i] ~ dpois(lambda_y[i])
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    true[i] ~ dpois(lambda_true[i])
+    log(lambda_true[i]) <- 
+      alpha_site[site[i]]
+    
+    ## Fitted values
+    fitted[i] ~ dpois(lambda_y[i])
+  }
+  
+  ## Priors
+  
+  for(j in 1:nsite) {
+    alpha_site[j] ~ dnorm(0, 1)
+  }
+}
+
+## Generate initial values for MCMC
+
+PJmodinit <- function()
+{
+  list(
+    "alpha_site" = rnorm(3)
+  )
+}
+
+## Keep track of parameters
+
+PJmodparam <- c("alpha_site")
+
+## Specify data
+
+PJmoddata <-
+  list(
+    y = PJdata_synth$orig.count,
+    N = nrow(PJdata_synth),
+    lambda_blanks = PJdata_synth$blank.mean,
+    site = as.integer(PJdata_synth$site),
+    nsite = length(unique(PJdata_synth$site))
+  )
+
+## Run the model
+PJmodrun1 <- jags.parallel(
+  data = PJmoddata,
+  inits = PJmodinit,
+  parameters.to.save = PJmodparam,
+  n.chains = 3,
+  n.cluster = 8,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 6193,
+  model = PJmod
+)
+
+PJmodrun1
+PJmodrun1mcmc <- as.mcmc(PJmodrun1)
+xyplot(PJmodrun1mcmc, layout = c(6, ceiling(nvar(PJmodrun1mcmc)/6)))
+
+#### Diagnostics ####
+PJmodparam2 <- c("fitted", "true")
+
+PJmodrun2 <- jags.parallel(
+  data = PJmoddata,
+  inits = PJmodinit,
+  parameters.to.save = PJmodparam2,
+  n.chains = 3,
+  n.cluster = 8,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 6193,
+  model = PJmod
+)
+
+PJmod.response <- t(PJmodrun2$BUGSoutput$sims.list$fitted)
+PJmod.observed <- PJdata_synth$orig.count
+PJmod.fitted <- apply(t(PJmodrun2$BUGSoutput$sims.list$fitted),
+                      1,
+                      median)
+
+check.PJmod <- createDHARMa(
+  simulatedResponse = PJmod.response,
+  observedResponse = PJmod.observed,
+  fittedPredictedResponse = PJmod.fitted,
+  integerResponse = T
+)
+
+plot(check.PJmod)
+
+#### Inference ####
+
+PJmodrun1long <- extract.post(PJmodrun1)
+
+PJmodrun1long$variable <- mapvalues(
+  PJmodrun1long$variable,
+  from = levels(PJmodrun1long$variable),
+  to = c("Coles Bay",
+         "Elliott Bay",
+         "Victoria Harbour")
+)
+
+PJmodrun1long$order <- c(nrow(PJmodrun1long):1)
+
+png(
+  'MP PJ Model Posteriors.png',
+  width = 9,
+  height = 7,
+  units = 'cm',
+  res = 500
+)
+
+ggplot(PJmodrun1long) +
+  geom_density_ridges(
+    aes(x = exp(value),
+        y = reorder(variable, order, mean)),
+    fill = pal[5],
+    colour = pal[5],
+    alpha = 0.5, 
+    size = 0.25
+  ) +
+  coord_cartesian(xlim = c(0, 3)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  labs(x = "",
+       y = "Parameter") +
+  theme1
+
+dev.off()
+
+
+#### Predictions ####
+
+## Extract 'true' estimate
+
+PJdata_synth$true.est <- apply(PJmodrun2$BUGSoutput$sims.list$true, 2, mean)
+PJdata_synth$true.est.upper95 <- apply(PJmodrun2$BUGSoutput$sims.list$true, 2, quantile, 
+                                       probs = 0.975)
+PJdata_synth$true.est.lower95 <- apply(PJmodrun2$BUGSoutput$sims.list$true, 2, quantile, 
+                                       probs = 0.025)
+
+set.seed(5126)
+
+PJ_sim <- data.frame(
+  site = c(1:3),
+  blank.mean = sample(PJdata_synth$blank.mean,
+                      3,
+                      replace = FALSE)
+)
+
+for(i in 1:3){
+  lambda_true <-
+    exp(
+      PJmodrun1$BUGSoutput$sims.list$alpha_site[, PJ_sim$site[i]]
+    )
+  lambda_blanks = PJ_sim$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  true <- as.numeric(rpois(lambda_true, lambda_true))
+  y <- as.numeric(rpois(lambda_y, lambda_y))
+  PJ_sim$mean[i] <- mean(true)
+  PJ_sim$upper25[i] <- quantile(true, 0.625)
+  PJ_sim$lower25[i] <- quantile(true, 0.375)
+  PJ_sim$upper50[i] <- quantile(true, 0.75)
+  PJ_sim$lower50[i] <- quantile(true, 0.25)
+  PJ_sim$upper75[i] <- quantile(true, 0.875)
+  PJ_sim$lower75[i] <- quantile(true, 0.125)
+  PJ_sim$upper95[i] <- quantile(true, 0.975)
+  PJ_sim$lower95[i] <- quantile(true, 0.025)
+  PJ_sim$yupper95[i] <- quantile(y, 0.975)
+  PJ_sim$ylower95[i] <- quantile(y, 0.025)
+}
+
+PJ_sim$site <- as.factor(PJ_sim$site)
+
+PJ_sim$site <- mapvalues(PJ_sim$site,
+                         from = levels(PJ_sim$site),
+                         to = c("Coles Bay",
+                                "Elliot Bay",
+                                "Victoria Harbour"))
+
+tiff('Plankton jars MP Bayesian Plot.tiff',
+     res = 500,
+     width = 9,
+     height = 8,
+     units = 'cm',
+     pointsize = 12)
+
+set.seed(123)
+
+ggplot() +
+  geom_linerange(data = PJ_sim,
+                 aes(x = site,
+                     ymax = upper95,
+                     ymin = lower95),
+                 alpha = 0.05,
+                 size = 0.5,
+                 colour = pal[3]) +
+  geom_linerange(data = PJ_sim,
+                 aes(x = site,
+                     ymax = upper75,
+                     ymin = lower75),
+                 alpha = 0.25,
+                 size = 0.5,
+                 colour = pal[3]) +
+  geom_linerange(data = PJ_sim,
+                 aes(x = site,
+                     ymax = upper50,
+                     ymin = lower50),
+                 alpha = 0.5,
+                 size = 0.5,
+                 colour = pal[3]) +
+  geom_linerange(data = PJ_sim,
+                 aes(x = site,
+                     ymax = upper25,
+                     ymin = lower25),
+                 alpha = 0.75,
+                 size = 0.5,
+                 colour = pal[3]) +
+  geom_point(data = PJ_sim,
+             aes(x = site,
+                 y = mean),
+             size = 2,
+             colour = pal[4],) +
+  geom_jitter(data = PJdata_synth,
+              aes(x = site,
+                  y = orig.count),
+              size = 0.75, shape = 1, alpha = 0.8, colour = pal[5],
+              height = 0) +
+  labs(x = 'Site',
+       y = expression(paste('Particles '*L^-1))) +
+  scale_y_continuous(limits = c(0, 8),
+                     expand = c(0, 0.1),
+                     breaks = seq(from = 0,
+                                  to = 8,
+                                  by = 2)) +
+  theme1
+
+dev.off()
+
+
+#### MP Model by Individual  ####  
 
 MPgutdata <- subset(gutdata, !is.na(trophic.position) & 
                      particle.type == 'Synthetic Polymer')
@@ -22,13 +524,11 @@ MPgutdata$site <- as.factor(MPgutdata$site)
 MPgutdata$species <- as.character(MPgutdata$species)
 MPgutdata$species <- as.factor(MPgutdata$species)
 
-#### MP Model by Individual  ####
-
 model1 <- function() {
   # Likelihood
   for(i in 1:N) {
     y[i] ~ dpois(lambda_y[i])
-    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]*num.samples[i]
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
     true[i] ~ dpois(lambda_true[i])
     log(lambda_true[i]) <- 
      alpha_species[species[i]] + 
@@ -75,7 +575,6 @@ model1data <-
     y = MPgutdata$orig.count,
     N = nrow(MPgutdata),
     lambda_blanks = MPgutdata$blank.mean,
-    num.samples = MPgutdata$num.samples,
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
     site = as.integer(MPgutdata$site),
@@ -182,14 +681,15 @@ ggplot(run1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[1],
+    fill = pal[5],
     colour = pal[5],
-    alpha = 0.75
+    alpha = 0.5, 
+    size = 0.25
   ) +
   geom_vline(
     aes(xintercept = 0),
     linetype = 'dashed',
-    size = 0.5,
+    size = 0.25,
     colour = pal[3]
   ) +
   coord_cartesian(xlim = c(-2.5, 3)) +
@@ -262,7 +762,7 @@ MPgutsim$site <- mapvalues(MPgutsim$site,
                                   "Victoria Harbour"))
 
 tiff('Trophic Position MP Bayesian Plot.tiff',
-     res = 300,
+     res = 500,
      width = 16,
      height = 12,
      units = 'cm',
@@ -275,46 +775,43 @@ ggplot() +
                   ymin = lower95),
               alpha = 0.05,
               size = 0.5,
-              fill = pal[3]) +
+              fill = pal[1]) +
   geom_ribbon(data = MPgutsim,
               aes(x = trophic.position,
                   ymax = upper75,
                   ymin = lower75),
               alpha = 0.25,
               size = 0.5,
-              fill = pal[3]) +
+              fill = pal[1]) +
   geom_ribbon(data = MPgutsim,
               aes(x = trophic.position,
                   ymax = upper50,
                   ymin = lower50),
               alpha = 0.5,
               size = 0.5,
-              fill = pal[3]) +
+              fill = pal[1]) +
   geom_ribbon(data = MPgutsim,
               aes(x = trophic.position,
                   ymax = upper25,
                   ymin = lower25),
               alpha = 0.75,
               size = 0.5,
-              fill = pal[3]) +
+              fill = pal[1],
+              colour = pal[1]) +
   geom_line(data = MPgutsim,
             aes(x = trophic.position,
                 y = mean),
-            linetype = 'dashed', 
-            size = 0.5) +
+            size = 0.5,
+            colour = pal[4],
+            alpha = 0.8) +
   geom_point(data = MPgutdata,
                aes(x = trophic.position,
                  y = orig.count),
-             size = 0.75, shape = 1, alpha = 0.8) +
-  geom_errorbar(data = MPgutdata,
-                aes(x = trophic.position,
-                    ymin = true.est.lower95,
-                    ymax = true.est.upper95),
-                size = 0.5, alpha = 0.3, colour = pal[1]) +
+             size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
                  y = true.est),
-             size = 1.5, shape = 1, alpha = 0.3, colour = pal[1]) +
+             size = 1.5, shape = 1, alpha = 0., colour = pal[3]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
@@ -487,14 +984,15 @@ ggplot(weight.mod.run1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[1],
+    fill = pal[5],
     colour = pal[5],
-    alpha = 0.75
+    alpha = 0.5, 
+    size = 0.25
   ) +
   geom_vline(
     aes(xintercept = 0),
     linetype = 'dashed',
-    size = 0.5,
+    size = 0.25,
     colour = pal[3]
   ) +
   coord_cartesian(xlim = c(-2.5, 3)) +
