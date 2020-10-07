@@ -81,9 +81,6 @@ PT$particle.type[PT$shape == 'Fibre' &
                               PT$raman.ID == 'Cellulose'] <-
   'Natural'  # call clear cellulosic fibres natural to be safe
 
-PT$num <- 
-  ifelse(is.na(PT$length), 0, 1)  # Separate out samples that had 0 counts
-
 ## Load plankton jars data
 
 PJ <- read.csv("plankton_jars.csv", header = TRUE)  # plankton jars
@@ -157,9 +154,6 @@ PJ$particle.type <- as.factor(PJ$particle.type)
 
 summary(PJ$particle.type)
 
-PJ$num <- 
-  ifelse(is.na(PJ$length), 0, 1)  # Separate out samples that had 0 counts
-
 
 
 ## Load all other data
@@ -208,25 +202,25 @@ full_spec_data$colour <-
   mapvalues(full_spec_data$colour,
             from = levels(full_spec_data$colour),
             to = c('Black',
+                   'Black',
                    'Blue',
+                   'Blue',
+                   'Brown',
+                   'Brown',
+                   'Clear',
                    'Clear',
                    'Green',
+                   'Multi-colour',
+                   'Olive',
                    'Orange',
                    'Pink',
                    'Purple',
-                   'Red',
-                   'Yellow',
-                   'Brown',
-                   'olive',
-                   'yellow green',
-                   'Black',
-                   'Blue',
-                   'Brown',
-                   'Clear',
                    'Purple',
                    'Multi-colour',
-                   'Multi-colour',
-                   'White'))
+                   'Red',
+                   'White',
+                   'Yellow',
+                   'Yellow-green'))
 
 summary(full_spec_data$colour)
 
@@ -236,9 +230,9 @@ full_spec_data$shape <- mapvalues(full_spec_data$shape,
                                  from = levels(full_spec_data$shape),
                                  to = c('Fibre',
                                         'Fibre',
+                                        'Fibre',
                                         'Film',
-                                        'Fragment',
-                                        'Fibre'))
+                                        'Fragment'))
 summary(full_spec_data$shape)
 
 summary(full_spec_data$raman.ID)
@@ -253,7 +247,8 @@ full_spec_data$raman.ID <-
                      'Nylon\n',
                      'Polyester\n',
                      'Wool\n',
-                     'Paint Chip'),
+                     'Paint Chip',
+                     'Polyster'),
             to = c(NA,
                    'Acrylic',
                    'Cellulose',
@@ -262,29 +257,29 @@ full_spec_data$raman.ID <-
                    'Nylon',
                    'Polyester',
                    'Wool',
-                   'Paint'))
+                   'Paint',
+                   'Polyester'))
 
 full_spec_data$particle.type <- 
   mapvalues(full_spec_data$raman.ID,
             from = levels(full_spec_data$raman.ID),
             to = c('Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Natural',
                    'Natural Anthropogenic',
+                   'Synthetic Polymer',
+                   'Natural',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
+                   'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Synthetic Polymer',
                    'Semi-synthetic',
+                   'Natural',
+                   'Synthetic Polymer',
                    'Unknown',
                    'Synthetic Polymer',
-                   'Natural Anthropogenic',
-                   'Synthetic Polymer',
-                   'Natural',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Natural',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Natural'))
+                   'Natural Anthropogenic'))
 
 full_spec_data$particle.type[is.na(full_spec_data$particle.type)] <-
   with(subset(full_spec_data, is.na(particle.type)), 
@@ -302,17 +297,11 @@ full_spec_data$particle.type[full_spec_data$shape == 'Fibre' &
 summary(full_spec_data$particle.type)
 
 
-full_spec_data$num <-
-  ifelse(is.na(full_spec_data$length),
-         0, 1)  # Separate out samples that had 0 counts
-
-
-
 #### Estimate the particle type for unknown particles ####
 
 ## Construct a multinomial regression model for known particle types
 
-moddata1 <- rbind(full_spec_data, PT[c(1:14, 22:23)], PJ)
+moddata1 <- rbind(full_spec_data, PT[c(1:14, 22)], PJ)
 
 moddata2 <- subset(moddata1,
                    particle.type != 'Unknown' &
@@ -321,59 +310,12 @@ moddata2 <- subset(moddata1,
 moddata2$particle.type <- as.character(moddata2$particle.type)
 moddata2$particle.type <- as.factor(moddata2$particle.type)
 
-## Fit intial model
+## Fit model
 
 pm1 <-
   multinom(particle.type ~
              colour*shape*user.id + sample.type + site,
            data = moddata2)
-
-## Model selection
-
-pm1.1 <- update(pm1, . ~ . -colour:shape:user.id)
-pm1.2 <- update(pm1, . ~ . -sample.type)
-pm1.3 <- update(pm1, . ~ . -site)
-
-AICc(pm1.1, pm1.2, pm1.3)  # can drop site
-
-pm1.4 <- update(pm1.3, . ~ . -colour:shape:user.id)
-pm1.5 <- update(pm1.3, . ~ . -sample.type)
-
-AICc(pm1.3, pm1.4, pm1.5)  # can drop the 3-way interaction
-
-pm1.6 <- update(pm1.4, . ~ . -colour:shape)
-pm1.7 <- update(pm1.4, . ~ . -colour:user.id)
-pm1.8 <- update(pm1.4, . ~ . -shape:user.id)
-pm1.9 <- update(pm1.4, . ~ . -sample.type)
-
-AICc(pm1.4, pm1.6, pm1.7, pm1.8, pm1.9)  # can drop colour:user.id
-
-pm1.10 <- update(pm1.7, . ~ . -colour:shape)
-pm1.11 <- update(pm1.7, . ~ . -shape:user.id)
-pm1.12 <- update(pm1.7, . ~ . -sample.type)
-
-AICc(pm1.7, pm1.10, pm1.11, pm1.12)  # can drop sample.type
-
-pm1.13 <- update(pm1.12, . ~ . -colour:shape)
-pm1.14 <- update(pm1.12, . ~ . -shape:user.id)
-
-AICc(pm1.12, pm1.13, pm1.14)  # can drop shape:user.id
-
-pm1.15 <- update(pm1.14, . ~ . -colour:shape)
-pm1.16 <- update(pm1.14, . ~ . -user.id)
-
-AICc(pm1.14, pm1.15, pm1.16)  # can drop colour:shape
-
-pm1.17 <- update(pm1.15, . ~ . -colour)
-pm1.18 <- update(pm1.15, . ~ . -shape)
-pm1.19 <- update(pm1.15, . ~ . -user.id)
-
-AICc(pm1.15, pm1.17, pm1.18, pm1.19)  # can drop shape
-
-pm1.20 <- update(pm1.18, . ~ . -colour)
-pm1.21 <- update(pm1.18, . ~ . -user.id)
-
-AICc(pm1.18, pm1.20, pm1.21)  # stop here
 
 ## Cross-validation: Split data into training/test data (70/30)
 
@@ -390,7 +332,7 @@ test <- subset(moddata2, subset != 'TRUE')
 ## Test model accuracy by building a classification table
 
 # Predicting the values for train dataset
-train$predicted <- predict(pm1.18, newdata = train, "class")
+train$predicted <- predict(pm1, newdata = train, "class")
 
 # Building classification table
 ctable1 <- table(train$particle.type, train$predicted)
@@ -400,7 +342,7 @@ round((sum(diag(ctable1))/sum(ctable1))*100,2)
 
 ## Repeat for test data
 
-test$predicted <- predict(pm1.18, newdata = test, "class")
+test$predicted <- predict(pm1, newdata = test, "class")
 
 # Building classification table
 ctable2 <- table(test$particle.type, test$predicted)
@@ -417,11 +359,11 @@ predPJ_data <- subset(PJ, particle.type == 'Unknown')
 pred_data <- subset(full_spec_data,
                     particle.type == 'Unknown')
 
-predictPT.mlr <- predict(pm1.18, newdata = predPT_data, type = 'class')
+predictPT.mlr <- predict(pm1, newdata = predPT_data, type = 'class')
 
-predictPJ.mlr <- predict(pm1.18, newdata = predPJ_data, type = 'class')
+predictPJ.mlr <- predict(pm1, newdata = predPJ_data, type = 'class')
 
-predict.mlr <- predict(pm1.18, newdata = pred_data, type = 'class')
+predict.mlr <- predict(pm1, newdata = pred_data, type = 'class')
 
 
 ## add predictions back to original data
@@ -700,6 +642,7 @@ animal_data3$sample.type <-
 
 #### Plot breakdown by Raman ID, shape, and colour ####
 
+moddata1$num <- ifelse(is.na(moddata1$shape), 0, 1)
 moddata3 <- moddata1 %>% filter(num == 1)
 moddata3$raman.ID[is.na(moddata3$raman.ID)] <- 'Unknown'
 moddata3$raman.ID[moddata3$raman.ID == ''] <- 'Unknown'
@@ -711,10 +654,10 @@ moddata3$site[moddata3$sample.type == 'Blanks'] <- 'Blanks'
 moddata3$site <- as.factor(moddata3$site)
 
 moddata3$raman.ID <- mapvalues(moddata3$raman.ID,
-                               from = c('Polyster', 'Salt Crystal', 
+                               from = c('Salt Crystal', 
                                         'Additive', 'Plastics Additive',
                                         'Plastics Dye', 'Unknown Polymer'),
-                               to = c('Polyester', 'Salt', 'Unknown Synthetic',
+                               to = c('Salt', 'Unknown Synthetic',
                                       'Unknown Synthetic', 'Unknown Synthetic',
                                       'Unknown Synthetic'))
 
@@ -782,8 +725,10 @@ ggplot(moddata3) +
              labeller = label_wrap_gen(width = 10)) +
   scale_y_continuous(expand = c(0, 0)) +
   scale_fill_manual(values =
-                      qualitative_hcl(n = length(unique(moddata3$raman.ID)),
-                                      palette = 'Dark3')) +
+                      qualitative_hcl(n = 18, 
+                                      h = c(-180, 160), 
+                                      c = 60, 
+                                      l = 75)) +
   guides(fill = guide_legend(ncol = 1)) +
   theme1 +
   theme(
@@ -801,8 +746,6 @@ summary(moddata3$colour)
 moddata3$colour <- mapvalues(
   moddata3$colour,
   from = c(
-    'olive',
-    'yellow green',
     'black',
     'blue',
     'brown',
@@ -816,8 +759,6 @@ moddata3$colour <- mapvalues(
     'rainbow'
   ),
   to = c(
-    'Olive',
-    'Yellow Green',
     'Black',
     'Blue',
     'Brown',
@@ -861,18 +802,18 @@ ggplot(moddata3) +
     values = c(
       'Grey16',
       'Steel Blue',
+      'Saddle Brown',
       'Azure2',
       'Forest Green',
+      'Turquoise',
+      'Dark Olive Green',
       'Orange',
       'Pink',
       'Blue Violet',
       'Red3',
+      'White',
       'Gold',
-      'Saddle Brown',
-      'Dark Olive Green',
-      'Yellow Green',
-      'Turquoise',
-      'White'
+      'Yellow Green'
     )
   ) +
   scale_y_continuous(expand = c(0, 0)) +
@@ -886,3 +827,4 @@ ggplot(moddata3) +
   )
 
 dev.off()
+

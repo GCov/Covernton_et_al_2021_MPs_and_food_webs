@@ -209,12 +209,12 @@ HPCU9,Victoria Harbour,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,15,NA
 HPCU12,Victoria Harbour,Sea Cucumbers,1056,BB,1-150,fiber,clear,1668.51,yes,,,15,N
 HPCU14,Victoria Harbour,Sea Cucumbers,NA,BB,1-150,NA,NA,NA,NA,,,15,NA
 HPCUPB3,Victoria Harbour,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,15,NA
-CBCU7,Coles Bay,Sea Cucumbers,NA,GC,1-150,NA,NA,NA,NA,,,11,
-CBCU13,Coles Bay,Sea Cucumbers,NA,GC,1-150,NA,NA,NA,NA,,,11,
+CBCU7,Coles Bay,Sea Cucumbers,NA,GC,1-150,NA,NA,NA,NA,,,11,NA
+CBCU13,Coles Bay,Sea Cucumbers,NA,GC,1-150,NA,NA,NA,NA,,,11,NA
 EBCU13,Elliot Bay,Sea Cucumbers,1078,GC,1-150,fiber,clear,477.99,yes,,,13,N
-EBCU13,Elliot Bay,Sea Cucumbers,,GC,1-150,fiber,black,659.85,no,dropped,,13,NA
+EBCU13,Elliot Bay,Sea Cucumbers,,GC,1-150,fiber,black,659.85,no,dropped,,13,N
 EBCU13,Elliot Bay,Sea Cucumbers,1079,GC,1-150,fiber,clear,840.24,yes,,,13,N
-EBCU13,Elliot Bay,Sea Cucumbers,1080,GC,1-150,fiber,black,801.28,yes,,,13,NA
+EBCU13,Elliot Bay,Sea Cucumbers,1080,GC,1-150,fiber,black,801.28,yes,,,13,N
 EBCU13,Elliot Bay,Sea Cucumbers,,GC,1-150,fiber,clear,943.31,no,dropped,,13,S
-EBCU13,Elliot Bay,Sea Cucumbers,,GC,1-150,fiber,black,469.82,no,dropped,,13,NA
-EBCU13,Elliot Bay,Sea Cucumbers,,GC,1-150,fiber,black,452.79,no,dropped,,13,NA
+EBCU13,Elliot Bay,Sea Cucumbers,,GC,1-150,fiber,black,469.82,no,dropped,,13,N
+EBCU13,Elliot Bay,Sea Cucumbers,,GC,1-150,fiber,black,452.79,no,dropped,,13,N

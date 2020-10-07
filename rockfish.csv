@@ -310,41 +310,41 @@ CBRF6,Coles Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,34,NA
 CBRF7,Coles Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,34,NA
 CBRF9,Coles Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,**sample contaminated,,34,NA
 CBRFPB3,Coles Bay,Blanks,1077,BB,1-150,fiber,blue,433.42,yes,,,34,N
-EBRF4,Elliot Bay,Rockfish Gut,1097,GC,1-150,fiber,blue,1015.58,yes,,,32,NA
-EBRF4,Elliot Bay,Rockfish Gut,1098,GC,1-150,fiber,blue,484.87,yes,,,32,NA
+EBRF4,Elliot Bay,Rockfish Gut,1097,GC,1-150,fiber,blue,1015.58,yes,,,32,N
+EBRF4,Elliot Bay,Rockfish Gut,1098,GC,1-150,fiber,blue,484.87,yes,,,32,N
 EBRF8,Elliot Bay,Rockfish Gut,,GC,1-150,fiber,blue,451.63,no,dropped,,32,S
-EBRF8,Elliot Bay,Rockfish Gut,,GC,1-150,fiber,black,886.79,no,dropped,,32,NA
-EBRF13,Elliot Bay,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,32,
-EBRF17,Elliot Bay,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,32,
-EBRF17,Elliot Bay,Rockfish Gut Animals,1099,GC,1-150,fiber,blue,469,yes,,,32,NA
-EBRF17,Elliot Bay,Rockfish Gut Animals,1100,GC,1-150,fiber,black,211.79,yes,,,32,
-EBRF17,Elliot Bay,Rockfish Gut Animals,1101,GC,1-150,fiber,clear,1295.72,yes,synth,,32,
-EBRF21,Elliot Bay,Rockfish Gut,1102,GC,1-150,fiber,black,749.05,yes,,,32,
-EBRF21,Elliot Bay,Rockfish Gut,1103,GC,1-150,fiber,clear,1421.27,yes,,,32,
-EBRF21,Elliot Bay,Rockfish Gut,1104,GC,1-150,fiber,black,1555.91,yes,,,32,
-EBRF21,Elliot Bay,Rockfish Gut,1105,GC,1-150,fiber,red,532.46,yes,,,32,
-EBRFPB2,Elliot Bay,Blanks,NA,GC,1-150,NA,NA,NA,NA,,,32,
-HPRF11,Victoria Harbour,Rockfish Gut,1109,GC,1-150,fiber,blue,976.04,yes,,,33,
-HPRF11,Victoria Harbour,Rockfish Gut,1110,GC,1-150,fiber,blue,1119.19,yes,,,33,
-HPRF11,Victoria Harbour,Rockfish Gut,1112,GC,1-150,fiber,blue,2009.08,no,,,33,
-HPRF11,Victoria Harbour,Rockfish Gut,1111,GC,1-150,fiber,blue,477.67,yes,,,33,
-HPRF16,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,
-HPRF19,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,
-HPRF19,Victoria Harbour,Rockfish Gut Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,
-HPRF21,Victoria Harbour,Rockfish Gut,1113,GC,1-150,fiber,red,718.27,yes,,,33,
-HPRF21,Victoria Harbour,Rockfish Gut,1114,GC,1-150,fiber,black,341.45,yes,,,33,
-HPRF21,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,
-HPRF22,Victoria Harbour,Rockfish Gut Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,
-HPRFPB2,Victoria Harbour,Blanks,NA,GC,1-150,NA,NA,NA,NA,,,33,
+EBRF8,Elliot Bay,Rockfish Gut,,GC,1-150,fiber,black,886.79,no,dropped,,32,N
+EBRF13,Elliot Bay,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
+EBRF17,Elliot Bay,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
+EBRF17,Elliot Bay,Rockfish Gut Animals,1099,GC,1-150,fiber,blue,469,yes,,,32,N
+EBRF17,Elliot Bay,Rockfish Gut Animals,1100,GC,1-150,fiber,black,211.79,yes,,,32,S
+EBRF17,Elliot Bay,Rockfish Gut Animals,1101,GC,1-150,fiber,clear,1295.72,yes,synth,,32,S
+EBRF21,Elliot Bay,Rockfish Gut,1102,GC,1-150,fiber,black,749.05,yes,,,32,N
+EBRF21,Elliot Bay,Rockfish Gut,1103,GC,1-150,fiber,clear,1421.27,yes,,,32,N
+EBRF21,Elliot Bay,Rockfish Gut,1104,GC,1-150,fiber,black,1555.91,yes,,,32,N
+EBRF21,Elliot Bay,Rockfish Gut,1105,GC,1-150,fiber,red,532.46,yes,,,32,S
+EBRFPB2,Elliot Bay,Blanks,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
+HPRF11,Victoria Harbour,Rockfish Gut,1109,GC,1-150,fiber,green,976.04,yes,,,33,N
+HPRF11,Victoria Harbour,Rockfish Gut,1110,GC,1-150,fiber,blue,1119.19,yes,,,33,N
+HPRF11,Victoria Harbour,Rockfish Gut,1112,GC,1-150,fiber,blue,2009.08,no,,,33,N
+HPRF11,Victoria Harbour,Rockfish Gut,1111,GC,1-150,fiber,blue,477.67,yes,,,33,N
+HPRF16,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF19,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF19,Victoria Harbour,Rockfish Gut Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF21,Victoria Harbour,Rockfish Gut,1113,GC,1-150,fiber,red,718.27,yes,,,33,N
+HPRF21,Victoria Harbour,Rockfish Gut,1114,GC,1-150,fiber,black,341.45,yes,,,33,N
+HPRF21,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF22,Victoria Harbour,Rockfish Gut Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRFPB2,Victoria Harbour,Blanks,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
 CBRF1,Coles Bay,Rockfish Livers,1096,GC,>1,fiber,clear,2210.9,yes,,,34,S
-CBRF2,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,
-CBRF4,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,
-CBRF6,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,
-CBRF7,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,
-EBRFL4,Elliot Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,32,
+CBRF2,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,NA
+CBRF4,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,NA
+CBRF6,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,NA
+CBRF7,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,NA
+EBRFL4,Elliot Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,32,NA
 EBRFL8,Elliot Bay,Rockfish Livers,,GC,>1,fiber,clear,895.57,no,dropped,,32,S
-EBRFL8,Elliot Bay,Rockfish Livers,1016,GC,>1,fiber,blue,649.88,yes,,,32,NA
-EBRFL13,Elliot Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,32,
-EBRFL17,Elliot Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,32,
-EBRFL21,Elliot Bay,Rockfish Livers,1017,GC,>1,fiber,blue,150.81,,,,32,NA
+EBRFL8,Elliot Bay,Rockfish Livers,1016,GC,>1,fiber,blue,649.88,yes,,,32,N
+EBRFL13,Elliot Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,32,NA
+EBRFL17,Elliot Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,32,NA
+EBRFL21,Elliot Bay,Rockfish Livers,1017,GC,>1,fiber,blue,150.81,,,,32,N
 EBRFL21,Elliot Bay,Rockfish Livers,1018,GC,>1,fiber,clear,705.48,yes,,,32,S

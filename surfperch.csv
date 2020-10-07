@@ -222,27 +222,27 @@ EBSP8,Elliot Bay,Surfperch Guts,,BB,1-150,fiber,blue,594.87,no,dropped,,27,N
 EBSP12,Elliot Bay,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
 EBSP15,Elliot Bay,Surfperch Guts,1062,BB,1-150,fiber,blue,407.39,yes,,,27,N
 EBSP15,Elliot Bay,Surfperch Guts,1063,BB,1-150,fiber,purple,3869.02,yes,,,27,S
-EBSPPB2,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,27,NA
-HPSP1,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,NA
+EBSPPB2,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,27,N
+HPSP1,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,N
 HPSP3,Victoria Harbour,Surfperch Guts,1064,BB,1-150,fiber,black,2048.22,yes,,,28,S
 HPSP3,Victoria Harbour,Surfperch Guts,1065,BB,1-150,fiber,red,1460.53,yes,,,28,N
-HPSP4,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,
-HPSPPB3,Victoria Harbour,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,28,
-CBSP14,Coles Bay,Surfperch Guts,1081,GC,1-150,fiber,black,406.37,yes,,,26,NA
+HPSP4,Victoria Harbour,Surfperch Guts,NA,BB,1-150,NA,NA,NA,NA,,,28,NA
+HPSPPB3,Victoria Harbour,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,28,NA
+CBSP14,Coles Bay,Surfperch Guts,1081,GC,1-150,fiber,black,406.37,yes,,,26,N
 CBSP14,Coles Bay,Surfperch Guts,,GC,1-150,fiber,clear,388.84,no,dropped,,26,S
 CBSP14,Coles Bay,Surfperch Guts,1082,GC,1-150,fiber,clear,412.01,yes,,,26,S
 CBSP14,Coles Bay,Surfperch Guts,1083,GC,1-150,fiber,clear,364.46,yes,,,26,N
-CBSP14,Coles Bay,Surfperch Guts,1084,GC,1-150,fiber,clear,707.86,yes,,,26,NA
+CBSP14,Coles Bay,Surfperch Guts,1084,GC,1-150,fiber,clear,707.86,yes,,,26,N
 CBSP14,Coles Bay,Surfperch Guts,,GC,1-150,fiber,clear,875.61,no,dropped,,26,N
 CBSP14,Coles Bay,Surfperch Guts,1085,GC,1-150,fiber,clear,1553.99,yes,,,26,N
 CBSP14,Coles Bay,Surfperch Guts,1086,GC,1-150,fiber,clear,1159.33,yes,,,26,N
 CBSP14,Coles Bay,Surfperch Guts,1087,GC,1-150,fiber,black,4821.66,yes,,,26,S
-HPSP7,Victoria Harbour,Surfperch Guts,,GC,1-150,fiber,clear,985.55,no,dropped,,28,NA
+HPSP7,Victoria Harbour,Surfperch Guts,,GC,1-150,fiber,clear,985.55,no,dropped,,28,N
 HPSP7,Victoria Harbour,Surfperch Guts,,GC,1-150,fiber,black,559.67,no,dropped,,28,S
 HPSP12,Victoria Harbour,Surfperch Guts,1088,GC,1-150,fiber,clear,527.7,yes,,,28,S
-HPSP12,Victoria Harbour,Surfperch Guts,1089,GC,1-150,fiber,blue,1897.15,yes,,,28,NA
-HPSP12,Victoria Harbour,Surfperch Guts,1090,GC,1-150,fiber,clear,1268.92,yes,,,28,NA
-HPSP1,Victoria Harbour,Surfperch Livers,NA,GC,1-150,NA,NA,NA,NA,,,30,
-HPSP3,Victoria Harbour,Surfperch Livers,NA,GC,1-150,NA,NA,NA,NA,,,30,
-HPSP4,Victoria Harbour,Surfperch Livers,1091,GC,1-150,fiber,clear,1013.11,yes,,,30,NA
-HPSP7,Victoria Harbour,Surfperch Livers,,GC,1-150,fiber,clear,140.71,no,dropped,,30,NA
+HPSP12,Victoria Harbour,Surfperch Guts,1089,GC,1-150,fiber,blue,1897.15,yes,,,28,N
+HPSP12,Victoria Harbour,Surfperch Guts,1090,GC,1-150,fiber,clear,1268.92,yes,,,28,N
+HPSP1,Victoria Harbour,Surfperch Livers,NA,GC,1-150,NA,NA,NA,NA,,,30,NA
+HPSP3,Victoria Harbour,Surfperch Livers,NA,GC,1-150,NA,NA,NA,NA,,,30,NA
+HPSP4,Victoria Harbour,Surfperch Livers,1091,GC,1-150,fiber,clear,1013.11,yes,,,30,N
+HPSP7,Victoria Harbour,Surfperch Livers,,GC,1-150,fiber,clear,140.71,no,dropped,,30,N

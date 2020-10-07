@@ -148,8 +148,8 @@ EBCRPB3,Elliot Bay,Blanks,NA,BB,<1000,NA,NA,NA,NA,,,17,NA
 HPCR5,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,18,NA
 HPCR6,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,18,NA
 HPCR11,Victoria Harbour,Crabs,NA,BB,<1000,NA,NA,NA,NA,,,18,NA
-CBCR11,Coles Bay,Crabs,1092,GC,<1000,fiber,pink,6885.12,yes,,,,NA
-CBCR11,Coles Bay,Crabs,1093,GC,<1000,fiber,blue,940.98,yes,,,16,NA
+CBCR11,Coles Bay,Crabs,1092,GC,<1000,fiber,pink,6885.12,yes,,,,N
+CBCR11,Coles Bay,Crabs,1093,GC,<1000,fiber,blue,940.98,yes,,,16,N
 CBCR11,Coles Bay,Crabs,1094,GC,<1000,fiber,black,525.66,yes,,,16,S
 EBCR13,Elliot Bay,Crabs,1095,GC,<1000,fiber,clear,2412.02,yes,,,17,N
-EBCR13,Elliot Bay,Crabs,1096,GC,<1000,fiber,black,510.22,no,dropped,,17,NA
+EBCR13,Elliot Bay,Crabs,1096,GC,<1000,fiber,black,510.22,no,dropped,,17,N

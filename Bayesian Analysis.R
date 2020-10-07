@@ -526,13 +526,13 @@ MPgutdata$species <- as.factor(MPgutdata$species)
 
 model1 <- function() {
   # Likelihood
-  for(i in 1:N) {
+  for (i in 1:N) {
     y[i] ~ dpois(lambda_y[i])
     lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
     true[i] ~ dpois(lambda_true[i])
-    log(lambda_true[i]) <- 
-     alpha_species[species[i]] + 
-      beta_TP[site[i]]*TP[i] + 
+    log(lambda_true[i]) <-
+      alpha_species[species[i]] +
+      beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
     ## Fitted values
@@ -541,13 +541,13 @@ model1 <- function() {
   
   ## Priors
   
-  for(j in 1:nspecies) {
+  for (j in 1:nspecies) {
     alpha_species[j] ~ dnorm(0, tau_species)
   }
   tau_species <- inverse(pow(sigma_species, 2))
   sigma_species ~ dexp(1)
   
-  for(k in 1:nsite) {
+  for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
     gamma_site[k] ~ dnorm(0, 1)
   }
@@ -589,9 +589,9 @@ run1 <- jags.parallel(
   parameters.to.save = model1param,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 10000,
+  n.iter = 5000,
   n.burnin = 500,
-  n.thin = 2,
+  n.thin = 1,
   jags.seed = 3234,
   model = model1
 )
@@ -609,9 +609,9 @@ run2 <- jags.parallel(
   parameters.to.save = model1param2,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 10000,
+  n.iter = 5000,
   n.burnin = 500,
-  n.thin = 2,
+  n.thin = 1,
   jags.seed = 3234,
   model = model1
 )
@@ -620,7 +620,7 @@ model1.response <- t(run2$BUGSoutput$sims.list$fitted)
 model1.observed <- MPgutdata$orig.count
 model1.fitted <- apply(t(run2$BUGSoutput$sims.list$fitted),
                          1,
-                         median)
+                         mean)
 
 check.model1 <- createDHARMa(simulatedResponse = model1.response,
                                observedResponse = model1.observed, 
@@ -628,6 +628,12 @@ check.model1 <- createDHARMa(simulatedResponse = model1.response,
                                integerResponse = T)
 
 plot(check.model1)
+
+plotResiduals(check.model1, MPgutdata$site)
+plotResiduals(check.model1, MPgutdata$species)
+plotResiduals(check.model1, scale(MPgutdata$trophic.position,
+                                  center = TRUE))
+testZeroInflation(check.model1)
 
 #### Inference ####
 
@@ -811,7 +817,7 @@ ggplot() +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
                  y = true.est),
-             size = 1.5, shape = 1, alpha = 0., colour = pal[3]) +
+             size = 1.5, shape = 1, alpha = 0.5, colour = pal[3]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
@@ -828,29 +834,29 @@ dev.off()
 
 weight.mod <- function() {
   # Likelihood
-  for(i in 1:N) {
-    y[i] ~ dpois(lambda[i])
-    lambda[i] <- true[i] + contam[i]
-    contam[i] ~ dpois(blank.mean[i])
-    log(true[i]) <- 
-      log(weight[i]) +
-      alpha_species[species[i]] + 
-      beta_TP[site[i]]*TP[i] + 
+  for (i in 1:N) {
+    y[i] ~ dpois(lambda_y[i])
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    true[i] ~ dpois(lambda_true[i])
+    log(lambda_true[i]) <-
+      log(weight[i]) + 
+      alpha_species[species[i]] +
+      beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
     ## Fitted values
-    fitted[i] ~ dpois(lambda[i])
+    fitted[i] ~ dpois(lambda_y[i])
   }
   
   ## Priors
   
-  for(j in 1:nspecies) {
+  for (j in 1:nspecies) {
     alpha_species[j] ~ dnorm(0, tau_species)
   }
   tau_species <- inverse(pow(sigma_species, 2))
   sigma_species ~ dexp(1)
   
-  for(k in 1:nsite) {
+  for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
     gamma_site[k] ~ dnorm(0, 1)
   }
@@ -865,7 +871,6 @@ weight.mod.init <- function() {
     "gamma_site" = rnorm(3)
   )
 }
-
 ## Keep track of parameters
 
 weight.mod.params <- c("alpha_species", "beta_TP", "gamma_site")
@@ -876,7 +881,7 @@ weight.mod.data <-
   list(
     y = MPgutdata$orig.count,
     N = nrow(MPgutdata),
-    blank.mean = MPgutdata$blank.mean,
+    lambda_blanks = MPgutdata$blank.mean,
     weight = MPgutdata$tissue.weight,
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
@@ -904,7 +909,7 @@ weight.mod.run1mcmc <- as.mcmc(weight.mod.run1)
 xyplot(weight.mod.run1mcmc, layout = c(6, ceiling(nvar(weight.mod.run1mcmc)/6)))
 
 #### Diagnostics ####
-weight.mod.params2 <- c("fitted", "contam")
+weight.mod.params2 <- c("fitted", "true")
 
 weight.mod.run2 <- jags.parallel(
   data = weight.mod.data,
@@ -919,16 +924,19 @@ weight.mod.run2 <- jags.parallel(
   model = weight.mod
 )
 
-weight.mod.response <- t(run2$BUGSoutput$sims.list$fitted)
+weight.mod.response <- t(weight.mod.run2$BUGSoutput$sims.list$fitted)
 weight.mod.observed <- MPgutdata$orig.count
-weight.mod.fitted <- apply(t(run2$BUGSoutput$sims.list$fitted),
+weight.mod.fitted <- apply(t(weight.mod.run2$BUGSoutput$sims.list$fitted),
                        1,
-                       median)
+                       mean)
 
-check.weight.mod <- createDHARMa(simulatedResponse = weight.mod.response,
-                             observedResponse = weight.mod.observed, 
-                             fittedPredictedResponse = weight.mod.fitted,
-                             integerResponse = T)
+check.weight.mod <-
+  createDHARMa(
+    simulatedResponse = weight.mod.response,
+    observedResponse = weight.mod.observed,
+    fittedPredictedResponse = weight.mod.fitted,
+    integerResponse = T
+  )
 
 plot(check.weight.mod)
 
@@ -973,7 +981,7 @@ weight.mod.run1long$variable <- mapvalues(weight.mod.run1long$variable,
 weight.mod.run1long$order <- c(nrow(weight.mod.run1long):1)
 
 png(
-  'MP Gut Model Posteriors.png',
+  'MP Gut Model by Weight Posteriors.png',
   width = 9,
   height = 9,
   units = 'cm',
@@ -1007,6 +1015,9 @@ dev.off()
 
 ## Extract 'true' estimate
 
+MPgutdata$true.weight.est <- 
+  apply(weight.mod.run2$BUGSoutput$sims.list$true, 2, mean)
+
 TP.mod <- lm(log(tissue.weight) ~ trophic.position, data = MPgutdata)
 plot(TP.mod)
 summary(TP.mod)
@@ -1017,16 +1028,16 @@ MPgutweightsim <- data.frame(
   trophic.position = seq(
     from = 0,
     to = 4,
-    length.out = 1000
+    length.out = 2000
   ),
   site = sample(c(1:3),
-                1000,
+                2000,
                 replace = TRUE),
   species = sample(c(1:14),
-                   1000,
+                   2000,
                    replace = TRUE),
   blank.mean = sample(MPgutdata$blank.mean,
-                      1000,
+                      2000,
                       replace = TRUE)
 )
 
@@ -1037,27 +1048,27 @@ MPgutweightsim$stand.trophic.position <-
   (MPgutweightsim$trophic.position - mean(MPgutdata$trophic.position)) /
   sd(MPgutdata$trophic.position - mean(MPgutdata$trophic.position))
 
-for(i in 1:1000){
-  true <-
+for(i in 1:2000){
+  lambda_true <-
     exp(
       log(MPgutweightsim$weight[i]) +
       weight.mod.run1$BUGSoutput$sims.list$beta_TP[, MPgutweightsim$site[i]] * 
         MPgutweightsim$stand.trophic.position[i] +
         weight.mod.run1$BUGSoutput$sims.list$gamma_site[, MPgutweightsim$site[i]]
     )
-  contam = rpois(true, MPgutweightsim$blank.mean[i])
-  lambda <- true + contam
-  y <- rpois(lambda, lambda)/MPgutweightsim$weight[i]
-  true.conc <- true/MPgutweightsim$weight[i]
-  MPgutweightsim$mean[i] <- mean(true.conc)
-  MPgutweightsim$upper25[i] <- quantile(true.conc, 0.625)
-  MPgutweightsim$lower25[i] <- quantile(true.conc, 0.375)
-  MPgutweightsim$upper50[i] <- quantile(true.conc, 0.75)
-  MPgutweightsim$lower50[i] <- quantile(true.conc, 0.25)
-  MPgutweightsim$upper75[i] <- quantile(true.conc, 0.875)
-  MPgutweightsim$lower75[i] <- quantile(true.conc, 0.125)
-  MPgutweightsim$upper95[i] <- quantile(true.conc, 0.975)
-  MPgutweightsim$lower95[i] <- quantile(true.conc, 0.025)
+  lambda_blanks = MPgutweightsim$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  true <- as.numeric(rpois(lambda_true, lambda_true))/MPgutweightsim$weight[i]
+  y <- as.numeric(rpois(lambda_y, lambda_y))
+  MPgutweightsim$mean[i] <- mean(true)
+  MPgutweightsim$upper25[i] <- quantile(true, 0.625)
+  MPgutweightsim$lower25[i] <- quantile(true, 0.375)
+  MPgutweightsim$upper50[i] <- quantile(true, 0.75)
+  MPgutweightsim$lower50[i] <- quantile(true, 0.25)
+  MPgutweightsim$upper75[i] <- quantile(true, 0.875)
+  MPgutweightsim$lower75[i] <- quantile(true, 0.125)
+  MPgutweightsim$upper95[i] <- quantile(true, 0.975)
+  MPgutweightsim$lower95[i] <- quantile(true, 0.025)
   MPgutweightsim$yupper95[i] <- quantile(y, 0.975)
   MPgutweightsim$ylower95[i] <- quantile(y, 0.025)
 }
@@ -1117,8 +1128,8 @@ ggplot() +
              size = 0.75, shape = 1, alpha = 0.8) +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
-                 y = adj.count/tissue.weight),
-             size = 1.5, shape = 1, alpha = 0.3, colour = pal[1]) +
+                 y = true.weight.est/tissue.weight),
+             size = 1.5, shape = 1, alpha = 0.5, colour = pal[1]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*g^-1))) +
