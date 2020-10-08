@@ -1,3 +1,5 @@
+#### Load libraries ####
+
 library(ggplot2)
 library(R2jags)
 library(coda)
@@ -84,7 +86,7 @@ PTmodrun1mcmc <- as.mcmc(PTmodrun1)
 xyplot(PTmodrun1mcmc, layout = c(6, ceiling(nvar(PTmodrun1mcmc)/6)))
 
 #### Diagnostics ####
-PTmodparam2 <- c("fitted", "true")
+PTmodparam2 <- c("fitted", "true", "lambda_y")
 
 PTmodrun2 <- jags.parallel(
   data = PTmoddata,
@@ -101,7 +103,7 @@ PTmodrun2 <- jags.parallel(
 
 PTmod.response <- t(PTmodrun2$BUGSoutput$sims.list$fitted)
 PTmod.observed <- PTdata_synth$orig.count
-PTmod.fitted <- apply(t(PTmodrun2$BUGSoutput$sims.list$fitted),
+PTmod.fitted <- apply(t(PTmodrun2$BUGSoutput$sims.list$lambda_y),
                       1,
                       median)
 
@@ -113,6 +115,8 @@ check.PTmod <- createDHARMa(
 )
 
 plot(check.PTmod)
+testDispersion(check.PTmod)
+testZeroInflation(check.PTmod)
 
 #### Inference ####
 
@@ -334,7 +338,7 @@ PJmodrun1mcmc <- as.mcmc(PJmodrun1)
 xyplot(PJmodrun1mcmc, layout = c(6, ceiling(nvar(PJmodrun1mcmc)/6)))
 
 #### Diagnostics ####
-PJmodparam2 <- c("fitted", "true")
+PJmodparam2 <- c("fitted", "true", "lambda_y")
 
 PJmodrun2 <- jags.parallel(
   data = PJmoddata,
@@ -351,7 +355,7 @@ PJmodrun2 <- jags.parallel(
 
 PJmod.response <- t(PJmodrun2$BUGSoutput$sims.list$fitted)
 PJmod.observed <- PJdata_synth$orig.count
-PJmod.fitted <- apply(t(PJmodrun2$BUGSoutput$sims.list$fitted),
+PJmod.fitted <- apply(t(PJmodrun2$BUGSoutput$sims.list$lambda_y),
                       1,
                       median)
 
@@ -363,6 +367,8 @@ check.PJmod <- createDHARMa(
 )
 
 plot(check.PJmod)
+testDispersion(check.PJmod)
+testZeroInflation(check.PJmod)
 
 #### Inference ####
 
@@ -601,7 +607,7 @@ run1mcmc <- as.mcmc(run1)
 xyplot(run1mcmc, layout = c(6, ceiling(nvar(run1mcmc)/6)))
 
 #### Diagnostics ####
-model1param2 <- c("fitted", "true")
+model1param2 <- c("fitted", "true", "lambda_y")
 
 run2 <- jags.parallel(
   data = model1data,
@@ -618,9 +624,9 @@ run2 <- jags.parallel(
 
 model1.response <- t(run2$BUGSoutput$sims.list$fitted)
 model1.observed <- MPgutdata$orig.count
-model1.fitted <- apply(t(run2$BUGSoutput$sims.list$fitted),
+model1.fitted <- apply(t(run2$BUGSoutput$sims.list$lambda_y),
                          1,
-                         mean)
+                         median)
 
 check.model1 <- createDHARMa(simulatedResponse = model1.response,
                                observedResponse = model1.observed, 
@@ -634,6 +640,9 @@ plotResiduals(check.model1, MPgutdata$species)
 plotResiduals(check.model1, scale(MPgutdata$trophic.position,
                                   center = TRUE))
 testZeroInflation(check.model1)
+testDispersion(check.model1)
+
+plot(model1.observed-model1.fitted ~ log(model1.fitted))
 
 #### Inference ####
 
@@ -882,7 +891,7 @@ weight.mod.data <-
     y = MPgutdata$orig.count,
     N = nrow(MPgutdata),
     lambda_blanks = MPgutdata$blank.mean,
-    weight = MPgutdata$tissue.weight,
+    weight = MPgutdata$tissue.dry.weight,
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
     site = as.integer(MPgutdata$site),
@@ -1018,8 +1027,9 @@ dev.off()
 MPgutdata$true.weight.est <- 
   apply(weight.mod.run2$BUGSoutput$sims.list$true, 2, mean)
 
-TP.mod <- lm(log(tissue.weight) ~ trophic.position, data = MPgutdata)
-plot(TP.mod)
+TP.mod <- lm(log(tissue.dry.weight) ~ trophic.position + species, 
+             data = MPgutdata)
+plot(resid(TP.mod, type = "pearson") ~ fitted(TP.mod))
 summary(TP.mod)
 
 set.seed(5126)
@@ -1033,7 +1043,7 @@ MPgutweightsim <- data.frame(
   site = sample(c(1:3),
                 2000,
                 replace = TRUE),
-  species = sample(c(1:14),
+  species = sample(MPgutdata$species,
                    2000,
                    replace = TRUE),
   blank.mean = sample(MPgutdata$blank.mean,
@@ -1041,8 +1051,12 @@ MPgutweightsim <- data.frame(
                       replace = TRUE)
 )
 
+
+
 MPgutweightsim$weight <- exp(rnorm(predict(TP.mod, newdata = MPgutweightsim),
                                    1.383))
+
+MPgutweightsim$species <- as.integer(MPgutweightsim$species)
 
 MPgutweightsim$stand.trophic.position <-
   (MPgutweightsim$trophic.position - mean(MPgutdata$trophic.position)) /
@@ -1124,11 +1138,11 @@ ggplot() +
             size = 0.5) +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
-                 y = orig.count/tissue.weight),
+                 y = orig.count/tissue.dry.weight),
              size = 0.75, shape = 1, alpha = 0.8) +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
-                 y = true.weight.est/tissue.weight),
+                 y = true.weight.est/tissue.dry.weight),
              size = 1.5, shape = 1, alpha = 0.5, colour = pal[1]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',

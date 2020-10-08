@@ -828,3 +828,107 @@ ggplot(moddata3) +
 
 dev.off()
 
+
+#### Combine food web data ####
+
+## Combine lab and field data with isotopes data
+
+foodweb1 <- 
+  left_join(animal_info, 
+            isotopes2,
+            by = c('ID', 'site'))
+
+foodweb1$sample.type <- as.factor(foodweb1$sample.type)
+
+ingested_animals <- 
+  foodweb1 %>% 
+  filter(sample.type == 'Rockfish: Ingested Animals') %>% 
+  select(1:14)
+
+rockfish_info <- 
+  foodweb1 %>% 
+  filter(animal.type == 'Rockfish' & sample.type == 'Rockfish') %>% 
+  select(1,2,15:28)
+
+ingested_animals2 <-
+  left_join(ingested_animals, rockfish_info, by = c('ID', 'site'))
+
+foodweb1 <- rbind(subset(foodweb1, 
+                         sample.type != 'Rockfish: Ingested Animals'),
+                  ingested_animals2)
+
+## Combine particle counts data with lab, field, and isotopes data
+
+foodweb2 <- left_join(animal_data3,
+                      foodweb1,
+                      by = c('ID', 'site', 'sample.type'))
+
+foodweb2$ID <- as.factor(foodweb2$ID)
+foodweb2$site <- as.factor(foodweb2$site)
+foodweb2$sample.type <- as.factor(foodweb2$sample.type)
+foodweb2shape <- as.factor(foodweb2$shape)
+foodweb2$colour <- as.factor(foodweb2$colour)
+
+#### Summarize all data ####
+
+## First summarize plankton tow data across size categories, colour and shape
+
+PT_data3 <-
+  PT_data2 %>% 
+  group_by(ID, site, sample.type, particle.type, sample.volume) %>% 
+  summarize(adj.count = sum(adj.count),
+            orig.count = sum(count),
+            blank.mean = sum(blank.mean))
+
+## Do the same for PJ
+
+## First summarize plankton jar data across size categories, colour and shape
+
+PJ_data3 <-
+  PJ_data2 %>% 
+  group_by(ID, site, sample.type, particle.type) %>% 
+  summarize(adj.count = sum(adj.count),
+            orig.count = sum(count),
+            blank.mean = sum(blank.mean))
+
+
+## Now summarize animal data
+
+## Combine across size categories, colour, and shape
+
+foodweb3 <- 
+  foodweb2 %>% 
+  group_by(ID, site, sample.type, particle.type, shell.l, shell.w, shell.h,
+           arm.length, tissue.wet.weight, tissue.dry.weight, shell.weight,
+           total.body.wet.weight, density.sep, species, carapace.length,
+           TL, SL, sex, babies, parasites, trophic.position) %>% 
+  summarize(adj.count = sum(adj.count),
+            blank.mean = sum(blank.mean),
+            orig.count = sum(count))
+
+summary(foodweb3)
+
+subset(foodweb3, is.na(species))
+foodweb3$species[foodweb3$ID == "CBSS16"] <- "Dermasterias imbricata"
+foodweb3$species[foodweb3$ID == "HPRF1"] <- "Sebastes caurinus"
+
+gutdata <- subset(foodweb3,
+                  sample.type != 'Surfperch Livers' &
+                    sample.type != 'Flatfish Livers' &
+                    sample.type != 'Rockfish Livers')
+
+gutdata$sample.type <- 
+  mapvalues(gutdata$sample.type,
+            from = 'Rockfish: Ingested Animals',
+            to = 'Rockfish')
+
+gutdata <-
+  gutdata %>% 
+  group_by(ID, particle.type, site, sample.type,
+           total.body.wet.weight, species, deltaC, deltaN,
+           trophic.position) %>% 
+  summarize(adj.count = sum(adj.count),
+            blank.mean = sum(blank.mean),
+            orig.count = sum(orig.count),
+            tissue.weight = sum(tissue.dry.weight))
+
