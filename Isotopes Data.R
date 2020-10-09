@@ -85,7 +85,8 @@ dev.off()
 baseline <-
   subset(isotopes, sample.type == 'Mussels') %>% 
   group_by(site) %>% 
-  summarize(base_deltaN = mean(deltaN))
+  summarize(base_deltaN = mean(deltaN),
+            sd_base_deltaN = sd(deltaN))
 
 baseline
 
@@ -95,6 +96,17 @@ isotopes <- left_join(isotopes,
 
 isotopes$trophic.position <-
   with(isotopes,
+       ((deltaN - base_deltaN)/3.4)+1)
+
+## Average liver and muscle values for fish
+
+isotopes2 <-
+  isotopes %>% 
+  group_by(ID, site, base_deltaN, sd_base_deltaN) %>% 
+  summarize(deltaN = mean(deltaN))
+
+isotopes2$trophic.position <-
+  with(isotopes2,
        ((deltaN - base_deltaN)/3.4)+1)
 
 ## Plot according to trophic position
@@ -115,13 +127,4 @@ ggplot(isotopes) +
         axis.ticks.x = element_blank(),
         axis.text.x = element_blank())
 
-## Average liver and muscle values for fish
 
-isotopes2 <-
-  isotopes %>% 
-  group_by(ID, site, base_deltaN) %>% 
-  summarize(deltaN = mean(deltaN))
-
-isotopes2$trophic.position <-
-  with(isotopes2,
-       ((deltaN - base_deltaN)/3.4)+1)

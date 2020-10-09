@@ -901,7 +901,8 @@ foodweb3 <-
   group_by(ID, site, sample.type, particle.type, shell.l, shell.w, shell.h,
            arm.length, tissue.wet.weight, tissue.dry.weight, shell.weight,
            total.body.wet.weight, density.sep, species, carapace.length,
-           TL, SL, sex, babies, parasites, trophic.position) %>% 
+           TL, SL, sex, babies, parasites, trophic.position, base_deltaN,
+           sd_base_deltaN, deltaN) %>% 
   summarize(adj.count = sum(adj.count),
             blank.mean = sum(blank.mean),
             orig.count = sum(count))
@@ -925,7 +926,7 @@ gutdata$sample.type <-
 gutdata <-
   gutdata %>% 
   group_by(ID, particle.type, site, sample.type,
-           total.body.wet.weight, species, deltaC, deltaN,
+           total.body.wet.weight, species, base_deltaN, sd_base_deltaN, deltaN,
            trophic.position) %>% 
   summarize(adj.count = sum(adj.count),
             blank.mean = sum(blank.mean),

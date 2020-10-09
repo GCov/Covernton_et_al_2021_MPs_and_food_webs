@@ -534,13 +534,18 @@ model1 <- function() {
   # Likelihood
   for (i in 1:N) {
     y[i] ~ dpois(lambda_y[i])
+    
     lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    
     true[i] ~ dpois(lambda_true[i])
+    
     log(lambda_true[i]) <-
       alpha_species[species[i]] +
       beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
+    TP[i] <- (deltaN[i] - base[site[i]])/fract + 1
+      
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
   }
@@ -550,13 +555,17 @@ model1 <- function() {
   for (j in 1:nspecies) {
     alpha_species[j] ~ dnorm(0, tau_species)
   }
+  
   tau_species <- inverse(pow(sigma_species, 2))
   sigma_species ~ dexp(1)
   
   for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
     gamma_site[k] ~ dnorm(0, 1)
+    base[k] ~ dnorm(mean_base[k], inverse(sd_base[k]))
   }
+  
+  fract ~ dnorm(3.4, 1)
 }
 
 ## Generate initial values for MCMC
@@ -566,13 +575,15 @@ model1init <- function()
   list(
     "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
-    "gamma_site" = rnorm(3)
+    "gamma_site" = rnorm(3),
+    "fract" = rnorm(1, 3.4, 1),
+    "base" = rnorm(3)
   )
 }
 
 ## Keep track of parameters
 
-model1param <- c("alpha_species", "beta_TP", "gamma_site")
+model1param <- c("alpha_species", "beta_TP", "gamma_site", "fract", "base")
 
 ## Specify data
 
@@ -584,8 +595,18 @@ model1data <-
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
     site = as.integer(MPgutdata$site),
-    TP = as.numeric(scale(MPgutdata$trophic.position, center = TRUE)),
-    nsite = length(unique(MPgutdata$site))
+    diff = MPgutdata$deltaN - MPgutdata$base_deltaN,
+    nsite = length(unique(MPgutdata$site)),
+    deltaN = MPgutdata$deltaN,
+    mean_base = as.numeric(with(
+      MPgutdata,
+      tapply(base_deltaN,
+             as.integer(site),
+             mean)
+    )),
+    sd_base = as.numeric(with(
+      MPgutdata, tapply(sd_base_deltaN, as.integer(site), mean)
+    ))
   )
 
 ## Run the model
@@ -595,7 +616,7 @@ run1 <- jags.parallel(
   parameters.to.save = model1param,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 5000,
+  n.iter = 8000,
   n.burnin = 500,
   n.thin = 1,
   jags.seed = 3234,
@@ -607,7 +628,7 @@ run1mcmc <- as.mcmc(run1)
 xyplot(run1mcmc, layout = c(6, ceiling(nvar(run1mcmc)/6)))
 
 #### Diagnostics ####
-model1param2 <- c("fitted", "true", "lambda_y")
+model1param2 <- c("fitted", "true", "lambda_y", "TP")
 
 run2 <- jags.parallel(
   data = model1data,
@@ -615,7 +636,7 @@ run2 <- jags.parallel(
   parameters.to.save = model1param2,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 5000,
+  n.iter = 8000,
   n.burnin = 500,
   n.thin = 1,
   jags.seed = 3234,
@@ -674,9 +695,13 @@ run1long$variable <- mapvalues(run1long$variable,
                                       "Mytilus spp.",
                                       "Parastichopus californicus",
                                       "Parophrys vetulus",
+                                      "Coles Bay Base delta15N",
+                                      "Elliot Base delta15N",
+                                      "Victoria Harbour Base delta15N",
                                       "Trophic Position:Coles Bay",
                                       "Trophic Position:Elliot Bay",
                                       "Trophic Position:Victoria Harbour",
+                                      "TDF",
                                       "Coles Bay",
                                       "Elliott Bay",
                                       "Victoria Harbour"
@@ -686,8 +711,8 @@ run1long$order <- c(nrow(run1long):1)
 
 png(
   'MP Gut Model Posteriors.png',
-  width = 9,
-  height = 9,
+  width = 16,
+  height = 12,
   units = 'cm',
   res = 500
 )
@@ -707,7 +732,7 @@ ggplot(run1long) +
     size = 0.25,
     colour = pal[3]
   ) +
-  coord_cartesian(xlim = c(-2.5, 3)) +
+  coord_cartesian(xlim = c(-1, 12)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -724,46 +749,51 @@ MPgutdata$true.est.upper95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile,
                                     probs = 0.975)
 MPgutdata$true.est.lower95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile, 
                                     probs = 0.025)
+MPgutdata$TP.est <- apply(run2$BUGSoutput$sims.list$TP, 2, mean)
+MPgutdata$TP.est.lower95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.025)
+MPgutdata$TP.est.upper95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.975)
 
 set.seed(5126)
 
-MPgutsim <- data.frame(trophic.position = seq(from = 0, 
-                                              to = 4, 
-                                              length.out = 2000),
-                       site = sample(c(1:3), 
-                                     2000, 
-                                     replace = TRUE),
-                       species = sample(c(1:14),
-                                        2000,
-                                        replace = TRUE),
-                       blank.mean = sample(MPgutdata$blank.mean,
-                                           2000,
-                                           replace = TRUE))
-
-MPgutsim$stand.trophic.position <-
-  (MPgutsim$trophic.position - mean(MPgutdata$trophic.position)) /
-  sd(MPgutdata$trophic.position - mean(MPgutdata$trophic.position))
+MPgutsim <- data.frame(
+  trophic.position = seq(
+    from = 0,
+    to = 4,
+    length.out = 2000
+  ),
+  site = sample(c(1:3),
+                2000,
+                replace = TRUE),
+  species = sample(c(1:14),
+                   2000,
+                   replace = TRUE),
+  blank.mean = sample(MPgutdata$blank.mean,
+                      2000,
+                      replace = TRUE)
+)
 
 for(i in 1:2000){
   lambda_true <-
     exp(
-      run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]] * 
-        MPgutsim$stand.trophic.position[i] +
+      run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]]*
+        MPgutsim$trophic.position[i] +
         run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]]
     )
   lambda_blanks = MPgutsim$blank.mean[i]
   lambda_y <- lambda_true + lambda_blanks
   true <- as.numeric(rpois(lambda_true, lambda_true))
   y <- as.numeric(rpois(lambda_y, lambda_y))
-  MPgutsim$mean[i] <- mean(true)
-  MPgutsim$upper25[i] <- quantile(true, 0.625)
-  MPgutsim$lower25[i] <- quantile(true, 0.375)
-  MPgutsim$upper50[i] <- quantile(true, 0.75)
-  MPgutsim$lower50[i] <- quantile(true, 0.25)
-  MPgutsim$upper75[i] <- quantile(true, 0.875)
-  MPgutsim$lower75[i] <- quantile(true, 0.125)
-  MPgutsim$upper95[i] <- quantile(true, 0.975)
-  MPgutsim$lower95[i] <- quantile(true, 0.025)
+  MPgutsim$mean[i] <- mean(lambda_true)
+  MPgutsim$upper25[i] <- quantile(lambda_true, 0.625)
+  MPgutsim$lower25[i] <- quantile(lambda_true, 0.375)
+  MPgutsim$upper50[i] <- quantile(lambda_true, 0.75)
+  MPgutsim$lower50[i] <- quantile(lambda_true, 0.25)
+  MPgutsim$upper75[i] <- quantile(lambda_true, 0.875)
+  MPgutsim$lower75[i] <- quantile(lambda_true, 0.125)
+  MPgutsim$upper95[i] <- quantile(lambda_true, 0.975)
+  MPgutsim$lower95[i] <- quantile(lambda_true, 0.025)
   MPgutsim$yupper95[i] <- quantile(y, 0.975)
   MPgutsim$ylower95[i] <- quantile(y, 0.025)
 }
@@ -818,21 +848,26 @@ ggplot() +
                 y = mean),
             size = 0.5,
             colour = pal[4],
-            alpha = 0.8) +
+            alpha = 0.3) +
+  geom_linerange(data = MPgutdata,
+                 aes(xmin = TP.est.lower95,
+                     xmax = TP.est.upper95,
+                     y = orig.count),
+                size = 0.25, alpha = 0.3, colour = pal[5]) +
   geom_point(data = MPgutdata,
-               aes(x = trophic.position,
+               aes(x = TP.est,
                  y = orig.count),
              size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
   geom_point(data = MPgutdata,
-             aes(x = trophic.position,
+             aes(x = TP.est,
                  y = true.est),
              size = 1.5, shape = 1, alpha = 0.5, colour = pal[3]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
-  scale_x_continuous(limits = c(0, 4),
-                     expand = c(0, 0)) +
-  scale_y_continuous(limits = c(0, 15),
+  coord_cartesian(xlim = c(0, 4)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 12),
                      expand = c(0, 0.1)) +
   theme1
 
