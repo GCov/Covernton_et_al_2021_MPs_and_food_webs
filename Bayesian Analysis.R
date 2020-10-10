@@ -754,6 +754,20 @@ MPgutdata$TP.est.lower95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
                                   probs = 0.025)
 MPgutdata$TP.est.upper95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
                                   probs = 0.975)
+MPgutdata$TP.est.lower95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.025)
+MPgutdata$TP.est.upper75 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.875)
+MPgutdata$TP.est.lower75 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.125)
+MPgutdata$TP.est.upper50 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.75)
+MPgutdata$TP.est.lower50 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.25)
+MPgutdata$TP.est.upper25 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.625)
+MPgutdata$TP.est.lower25 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.375)
 
 set.seed(5126)
 
@@ -806,6 +820,8 @@ MPgutsim$site <- mapvalues(MPgutsim$site,
                                   "Elliot Bay",
                                   "Victoria Harbour"))
 
+#### Plot predictions ####
+
 tiff('Trophic Position MP Bayesian Plot.tiff',
      res = 500,
      width = 16,
@@ -849,11 +865,6 @@ ggplot() +
             size = 0.5,
             colour = pal[4],
             alpha = 0.3) +
-  geom_linerange(data = MPgutdata,
-                 aes(xmin = TP.est.lower95,
-                     xmax = TP.est.upper95,
-                     y = orig.count),
-                size = 0.25, alpha = 0.3, colour = pal[5]) +
   geom_point(data = MPgutdata,
                aes(x = TP.est,
                  y = orig.count),
@@ -873,6 +884,64 @@ ggplot() +
 
 dev.off()
 
+## Trophic position uncertainty by species
+
+MPgutsim$species <- as.factor(MPgutsim$species)
+
+MPgutsim$species <- mapvalues(
+  MPgutsim$species,
+  from = levels(MPgutsim$species),
+  to = c(
+    "Cancer productus",
+    "Cucumeria miniata",
+    "Cymatogaster aggregata",
+    "Dermasterias imbricata",
+    "Metacarcinus gracilis",
+    "Metacarcinus magister",
+    "Mytilus spp.",
+    "Parastichopus californicus",
+    "Parophrys vetulus",
+    "Platichthys stellatus",
+    "Protothaca staminea",
+    "Ruditapes philippinarum",
+    "Sebastes caurinus",
+    "Sebastes melanops"
+  )
+)
+
+tiff('Trophic Position Uncertainty Plot.tiff',
+     res = 500,
+     width = 9,
+     height = 12,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot(MPgutdata) +
+  geom_pointrange(aes(x = reorder(species, TP.est, mean),
+                      y = TP.est,
+                      ymin = TP.est.lower95,
+                      ymax = TP.est.upper95),
+                  position = position_jitter(height = 0,
+                                             width = 0.5),
+                  size = 0.5,
+                  fatten = 0.25,
+                  shape = 1,
+                  alpha = 0.5,
+                  colour = pal[5]) +
+  facet_wrap(~ site, ncol = 1) +
+  labs(x = 'Site',
+       y = "Trophic Position") +
+  theme1 +
+  theme(axis.text.x = element_text(angle = 55,
+                                   hjust = 1),
+        panel.grid.major.x = element_line(colour = pal[4],
+                                          size = 0.2,
+                                          linetype = 'dashed'))
+
+dev.off()
+
+
+
 
 #### MP Model by Weight ####
 
@@ -888,6 +957,8 @@ weight.mod <- function() {
       beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
+    TP[i] <- (deltaN[i] - base[site[i]])/fract + 1
+    
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
   }
@@ -897,13 +968,17 @@ weight.mod <- function() {
   for (j in 1:nspecies) {
     alpha_species[j] ~ dnorm(0, tau_species)
   }
+  
   tau_species <- inverse(pow(sigma_species, 2))
   sigma_species ~ dexp(1)
   
   for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
     gamma_site[k] ~ dnorm(0, 1)
+    base[k] ~ dnorm(mean_base[k], inverse(sd_base[k]))
   }
+  
+  fract ~ dnorm(3.4, 1)
 }
 
 ## Generate initial values for MCMC
@@ -912,12 +987,15 @@ weight.mod.init <- function() {
   list(
     "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
-    "gamma_site" = rnorm(3)
+    "gamma_site" = rnorm(3),
+    "fract" = rnorm(1, 3.4, 1),
+    "base" = rnorm(3)
   )
 }
 ## Keep track of parameters
 
-weight.mod.params <- c("alpha_species", "beta_TP", "gamma_site")
+weight.mod.params <- c("alpha_species", "beta_TP", "gamma_site", "fract", 
+                       "base")
 
 ## Specify data
 
@@ -926,12 +1004,22 @@ weight.mod.data <-
     y = MPgutdata$orig.count,
     N = nrow(MPgutdata),
     lambda_blanks = MPgutdata$blank.mean,
-    weight = MPgutdata$tissue.dry.weight,
+    weight = MPgutdata$tissue.weight,
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
     site = as.integer(MPgutdata$site),
-    TP = as.numeric(scale(MPgutdata$trophic.position, center = TRUE)),
-    nsite = length(unique(MPgutdata$site))
+    diff = MPgutdata$deltaN - MPgutdata$base_deltaN,
+    nsite = length(unique(MPgutdata$site)),
+    deltaN = MPgutdata$deltaN,
+    mean_base = as.numeric(with(
+      MPgutdata,
+      tapply(base_deltaN,
+             as.integer(site),
+             mean)
+    )),
+    sd_base = as.numeric(with(
+      MPgutdata, tapply(sd_base_deltaN, as.integer(site), mean)
+    ))
   )
 
 ## Run the model
@@ -941,7 +1029,7 @@ weight.mod.run1 <- jags.parallel(
   parameters.to.save = weight.mod.params,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 5000,
+  n.iter = 7000,
   n.burnin = 500,
   n.thin = 1,
   jags.seed = 3234,
@@ -953,7 +1041,7 @@ weight.mod.run1mcmc <- as.mcmc(weight.mod.run1)
 xyplot(weight.mod.run1mcmc, layout = c(6, ceiling(nvar(weight.mod.run1mcmc)/6)))
 
 #### Diagnostics ####
-weight.mod.params2 <- c("fitted", "true")
+weight.mod.params2 <- c("fitted", "true", "lambda_y", "TP")
 
 weight.mod.run2 <- jags.parallel(
   data = weight.mod.data,
@@ -961,7 +1049,7 @@ weight.mod.run2 <- jags.parallel(
   parameters.to.save = weight.mod.params2,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 5000,
+  n.iter = 7000,
   n.burnin = 500,
   n.thin = 1,
   jags.seed = 3234,
@@ -970,9 +1058,9 @@ weight.mod.run2 <- jags.parallel(
 
 weight.mod.response <- t(weight.mod.run2$BUGSoutput$sims.list$fitted)
 weight.mod.observed <- MPgutdata$orig.count
-weight.mod.fitted <- apply(t(weight.mod.run2$BUGSoutput$sims.list$fitted),
+weight.mod.fitted <- apply(t(weight.mod.run2$BUGSoutput$sims.list$lambda_y),
                        1,
-                       mean)
+                       median)
 
 check.weight.mod <-
   createDHARMa(
@@ -985,16 +1073,6 @@ check.weight.mod <-
 plot(check.weight.mod)
 
 #### Inference ####
-
-extract.post <- function(x){
-  out <- data.frame(x$BUGSoutput$sims.list)
-  long <- melt(out)
-  long <- long[long$variable != "deviance" &
-                 long$variable != "r", ]
-  long$variable <- as.character(long$variable)
-  long$variable <- as.factor(long$variable)
-  long
-}
 
 weight.mod.run1long <- extract.post(weight.mod.run1)
 
@@ -1014,9 +1092,13 @@ weight.mod.run1long$variable <- mapvalues(weight.mod.run1long$variable,
                                       "Mytilus spp.",
                                       "Parastichopus californicus",
                                       "Parophrys vetulus",
+                                      "Coles Bay Base delta15N",
+                                      "Elliot Base delta15N",
+                                      "Victoria Harbour Base delta15N",
                                       "Trophic Position:Coles Bay",
                                       "Trophic Position:Elliot Bay",
                                       "Trophic Position:Victoria Harbour",
+                                      "TDF",
                                       "Coles Bay",
                                       "Elliott Bay",
                                       "Victoria Harbour"
@@ -1047,7 +1129,7 @@ ggplot(weight.mod.run1long) +
     size = 0.25,
     colour = pal[3]
   ) +
-  coord_cartesian(xlim = c(-2.5, 3)) +
+  coord_cartesian(xlim = c(-3, 13)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1062,7 +1144,7 @@ dev.off()
 MPgutdata$true.weight.est <- 
   apply(weight.mod.run2$BUGSoutput$sims.list$true, 2, mean)
 
-TP.mod <- lm(log(tissue.dry.weight) ~ trophic.position + species, 
+TP.mod <- lm(log(tissue.weight) ~ trophic.position + species, 
              data = MPgutdata)
 plot(resid(TP.mod, type = "pearson") ~ fitted(TP.mod))
 summary(TP.mod)
@@ -1173,11 +1255,11 @@ ggplot() +
             size = 0.5) +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
-                 y = orig.count/tissue.dry.weight),
+                 y = orig.count/tissue.weight),
              size = 0.75, shape = 1, alpha = 0.8) +
   geom_point(data = MPgutdata,
              aes(x = trophic.position,
-                 y = true.weight.est/tissue.dry.weight),
+                 y = true.weight.est/tissue.weight),
              size = 1.5, shape = 1, alpha = 0.5, colour = pal[1]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
