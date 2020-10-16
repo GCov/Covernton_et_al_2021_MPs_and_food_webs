@@ -544,8 +544,9 @@ model1 <- function() {
       beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
-    TP[i] <- (deltaN[i] - base[site[i]])/fract + 1
-      
+    TP[i] <-
+      ((log(nit_lim - base[site[i]]) - log(nit_lim - deltaN[i])) / k) + 2
+    
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
   }
@@ -562,10 +563,10 @@ model1 <- function() {
   for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
     gamma_site[k] ~ dnorm(0, 1)
-    base[k] ~ dnorm(mean_base[k], inverse(sd_base[k]))
+    base[k] ~ dgamma(shape[k], rate[k])
+    shape[k] <- pow(mean_base[k], 2) / pow(sd_base[k], 2)
+    rate[k] <- mean_base[k] / pow(sd_base[k], 2)
   }
-  
-  fract ~ dnorm(3.4, 1)
 }
 
 ## Generate initial values for MCMC
@@ -576,14 +577,13 @@ model1init <- function()
     "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
     "gamma_site" = rnorm(3),
-    "fract" = rnorm(1, 3.4, 1),
-    "base" = rnorm(3)
+    "base" = rgamma(3, 1, 1)
   )
 }
 
 ## Keep track of parameters
 
-model1param <- c("alpha_species", "beta_TP", "gamma_site", "fract", "base")
+model1param <- c("alpha_species", "beta_TP", "gamma_site", "base")
 
 ## Specify data
 
@@ -606,7 +606,11 @@ model1data <-
     )),
     sd_base = as.numeric(with(
       MPgutdata, tapply(sd_base_deltaN, as.integer(site), mean)
-    ))
+    )),
+    beta_zero = 5.92,
+    beta_one = -0.27,
+    nit_lim = -beta_zero/beta_one,
+    k = -log((beta_zero - nit_lim)/(-nit_lim))
   )
 
 ## Run the model
@@ -615,10 +619,10 @@ run1 <- jags.parallel(
   inits = model1init,
   parameters.to.save = model1param,
   n.chains = 3,
-  n.cluster = 8,
+  n.cluster = 3,
   n.iter = 8000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 2,
   jags.seed = 3234,
   model = model1
 )
@@ -658,8 +662,7 @@ plot(check.model1)
 
 plotResiduals(check.model1, MPgutdata$site)
 plotResiduals(check.model1, MPgutdata$species)
-plotResiduals(check.model1, scale(MPgutdata$trophic.position,
-                                  center = TRUE))
+plotResiduals(check.model1, apply(run2$BUGSoutput$sims.list$TP, 2, median))
 testZeroInflation(check.model1)
 testDispersion(check.model1)
 
@@ -701,7 +704,6 @@ run1long$variable <- mapvalues(run1long$variable,
                                       "Trophic Position:Coles Bay",
                                       "Trophic Position:Elliot Bay",
                                       "Trophic Position:Victoria Harbour",
-                                      "TDF",
                                       "Coles Bay",
                                       "Elliott Bay",
                                       "Victoria Harbour"
@@ -732,7 +734,7 @@ ggplot(run1long) +
     size = 0.25,
     colour = pal[3]
   ) +
-  coord_cartesian(xlim = c(-1, 12)) +
+  coord_cartesian(xlim = c(-1.5, 13)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -773,8 +775,8 @@ set.seed(5126)
 
 MPgutsim <- data.frame(
   trophic.position = seq(
-    from = 0,
-    to = 4,
+    from = 1,
+    to = 5,
     length.out = 2000
   ),
   site = sample(c(1:3),
@@ -876,7 +878,7 @@ ggplot() +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
-  coord_cartesian(xlim = c(0, 4)) +
+  coord_cartesian(xlim = c(1, 5)) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(limits = c(0, 12),
                      expand = c(0, 0.1)) +
