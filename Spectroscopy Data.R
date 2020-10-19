@@ -868,21 +868,6 @@ foodweb2$site <- as.factor(foodweb2$site)
 foodweb2$sample.type <- as.factor(foodweb2$sample.type)
 foodweb2shape <- as.factor(foodweb2$shape)
 foodweb2$colour <- as.factor(foodweb2$colour)
-
-## Calculate trophic discrimination factors
-
-for(i in 1:nrow(foodweb2)) {
-  foodweb2$DF[i] <-
-    ifelse(foodweb2$sample.type[i] == "Clams" |
-           foodweb2$sample.type[i] == "Crabs" |
-           foodweb2$sample.type[i] == "Mussels" |
-           foodweb2$sample.type[i] == "Sea Cucumbers" |
-           foodweb2$sample.type[i] == "Sea Stars",
-           -0.311*foodweb2$deltaN[i] + 4.907,
-           -0.261*foodweb2$deltaN[i] + 4.895)
-}
-
-plot(DF ~ sample.type, data = foodweb2)
   
 
 #### Summarize all data ####
@@ -918,7 +903,7 @@ foodweb3 <-
            arm.length, tissue.wet.weight, tissue.dry.weight, shell.weight,
            total.body.wet.weight, density.sep, species, carapace.length,
            TL, SL, sex, babies, parasites, trophic.position, base_deltaN,
-           sd_base_deltaN, deltaN, DF) %>% 
+           sd_base_deltaN, deltaN) %>% 
   summarize(adj.count = sum(adj.count),
             blank.mean = sum(blank.mean),
             orig.count = sum(count))
@@ -941,9 +926,9 @@ gutdata$sample.type <-
 
 gutdata <-
   gutdata %>% 
-  group_by(ID, particle.type, site, sample.type,
+  group_by(ID, particle.type, site, sample.type, TL,
            total.body.wet.weight, species, base_deltaN, sd_base_deltaN, deltaN,
-           trophic.position, DF) %>% 
+           trophic.position) %>% 
   summarize(adj.count = sum(adj.count),
             blank.mean = sum(blank.mean),
             orig.count = sum(orig.count),

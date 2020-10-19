@@ -17,8 +17,8 @@ summary(isotopes)
 ## Add species data
 
 isotopes <- left_join(isotopes, 
-                      animal_info[, c(1,16)],
-                      by = "ID")
+                      animal_info[, c(1, 3, 16)],
+                      by = c("ID", "sample.type"))
 isotopes$sample.type <- as.factor(isotopes$sample.type)
 isotopes$species <- as.character(isotopes$species)
 

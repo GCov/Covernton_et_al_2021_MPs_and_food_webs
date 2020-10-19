@@ -545,7 +545,8 @@ model1 <- function() {
       gamma_site[site[i]]
     
     TP[i] <-
-      ((log(nit_lim - base[site[i]]) - log(nit_lim - deltaN[i])) / k) + 2
+      ((log(nit_lim - base[site[i]]) - log(nit_lim - animal[i])) / k) + 2
+    animal[i] ~ dnorm(deltaN[i], 1/0.052)  # SD from standards
     
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
@@ -620,9 +621,9 @@ run1 <- jags.parallel(
   parameters.to.save = model1param,
   n.chains = 3,
   n.cluster = 3,
-  n.iter = 8000,
+  n.iter = 5000,
   n.burnin = 500,
-  n.thin = 2,
+  n.thin = 1,
   jags.seed = 3234,
   model = model1
 )
@@ -640,9 +641,9 @@ run2 <- jags.parallel(
   parameters.to.save = model1param2,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 8000,
+  n.iter = 5000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 4,
   jags.seed = 3234,
   model = model1
 )
@@ -708,6 +709,415 @@ run1long$variable <- mapvalues(run1long$variable,
                                       "Elliott Bay",
                                       "Victoria Harbour"
                                       ))
+
+run1long$order <- c(nrow(run1long):1)
+
+png(
+  'MP Gut Model Posteriors.png',
+  width = 16,
+  height = 12,
+  units = 'cm',
+  res = 500
+)
+
+ggplot(run1long) +
+  geom_density_ridges(
+    aes(x = value,
+        y = reorder(variable, order, mean)),
+    fill = pal[5],
+    colour = pal[5],
+    alpha = 0.5, 
+    size = 0.25
+  ) +
+  geom_vline(
+    aes(xintercept = 0),
+    linetype = 'dashed',
+    size = 0.25,
+    colour = pal[3]
+  ) +
+  coord_cartesian(xlim = c(-1.5, 13)) +
+  labs(x = "",
+       y = "Parameter") +
+  theme1
+
+dev.off()
+
+
+#### Predictions ####
+
+## Extract 'true' estimate
+
+MPgutdata$true.est <- apply(run2$BUGSoutput$sims.list$true, 2, mean)
+MPgutdata$true.est.upper95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile, 
+                                    probs = 0.975)
+MPgutdata$true.est.lower95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile, 
+                                    probs = 0.025)
+MPgutdata$TP.est <- apply(run2$BUGSoutput$sims.list$TP, 2, mean)
+MPgutdata$TP.est.lower95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.025)
+MPgutdata$TP.est.upper95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.975)
+MPgutdata$TP.est.lower95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.025)
+MPgutdata$TP.est.upper75 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.875)
+MPgutdata$TP.est.lower75 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.125)
+MPgutdata$TP.est.upper50 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.75)
+MPgutdata$TP.est.lower50 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.25)
+MPgutdata$TP.est.upper25 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.625)
+MPgutdata$TP.est.lower25 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
+                                  probs = 0.375)
+
+set.seed(5126)
+
+MPgutsim <- data.frame(
+  trophic.position = seq(
+    from = 1,
+    to = 6,
+    length.out = 2000
+  ),
+  site = sample(c(1:3),
+                2000,
+                replace = TRUE),
+  species = sample(c(1:14),
+                   2000,
+                   replace = TRUE),
+  blank.mean = sample(MPgutdata$blank.mean,
+                      2000,
+                      replace = TRUE)
+)
+
+for(i in 1:2000){
+  lambda_true <-
+    exp(
+      run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]]*
+        MPgutsim$trophic.position[i] +
+        run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]]
+    )
+  lambda_blanks = MPgutsim$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  true <- as.numeric(rpois(lambda_true, lambda_true))
+  y <- as.numeric(rpois(lambda_y, lambda_y))
+  MPgutsim$mean[i] <- mean(true)
+  MPgutsim$upper25[i] <- quantile(true, 0.625)
+  MPgutsim$lower25[i] <- quantile(true, 0.375)
+  MPgutsim$upper50[i] <- quantile(true, 0.75)
+  MPgutsim$lower50[i] <- quantile(true, 0.25)
+  MPgutsim$upper75[i] <- quantile(true, 0.875)
+  MPgutsim$lower75[i] <- quantile(true, 0.125)
+  MPgutsim$upper95[i] <- quantile(true, 0.975)
+  MPgutsim$lower95[i] <- quantile(true, 0.025)
+  MPgutsim$yupper95[i] <- quantile(y, 0.975)
+  MPgutsim$ylower95[i] <- quantile(y, 0.025)
+}
+
+MPgutsim$site <- as.factor(MPgutsim$site)
+
+MPgutsim$site <- mapvalues(MPgutsim$site,
+                           from = levels(MPgutsim$site),
+                           to = c("Coles Bay",
+                                  "Elliot Bay",
+                                  "Victoria Harbour"))
+
+#### Plot predictions ####
+
+tiff('Trophic Position MP Bayesian Plot.tiff',
+     res = 500,
+     width = 16,
+     height = 12,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot() +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper95,
+                  ymin = lower95),
+              alpha = 0.05,
+              size = 0.5,
+              fill = pal[1]) +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper75,
+                  ymin = lower75),
+              alpha = 0.25,
+              size = 0.5,
+              fill = pal[1]) +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper50,
+                  ymin = lower50),
+              alpha = 0.5,
+              size = 0.5,
+              fill = pal[1]) +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper25,
+                  ymin = lower25),
+              alpha = 0.75,
+              size = 0.5,
+              fill = pal[1],
+              colour = pal[1]) +
+  geom_line(data = MPgutsim,
+            aes(x = trophic.position,
+                y = mean),
+            size = 0.5,
+            colour = pal[4],
+            alpha = 0.3) +
+  geom_point(data = MPgutdata,
+               aes(x = TP.est,
+                 y = orig.count),
+             size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
+  geom_point(data = MPgutdata,
+             aes(x = TP.est,
+                 y = true.est),
+             size = 1.5, shape = 1, alpha = 0.5, colour = pal[3]) +
+  facet_wrap(~ site) +
+  labs(x = 'Trophic Position',
+       y = expression(paste('Particles '*ind^-1))) +
+  coord_cartesian(xlim = c(1, 6)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 12),
+                     expand = c(0, 0.1)) +
+  theme1
+
+dev.off()
+
+## Trophic position uncertainty by species
+
+MPgutsim$species <- as.factor(MPgutsim$species)
+
+MPgutsim$species <- mapvalues(
+  MPgutsim$species,
+  from = levels(MPgutsim$species),
+  to = c(
+    "Cancer productus",
+    "Cucumeria miniata",
+    "Cymatogaster aggregata",
+    "Dermasterias imbricata",
+    "Metacarcinus gracilis",
+    "Metacarcinus magister",
+    "Mytilus spp.",
+    "Parastichopus californicus",
+    "Parophrys vetulus",
+    "Platichthys stellatus",
+    "Protothaca staminea",
+    "Ruditapes philippinarum",
+    "Sebastes caurinus",
+    "Sebastes melanops"
+  )
+)
+
+tiff('Trophic Position Uncertainty Plot.tiff',
+     res = 500,
+     width = 9,
+     height = 12,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot(MPgutdata) +
+  geom_pointrange(aes(x = reorder(species, TP.est, mean),
+                      y = TP.est,
+                      ymin = TP.est.lower95,
+                      ymax = TP.est.upper95),
+                  position = position_jitter(height = 0,
+                                             width = 0.5),
+                  size = 0.5,
+                  fatten = 0.25,
+                  shape = 1,
+                  alpha = 0.5,
+                  colour = pal[5]) +
+  facet_wrap(~ site, ncol = 1) +
+  labs(x = 'Site',
+       y = "Trophic Position") +
+  theme1 +
+  theme(axis.text.x = element_text(angle = 55,
+                                   hjust = 1),
+        panel.grid.major.x = element_line(colour = pal[4],
+                                          size = 0.2,
+                                          linetype = 'dashed'))
+
+dev.off()
+
+#### Body size model with just fish ####
+
+fishgutdata <- subset(MPgutdata, 
+                      sample.type == "Flatfish" |
+                        sample.type == "Rockfish" |
+                        sample.type == "Surfperch")
+
+fishgutdata$species <- as.character(fishgutdata$species)
+fishgutdata$species <- as.factor(fishgutdata$species)
+
+names(fishgutdata)
+
+nrow(fishgutdata)
+
+plot(TP.est ~ log(TL), data = fishgutdata)
+plot(log(TL) ~ species, data = fishgutdata)
+plot(orig.count ~ log(TL), data = fishgutdata)
+
+fishmodel1 <- function() {
+  # Likelihood
+  for (i in 1:N) {
+    y[i] ~ dpois(lambda_y[i])
+    
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    
+    true[i] ~ dpois(lambda_true[i])
+    
+    log(lambda_true[i]) <-
+      alpha_species[species[i]] +
+      beta_length[site[i]] * log(length[i]) +
+      gamma_site[site[i]]
+    
+    ## Fitted values
+    fitted[i] ~ dpois(lambda_y[i])
+  }
+  
+  ## Priors
+  
+  for (j in 1:nspecies) {
+    alpha_species[j] ~ dnorm(0, tau_species)
+  }
+  
+  tau_species <- inverse(pow(sigma_species, 2))
+  sigma_species ~ dexp(1)
+  
+  for (k in 1:nsite) {
+    beta_length[k] ~ dnorm(0, 1)
+    gamma_site[k] ~ dnorm(0, 1)
+  }
+}
+
+## Generate initial values for MCMC
+
+fishmodel1init <- function()
+{
+  list(
+    "sigma_species" = rexp(1),
+    "beta_length" = rnorm(3),
+    "gamma_site" = rnorm(3)
+  )
+}
+
+## Keep track of parameters
+
+fishmodel1param <- c("alpha_species", "beta_length", "gamma_site")
+
+## Specify data
+
+fishmodel1data <-
+  list(
+    y = fishgutdata$orig.count,
+    N = nrow(fishgutdata),
+    lambda_blanks = fishgutdata$blank.mean,
+    species = as.integer(fishgutdata$species),
+    nspecies = length(unique(fishgutdata$species)),
+    site = as.integer(fishgutdata$site),
+    nsite = length(unique(fishgutdata$site)),
+    length = fishgutdata$TL
+  )
+
+## Run the model
+fishrun1 <- jags.parallel(
+  data = fishmodel1data,
+  inits = fishmodel1init,
+  parameters.to.save = fishmodel1param,
+  n.chains = 3,
+  n.cluster = 3,
+  n.iter = 15000,
+  n.burnin = 500,
+  n.thin = 2,
+  jags.seed = 3234,
+  model = fishmodel1
+)
+
+fishrun1
+fishrun1mcmc <- as.mcmc(fishrun1)
+xyplot(fishrun1mcmc, layout = c(6, ceiling(nvar(fishrun1mcmc)/6)))
+
+#### Diagnostics ####
+fishmodel1param2 <- c("fitted", "true", "lambda_y", "TP")
+
+fishrun2 <- jags.parallel(
+  data = fishmodel1data,
+  inits = fishmodel1init,
+  parameters.to.save = fishmodel1param2,
+  n.chains = 3,
+  n.cluster = 8,
+  n.iter = 15000,
+  n.burnin = 500,
+  n.thin = 2,
+  jags.seed = 3234,
+  model = fishmodel1
+)
+
+fishmodel1.response <- t(fishrun2$BUGSoutput$sims.list$fitted)
+fishmodel1.observed <- fishgutdata$orig.count
+fishmodel1.fitted <- apply(t(fishrun2$BUGSoutput$sims.list$lambda_y),
+                       1,
+                       median)
+
+check.fishmodel1 <- createDHARMa(simulatedResponse = fishmodel1.response,
+                             observedResponse = fishmodel1.observed, 
+                             fittedPredictedResponse = fishmodel1.fitted,
+                             integerResponse = T)
+
+plot(check.fishmodel1)
+
+plotResiduals(check.fishmodel1, fishgutdata$site)
+plotResiduals(check.fishmodel1, fishgutdata$species)
+plotResiduals(check.fishmodel1, log(fishgutdata$TL))
+testZeroInflation(check.fishmodel1)
+testDispersion(check.fishmodel1)
+
+plot(fishmodel1.observed-fishmodel1.fitted ~ log(fishmodel1.fitted))
+
+#### Inference ####
+
+extract.post <- function(x){
+  out <- data.frame(x$BUGSoutput$sims.list)
+  long <- melt(out)
+  long <- long[long$variable != "deviance" &
+                 long$variable != "r", ]
+  long$variable <- as.character(long$variable)
+  long$variable <- as.factor(long$variable)
+  long
+}
+
+run1long <- extract.post(run1)
+
+run1long$variable <- mapvalues(run1long$variable,
+                               from = levels(run1long$variable),
+                               to = c("Cancer productus",
+                                      "Platichthys stellatus",
+                                      "Protothaca staminea",
+                                      "Ruditapes philippinarum",
+                                      "Sebastes caurinus",
+                                      "Sebastes melanops",
+                                      "Cucumeria miniata",
+                                      "Cymatogaster aggregata",
+                                      "Dermasterias imbricata",
+                                      "Metacarcinus gracilis",
+                                      "Metacarcinus magister",
+                                      "Mytilus spp.",
+                                      "Parastichopus californicus",
+                                      "Parophrys vetulus",
+                                      "Coles Bay Base delta15N",
+                                      "Elliot Base delta15N",
+                                      "Victoria Harbour Base delta15N",
+                                      "Trophic Position:Coles Bay",
+                                      "Trophic Position:Elliot Bay",
+                                      "Trophic Position:Victoria Harbour",
+                                      "Coles Bay",
+                                      "Elliott Bay",
+                                      "Victoria Harbour"
+                               ))
 
 run1long$order <- c(nrow(run1long):1)
 
@@ -868,7 +1278,7 @@ ggplot() +
             colour = pal[4],
             alpha = 0.3) +
   geom_point(data = MPgutdata,
-               aes(x = TP.est,
+             aes(x = TP.est,
                  y = orig.count),
              size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
   geom_point(data = MPgutdata,
@@ -1080,6 +1490,11 @@ check.weight.mod <-
   )
 
 plot(check.weight.mod)
+
+plotResiduals(check.weight.mod, 
+              apply(weight.mod.run2$BUGSoutput$sims.list$TP, 2, median))
+testDispersion(check.weight.mod)
+testZeroInflation(check.weight.mod)
 
 #### Inference ####
 
