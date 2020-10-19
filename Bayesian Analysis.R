@@ -951,15 +951,19 @@ weight.mod <- function() {
   # Likelihood
   for (i in 1:N) {
     y[i] ~ dpois(lambda_y[i])
+    
     lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    
     true[i] ~ dpois(lambda_true[i])
+    
     log(lambda_true[i]) <-
-      log(weight[i]) + 
+      log(weight[i]) +
       alpha_species[species[i]] +
       beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
-    TP[i] <- (deltaN[i] - base[site[i]])/fract + 1
+    TP[i] <-
+      ((log(nit_lim - base[site[i]]) - log(nit_lim - deltaN[i])) / k) + 2
     
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
@@ -977,27 +981,27 @@ weight.mod <- function() {
   for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
     gamma_site[k] ~ dnorm(0, 1)
-    base[k] ~ dnorm(mean_base[k], inverse(sd_base[k]))
+    base[k] ~ dgamma(shape[k], rate[k])
+    shape[k] <- pow(mean_base[k], 2) / pow(sd_base[k], 2)
+    rate[k] <- mean_base[k] / pow(sd_base[k], 2)
   }
-  
-  fract ~ dnorm(3.4, 1)
 }
 
 ## Generate initial values for MCMC
 
-weight.mod.init <- function() {
+weight.mod.init <- function()
+{
   list(
     "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
     "gamma_site" = rnorm(3),
-    "fract" = rnorm(1, 3.4, 1),
-    "base" = rnorm(3)
+    "base" = rgamma(3, 1, 1)
   )
 }
+
 ## Keep track of parameters
 
-weight.mod.params <- c("alpha_species", "beta_TP", "gamma_site", "fract", 
-                       "base")
+weight.mod.param <- c("alpha_species", "beta_TP", "gamma_site", "base")
 
 ## Specify data
 
@@ -1010,7 +1014,6 @@ weight.mod.data <-
     species = as.integer(MPgutdata$species),
     nspecies = length(unique(MPgutdata$species)),
     site = as.integer(MPgutdata$site),
-    diff = MPgutdata$deltaN - MPgutdata$base_deltaN,
     nsite = length(unique(MPgutdata$site)),
     deltaN = MPgutdata$deltaN,
     mean_base = as.numeric(with(
@@ -1021,7 +1024,11 @@ weight.mod.data <-
     )),
     sd_base = as.numeric(with(
       MPgutdata, tapply(sd_base_deltaN, as.integer(site), mean)
-    ))
+    )),
+    beta_zero = 5.92,
+    beta_one = -0.27,
+    nit_lim = -beta_zero/beta_one,
+    k = -log((beta_zero - nit_lim)/(-nit_lim))
   )
 
 ## Run the model
@@ -1030,10 +1037,10 @@ weight.mod.run1 <- jags.parallel(
   inits = weight.mod.init,
   parameters.to.save = weight.mod.params,
   n.chains = 3,
-  n.cluster = 8,
-  n.iter = 7000,
+  n.cluster = 3,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 4,
   jags.seed = 3234,
   model = weight.mod
 )
@@ -1051,9 +1058,9 @@ weight.mod.run2 <- jags.parallel(
   parameters.to.save = weight.mod.params2,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 7000,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 4,
   jags.seed = 3234,
   model = weight.mod
 )
