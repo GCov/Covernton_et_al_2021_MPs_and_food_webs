@@ -848,7 +848,7 @@ ingested_animals <-
 rockfish_info <- 
   foodweb1 %>% 
   filter(animal.type == 'Rockfish' & sample.type == 'Rockfish') %>% 
-  select(1,2,15:28)
+  select(1,2,15:30)
 
 ingested_animals2 <-
   left_join(ingested_animals, rockfish_info, by = c('ID', 'site'))
@@ -903,7 +903,7 @@ foodweb3 <-
            arm.length, tissue.wet.weight, tissue.dry.weight, shell.weight,
            total.body.wet.weight, density.sep, species, carapace.length,
            TL, SL, sex, babies, parasites, trophic.position, base_deltaN,
-           sd_base_deltaN, deltaN) %>% 
+           sd_base_deltaN, deltaN, deltaC) %>% 
   summarize(adj.count = sum(adj.count),
             blank.mean = sum(blank.mean),
             orig.count = sum(count))
@@ -928,7 +928,7 @@ gutdata <-
   gutdata %>% 
   group_by(ID, particle.type, site, sample.type, TL,
            total.body.wet.weight, species, base_deltaN, sd_base_deltaN, deltaN,
-           trophic.position) %>% 
+           trophic.position, deltaC) %>% 
   summarize(adj.count = sum(adj.count),
             blank.mean = sum(blank.mean),
             orig.count = sum(orig.count),

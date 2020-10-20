@@ -960,6 +960,17 @@ nrow(fishgutdata)
 plot(TP.est ~ log(TL), data = fishgutdata)
 plot(log(TL) ~ species, data = fishgutdata)
 plot(orig.count ~ log(TL), data = fishgutdata)
+plot(orig.count ~ log(total.body.wet.weight), data = fishgutdata)
+
+ggplot(fishgutdata) +
+  geom_point(aes(x = log(TL),
+                 y = log(total.body.wet.weight),
+                 colour = species)) +
+  geom_smooth(aes(x = log(TL),
+                  y = log(total.body.wet.weight)),
+              method = 'lm') +
+  facet_grid(. ~ site)
+
 
 fishmodel1 <- function() {
   # Likelihood
@@ -972,7 +983,7 @@ fishmodel1 <- function() {
     
     log(lambda_true[i]) <-
       alpha_species[species[i]] +
-      beta_length[site[i]] * log(length[i]) +
+      beta_length[site[i]] * length[i] +
       gamma_site[site[i]]
     
     ## Fitted values
@@ -999,9 +1010,9 @@ fishmodel1 <- function() {
 fishmodel1init <- function()
 {
   list(
-    "sigma_species" = rexp(1),
     "beta_length" = rnorm(3),
-    "gamma_site" = rnorm(3)
+    "gamma_site" = rnorm(3),
+    "sigma_species" = rexp(1)
   )
 }
 
@@ -1020,7 +1031,7 @@ fishmodel1data <-
     nspecies = length(unique(fishgutdata$species)),
     site = as.integer(fishgutdata$site),
     nsite = length(unique(fishgutdata$site)),
-    length = fishgutdata$TL
+    length = as.numeric(scale(log(fishgutdata$TL), center = TRUE))
   )
 
 ## Run the model
@@ -1030,9 +1041,9 @@ fishrun1 <- jags.parallel(
   parameters.to.save = fishmodel1param,
   n.chains = 3,
   n.cluster = 3,
-  n.iter = 15000,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 2,
+  n.thin = 4,
   jags.seed = 3234,
   model = fishmodel1
 )
@@ -1050,9 +1061,9 @@ fishrun2 <- jags.parallel(
   parameters.to.save = fishmodel1param2,
   n.chains = 3,
   n.cluster = 8,
-  n.iter = 15000,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 2,
+  n.thin = 4,
   jags.seed = 3234,
   model = fishmodel1
 )
@@ -1072,7 +1083,8 @@ plot(check.fishmodel1)
 
 plotResiduals(check.fishmodel1, fishgutdata$site)
 plotResiduals(check.fishmodel1, fishgutdata$species)
-plotResiduals(check.fishmodel1, log(fishgutdata$TL))
+plotResiduals(check.fishmodel1, scale(log(fishgutdata$TL), 
+                                      center = TRUE))
 testZeroInflation(check.fishmodel1)
 testDispersion(check.fishmodel1)
 
@@ -1090,46 +1102,34 @@ extract.post <- function(x){
   long
 }
 
-run1long <- extract.post(run1)
+fishrun1long <- extract.post(fishrun1)
 
-run1long$variable <- mapvalues(run1long$variable,
-                               from = levels(run1long$variable),
-                               to = c("Cancer productus",
+fishrun1long$variable <- mapvalues(fishrun1long$variable,
+                               from = levels(fishrun1long$variable),
+                               to = c("Cymatogaster aggregata",
+                                      "Parophrys vetulus",
                                       "Platichthys stellatus",
-                                      "Protothaca staminea",
-                                      "Ruditapes philippinarum",
                                       "Sebastes caurinus",
                                       "Sebastes melanops",
-                                      "Cucumeria miniata",
-                                      "Cymatogaster aggregata",
-                                      "Dermasterias imbricata",
-                                      "Metacarcinus gracilis",
-                                      "Metacarcinus magister",
-                                      "Mytilus spp.",
-                                      "Parastichopus californicus",
-                                      "Parophrys vetulus",
-                                      "Coles Bay Base delta15N",
-                                      "Elliot Base delta15N",
-                                      "Victoria Harbour Base delta15N",
-                                      "Trophic Position:Coles Bay",
-                                      "Trophic Position:Elliot Bay",
-                                      "Trophic Position:Victoria Harbour",
+                                      "Total length (cm):Coles Bay",
+                                      "Total length (cm):Elliot Bay",
+                                      "Total length (cm):Victoria Harbour",
                                       "Coles Bay",
                                       "Elliott Bay",
                                       "Victoria Harbour"
                                ))
 
-run1long$order <- c(nrow(run1long):1)
+fishrun1long$order <- c(nrow(fishrun1long):1)
 
 png(
-  'MP Gut Model Posteriors.png',
+  'Fish Gut Body Size Model Posteriors.png',
   width = 16,
   height = 12,
   units = 'cm',
   res = 500
 )
 
-ggplot(run1long) +
+ggplot(fishrun1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
@@ -1144,7 +1144,7 @@ ggplot(run1long) +
     size = 0.25,
     colour = pal[3]
   ) +
-  coord_cartesian(xlim = c(-1.5, 13)) +
+  coord_cartesian(xlim = c(-4, 2.5)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1156,85 +1156,74 @@ dev.off()
 
 ## Extract 'true' estimate
 
-MPgutdata$true.est <- apply(run2$BUGSoutput$sims.list$true, 2, mean)
-MPgutdata$true.est.upper95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile, 
-                                    probs = 0.975)
-MPgutdata$true.est.lower95 <- apply(run2$BUGSoutput$sims.list$true, 2, quantile, 
-                                    probs = 0.025)
-MPgutdata$TP.est <- apply(run2$BUGSoutput$sims.list$TP, 2, mean)
-MPgutdata$TP.est.lower95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.025)
-MPgutdata$TP.est.upper95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.975)
-MPgutdata$TP.est.lower95 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.025)
-MPgutdata$TP.est.upper75 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.875)
-MPgutdata$TP.est.lower75 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.125)
-MPgutdata$TP.est.upper50 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.75)
-MPgutdata$TP.est.lower50 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.25)
-MPgutdata$TP.est.upper25 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.625)
-MPgutdata$TP.est.lower25 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
-                                  probs = 0.375)
+fishgutdata$true.est <-
+  apply(fishrun2$BUGSoutput$sims.list$true, 2, mean)
+fishgutdata$true.est.upper95 <-
+  apply(fishrun2$BUGSoutput$sims.list$true, 2,
+        quantile, probs = 0.975)
+fishgutdata$true.est.lower95 <-
+  apply(fishrun2$BUGSoutput$sims.list$true, 2,
+        quantile,
+        probs = 0.025)
 
 set.seed(5126)
 
-MPgutsim <- data.frame(
-  trophic.position = seq(
-    from = 1,
-    to = 5,
+fishgutsim <- data.frame(
+  length = seq(
+    from = 5,
+    to = 35,
     length.out = 2000
   ),
   site = sample(c(1:3),
                 2000,
                 replace = TRUE),
-  species = sample(c(1:14),
+  species = sample(c(1:5),
                    2000,
                    replace = TRUE),
-  blank.mean = sample(MPgutdata$blank.mean,
+  blank.mean = sample(fishgutdata$blank.mean,
                       2000,
                       replace = TRUE)
 )
 
+fishgutsim$length.stand <-
+  (log(fishgutsim$length) - log(mean(fishgutdata$TL))) /
+  sd(log(fishgutsim$length) - log(mean(fishgutdata$TL)))
+
 for(i in 1:2000){
   lambda_true <-
     exp(
-      run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]]*
-        MPgutsim$trophic.position[i] +
-        run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]]
+      fishrun1$BUGSoutput$sims.list$beta_length[, fishgutsim$site[i]]*
+        fishgutsim$length.stand[i] +
+        fishrun1$BUGSoutput$sims.list$gamma_site[, fishgutsim$site[i]]
     )
-  lambda_blanks = MPgutsim$blank.mean[i]
+  lambda_blanks = fishgutsim$blank.mean[i]
   lambda_y <- lambda_true + lambda_blanks
   true <- as.numeric(rpois(lambda_true, lambda_true))
   y <- as.numeric(rpois(lambda_y, lambda_y))
-  MPgutsim$mean[i] <- mean(lambda_true)
-  MPgutsim$upper25[i] <- quantile(lambda_true, 0.625)
-  MPgutsim$lower25[i] <- quantile(lambda_true, 0.375)
-  MPgutsim$upper50[i] <- quantile(lambda_true, 0.75)
-  MPgutsim$lower50[i] <- quantile(lambda_true, 0.25)
-  MPgutsim$upper75[i] <- quantile(lambda_true, 0.875)
-  MPgutsim$lower75[i] <- quantile(lambda_true, 0.125)
-  MPgutsim$upper95[i] <- quantile(lambda_true, 0.975)
-  MPgutsim$lower95[i] <- quantile(lambda_true, 0.025)
-  MPgutsim$yupper95[i] <- quantile(y, 0.975)
-  MPgutsim$ylower95[i] <- quantile(y, 0.025)
+  fishgutsim$mean[i] <- mean(lambda_true)
+  fishgutsim$upper25[i] <- quantile(lambda_true, 0.625)
+  fishgutsim$lower25[i] <- quantile(lambda_true, 0.375)
+  fishgutsim$upper50[i] <- quantile(lambda_true, 0.75)
+  fishgutsim$lower50[i] <- quantile(lambda_true, 0.25)
+  fishgutsim$upper75[i] <- quantile(lambda_true, 0.875)
+  fishgutsim$lower75[i] <- quantile(lambda_true, 0.125)
+  fishgutsim$upper95[i] <- quantile(lambda_true, 0.975)
+  fishgutsim$lower95[i] <- quantile(lambda_true, 0.025)
+  fishgutsim$yupper95[i] <- quantile(y, 0.975)
+  fishgutsim$ylower95[i] <- quantile(y, 0.025)
 }
 
-MPgutsim$site <- as.factor(MPgutsim$site)
+fishgutsim$site <- as.factor(fishgutsim$site)
 
-MPgutsim$site <- mapvalues(MPgutsim$site,
-                           from = levels(MPgutsim$site),
+fishgutsim$site <- mapvalues(fishgutsim$site,
+                           from = levels(fishgutsim$site),
                            to = c("Coles Bay",
                                   "Elliot Bay",
                                   "Victoria Harbour"))
 
 #### Plot predictions ####
 
-tiff('Trophic Position MP Bayesian Plot.tiff',
+tiff('Body Size Fish Bayesian Plot.tiff',
      res = 500,
      width = 16,
      height = 12,
@@ -1242,113 +1231,57 @@ tiff('Trophic Position MP Bayesian Plot.tiff',
      pointsize = 12)
 
 ggplot() +
-  geom_ribbon(data = MPgutsim,
-              aes(x = trophic.position,
+  geom_ribbon(data = fishgutsim,
+              aes(x = length,
                   ymax = upper95,
                   ymin = lower95),
               alpha = 0.05,
               size = 0.5,
               fill = pal[1]) +
-  geom_ribbon(data = MPgutsim,
-              aes(x = trophic.position,
+  geom_ribbon(data = fishgutsim,
+              aes(x = length,
                   ymax = upper75,
                   ymin = lower75),
               alpha = 0.25,
               size = 0.5,
               fill = pal[1]) +
-  geom_ribbon(data = MPgutsim,
-              aes(x = trophic.position,
+  geom_ribbon(data = fishgutsim,
+              aes(x = length,
                   ymax = upper50,
                   ymin = lower50),
               alpha = 0.5,
               size = 0.5,
               fill = pal[1]) +
-  geom_ribbon(data = MPgutsim,
-              aes(x = trophic.position,
+  geom_ribbon(data = fishgutsim,
+              aes(x = length,
                   ymax = upper25,
                   ymin = lower25),
               alpha = 0.75,
               size = 0.5,
               fill = pal[1],
               colour = pal[1]) +
-  geom_line(data = MPgutsim,
-            aes(x = trophic.position,
+  geom_line(data = fishgutsim,
+            aes(x = length,
                 y = mean),
             size = 0.5,
             colour = pal[4],
             alpha = 0.3) +
-  geom_point(data = MPgutdata,
-             aes(x = TP.est,
+  geom_point(data = fishgutdata,
+             aes(x = TL,
                  y = orig.count),
              size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
-  geom_point(data = MPgutdata,
-             aes(x = TP.est,
+  geom_point(data = fishgutdata,
+             aes(x = TL,
                  y = true.est),
              size = 1.5, shape = 1, alpha = 0.5, colour = pal[3]) +
   facet_wrap(~ site) +
-  labs(x = 'Trophic Position',
+  scale_x_continuous(trans = 'log1p',
+                     breaks = c(5, 10, 20, 35),
+                     expand = c(0, 0)) +
+  labs(x = 'Total Length (cm)',
        y = expression(paste('Particles '*ind^-1))) +
-  coord_cartesian(xlim = c(1, 5)) +
-  scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(limits = c(0, 12),
-                     expand = c(0, 0.1)) +
-  theme1
-
-dev.off()
-
-## Trophic position uncertainty by species
-
-MPgutsim$species <- as.factor(MPgutsim$species)
-
-MPgutsim$species <- mapvalues(
-  MPgutsim$species,
-  from = levels(MPgutsim$species),
-  to = c(
-    "Cancer productus",
-    "Cucumeria miniata",
-    "Cymatogaster aggregata",
-    "Dermasterias imbricata",
-    "Metacarcinus gracilis",
-    "Metacarcinus magister",
-    "Mytilus spp.",
-    "Parastichopus californicus",
-    "Parophrys vetulus",
-    "Platichthys stellatus",
-    "Protothaca staminea",
-    "Ruditapes philippinarum",
-    "Sebastes caurinus",
-    "Sebastes melanops"
-  )
-)
-
-tiff('Trophic Position Uncertainty Plot.tiff',
-     res = 500,
-     width = 9,
-     height = 12,
-     units = 'cm',
-     pointsize = 12)
-
-ggplot(MPgutdata) +
-  geom_pointrange(aes(x = reorder(species, TP.est, mean),
-                      y = TP.est,
-                      ymin = TP.est.lower95,
-                      ymax = TP.est.upper95),
-                  position = position_jitter(height = 0,
-                                             width = 0.5),
-                  size = 0.5,
-                  fatten = 0.25,
-                  shape = 1,
-                  alpha = 0.5,
-                  colour = pal[5]) +
-  facet_wrap(~ site, ncol = 1) +
-  labs(x = 'Site',
-       y = "Trophic Position") +
   theme1 +
-  theme(axis.text.x = element_text(angle = 55,
-                                   hjust = 1),
-        panel.grid.major.x = element_line(colour = pal[4],
-                                          size = 0.2,
-                                          linetype = 'dashed'))
+  theme(panel.spacing = unit(0.5, "cm"))
 
 dev.off()
 

@@ -103,7 +103,8 @@ isotopes$trophic.position <-
 isotopes2 <-
   isotopes %>% 
   group_by(ID, site, base_deltaN, sd_base_deltaN) %>% 
-  summarize(deltaN = mean(deltaN))
+  summarize(deltaN = mean(deltaN),
+            deltaC = mean(deltaC))
 
 isotopes2$trophic.position <-
   with(isotopes2,
