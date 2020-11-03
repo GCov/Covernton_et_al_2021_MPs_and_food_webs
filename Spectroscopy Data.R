@@ -934,3 +934,17 @@ gutdata <-
             orig.count = sum(orig.count),
             tissue.weight = sum(tissue.dry.weight))
 
+liverdata <-subset(foodweb3,
+                   sample.type == 'Surfperch Livers' |
+                     sample.type == 'Flatfish Livers' |
+                     sample.type == 'Rockfish Livers')
+
+liverdata <-
+  liverdata %>% 
+  group_by(ID, particle.type, site, sample.type, TL,
+           total.body.wet.weight, species, base_deltaN, sd_base_deltaN, deltaN,
+           trophic.position, deltaC) %>% 
+  summarize(adj.count = sum(adj.count),
+            blank.mean = sum(blank.mean),
+            orig.count = sum(orig.count),
+            tissue.weight = sum(tissue.dry.weight))
