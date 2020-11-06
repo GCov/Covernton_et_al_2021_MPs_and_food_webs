@@ -19,15 +19,11 @@ extract.post <- function(x){
   long
 }
 
-pal <- c("#FFC857",  # Maximum yellow red
-         "#E9724C",  # Burnt sienna
-         "#C5283D",  # Cardinal
-         "#481D24",  # Dark sienna
-         "#255F85")  # Blue sapphire
+pal <- c("#0f0a0a","#f5efed","#2292a4","#bdbf09","#d96c06")
 
 #### Plankton tow model ####
 
-PTdata_synth <- subset(PT_data3, particle.type == "Synthetic Polymer")
+PTdata_synth <- subset(PT_data2, particle.type == "Synthetic Polymer")
 PTdata_synth$particle.type <- as.character(PTdata_synth$particle.type)
 PTdata_synth$particle.type <- as.factor(PTdata_synth$particle.type)
 PTdata_synth$site <- as.character(PTdata_synth$site)
@@ -70,7 +66,7 @@ PTmodparam <- c("alpha_site")
 
 PTmoddata <-
   list(
-    y = PTdata_synth$orig.count,
+    y = PTdata_synth$count,
     N = nrow(PTdata_synth),
     lambda_blanks = PTdata_synth$blank.mean,
     site = as.integer(PTdata_synth$site),
@@ -83,7 +79,7 @@ PTmodrun1 <- jags.parallel(
   inits = PTmodinit,
   parameters.to.save = PTmodparam,
   n.chains = 3,
-  n.cluster = 8,
+  n.cluster = 16,
   n.iter = 2000,
   n.burnin = 500,
   n.thin = 1,
@@ -103,7 +99,7 @@ PTmodrun2 <- jags.parallel(
   inits = PTmodinit,
   parameters.to.save = PTmodparam2,
   n.chains = 3,
-  n.cluster = 8,
+  n.cluster = 16,
   n.iter = 2000,
   n.burnin = 500,
   n.thin = 1,
@@ -112,7 +108,7 @@ PTmodrun2 <- jags.parallel(
 )
 
 PTmod.response <- t(PTmodrun2$BUGSoutput$sims.list$fitted)
-PTmod.observed <- PTdata_synth$orig.count
+PTmod.observed <- PTdata_synth$count
 PTmod.fitted <- apply(t(PTmodrun2$BUGSoutput$sims.list$lambda_y),
                       1,
                       median)
@@ -154,8 +150,8 @@ ggplot(PTmodrun1long) +
   geom_density_ridges(
     aes(x = exp(value),
         y = reorder(variable, order, mean)),
-    fill = pal[5],
-    colour = pal[5],
+    fill = pal[3],
+    colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -163,10 +159,57 @@ ggplot(PTmodrun1long) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
-  theme1
-
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]))
 dev.off()
 
+
+#### Demonstrate Process ####
+
+PTmodrun2fitted <- 
+  melt(data.frame(PTmodrun2$BUGSoutput$sims.list$fitted))
+
+PTmodrun2fitted$blanks <- 
+  rpois(PTdata_synth$blank.mean, 
+                                PTdata_synth$blank.mean)
+
+PTmodrun2fitted$true <- 
+  melt(data.frame(PTmodrun2$BUGSoutput$sims.list$true))$value
+
+ggplot(PTmodrun2fitted) +
+  geom_density_ridges(
+    aes(x = true,
+        y = variable,
+        scale = 1),
+    fill = pal[3],
+    colour = pal[1],
+    alpha = 0.5,
+    size = 0.25
+  ) +
+  geom_point(
+    data = PTdata_synth,
+    aes(x = blank.mean,
+        y = c(1:15)),
+    colour = pal[5],
+    size = 2
+  ) +
+  geom_point(
+    data = PTdata_synth,
+    aes(x = count,
+        y = c(1:15)),
+    colour = pal[1],
+    size = 2
+  ) +
+  scale_x_continuous(expand = c(0, 0),
+                     limits = c(0, 18)) +
+  labs(x = "Microplastic Particle Count",
+       y = "Sample") +
+  theme1 +
+  theme(
+    panel.background = element_rect(fill = "white"),
+    plot.background = element_rect(fill = pal[2])
+  )
 
 #### Predictions ####
 
@@ -233,37 +276,37 @@ ggplot() +
                   ymin = lower95),
               alpha = 0.05,
               size = 0.5,
-              colour = pal[3]) +
+              colour = pal[1]) +
   geom_linerange(data = PT_sim,
               aes(x = site,
                   ymax = upper75,
                   ymin = lower75),
               alpha = 0.25,
               size = 0.5,
-              colour = pal[3]) +
+              colour = pal[1]) +
   geom_linerange(data = PT_sim,
               aes(x = site,
                   ymax = upper50,
                   ymin = lower50),
               alpha = 0.5,
               size = 0.5,
-              colour = pal[3]) +
+              colour = pal[1]) +
   geom_linerange(data = PT_sim,
               aes(x = site,
                   ymax = upper25,
                   ymin = lower25),
               alpha = 0.75,
               size = 0.5,
-              colour = pal[3]) +
+              colour = pal[1]) +
   geom_point(data = PT_sim,
             aes(x = site,
                 y = mean),
             size = 2,
-            colour = pal[4],) +
+            colour = pal[1],) +
   geom_jitter(data = PTdata_synth,
              aes(x = site,
-                 y = orig.count),
-             size = 0.75, shape = 1, alpha = 0.8, colour = pal[5],
+                 y = count),
+             size = 0.75, shape = 1, colour = pal[5],
              height = 0) +
   labs(x = 'Site',
        y = expression(paste('Particles '*L^-1))) +
@@ -272,14 +315,16 @@ ggplot() +
                      breaks = seq(from = 0,
                                   to = 10,
                                   by = 2)) +
-  theme1
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]))
 
 dev.off()
 
 
 #### Plankton jar model ####
 
-PJdata_synth <- subset(PJ_data3, particle.type == "Synthetic Polymer")
+PJdata_synth <- subset(PJ_data2, particle.type == "Synthetic Polymer")
 PJdata_synth$particle.type <- as.character(PJdata_synth$particle.type)
 PJdata_synth$particle.type <- as.factor(PJdata_synth$particle.type)
 PJdata_synth$site <- as.character(PJdata_synth$site)
@@ -322,7 +367,7 @@ PJmodparam <- c("alpha_site")
 
 PJmoddata <-
   list(
-    y = PJdata_synth$orig.count,
+    y = PJdata_synth$count,
     N = nrow(PJdata_synth),
     lambda_blanks = PJdata_synth$blank.mean,
     site = as.integer(PJdata_synth$site),
@@ -335,7 +380,7 @@ PJmodrun1 <- jags.parallel(
   inits = PJmodinit,
   parameters.to.save = PJmodparam,
   n.chains = 3,
-  n.cluster = 8,
+  n.cluster = 16,
   n.iter = 2000,
   n.burnin = 500,
   n.thin = 1,
@@ -355,7 +400,7 @@ PJmodrun2 <- jags.parallel(
   inits = PJmodinit,
   parameters.to.save = PJmodparam2,
   n.chains = 3,
-  n.cluster = 8,
+  n.cluster = 16,
   n.iter = 2000,
   n.burnin = 500,
   n.thin = 1,
@@ -364,7 +409,7 @@ PJmodrun2 <- jags.parallel(
 )
 
 PJmod.response <- t(PJmodrun2$BUGSoutput$sims.list$fitted)
-PJmod.observed <- PJdata_synth$orig.count
+PJmod.observed <- PJdata_synth$count
 PJmod.fitted <- apply(t(PJmodrun2$BUGSoutput$sims.list$lambda_y),
                       1,
                       median)
@@ -485,46 +530,48 @@ ggplot() +
                      ymin = lower95),
                  alpha = 0.05,
                  size = 0.5,
-                 colour = pal[3]) +
+                 colour = pal[1]) +
   geom_linerange(data = PJ_sim,
                  aes(x = site,
                      ymax = upper75,
                      ymin = lower75),
                  alpha = 0.25,
                  size = 0.5,
-                 colour = pal[3]) +
+                 colour = pal[1]) +
   geom_linerange(data = PJ_sim,
                  aes(x = site,
                      ymax = upper50,
                      ymin = lower50),
                  alpha = 0.5,
                  size = 0.5,
-                 colour = pal[3]) +
+                 colour = pal[1]) +
   geom_linerange(data = PJ_sim,
                  aes(x = site,
                      ymax = upper25,
                      ymin = lower25),
                  alpha = 0.75,
                  size = 0.5,
-                 colour = pal[3]) +
+                 colour = pal[1]) +
   geom_point(data = PJ_sim,
              aes(x = site,
                  y = mean),
              size = 2,
-             colour = pal[4],) +
+             colour = pal[1],) +
   geom_jitter(data = PJdata_synth,
               aes(x = site,
-                  y = orig.count),
-              size = 0.75, shape = 1, alpha = 0.8, colour = pal[5],
+                  y = count),
+              size = 0.75, shape = 1, colour = pal[5],
               height = 0) +
   labs(x = 'Site',
        y = expression(paste('Particles '*L^-1))) +
-  scale_y_continuous(limits = c(0, 8),
+  scale_y_continuous(limits = c(0, 10),
                      expand = c(0, 0.1),
                      breaks = seq(from = 0,
-                                  to = 8,
+                                  to = 10,
                                   by = 2)) +
-  theme1
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]))
 
 dev.off()
 
@@ -605,7 +652,7 @@ k <- -log((beta_zero - nit_lim)/(-nit_lim))
 
 model1data <-
   list(
-    y = MPgutdata$orig.count,
+    y = MPgutdata$count,
     N = nrow(MPgutdata),
     lambda_blanks = MPgutdata$blank.mean,
     species = as.integer(MPgutdata$species),
@@ -636,9 +683,9 @@ run1 <- jags.parallel(
   parameters.to.save = model1param,
   n.chains = 3,
   n.cluster = 3,
-  n.iter = 5000,
+  n.iter = 7000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 2,
   jags.seed = 3234,
   model = model1
 )
@@ -655,16 +702,16 @@ run2 <- jags.parallel(
   inits = model1init,
   parameters.to.save = model1param2,
   n.chains = 3,
-  n.cluster = 8,
-  n.iter = 5000,
+  n.cluster = 16,
+  n.iter = 7000,
   n.burnin = 500,
-  n.thin = 4,
+  n.thin = 2,
   jags.seed = 3234,
   model = model1
 )
 
 model1.response <- t(run2$BUGSoutput$sims.list$fitted)
-model1.observed <- MPgutdata$orig.count
+model1.observed <- MPgutdata$count
 model1.fitted <- apply(t(run2$BUGSoutput$sims.list$lambda_y),
                          1,
                          median)
@@ -730,7 +777,7 @@ ggplot(run1long) +
     aes(x = value,
         y = reorder(variable, order, mean)),
     fill = pal[5],
-    colour = pal[5],
+    colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -875,7 +922,7 @@ ggplot() +
             alpha = 0.3) +
   geom_point(data = MPgutdata,
                aes(x = TP.est,
-                 y = orig.count),
+                 y = count),
              size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
   geom_linerange(data = MPgutdata,
                  aes(x = TP.est,
@@ -970,8 +1017,8 @@ nrow(fishgutdata)
 
 plot(TP.est ~ TL, data = fishgutdata)
 plot(TL ~ species, data = fishgutdata)
-plot(orig.count ~ TL, data = fishgutdata)
-plot(orig.count ~ log(total.body.wet.weight), data = fishgutdata)
+plot(count ~ TL, data = fishgutdata)
+plot(count ~ log(total.body.wet.weight), data = fishgutdata)
 
 ggplot(fishgutdata) +
   geom_point(aes(x = log(TL),
@@ -1035,7 +1082,7 @@ fishmodel1param <- c("alpha_species", "beta_length", "gamma_site")
 
 fishmodel1data <-
   list(
-    y = fishgutdata$orig.count,
+    y = fishgutdata$count,
     N = nrow(fishgutdata),
     lambda_blanks = fishgutdata$blank.mean,
     species = as.integer(fishgutdata$species),
@@ -1071,7 +1118,7 @@ fishrun2 <- jags.parallel(
   inits = fishmodel1init,
   parameters.to.save = fishmodel1param2,
   n.chains = 3,
-  n.cluster = 8,
+  n.cluster = 16,
   n.iter = 5000,
   n.burnin = 500,
   n.thin = 1,
@@ -1080,7 +1127,7 @@ fishrun2 <- jags.parallel(
 )
 
 fishmodel1.response <- t(fishrun2$BUGSoutput$sims.list$fitted)
-fishmodel1.observed <- fishgutdata$orig.count
+fishmodel1.observed <- fishgutdata$count
 fishmodel1.fitted <- apply(t(fishrun2$BUGSoutput$sims.list$lambda_y),
                        1,
                        median)
@@ -1268,7 +1315,7 @@ ggplot() +
             alpha = 0.3) +
   geom_point(data = fishgutdata,
              aes(x = TL,
-                 y = orig.count),
+                 y = count),
              size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
   geom_linerange(data = fishgutdata,
                  aes(x = TL,
@@ -1362,10 +1409,10 @@ liver.mod.params <- c("alpha_species", "beta_TP", "gamma_site", "base")
 
 liver.mod.data <-
   list(
-    y = MPliverdata$orig.count,
+    y = MPliverdata$count,
     N = nrow(MPliverdata),
     lambda_blanks = MPliverdata$blank.mean,
-    weight = MPliverdata$tissue.weight,
+    weight = MPliverdata$tissue.wet.weight,
     species = as.integer(MPliverdata$species),
     nspecies = length(unique(MPliverdata$species)),
     site = as.integer(MPliverdata$site),
@@ -1392,10 +1439,10 @@ liver.mod.run1 <- jags.parallel(
   inits = liver.mod.init,
   parameters.to.save = liver.mod.params,
   n.chains = 3,
-  n.cluster = 8,
-  n.iter = 5000,
+  n.cluster = 16,
+  n.iter = 7000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 2,
   jags.seed = 3234,
   model = liver.mod
 )
@@ -1412,7 +1459,7 @@ liver.mod.run2 <- jags.parallel(
   inits = liver.mod.init,
   parameters.to.save = liver.mod.params2,
   n.chains = 3,
-  n.cluster = 8,
+  n.cluster = 16,
   n.iter = 5000,
   n.burnin = 500,
   n.thin = 4,
@@ -1421,7 +1468,7 @@ liver.mod.run2 <- jags.parallel(
 )
 
 liver.mod.response <- t(liver.mod.run2$BUGSoutput$sims.list$fitted)
-liver.mod.observed <- MPliverdata$orig.count
+liver.mod.observed <- MPliverdata$count
 liver.mod.fitted <- apply(t(liver.mod.run2$BUGSoutput$sims.list$lambda_y),
                            1,
                            median)
@@ -1666,7 +1713,7 @@ ggplot() +
     data = MPliverdata,
     aes(
       x = TP.est,
-      y = true.est / tissue.weight,
+      y = true.est / tissue.wet.weight,
       colour = species
     ),
     size = 1,

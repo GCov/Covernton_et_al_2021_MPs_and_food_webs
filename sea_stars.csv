@@ -72,62 +72,62 @@ EBSS15,Elliot Bay,Sea Stars,NA,NP,>150,NA,NA,NA,NA,,,20,NA
 EBSSB1,Elliot Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,20,NA
 EBSSB2,Elliot Bay,Blanks,NA,NP,>150,NA,NA,NA,NA,,,20,NA
 EBSSB3,Elliot Bay,Blanks,380,NP,>150,fibre,orange,1572.55,yes,,Cellulose,20,S
-EBSS1,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS2,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS4,Elliot Bay,Sea Stars,506,NP,1-150,fibre,black,606.78,yes,,Cellulose,21,N
-EBSS6,Elliot Bay,Sea Stars,507,NP,1-150,fibre,clear,527.75,yes,,Polyester,21,S
-EBSS7,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS8,Elliot Bay,Sea Stars,#838,NP,1-150,fibre,black,381.51,no,dropped,,21,S
-EBSS9,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS11 (1/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS11 (2/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS11 (3/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS13,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSS15,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSSPB2,Elliot Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-EBSSPB3,Elliot Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,21,NA
-CBSS1,Coles Bay,Sea Stars,508,NP,1-150,fibre,black,426.89,yes,,Cellulose,22,N
-CBSS2,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,NA,NA,NA,NA
-CBSS5,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,NA,NA,NA,NA
-CBSS7,Coles Bay,Sea Stars,509,NP,1-150,fibre,purple,990.48,yes,,Polyester,22,N
-CBSS8 (1/4),Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22,NA
-CBSS8 (2/4),Coles Bay,Sea Stars,510,NP,1-150,fibre,clear,728.15,yes,,Polyester,22,S
+EBSS1,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS2,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS4,Elliot Bay,Sea Stars,506,NP,1-150,fibre,black,606.78,yes,,Cellulose,20,N
+EBSS6,Elliot Bay,Sea Stars,507,NP,1-150,fibre,clear,527.75,yes,,Polyester,20,S
+EBSS7,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS8,Elliot Bay,Sea Stars,#838,NP,1-150,fibre,black,381.51,no,dropped,,20,S
+EBSS9,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS11 (1/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS11 (2/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS11 (3/3),Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS13,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSS15,Elliot Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSSPB2,Elliot Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+EBSSPB3,Elliot Bay,Blanks,NA,NP,1-150,NA,NA,NA,NA,,,20,NA
+CBSS1,Coles Bay,Sea Stars,508,NP,1-150,fibre,black,426.89,yes,,Cellulose,19,N
+CBSS2,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,NA,NA,19,NA
+CBSS5,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,NA,NA,19,NA
+CBSS7,Coles Bay,Sea Stars,509,NP,1-150,fibre,purple,990.48,yes,,Polyester,19,N
+CBSS8 (1/4),Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,19,NA
+CBSS8 (2/4),Coles Bay,Sea Stars,510,NP,1-150,fibre,clear,728.15,yes,,Polyester,19,S
 CBSS8 (2/4),Coles Bay,Sea Stars,511,NP,1-150,fibre,clear,1599.73,yes,"Looks like rayon and good match with modal
-",Rayon,22,S
-CBSS8 (2/4),Coles Bay,Sea Stars,512,NP,1-150,fragment,rainbow,554.79,yes,,Styrene copolymer,22,S
-CBSS8 (2/4),Coles Bay,Sea Stars,513,NP,1-150,fibre,blue,649.07,yes,,Polyester,22,S
-CBSS8 (2/4),Coles Bay,Sea Stars,514,NP,1-150,fibre,clear,1271.07,yes,,Polyester,22,S
-CBSS8 (3/4),Coles Bay,Sea Stars,515,NP,1-150,fibre,clear,4144.19,yes,"Can't get a good spectra, but physically looks like wool",Unknown,22,S
-CBSS8 (4/4),Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22,NA
-CBSS9,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22,NA
-CBSS10,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22,NA
-CBSS11,Coles Bay,Sea Stars,516,NP,1-150,fibre,black,511.45,yes,,Polyester,22,S
-CBSS13,Coles Bay,Sea Stars,517,NP,1-150,fibre,red,430.76,yes,,Cellulose,22,S
-CBSS14,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22,NA
-CBSS15,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,22,NA
-CBSS16,Coles Bay,Sea Stars,518,NP,1-150,fibre,clear,491.08,yes,,Polyester,22,S
-CBSSPB2,Coles Bay,Blanks,519,NP,1-150,fibre,clear,322.84,yes,,Cellulose,22,S
-CBSSPB2,Coles Bay,Blanks,520,NP,1-150,fibre,black,743.74,yes,,Polyester,22,S
-CBSSPB3,Coles Bay,Blanks,521,NP,1-150,fibre,black,1297.58,yes,,Polyester,22,S
-EBSS3,Elliot Bay,Sea Stars,1036,BB,1-150,fiber,black,1390.08,yes,,,21,S
-EBSS3,Elliot Bay,Sea Stars,1037,BB,1-150,fiber,blue,526.32,yes,,,21,N
-EBSS3,Elliot Bay,Sea Stars,1038,BB,1-150,fiber,blue,2202.7,yes,,,21,N
-EBSS5,Elliot Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,21,NA
-EBSS10-1,Elliot Bay,Sea Stars,,BB,1-150,fragment,red,111.86,no,crumbled when picked up,,21,S
-EBSS10-2,Elliot Bay,Sea Stars,1039,BB,1-150,fiber,blue,988.65,yes,,,21,N
-EBSS10-3,Elliot Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,21,NA
-EBSS12,Elliot Bay,Sea Stars,1040,BB,1-150,fiber,blue,1005.46,yes,,,21,N
-EBSS14,Elliot Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,21,NA
-EBSSPB1,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,21,NA
-CBSS3 1/2,Coles Bay,Sea Stars,1041,BB,1-150,fiber,green,886.83,yes,,,22,S
-CBSS3 1/2,Coles Bay,Sea Stars,1042,BB,1-150,fiber,black,386.87,yes,,,22,S
-CBSS3 1/2,Coles Bay,Sea Stars,1043,BB,1-150,fiber,black,2974.01,yes,,,22,S
-CBSS3 1/2,Coles Bay,Sea Stars,1044,BB,1-150,fiber,red,2084.79,yes,,,22,S
-CBSS3 2/2,Coles Bay,Sea Stars,1045,BB,1-150,fiber,red,531,yes,,,22,N
-CBSS3 2/2,Coles Bay,Sea Stars,1046,BB,1-150,fiber,blue,2122.81,yes,,,22,N
-CBSS4,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,22,NA
-CBSS6-1,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,22,NA
-CBSS6-2,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,22,NA
-CBSS12,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,22,NA
-CBSS15,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,22,NA
-CBSSPB1,Coles Bay,Blanks,1047,BB,1-150,fiber,blue,534.47,yes,,,22,N
+",Rayon,19,S
+CBSS8 (2/4),Coles Bay,Sea Stars,512,NP,1-150,fragment,rainbow,554.79,yes,,Styrene copolymer,19,S
+CBSS8 (2/4),Coles Bay,Sea Stars,513,NP,1-150,fibre,blue,649.07,yes,,Polyester,19,S
+CBSS8 (2/4),Coles Bay,Sea Stars,514,NP,1-150,fibre,clear,1271.07,yes,,Polyester,19,S
+CBSS8 (3/4),Coles Bay,Sea Stars,515,NP,1-150,fibre,clear,4144.19,yes,"Can't get a good spectra, but physically looks like wool",Unknown,19,S
+CBSS8 (4/4),Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,19,NA
+CBSS9,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,19,NA
+CBSS10,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,19,NA
+CBSS11,Coles Bay,Sea Stars,516,NP,1-150,fibre,black,511.45,yes,,Polyester,19,S
+CBSS13,Coles Bay,Sea Stars,517,NP,1-150,fibre,red,430.76,yes,,Cellulose,19,S
+CBSS14,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,19,NA
+CBSS15,Coles Bay,Sea Stars,NA,NP,1-150,NA,NA,NA,NA,,,19,NA
+CBSS16,Coles Bay,Sea Stars,518,NP,1-150,fibre,clear,491.08,yes,,Polyester,19,S
+CBSSPB2,Coles Bay,Blanks,519,NP,1-150,fibre,clear,322.84,yes,,Cellulose,19,S
+CBSSPB2,Coles Bay,Blanks,520,NP,1-150,fibre,black,743.74,yes,,Polyester,19,S
+CBSSPB3,Coles Bay,Blanks,521,NP,1-150,fibre,black,1297.58,yes,,Polyester,19,S
+EBSS3,Elliot Bay,Sea Stars,1036,BB,1-150,fiber,black,1390.08,yes,,,20,S
+EBSS3,Elliot Bay,Sea Stars,1037,BB,1-150,fiber,blue,526.32,yes,,,20,N
+EBSS3,Elliot Bay,Sea Stars,1038,BB,1-150,fiber,blue,2202.7,yes,,,20,N
+EBSS5,Elliot Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,20,NA
+EBSS10-1,Elliot Bay,Sea Stars,,BB,1-150,fragment,red,111.86,no,crumbled when picked up,,20,S
+EBSS10-2,Elliot Bay,Sea Stars,1039,BB,1-150,fiber,blue,988.65,yes,,,20,N
+EBSS10-3,Elliot Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,20,NA
+EBSS12,Elliot Bay,Sea Stars,1040,BB,1-150,fiber,blue,1005.46,yes,,,20,N
+EBSS14,Elliot Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,20,NA
+EBSSPB1,Elliot Bay,Blanks,NA,BB,1-150,NA,NA,NA,NA,,,20,NA
+CBSS3 1/2,Coles Bay,Sea Stars,1041,BB,1-150,fiber,green,886.83,yes,,,19,S
+CBSS3 1/2,Coles Bay,Sea Stars,1042,BB,1-150,fiber,black,386.87,yes,,,19,S
+CBSS3 1/2,Coles Bay,Sea Stars,1043,BB,1-150,fiber,black,2974.01,yes,,,19,S
+CBSS3 1/2,Coles Bay,Sea Stars,1044,BB,1-150,fiber,red,2084.79,yes,,,19,S
+CBSS3 2/2,Coles Bay,Sea Stars,1045,BB,1-150,fiber,red,531,yes,,,19,N
+CBSS3 2/2,Coles Bay,Sea Stars,1046,BB,1-150,fiber,blue,2122.81,yes,,,19,N
+CBSS4,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,19,NA
+CBSS6-1,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,19,NA
+CBSS6-2,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,19,NA
+CBSS12,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,19,NA
+CBSS15,Coles Bay,Sea Stars,NA,BB,1-150,NA,NA,NA,NA,,,19,NA
+CBSSPB1,Coles Bay,Blanks,1047,BB,1-150,fiber,blue,534.47,yes,,,19,N

@@ -455,6 +455,15 @@ full_spec_data2 <- left_join(all_types2,
                                     'particle.type', 
                                     'size.fraction'))
 
+summary(full_spec_data2$sample.type)
+
+full_spec_data2$sample.type <-
+  mapvalues(full_spec_data2$sample.type,
+            from = c("Rockfish Gut",
+                     "Rockfish Gut Animals"),
+            to = c("Rockfish Guts",
+                   "Rockfish: Ingested Animals"))
+
 #### Blank subtract ####
 
 ## Summarize by particle type
@@ -465,10 +474,7 @@ PT_particle_type <-
   PT2 %>%
   group_by(ID,
            site,
-           shape,
            sample.type,
-           size.fraction,
-           colour,
            blank.match,
            particle.type,
            sample.volume) %>%
@@ -480,10 +486,7 @@ PJ_particle_type <-
   PJ2 %>%
   group_by(ID,
            site,
-           shape,
            sample.type,
-           size.fraction,
-           colour,
            blank.match,
            particle.type) %>%
   summarize(count = sum(num))  # plankton jars
@@ -494,10 +497,7 @@ animals_particle_type <-
   full_spec_data2 %>%
   group_by(ID,
            site,
-           shape,
            sample.type,
-           size.fraction,
-           colour,
            blank.match,
            particle.type) %>%
   summarize(count = sum(num))  # animal data
@@ -541,7 +541,7 @@ PT_data2 <-
 
 PT_data2$blank.mean[is.na(PT_data2$blank.mean)] <- 0
 
-PT_data2$adj.count <- ceiling(with(PT_data2, count - blank.mean))
+PT_data2$adj.count <- floor(with(PT_data2, count - blank.mean))
 PT_data2$adj.count[PT_data2$adj.count < 0] <- 0
 
 # plankton jars
@@ -553,7 +553,7 @@ PJ_data2 <-
 
 PJ_data2$blank.mean[is.na(PJ_data2$blank.mean)] <- 0
 
-PJ_data2$adj.count <- ceiling(with(PJ_data2, count - blank.mean))
+PJ_data2$adj.count <- floor(with(PJ_data2, count - blank.mean))
 PJ_data2$adj.count[PJ_data2$adj.count < 0] <- 0
 
 # animal data
@@ -565,7 +565,7 @@ animal_data2 <-
 
 animal_data2$blank.mean[is.na(animal_data2$blank.mean)] <- 0
 
-animal_data2$adj.count <- ceiling(with(animal_data2, count - blank.mean))
+animal_data2$adj.count <- floor(with(animal_data2, count - blank.mean))
 animal_data2$adj.count[animal_data2$adj.count < 0] <- 0
 
 ## Combine samples that were split
@@ -575,6 +575,8 @@ animal_data2$ID <- mapvalues(
   from = c(
     'CBSS3 1/2',
     'CBSS3 2/2',
+    'CBSS6-1',
+    'CBSS6-2',
     'CBSS8 (1/4)',
     'CBSS8 (2/4)',
     'CBSS8 (3/4)',
@@ -594,6 +596,8 @@ animal_data2$ID <- mapvalues(
   to = c(
     'CBSS3',
     'CBSS3',
+    'CBSS6',
+    'CBSS6',
     'CBSS8',
     'CBSS8',
     'CBSS8',
@@ -614,31 +618,31 @@ animal_data2$ID <- mapvalues(
 
 ## Remove incomplete samples
 
-animal_incomplete <- 
-  animal_data2 %>% 
-  group_by(ID, sample.type) %>%
-  filter(sample.type != 'Mussels' &
-           sample.type != 'Clams'&
-           sample.type != 'Surfperch Livers' &
-           sample.type != 'Flatfish Livers' &
-           sample.type != 'Rockfish Livers') %>% 
-  summarize(size.fractions = length(unique(size.fraction))) %>% 
-  filter(size.fractions < 2)
-
-animal_data2$incomplete <- animal_data2$ID %in% animal_incomplete$ID
-
-animal_data3 <-
-  animal_data2 %>% 
-  filter(incomplete == 'FALSE')
-
-animal_data3$sample.type <- 
-  mapvalues(animal_data3$sample.type,
-            from = c('Surfperch Guts',
-                     'Flatfish Guts',
-                     'Rockfish Guts'),
-            to = c('Surfperch',
-                   'Flatfish',
-                   'Rockfish'))
+# animal_incomplete <- 
+#   animal_data2 %>% 
+#   group_by(ID, sample.type) %>%
+#   filter(sample.type != 'Mussels' &
+#            sample.type != 'Clams'&
+#            sample.type != 'Surfperch Livers' &
+#            sample.type != 'Flatfish Livers' &
+#            sample.type != 'Rockfish Livers') %>% 
+#   summarize(size.fractions = length(unique(size.fraction))) %>% 
+#   filter(size.fractions < 2)
+# 
+# animal_data2$incomplete <- animal_data2$ID %in% animal_incomplete$ID
+# 
+# animal_data3 <-
+#   animal_data2 %>% 
+#   filter(incomplete == 'FALSE')
+# 
+# animal_data3$sample.type <- 
+#   mapvalues(animal_data3$sample.type,
+#             from = c('Surfperch Guts',
+#                      'Flatfish Guts',
+#                      'Rockfish Guts'),
+#             to = c('Surfperch',
+#                    'Flatfish',
+#                    'Rockfish'))
 
 #### Plot breakdown by Raman ID, shape, and colour ####
 
@@ -859,62 +863,34 @@ foodweb1 <- rbind(subset(foodweb1,
 
 ## Combine particle counts data with lab, field, and isotopes data
 
-foodweb2 <- left_join(animal_data3,
+animal_data2$sample.type <- 
+  mapvalues(animal_data2$sample.type,
+            from = c("Flatfish Guts",
+                     "Rockfish Guts",
+                     "Surfperch Guts"),
+            to = c("Flatfish",
+                   "Rockfish",
+                   "Surfperch"))
+
+foodweb2 <- left_join(animal_data2,
                       foodweb1,
                       by = c('ID', 'site', 'sample.type'))
 
 foodweb2$ID <- as.factor(foodweb2$ID)
 foodweb2$site <- as.factor(foodweb2$site)
 foodweb2$sample.type <- as.factor(foodweb2$sample.type)
-foodweb2shape <- as.factor(foodweb2$shape)
-foodweb2$colour <- as.factor(foodweb2$colour)
   
 
-#### Summarize all data ####
-
-## First summarize plankton tow data across size categories, colour and shape
-
-PT_data3 <-
-  PT_data2 %>% 
-  group_by(ID, site, sample.type, particle.type, sample.volume) %>% 
-  summarize(adj.count = sum(adj.count),
-            orig.count = sum(count),
-            blank.mean = sum(blank.mean))
-
-## Do the same for PJ
-
-## First summarize plankton jar data across size categories, colour and shape
-
-PJ_data3 <-
-  PJ_data2 %>% 
-  group_by(ID, site, sample.type, particle.type) %>% 
-  summarize(adj.count = sum(adj.count),
-            orig.count = sum(count),
-            blank.mean = sum(blank.mean))
 
 
 ## Now summarize animal data
 
 ## Combine across size categories, colour, and shape
 
-foodweb3 <- 
-  foodweb2 %>% 
-  group_by(ID, site, sample.type, particle.type, shell.l, shell.w, shell.h,
-           arm.length, tissue.wet.weight, tissue.dry.weight, shell.weight,
-           total.body.wet.weight, density.sep, species, carapace.length,
-           TL, SL, sex, babies, parasites, trophic.position, base_deltaN,
-           sd_base_deltaN, deltaN, deltaC) %>% 
-  summarize(adj.count = sum(adj.count),
-            blank.mean = sum(blank.mean),
-            orig.count = sum(count))
+summary(subset(foodweb2, is.na(species)))
+foodweb2$species[foodweb2$ID == "CBSS16"] <- "Dermasterias imbricata"
 
-summary(foodweb3)
-
-subset(foodweb3, is.na(species))
-foodweb3$species[foodweb3$ID == "CBSS16"] <- "Dermasterias imbricata"
-foodweb3$species[foodweb3$ID == "HPRF1"] <- "Sebastes caurinus"
-
-gutdata <- subset(foodweb3,
+gutdata <- subset(foodweb2,
                   sample.type != 'Surfperch Livers' &
                     sample.type != 'Flatfish Livers' &
                     sample.type != 'Rockfish Livers')
@@ -924,27 +900,7 @@ gutdata$sample.type <-
             from = 'Rockfish: Ingested Animals',
             to = 'Rockfish')
 
-gutdata <-
-  gutdata %>% 
-  group_by(ID, particle.type, site, sample.type, TL,
-           total.body.wet.weight, species, base_deltaN, sd_base_deltaN, deltaN,
-           trophic.position, deltaC) %>% 
-  summarize(adj.count = sum(adj.count),
-            blank.mean = sum(blank.mean),
-            orig.count = sum(orig.count),
-            tissue.weight = sum(tissue.dry.weight))
-
-liverdata <-subset(foodweb3,
+liverdata <-subset(foodweb2,
                    sample.type == 'Surfperch Livers' |
                      sample.type == 'Flatfish Livers' |
                      sample.type == 'Rockfish Livers')
-
-liverdata <-
-  liverdata %>% 
-  group_by(ID, particle.type, site, sample.type, TL,
-           total.body.wet.weight, species, base_deltaN, sd_base_deltaN, deltaN,
-           trophic.position, deltaC) %>% 
-  summarize(adj.count = sum(adj.count),
-            blank.mean = sum(blank.mean),
-            orig.count = sum(orig.count),
-            tissue.weight = sum(tissue.dry.weight))
