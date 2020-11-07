@@ -670,8 +670,6 @@ model1data <-
     sd_base = as.numeric(with(
       MPgutdata, tapply(sd_base_deltaN, as.integer(site), mean)
     )),
-    beta_zero =  beta_zero,
-    beta_one = -beta_one,
     nit_lim = nit_lim,
     k = k
   )
@@ -891,44 +889,37 @@ ggplot() +
                   ymin = lower95),
               alpha = 0.05,
               size = 0.5,
-              fill = pal[1]) +
+              fill = pal[4]) +
   geom_ribbon(data = MPgutsim,
               aes(x = trophic.position,
                   ymax = upper75,
                   ymin = lower75),
               alpha = 0.25,
               size = 0.5,
-              fill = pal[1]) +
+              fill = pal[4]) +
   geom_ribbon(data = MPgutsim,
               aes(x = trophic.position,
                   ymax = upper50,
                   ymin = lower50),
               alpha = 0.5,
               size = 0.5,
-              fill = pal[1]) +
+              fill = pal[4]) +
   geom_ribbon(data = MPgutsim,
               aes(x = trophic.position,
                   ymax = upper25,
                   ymin = lower25),
               alpha = 0.75,
               size = 0.5,
-              fill = pal[1],
-              colour = pal[1]) +
+              fill = pal[4]) +
   geom_line(data = MPgutsim,
             aes(x = trophic.position,
                 y = mean),
             size = 0.5,
-            colour = pal[4],
-            alpha = 0.3) +
+            colour = pal[1]) +
   geom_point(data = MPgutdata,
                aes(x = TP.est,
                  y = count),
-             size = 0.75, shape = 1, alpha = 0.8, colour = pal[5]) +
-  geom_linerange(data = MPgutdata,
-                 aes(x = TP.est,
-                     ymin = true.est.lower95,
-                     ymax = true.est.upper95),
-                 size = 0.25, alpha = 0.5, colour = pal[3]) +
+             size = 1, shape = 20, alpha = 0.8, colour = pal[1]) +
   geom_point(data = MPgutdata,
              aes(x = TP.est,
                  y = true.est),
@@ -941,7 +932,9 @@ ggplot() +
   scale_y_continuous(limits = c(0, 7),
                      expand = c(0, 0.1),
                      breaks = c(seq(0, 12, 2))) +
-  theme1
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]))
 
 dev.off()
 
@@ -1349,6 +1342,20 @@ MPliverdata$site <- as.factor(MPliverdata$site)
 MPliverdata$species <- as.character(MPliverdata$species)
 MPliverdata$species <- as.factor(MPliverdata$species)
 
+ggplot(MPliverdata) +
+  geom_point(aes(x = total.body.wet.weight,
+                 y = tissue.dry.weight,
+                 color = species)) +
+  facet_grid(. ~ site)
+
+ggplot(MPliverdata) +
+  geom_point(aes(x = tissue.wet.weight,
+                 y = tissue.dry.weight,
+                 color = species)) +
+  facet_grid(. ~ site)
+
+plot(tissue.dry.weight ~ trophic.position, data = MPliverdata)
+
 liver.mod <- function() {
   # Likelihood
   for (i in 1:N) {
@@ -1365,7 +1372,8 @@ liver.mod <- function() {
       gamma_site[site[i]]
     
     TP[i] <-
-      ((log(nit_lim - base[site[i]]) - log(nit_lim - deltaN[i])) / k) + 2
+      ((log(nit_lim - base[site[i]]) - log(nit_lim - animal[i])) / k) + 2
+    animal[i] ~ dnorm(deltaN[i], 1/0.052)  # SD from standards
     
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
@@ -1412,7 +1420,7 @@ liver.mod.data <-
     y = MPliverdata$count,
     N = nrow(MPliverdata),
     lambda_blanks = MPliverdata$blank.mean,
-    weight = MPliverdata$tissue.wet.weight,
+    weight = MPliverdata$tissue.dry.weight,
     species = as.integer(MPliverdata$species),
     nspecies = length(unique(MPliverdata$species)),
     site = as.integer(MPliverdata$site),
@@ -1427,8 +1435,6 @@ liver.mod.data <-
     sd_base = as.numeric(with(
       MPliverdata, tapply(sd_base_deltaN, as.integer(site), mean)
     )),
-    beta_zero = beta_zero,
-    beta_one = beta_one,
     nit_lim = nit_lim,
     k = k
   )
@@ -1440,10 +1446,10 @@ liver.mod.run1 <- jags.parallel(
   parameters.to.save = liver.mod.params,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 7000,
+  n.iter = 5000,
   n.burnin = 500,
-  n.thin = 2,
-  jags.seed = 3234,
+  n.thin = 1,
+  jags.seed = 3149,
   model = liver.mod
 )
 
@@ -1462,8 +1468,8 @@ liver.mod.run2 <- jags.parallel(
   n.cluster = 16,
   n.iter = 5000,
   n.burnin = 500,
-  n.thin = 4,
-  jags.seed = 3234,
+  n.thin = 1,
+  jags.seed = 3149,
   model = liver.mod
 )
 
@@ -1485,6 +1491,11 @@ plot(check.liver.mod)
 
 plotResiduals(check.liver.mod, 
               apply(liver.mod.run2$BUGSoutput$sims.list$TP, 2, median))
+plotResiduals(check.liver.mod,
+              MPliverdata$tissue.dry.weight)
+plotResiduals(check.liver.mod,
+              MPliverdata$tissue.wet.weight)
+
 testDispersion(check.liver.mod)
 testZeroInflation(check.liver.mod)
 
@@ -1590,7 +1601,7 @@ MPliverdata$TP.est.lower25 <-
         probs = 0.375)
 
 TP.mod.liver <- 
-  lm(log(tissue.weight) ~ trophic.position + species, 
+  lm(log(tissue.dry.weight) ~ trophic.position + species, 
      data = MPliverdata)
 
 plot(resid(TP.mod.liver, type = "pearson") ~ fitted(TP.mod.liver))
@@ -1616,7 +1627,7 @@ MPliversim <- data.frame(
 )
 
 MPliversim$weight <-
-  exp(rnorm(predict(TP.mod.liver, newdata = MPliversim), 0.7791))
+  exp(rnorm(predict(TP.mod.liver, newdata = MPliversim), 0.6266))
 
 MPliversim$species <- as.integer(MPliversim$species)
 
@@ -1671,7 +1682,7 @@ ggplot() +
         ymin = lower95),
     alpha = 0.05,
     size = 0.5,
-    fill = pal[1]
+    fill = pal[5]
   ) +
   geom_ribbon(
     data = MPliversim,
@@ -1680,7 +1691,7 @@ ggplot() +
         ymin = lower75),
     alpha = 0.25,
     size = 0.5,
-    fill = pal[1]
+    fill = pal[5]
   ) +
   geom_ribbon(
     data = MPliversim,
@@ -1689,7 +1700,7 @@ ggplot() +
         ymin = lower50),
     alpha = 0.5,
     size = 0.5,
-    fill = pal[1]
+    fill = pal[5]
   ) +
   geom_ribbon(
     data = MPliversim,
@@ -1698,15 +1709,14 @@ ggplot() +
         ymin = lower25),
     alpha = 0.75,
     size = 0.5,
-    fill = pal[1],
-    colour = pal[1]
+    fill = pal[5]
   ) +
   geom_line(
     data = MPliversim,
     aes(x = trophic.position,
         y = median),
     size = 0.5,
-    colour = pal[4],
+    colour = pal[1],
     alpha = 0.3
   ) +
   geom_point(
@@ -1714,25 +1724,28 @@ ggplot() +
     aes(
       x = TP.est,
       y = true.est / tissue.wet.weight,
-      colour = species
+      fill = species
     ),
-    size = 1,
-    shape = 20,
-    alpha = 0.8
+    colour = "black",
+    size = 2,
+    shape = 21,
+    alpha = 0.5
   ) +
-  scale_colour_manual(values = pal[1:5]) +
+  scale_fill_manual(values = pal[1:5]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
-       y = expression(paste('Particles ' * g ^ -1))) +
+       y = expression(paste('Particles g dry tissue ' * weight ^ -1))) +
   coord_cartesian(xlim = c(2, 4.5)) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(
     trans = 'log1p',
     expand = c(0, 0.01),
-    breaks = c(0, 0.2, 0.4, 0.6, 0.8, 1, 1.5, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12,
-               14, 16, 18, 20)
+    breaks = c(0, 1, 10, 40)
   ) +
-  theme1
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]),
+        legend.background = element_rect(fill = pal[2]))
 
 dev.off()
 
