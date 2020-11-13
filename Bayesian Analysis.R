@@ -994,6 +994,156 @@ ggplot(MPgutdata) +
 
 dev.off()
 
+## MP concentration by species
+
+set.seed(6614)
+
+MPgutsim2 <- expand.grid(
+  trophic.position = 2.9,
+  site = 1,
+  species = c(1:14),
+  blank.mean = mean(MPgutdata$blank.mean)
+)
+
+for(i in 1:14){
+  lambda_true <-
+    exp(
+      run1$BUGSoutput$sims.list$beta_TP[, MPgutsim2$site[i]]*
+        MPgutsim2$trophic.position[i] +
+        run1$BUGSoutput$sims.list$gamma_site[, MPgutsim2$site[i]]+
+        run1$BUGSoutput$sims.list$alpha_species[, MPgutsim2$species[i]]
+    )
+  lambda_blanks = MPgutsim2$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  true <- as.numeric(rpois(lambda_true, lambda_true))
+  y <- as.numeric(rpois(lambda_y, lambda_y))
+  MPgutsim2$mean[i] <- mean(lambda_true)
+  MPgutsim2$upper25[i] <- quantile(lambda_true, 0.625)
+  MPgutsim2$lower25[i] <- quantile(lambda_true, 0.375)
+  MPgutsim2$upper50[i] <- quantile(lambda_true, 0.75)
+  MPgutsim2$lower50[i] <- quantile(lambda_true, 0.25)
+  MPgutsim2$upper75[i] <- quantile(lambda_true, 0.875)
+  MPgutsim2$lower75[i] <- quantile(lambda_true, 0.125)
+  MPgutsim2$upper95[i] <- quantile(lambda_true, 0.975)
+  MPgutsim2$lower95[i] <- quantile(lambda_true, 0.025)
+  MPgutsim2$yupper95[i] <- quantile(y, 0.975)
+  MPgutsim2$ylower95[i] <- quantile(y, 0.025)
+}
+
+MPgutsim2$species <- as.factor(MPgutsim2$species)
+MPgutsim2$site <- as.factor(MPgutsim2$site)
+
+MPgutsim2$species <- mapvalues(
+  MPgutsim2$species,
+  from = levels(MPgutsim2$species),
+  to = c(
+    "Cancer productus",
+    "Cucumeria miniata",
+    "Cymatogaster aggregata",
+    "Dermasterias imbricata",
+    "Metacarcinus gracilis",
+    "Metacarcinus magister",
+    "Mytilus spp.",
+    "Parastichopus californicus",
+    "Parophrys vetulus",
+    "Platichthys stellatus",
+    "Protothaca staminea",
+    "Ruditapes philippinarum",
+    "Sebastes caurinus",
+    "Sebastes melanops"
+  )
+)
+
+
+MPgutsim2$site <- mapvalues(
+  MPgutsim2$site,
+  from = levels(MPgutsim2$site),
+  to = c("Coles Bay",
+         "Elliot Bay",
+         "Victoria Harbour")
+)
+
+tiff('Species Plot.tiff',
+     res = 500,
+     width = 14,
+     height = 8,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot() +
+  geom_linerange(
+    data = MPgutsim2,
+    aes(x = species,
+        ymax = upper95,
+        ymin = lower95),
+    alpha = 0.05,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = MPgutsim2,
+    aes(x = species,
+        ymax = upper75,
+        ymin = lower75),
+    alpha = 0.25,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = MPgutsim2,
+    aes(x = species,
+        ymax = upper50,
+        ymin = lower50),
+    alpha = 0.5,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = MPgutsim2,
+    aes(x = species,
+        ymax = upper25,
+        ymin = lower25),
+    alpha = 0.75,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_point(
+    data = MPgutsim2,
+    aes(x = species,
+        y = mean),
+    size = 1.5,
+    colour = pal[1],
+    fill = pal[2],
+    shape = 21
+  ) +
+  geom_jitter(
+    data = MPgutdata,
+    aes(
+      x = species,
+      y = count
+    ),
+    width = 0.25,
+    height = 0,
+    colour = pal[3],
+    size = 1,
+    shape = 1,
+    alpha = 0.5
+  ) +
+  labs(x = "",
+       y = expression(paste('Particles '*ind^-1))) +
+  scale_y_continuous(
+    expand = c(0, 0.1)
+  ) +
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]),
+        legend.background = element_rect(fill = pal[2]),
+        axis.text.x = element_text(angle = 45, hjust = 1))
+
+dev.off()
+
+
+
 #### Body size model with just fish ####
 
 fishgutdata <- subset(MPgutdata, 
@@ -1748,5 +1898,288 @@ ggplot() +
         legend.background = element_rect(fill = pal[2]))
 
 dev.off()
+
+
+#### Rockfish ingested animals vs. gut ####
+
+transferdata <- subset(foodweb2, 
+                       sample.type == "Rockfish: Ingested Animals" &
+                         particle.type == "Synthetic Polymer" |
+                         sample.type == "Rockfish" &
+                         particle.type == "Synthetic Polymer")
+
+transferdata$site <- as.character(transferdata$site)
+transferdata$site <- as.factor(transferdata$site)
+transferdata$species <- as.character(transferdata$species)
+transferdata$species <- as.factor(transferdata$species)
+transferdata$sample.type <- as.character(transferdata$sample.type)
+transferdata$sample.type <- as.factor(transferdata$sample.type)
+transferdata$sample.type <- mapvalues(transferdata$sample.type,
+                                      from = levels(transferdata$sample.type),
+                                      to = c("Gut",
+                                             "Gut Animals"))
+
+transfer.mod <- function() {
+  for (i in 1:N) {
+    y[i] ~ dpois(lambda_y[i])
+    
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    
+    true[i] ~ dpois(lambda_true[i])
+    
+    log(lambda_true[i]) <- alpha_gut[sample.type[i]]
+    
+    ## Fitted values
+    fitted[i] ~ dpois(lambda_y[i])
+  }
+  
+  ## Priors
+  for (j in 1:2) {
+    alpha_gut[j] ~ dnorm(0, 1)
+  }
+}
+
+## Generate initial values for MCMC
+
+transfer.mod.init <- function()
+{
+  list(
+    "alpha_gut" = rnorm(2)
+  )
+}
+
+## Keep track of parameters
+
+transfer.mod.params <- c("alpha_gut")
+
+## Specify data
+
+transfer.mod.data <-
+  list(
+    y = transferdata$count,
+    N = nrow(transferdata),
+    lambda_blanks = transferdata$blank.mean,
+    sample.type = as.integer(transferdata$sample.type)
+  )
+
+## Run the model
+transfer.mod.run1 <- jags.parallel(
+  data = transfer.mod.data,
+  inits = transfer.mod.init,
+  parameters.to.save = transfer.mod.params,
+  n.chains = 3,
+  n.cluster = 16,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 3242,
+  model = transfer.mod
+)
+
+transfer.mod.run1
+transfer.mod.run1mcmc <- as.mcmc(transfer.mod.run1)
+xyplot(transfer.mod.run1mcmc, layout = c(6, ceiling(nvar(transfer.mod.run1mcmc)/6)))
+
+#### Diagnostics ####
+transfer.mod.params2 <- c("fitted", "true", "lambda_y")
+
+transfer.mod.run2 <- jags.parallel(
+  data = transfer.mod.data,
+  inits = transfer.mod.init,
+  parameters.to.save = transfer.mod.params2,
+  n.chains = 3,
+  n.cluster = 16,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 3242,
+  model = transfer.mod
+)
+
+transfer.mod.response <- t(transfer.mod.run2$BUGSoutput$sims.list$fitted)
+transfer.mod.observed <- transferdata$count
+transfer.mod.fitted <- apply(t(transfer.mod.run2$BUGSoutput$sims.list$lambda_y),
+                          1,
+                          median)
+
+check.transfer.mod <-
+  createDHARMa(
+    simulatedResponse = transfer.mod.response,
+    observedResponse = transfer.mod.observed,
+    fittedPredictedResponse = transfer.mod.fitted,
+    integerResponse = T
+  )
+
+plot(check.transfer.mod)
+
+#### Inference ####
+
+transfer.mod.run1long <- extract.post(transfer.mod.run1)
+
+transfer.mod.run1long$variable <-
+  mapvalues(
+    transfer.mod.run1long$variable,
+    from = levels(transfer.mod.run1long$variable),
+    to = c(
+      "Gut",
+      "Gut Animals"
+    )
+  )
+
+transfer.mod.run1long$order <- c(nrow(transfer.mod.run1long):1)
+
+png(
+  'MP Transfer Model Posteriors.png',
+  width = 9,
+  height = 9,
+  units = 'cm',
+  res = 500
+)
+
+ggplot(transfer.mod.run1long) +
+  geom_density_ridges(
+    aes(x = exp(value),
+        y = reorder(variable, order, mean)),
+    fill = pal[5],
+    colour = pal[5],
+    alpha = 0.5, 
+    size = 0.25
+  ) +
+  coord_cartesian(xlim = c(0, 1.5)) +
+  scale_x_continuous(expand = c(0,0)) +
+  labs(x = "",
+       y = "Parameter") +
+  theme1
+
+dev.off()
+
+
+#### Predictions ####
+
+transferdata$true.est <-
+  apply(transfer.mod.run2$BUGSoutput$sims.list$true, 2, mean)
+transferdata$true.est.upper95 <-
+  apply(transfer.mod.run2$BUGSoutput$sims.list$true, 2, quantile,
+        probs = 0.975)
+transferdata$true.est.lower95 <-
+  apply(transfer.mod.run2$BUGSoutput$sims.list$true, 2, quantile,
+        probs = 0.025)
+
+set.seed(3256)
+
+transfersim <- data.frame(
+  sample.type = c(1, 2),
+  blank.mean = c(0.3333, 0.3333)
+)
+
+for(i in 1:2) {
+  lambda_true <-
+    exp(transfer.mod.run1$BUGSoutput$sims.list$alpha_gut[, transfersim$sample.type[i]])
+  lambda_blanks <- transfersim$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  y <- as.numeric(rpois(lambda_y, lambda_y))
+  transfersim$median[i] <- median(lambda_true)
+  transfersim$upper25[i] <- quantile(lambda_true, 0.625)
+  transfersim$lower25[i] <- quantile(lambda_true, 0.375)
+  transfersim$upper50[i] <- quantile(lambda_true, 0.750)
+  transfersim$lower50[i] <- quantile(lambda_true, 0.250)
+  transfersim$upper75[i] <- quantile(lambda_true, 0.875)
+  transfersim$lower75[i] <- quantile(lambda_true, 0.125)
+  transfersim$upper95[i] <- quantile(lambda_true, 0.975)
+  transfersim$lower95[i] <- quantile(lambda_true, 0.025)
+  transfersim$yupper95[i] <- quantile(y, 0.975)
+  transfersim$ylower95[i] <- quantile(y, 0.025)
+}
+
+
+transfersim$sample.type <- as.factor(transfersim$sample.type)
+
+transfersim$sample.type <- mapvalues(
+  transfersim$sample.type,
+  from = levels(transfersim$sample.type),
+  to = c("Gut",
+         "Gut Animals")
+)
+
+#### Plot predictions ####
+
+tiff('Trophic Transfer Bayesian Plot.tiff',
+     res = 500,
+     width = 9,
+     height = 8,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot() +
+  geom_linerange(
+    data = transfersim,
+    aes(x = sample.type,
+        ymax = upper95,
+        ymin = lower95),
+    alpha = 0.05,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = transfersim,
+    aes(x = sample.type,
+        ymax = upper75,
+        ymin = lower75),
+    alpha = 0.25,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = transfersim,
+    aes(x = sample.type,
+        ymax = upper50,
+        ymin = lower50),
+    alpha = 0.5,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = transfersim,
+    aes(x = sample.type,
+        ymax = upper25,
+        ymin = lower25),
+    alpha = 0.75,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_point(
+    data = transfersim,
+    aes(x = sample.type,
+        y = median),
+    size = 1.5,
+    colour = pal[1],
+    fill = pal[2],
+    shape = 21
+  ) +
+  geom_jitter(
+    data = transferdata,
+    aes(
+      x = sample.type,
+      y = count
+    ),
+    width = 0.25,
+    height = 0,
+    colour = pal[3],
+    size = 1,
+    shape = 1,
+    alpha = 0.5
+  ) +
+  labs(x = "",
+       y = "Number of Particles") +
+  scale_y_continuous(
+    expand = c(0, 0.1)
+  ) +
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]),
+        legend.background = element_rect(fill = pal[2]))
+
+dev.off()
+
 
 
