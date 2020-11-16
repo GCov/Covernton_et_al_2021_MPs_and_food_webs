@@ -872,7 +872,20 @@ animal_data2$sample.type <-
                    "Rockfish",
                    "Surfperch"))
 
-foodweb2 <- left_join(animal_data2,
+animal_data3 <-
+  animal_data2 %>%
+  group_by(ID,
+           site,
+           sample.type,
+           blank.match,
+           particle.type) %>%
+  summarize(
+    count = sum(count),
+    blank.mean = sum(blank.mean),
+    adj.count = sum(adj.count)
+  )
+
+foodweb2 <- left_join(animal_data3,
                       foodweb1,
                       by = c('ID', 'site', 'sample.type'))
 
@@ -884,8 +897,6 @@ foodweb2$sample.type <- as.factor(foodweb2$sample.type)
 
 
 ## Now summarize animal data
-
-## Combine across size categories, colour, and shape
 
 summary(subset(foodweb2, is.na(species)))
 foodweb2$species[foodweb2$ID == "CBSS16"] <- "Dermasterias imbricata"
@@ -899,8 +910,20 @@ gutdata$sample.type <-
   mapvalues(gutdata$sample.type,
             from = 'Rockfish: Ingested Animals',
             to = 'Rockfish')
+gutdata <-
+  gutdata %>% 
+  group_by(ID, site, sample.type, blank.match, particle.type, shell.l,
+           shell.w, shell.h, arm.length, tissue.wet.weight, tissue.dry.weight,
+           shell.weight, total.body.wet.weight, density.sep, species, 
+           carapace.length, TL, SL, hepatopancreas.weight, sex, babies, 
+           parasites, base_deltaN, sd_base_deltaN, deltaN, deltaC, 
+           trophic.position) %>% 
+  summarize(count = sum(count),
+            blank.mean = sum(blank.mean),
+            adj.count = sum(adj.count))
 
 liverdata <-subset(foodweb2,
                    sample.type == 'Surfperch Livers' |
                      sample.type == 'Flatfish Livers' |
                      sample.type == 'Rockfish Livers')
+
