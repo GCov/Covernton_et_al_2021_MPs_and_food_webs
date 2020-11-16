@@ -177,6 +177,21 @@ PTmodrun2fitted$blanks <-
 PTmodrun2fitted$true <- 
   melt(data.frame(PTmodrun2$BUGSoutput$sims.list$true))$value
 
+PTmodrun2fitted$variable <- 
+  mapvalues(PTmodrun2fitted$variable,
+            from = levels(PTmodrun2fitted$variable),
+            to = c(rep("Coles Bay", 5),
+                   rep("Elliot Bay", 5),
+                   rep("Victoria Harbour", 5)))
+
+png(
+  'PT Correction Process.png',
+  width = 9,
+  height = 7,
+  units = 'cm',
+  res = 500
+)
+
 ggplot(PTmodrun2fitted) +
   geom_density_ridges(
     aes(x = true,
@@ -190,14 +205,14 @@ ggplot(PTmodrun2fitted) +
   geom_point(
     data = PTdata_synth,
     aes(x = blank.mean,
-        y = c(1:15)),
+        y = site),
     colour = pal[5],
     size = 2
   ) +
   geom_point(
     data = PTdata_synth,
     aes(x = count,
-        y = c(1:15)),
+        y = site),
     colour = pal[1],
     size = 2
   ) +
@@ -210,6 +225,8 @@ ggplot(PTmodrun2fitted) +
     panel.background = element_rect(fill = "white"),
     plot.background = element_rect(fill = pal[2])
   )
+
+dev.off()
 
 #### Predictions ####
 
@@ -920,10 +937,6 @@ ggplot() +
                aes(x = TP.est,
                  y = count),
              size = 1, shape = 20, alpha = 0.8, colour = pal[1]) +
-  geom_point(data = MPgutdata,
-             aes(x = TP.est,
-                 y = true.est),
-             size = 1.5, shape = 1, alpha = 0.5, colour = pal[3]) +
   facet_wrap(~ site) +
   labs(x = 'Trophic Position',
        y = expression(paste('Particles '*ind^-1))) +
