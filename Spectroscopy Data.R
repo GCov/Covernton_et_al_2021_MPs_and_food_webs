@@ -913,14 +913,15 @@ gutdata$sample.type <-
 gutdata <-
   gutdata %>% 
   group_by(ID, site, sample.type, blank.match, particle.type, shell.l,
-           shell.w, shell.h, arm.length, tissue.wet.weight, tissue.dry.weight,
+           shell.w, shell.h, arm.length, tissue.wet.weight,
            shell.weight, total.body.wet.weight, density.sep, species, 
            carapace.length, TL, SL, hepatopancreas.weight, sex, babies, 
            parasites, base_deltaN, sd_base_deltaN, deltaN, deltaC, 
            trophic.position) %>% 
   summarize(count = sum(count),
             blank.mean = sum(blank.mean),
-            adj.count = sum(adj.count))
+            adj.count = sum(adj.count),
+            tissue.dry.weight = sum(tissue.dry.weight))
 
 liverdata <-subset(foodweb2,
                    sample.type == 'Surfperch Livers' |

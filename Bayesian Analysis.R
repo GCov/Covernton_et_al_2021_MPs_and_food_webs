@@ -8,6 +8,7 @@ library(ggridges)
 library(DHARMa)
 library(reshape2)
 library(plyr)
+library(dplyr)
 
 extract.post <- function(x){
   out <- data.frame(x$BUGSoutput$sims.list)
@@ -1298,6 +1299,7 @@ plot(check.fishmodel1)
 plotResiduals(check.fishmodel1, fishgutdata$site)
 plotResiduals(check.fishmodel1, fishgutdata$species)
 plotResiduals(check.fishmodel1, fishgutdata$TL)
+plotResiduals(check.fishmodel1, log(fishgutdata$total.body.wet.weight))
 testZeroInflation(check.fishmodel1)
 testDispersion(check.fishmodel1)
 
@@ -1991,7 +1993,8 @@ transfer.mod.run1 <- jags.parallel(
 
 transfer.mod.run1
 transfer.mod.run1mcmc <- as.mcmc(transfer.mod.run1)
-xyplot(transfer.mod.run1mcmc, layout = c(6, ceiling(nvar(transfer.mod.run1mcmc)/6)))
+xyplot(transfer.mod.run1mcmc, 
+       layout = c(6, ceiling(nvar(transfer.mod.run1mcmc)/6)))
 
 #### Diagnostics ####
 transfer.mod.params2 <- c("fitted", "true", "lambda_y")
@@ -2024,6 +2027,9 @@ check.transfer.mod <-
   )
 
 plot(check.transfer.mod)
+
+plotResiduals(check.transfer.mod, transferdata$species)
+plotResiduals(check.transfer.mod, transferdata$sample.type)
 
 #### Inference ####
 
@@ -2195,4 +2201,294 @@ ggplot() +
 dev.off()
 
 
+#### Comparision of empty vs. full guts ####
+
+transferdata2 <-
+  transferdata %>% 
+  group_by(ID) %>% 
+  summarize(num = length(count)) %>% 
+  filter(num > 1)
+
+rfishcompare <- subset(MPgutdata, sample.type == "Rockfish")
+
+rfishcompare$full.stomach <- rfishcompare$ID %in% transferdata2$ID
+
+rfishcompare$ID <- as.character(rfishcompare$ID)
+rfishcompare$ID <- as.factor(rfishcompare$ID)
+
+rfishcompare$species <- as.character(rfishcompare$species)
+rfishcompare$species <- as.factor(rfishcompare$species)
+
+rfishcompare$full.stomach <- as.factor(rfishcompare$full.stomach)
+
+
+rfish.mod <- function() {
+  for (i in 1:N) {
+    y[i] ~ dpois(lambda_y[i])
+    
+    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
+    
+    true[i] ~ dpois(lambda_true[i])
+    
+    log(lambda_true[i]) <- alpha_gut[full.stomach[i]]
+    
+    ## Fitted values
+    fitted[i] ~ dpois(lambda_y[i])
+  }
+  
+  ## Priors
+  for (j in 1:2) {
+    alpha_gut[j] ~ dnorm(0, 1)
+  }
+}
+
+## Generate initial values for MCMC
+
+rfish.mod.init <- function()
+{
+  list(
+    "alpha_gut" = rnorm(2)
+  )
+}
+
+## Keep track of parameters
+
+rfish.mod.params <- c("alpha_gut")
+
+## Specify data
+
+rfish.mod.data <-
+  list(
+    y = rfishcompare$count,
+    N = nrow(rfishcompare),
+    lambda_blanks = rfishcompare$blank.mean,
+    full.stomach = as.integer(rfishcompare$full.stomach)
+  )
+
+## Run the model
+rfish.mod.run1 <- jags.parallel(
+  data = rfish.mod.data,
+  inits = rfish.mod.init,
+  parameters.to.save = rfish.mod.params,
+  n.chains = 3,
+  n.cluster = 16,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 3242,
+  model = rfish.mod
+)
+
+rfish.mod.run1
+rfish.mod.run1mcmc <- as.mcmc(rfish.mod.run1)
+xyplot(rfish.mod.run1mcmc, layout = c(6, ceiling(nvar(rfish.mod.run1mcmc)/6)))
+
+#### Diagnostics ####
+rfish.mod.params2 <- c("fitted", "true", "lambda_y")
+
+rfish.mod.run2 <- jags.parallel(
+  data = rfish.mod.data,
+  inits = rfish.mod.init,
+  parameters.to.save = rfish.mod.params2,
+  n.chains = 3,
+  n.cluster = 16,
+  n.iter = 2000,
+  n.burnin = 500,
+  n.thin = 1,
+  jags.seed = 3242,
+  model = rfish.mod
+)
+
+rfish.mod.response <- t(rfish.mod.run2$BUGSoutput$sims.list$fitted)
+rfish.mod.observed <- rfishcompare$count
+rfish.mod.fitted <- apply(t(rfish.mod.run2$BUGSoutput$sims.list$lambda_y),
+                             1,
+                             median)
+
+check.rfish.mod <-
+  createDHARMa(
+    simulatedResponse = rfish.mod.response,
+    observedResponse = rfish.mod.observed,
+    fittedPredictedResponse = rfish.mod.fitted,
+    integerResponse = T
+  )
+
+plot(check.rfish.mod)
+plotResiduals(check.rfish.mod, rfishcompare$full.stomach)
+
+#### Inference ####
+
+rfish.mod.run1long <- extract.post(rfish.mod.run1)
+
+rfish.mod.run1long$variable <-
+  mapvalues(
+    rfish.mod.run1long$variable,
+    from = levels(rfish.mod.run1long$variable),
+    to = c(
+      "Empty Stomach",
+      "Full Stomach"
+    )
+  )
+
+rfish.mod.run1long$order <- c(nrow(rfish.mod.run1long):1)
+
+png(
+  'Rockfish Gut Comparison Model Posteriors.png',
+  width = 9,
+  height = 9,
+  units = 'cm',
+  res = 500
+)
+
+ggplot(rfish.mod.run1long) +
+  geom_density_ridges(
+    aes(x = exp(value),
+        y = reorder(variable, order, mean)),
+    fill = pal[5],
+    colour = pal[5],
+    alpha = 0.5, 
+    size = 0.25
+  ) +
+  coord_cartesian(xlim = c(0, 2)) +
+  scale_x_continuous(expand = c(0,0)) +
+  labs(x = "",
+       y = "Parameter") +
+  theme1
+
+dev.off()
+
+
+#### Predictions ####
+
+rfishcompare$true.est <-
+  apply(rfish.mod.run2$BUGSoutput$sims.list$true, 2, mean)
+rfishcompare$true.est.upper95 <-
+  apply(rfish.mod.run2$BUGSoutput$sims.list$true, 2, quantile,
+        probs = 0.975)
+rfishcompare$true.est.lower95 <-
+  apply(rfish.mod.run2$BUGSoutput$sims.list$true, 2, quantile,
+        probs = 0.025)
+
+set.seed(3256)
+
+rfishsim <- data.frame(
+  full.stomach = c(1, 2),
+  blank.mean = c(1, 1)
+)
+
+for(i in 1:2) {
+  lambda_true <-
+    exp(rfish.mod.run1$BUGSoutput$sims.list$alpha_gut[, rfishsim$full.stomach[i]])
+  lambda_blanks <- rfishsim$blank.mean[i]
+  lambda_y <- lambda_true + lambda_blanks
+  y <- as.numeric(rpois(lambda_y, lambda_y))
+  rfishsim$median[i] <- median(lambda_true)
+  rfishsim$upper25[i] <- quantile(lambda_true, 0.625)
+  rfishsim$lower25[i] <- quantile(lambda_true, 0.375)
+  rfishsim$upper50[i] <- quantile(lambda_true, 0.750)
+  rfishsim$lower50[i] <- quantile(lambda_true, 0.250)
+  rfishsim$upper75[i] <- quantile(lambda_true, 0.875)
+  rfishsim$lower75[i] <- quantile(lambda_true, 0.125)
+  rfishsim$upper95[i] <- quantile(lambda_true, 0.975)
+  rfishsim$lower95[i] <- quantile(lambda_true, 0.025)
+  rfishsim$yupper95[i] <- quantile(y, 0.975)
+  rfishsim$ylower95[i] <- quantile(y, 0.025)
+}
+
+
+rfishsim$full.stomach <- as.factor(rfishsim$full.stomach)
+
+rfishsim$full.stomach <- mapvalues(
+  rfishsim$full.stomach,
+  from = levels(rfishsim$full.stomach),
+  to = c("Empty Stomach",
+         "Full Stomach")
+)
+
+rfishcompare$full.stomach <- mapvalues(
+  rfishcompare$full.stomach,
+  from = levels(rfishcompare$full.stomach),
+  to = c("Empty Stomach",
+         "Full Stomach")
+)
+
+#### Plot predictions ####
+
+tiff('Rockfish Gut Comparison Bayesian Plot.tiff',
+     res = 500,
+     width = 9,
+     height = 8,
+     units = 'cm',
+     pointsize = 12)
+
+ggplot() +
+  geom_linerange(
+    data = rfishsim,
+    aes(x = full.stomach,
+        ymax = upper95,
+        ymin = lower95),
+    alpha = 0.05,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = rfishsim,
+    aes(x = full.stomach,
+        ymax = upper75,
+        ymin = lower75),
+    alpha = 0.25,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = rfishsim,
+    aes(x = full.stomach,
+        ymax = upper50,
+        ymin = lower50),
+    alpha = 0.5,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_linerange(
+    data = rfishsim,
+    aes(x = full.stomach,
+        ymax = upper25,
+        ymin = lower25),
+    alpha = 0.75,
+    size = 0.5,
+    colour = pal[5]
+  ) +
+  geom_point(
+    data = rfishsim,
+    aes(x = full.stomach,
+        y = median),
+    size = 1.5,
+    colour = pal[1],
+    fill = pal[2],
+    shape = 21
+  ) +
+  geom_jitter(
+    data = rfishcompare,
+    aes(
+      x = full.stomach,
+      y = count
+    ),
+    width = 0.25,
+    height = 0,
+    colour = pal[3],
+    size = 1,
+    shape = 1,
+    alpha = 0.5
+  ) +
+  labs(x = "",
+       y = "Number of Particles") +
+  scale_y_continuous(
+    expand = c(0, 0.1)
+  ) +
+  theme1 +
+  theme(panel.background = element_rect(fill = "white"),
+        plot.background = element_rect(fill = pal[2]),
+        legend.background = element_rect(fill = pal[2]))
+
+dev.off()
 
