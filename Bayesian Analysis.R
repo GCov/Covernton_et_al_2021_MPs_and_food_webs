@@ -93,7 +93,7 @@ PTmodrun1mcmc <- as.mcmc(PTmodrun1)
 xyplot(PTmodrun1mcmc, layout = c(6, ceiling(nvar(PTmodrun1mcmc)/6)))
 
 #### Diagnostics ####
-PTmodparam2 <- c("fitted", "true", "lambda_y")
+PTmodparam2 <- c("fitted", "true", "lambda_y", "lambda_true")
 
 PTmodrun2 <- jags.parallel(
   data = PTmoddata,
@@ -176,7 +176,7 @@ PTmodrun2fitted$blanks <-
                                 PTdata_synth$blank.mean)
 
 PTmodrun2fitted$true <- 
-  melt(data.frame(PTmodrun2$BUGSoutput$sims.list$true))$value
+  melt(data.frame(PTmodrun2$BUGSoutput$sims.list$lambda_true))$value
 
 PTmodrun2fitted$variable <- 
   mapvalues(PTmodrun2fitted$variable,
@@ -207,18 +207,31 @@ ggplot(PTmodrun2fitted) +
     data = PTdata_synth,
     aes(x = blank.mean,
         y = site),
-    colour = pal[5],
-    size = 2
+    fill = pal[5],
+    size = 2,
+    shape = 21
   ) +
   geom_point(
+    data = data.frame(PTdata_synth %>% group_by(site) %>% summarize(mean = mean(count))),
+    aes(x = mean,
+        y = site),
+    fill = pal[2],
+    size = 2,
+    shape = 21
+  ) +
+  geom_jitter(
     data = PTdata_synth,
     aes(x = count,
         y = site),
+    width = 0,
+    height = 0.05,
     colour = pal[1],
-    size = 2
+    size = 2,
+    shape = 1
   ) +
-  scale_x_continuous(expand = c(0, 0),
-                     limits = c(0, 18)) +
+  scale_x_continuous(expand = c(0, 0.1),
+                     limits = c(0, 10),
+                     breaks = seq(0, 10, 2)) +
   labs(x = "Microplastic Particle Count",
        y = "Sample") +
   theme1 +
@@ -2492,3 +2505,28 @@ ggplot() +
 
 dev.off()
 
+
+
+write.csv(
+  MPgutdata %>%
+    group_by(species, site) %>%
+    summarize(
+      min.shell.l = min(shell.l),
+      max.shell.l = max(shell.l),
+      mean.shell.l = mean(shell.l),
+      min.arm.length = min(arm.length),
+      max.arm.length = max(arm.length),
+      mean.arm.length = mean(arm.length),
+      min.carapace.length = min(carapace.length),
+      max.carapace.length = max(carapace.length),
+      mean.carapace.length = mean(carapace.length),
+      min.total.length = min(TL),
+      max.total.length = max(TL),
+      mean.total.length = mean(TL),
+      min.body.weight = min(total.body.wet.weight),
+      max.body.weight = max(total.body.wet.weight),
+      mean.body.weight = mean(total.body.wet.weight),
+      sample.size = length(count)
+    ),
+  "animalsizes.csv"
+)

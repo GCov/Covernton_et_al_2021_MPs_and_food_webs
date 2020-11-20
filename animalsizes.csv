@@ -1,0 +1,27 @@
+"","species","site","min.shell.l","max.shell.l","mean.shell.l","min.arm.length","max.arm.length","mean.arm.length","min.carapace.length","max.carapace.length","mean.carapace.length","min.total.length","max.total.length","mean.total.length","min.body.weight","max.body.weight","mean.body.weight","sample.size"
+"1","Cancer productus","Victoria Harbour",NA,NA,NA,NA,NA,NA,80.3,98.6,91.3,NA,NA,NA,59.49,114.14,86.4266666666667,3
+"2","Cucumeria miniata","Elliot Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1.4992,51.0648,22.8876714285714,14
+"3","Cucumeria miniata","Victoria Harbour",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.3349,96.6796,36.83258125,16
+"4","Cymatogaster aggregata","Coles Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,7.8,9.2,8.5375,5.639,9.6362,7.96418125,16
+"5","Cymatogaster aggregata","Elliot Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,8.1,10,9.3375,6.9958,14.9857,9.96913125,16
+"6","Cymatogaster aggregata","Victoria Harbour",NA,NA,NA,NA,NA,NA,NA,NA,NA,6.1,7.8,6.82941176470588,2.8481,12.8465,4.70751176470588,17
+"7","Dermasterias imbricata","Coles Bay",NA,NA,NA,10.2,15.4,12.36875,NA,NA,NA,NA,NA,NA,31.8713,120.2207,60.572775,16
+"8","Dermasterias imbricata","Elliot Bay",NA,NA,NA,10.2,15.6,12.7866666666667,NA,NA,NA,NA,NA,NA,37.0997,123.65852,77.745048,15
+"9","Metacarcinus gracilis","Coles Bay",NA,NA,NA,NA,NA,NA,61.4,81,69.083125,NA,NA,NA,30.1438,94.8522,57.50503125,16
+"10","Metacarcinus magister","Elliot Bay",NA,NA,NA,NA,NA,NA,70.1,91.7,81.23125,NA,NA,NA,45.13,116.45,69.274875,16
+"11","Metacarcinus magister","Victoria Harbour",NA,NA,NA,NA,NA,NA,70.7,108.4,83.0916666666667,NA,NA,NA,54.82,149.14,77.4964,12
+"12","Mytilus spp.","Coles Bay",12.7,23.6,18.6421052631579,NA,NA,NA,NA,NA,NA,NA,NA,NA,0.31704,1.81729,0.779434736842105,19
+"13","Mytilus spp.","Elliot Bay",10.39,28.8,16.3838461538462,NA,NA,NA,NA,NA,NA,NA,NA,NA,0.18931,0.72792,0.419916923076923,13
+"14","Mytilus spp.","Victoria Harbour",9.2,15.5,11.9571428571429,NA,NA,NA,NA,NA,NA,NA,NA,NA,0.1223,0.535,0.268896428571429,14
+"15","Parastichopus californicus","Coles Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.72,40.8764,14.3312714285714,14
+"16","Parastichopus californicus","Elliot Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.979,3.979,3.979,1
+"17","Parophrys vetulus","Coles Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,11.6,15.6,13.4545454545455,13.1581,50.2072,26.7874272727273,11
+"18","Platichthys stellatus","Coles Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,14.5,18.3,15.95,20.646,66.6684,38.551325,4
+"19","Protothaca staminea","Coles Bay",20.8,20.8,20.8,NA,NA,NA,NA,NA,NA,NA,NA,NA,2.77835,2.77835,2.77835,1
+"20","Ruditapes philippinarum","Coles Bay",12.6,25.7,19.925,NA,NA,NA,NA,NA,NA,NA,NA,NA,0.97105,3.73971,2.08016333333333,12
+"21","Ruditapes philippinarum","Elliot Bay",8.6,23.4,17.1583333333333,NA,NA,NA,NA,NA,NA,NA,NA,NA,0.18062,3.42041,1.5710725,12
+"22","Sebastes caurinus","Coles Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,11.3,25,14.87,21.18,243.16,69.21795,10
+"23","Sebastes caurinus","Elliot Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,13.2,31.2,21.6666666666667,55.81,572.11,191.388333333333,18
+"24","Sebastes caurinus","Victoria Harbour",NA,NA,NA,NA,NA,NA,NA,NA,NA,19.2,31.2,25.5538461538462,123.93,479.37,294.041076923077,13
+"25","Sebastes melanops","Elliot Bay",NA,NA,NA,NA,NA,NA,NA,NA,NA,18.5,22.4,20.7,110.36,169.35,138.846666666667,3
+"26","Sebastes melanops","Victoria Harbour",NA,NA,NA,NA,NA,NA,NA,NA,NA,16.5,22.3,20.0875,75.21,166.44,123.235875,8
