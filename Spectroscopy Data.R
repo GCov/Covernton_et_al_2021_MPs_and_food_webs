@@ -8,6 +8,9 @@ library(nnet)
 library(MuMIn)
 library(boot)
 library(colorspace)
+library(randomForest)
+require(caTools)
+library(ROCR)
 
 #### Load spectroscopy data ####
 
@@ -30,6 +33,7 @@ PT$size.fraction <- as.factor(PT$size.fraction)
 PT$shape <- as.factor(PT$shape)
 PT$colour <- as.factor(PT$colour)
 PT$raman.ID <- as.factor(PT$raman.ID)
+PT$user.id <- as.factor(PT$user.id)
 
 ## Clean up plankton tow data
 
@@ -40,13 +44,29 @@ summary(PT$colour)
 
 summary(PT$shape)
 
-PT$shape <- mapvalues(PT$shape,
-                                 from = c('fibre',
-                                          'fibre ',
-                                          'fragment'),
-                                 to = c('Fibre',
-                                        'Fibre',
-                                        'Fragment'))
+PT$colour <- mapvalues(
+  PT$colour,
+  from = levels(PT$colour),
+  to = c("Black",
+         "Blue",
+         "Brown",
+         "Clear",
+         "Green",
+         "Orange",
+         "Pink",
+         "Purple",
+         "Red",
+         "Yellow"))
+
+PT$shape <- mapvalues(
+  PT$shape,
+  from = c('fibre',
+           'fibre ',
+           'fragment'),
+  to = c('Fibre',
+         'Fibre',
+         'Fragment')
+)
 summary(PT$shape)
 
 summary(PT$raman.ID)
@@ -92,6 +112,7 @@ PJ$size.fraction <- as.factor(PJ$size.fraction)
 PJ$shape <- as.factor(PJ$shape)
 PJ$colour <- as.factor(PJ$colour)
 PJ$raman.ID <- as.factor(PJ$raman.ID)
+PJ$user.id <- as.factor(PJ$user.id)
 
 ## Clean up plankton jars data
 
@@ -102,13 +123,30 @@ summary(PJ$colour)
 
 summary(PJ$shape)
 
-PJ$shape <- mapvalues(PJ$shape,
-                                 from = c('fiber',
-                                          'fibre',
-                                          'fragment'),
-                                 to = c('Fibre',
-                                        'Fibre',
-                                        'Fragment'))
+PJ$colour <- mapvalues(PJ$colour,
+                       from = levels(PJ$colour),
+                       to = c("Black",
+                              "Blue",
+                              "Brown",
+                              "Clear",
+                              "Green",
+                              "Orange",
+                              "Pink",
+                              "Purple",
+                              "Multi-colour",
+                              "Red"
+                              ))
+
+
+PJ$shape <- mapvalues(
+  PJ$shape,
+  from = c('fiber',
+           'fibre',
+           'fragment'),
+  to = c('Fibre',
+         'Fibre',
+         'Fragment')
+)
 summary(PJ$shape)
 
 summary(PJ$raman.ID)
@@ -192,6 +230,7 @@ full_spec_data$size.fraction <- as.factor(full_spec_data$size.fraction)
 full_spec_data$shape <- as.factor(full_spec_data$shape)
 full_spec_data$colour <- as.factor(full_spec_data$colour)
 full_spec_data$raman.ID <- as.factor(full_spec_data$raman.ID)
+full_spec_data$user.id <- as.factor(full_spec_data$user.id)
 
 summary(full_spec_data$blank.match)
 summary(full_spec_data$size.fraction)
@@ -299,7 +338,7 @@ summary(full_spec_data$particle.type)
 
 #### Estimate the particle type for unknown particles ####
 
-## Construct a multinomial regression model for known particle types
+## Create random forest model for known particle types
 
 moddata1 <- rbind(full_spec_data, PT[c(1:14, 22)], PJ)
 
@@ -310,73 +349,140 @@ moddata2 <- subset(moddata1,
 moddata2$particle.type <- as.character(moddata2$particle.type)
 moddata2$particle.type <- as.factor(moddata2$particle.type)
 
-## Fit model
+## Run model on test data
 
-pm1 <-
-  multinom(particle.type ~
-             colour*shape*user.id + sample.type + site,
-           data = moddata2)
+rf <- randomForest(particle.type ~
+                     colour + shape + user.id + sample.type + site + length,
+                   data = moddata2)
 
-## Cross-validation: Split data into training/test data (70/30)
+rf
 
-moddata2$row.number <- as.numeric(rownames(moddata2))
-moddata2 <- ungroup(moddata2)
+mtry <- tuneRF(moddata2[, c(2:3,7:9,14)], 
+               moddata2$particle.type,
+               stepFactor = 1.5, 
+               improve = 0.01,
+               trace = TRUE,
+               plot = TRUE)
 
-set.seed(123)
-train <- sample_frac(moddata2, size = 0.7)
-moddata2$subset <- moddata2$row.number %in% train$row.number
-test <- subset(moddata2, subset != 'TRUE')
+rf <- randomForest(particle.type ~
+                     colour * shape * user.id + sample.type + site + length,
+                   data = moddata2,
+                   mtry = 2,
+                   importance = TRUE,
+                   ntree = 2000)
+
+plot(rf$err.rate[,1], type = 'l')  ## find ideal ntree value 
+
+rf <- randomForest(particle.type ~
+                     colour * shape * user.id + sample.type + site + length,
+                   data = moddata2,
+                   mtry = 2,
+                   importance = TRUE,
+                   ntree = 250)
+
+rf
+importance(rf)
+
+varImpPlot(rf, main = "")
 
 
+pred <- predict(rf)
 
-## Test model accuracy by building a classification table
+## Performance metrics
 
-# Predicting the values for train dataset
-train$predicted <- predict(pm1, newdata = train, "class")
+cm <- table(moddata2[, 15], pred)
 
-# Building classification table
-ctable1 <- table(train$particle.type, train$predicted)
+round((sum(diag(cm))/sum(cm))*100,2)
 
-# Calculating accuracy - sum of diagonal elements divided by total obs
-round((sum(diag(ctable1))/sum(ctable1))*100,2)
+plot_rf_confusion <- function(rf_model)
+{
+  conf_mat <- rf_model$confusion[, -ncol(rf_model$confusion)]
+  class_size <- apply(conf_mat, 1, sum)
+  
+  conf_mat_perc <- (conf_mat / class_size) * 100
+  
+  melt_conf_mat <- reshape2::melt(conf_mat_perc, na.rm = TRUE)
+  
+  melt_conf_mat_raw <- reshape2::melt(conf_mat, na.rm = TRUE)
+  
+  melt_conf_mat$value2 <- melt_conf_mat_raw$value
+  
+  conf_plot <-
+    ggplot(data = melt_conf_mat, aes_string('Var2', 'Var1', fill = 'value')) +
+    geom_tile(color = "white") +
+    scale_fill_gradient2(
+      low = pal[3],
+      high = pal[2],
+      mid = pal[4],
+      midpoint = 50,
+      limit = c(0, 100),
+      space = "Lab",
+      name = "Accuracy (%)"
+    ) +
+    geom_text(aes(label = value2), size = 4, nudge_y = 0.2) +
+    geom_text(aes(label = sprintf("%.1f", round(value, 1))), size = 4,
+              nudge_x = -0.1, nudge_y = -0.2) +
+    geom_text(label = "%", nudge_x = 0.3, nudge_y = -0.2, size = 4) +
+    theme_minimal() +
+    theme(axis.text.x = element_text(
+      angle = 45,
+      vjust = 1,
+      size = 10,
+      hjust = 1
+    ),
+    plot.margin = unit(c(0,0,0,0.5), "cm")) +
+    theme(axis.text.y = element_text(size = 10)) +
+    labs(x = 'Predicted', y = 'True') +
+    coord_fixed()
+  
+  return(conf_plot)
+}
 
-## Repeat for test data
+png("Confusion Matrix.png",
+    width = 14,
+    height = 14, 
+    units = "cm",
+    res = 700)
 
-test$predicted <- predict(pm1, newdata = test, "class")
+plot_rf_confusion(rf)
 
-# Building classification table
-ctable2 <- table(test$particle.type, test$predicted)
+dev.off()
 
-# Calculating accuracy - sum of diagonal elements divided by total obs
-round((sum(diag(ctable2))/sum(ctable2))*100,2)
+## Now predict unknown particle types
 
-## Predict unknown values
+predPT_data <- subset(PT[c(1:14, 22)], 
+                      particle.type == 'Unknown')
+predPT_data <- rbind(train[1, -c(16:17)] , predPT_data)
+predPT_data <- predPT_data[-1,]
 
-predPT_data <- subset(PT, particle.type == 'Unknown')
+predPJ_data <- subset(PJ,  
+                      particle.type == 'Unknown')
+predPJ_data <- rbind(train[1, -c(16:17)] , predPJ_data)
+predPJ_data <- predPJ_data[-1,]
 
-predPJ_data <- subset(PJ, particle.type == 'Unknown')
-
-pred_data <- subset(full_spec_data,
+predanimal_data <- subset(full_spec_data,
                     particle.type == 'Unknown')
+predanimal_data <- rbind(train[1, -c(16:17)] , predanimal_data)
+predanimal_data <- predanimal_data[-1,]
 
-predictPT.mlr <- predict(pm1, newdata = predPT_data, type = 'class')
+predictPT.rf <- predict(rf, newdata = predPT_data)
 
-predictPJ.mlr <- predict(pm1, newdata = predPJ_data, type = 'class')
+predictPJ.rf <- predict(rf, newdata = predPJ_data)
 
-predict.mlr <- predict(pm1, newdata = pred_data, type = 'class')
+predictanimal.rf <- predict(rf, newdata = predanimal_data)
 
 
 ## add predictions back to original data
 
 PT[PT$particle.type == 'Unknown' &
-     !is.na(PT$particle.type), ]$particle.type <- predictPT.mlr
+     !is.na(PT$particle.type), ]$particle.type <- predictPT.rf
 
 PJ[PJ$particle.type == 'Unknown' &
-     !is.na(PJ$particle.type),]$particle.type <- predictPJ.mlr
+     !is.na(PJ$particle.type),]$particle.type <- predictPJ.rf
 
 full_spec_data$particle.type[full_spec_data$particle.type == 'Unknown' &
                                !is.na(full_spec_data$particle.type)] <-
-  predict.mlr
+  predictanimal.rf
 
 PT$particle.type <- as.character(PT$particle.type)
 PT$particle.type <- as.factor(PT$particle.type)
@@ -401,7 +507,7 @@ infoPT <- PT[c(1:3, 6, 13, 21)] %>%
   group_by(ID, site, sample.type, size.fraction, blank.match, sample.volume) %>% 
   summarize()
 
-all_typesPT2 <- left_join(all_typesPT, infoPT, by = 'ID')
+all_typesPT2 <- left_join(all_typesPT, infoPT, by = c("ID"))
 
 countsPT <- PT[ ,c(1, 4:12, 14, 22)]
 
@@ -705,9 +811,9 @@ moddata3$sample.type <- factor(moddata3$sample.type,
 
 tiff(
   'Polymer Plot.tiff',
-  res = 300,
-  width = 16.5,
-  height = 14,
+  res = 700,
+  width = 19,
+  height = 15,
   units = 'cm',
   pointsize = 12
 )
@@ -738,8 +844,8 @@ ggplot(moddata3) +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.text = element_text(size = 6),
-    legend.margin = margin(0, 0, 0, 0),
-    legend.key.size = unit(0.75, 'line')
+    legend.key.size = unit(0.75, 'line'),
+    panel.spacing = unit(0.25, "cm")
   )
 
 dev.off()
@@ -780,9 +886,9 @@ summary(moddata3$colour)
 
 tiff(
   'Colour Plot.tiff',
-  res = 300,
-  width = 16.5,
-  height = 14,
+  res = 700,
+  width = 19,
+  height = 15,
   units = 'cm',
   pointsize = 12
 )
@@ -826,8 +932,8 @@ ggplot(moddata3) +
   theme(
     axis.text.x = element_text(angle = 45, hjust = 1),
     legend.text = element_text(size = 6),
-    legend.margin = margin(0, 0, 0, 0),
-    legend.key.size = unit(0.75, 'line')
+    legend.key.size = unit(0.75, 'line'),
+    panel.spacing = unit(0.25, "cm")
   )
 
 dev.off()

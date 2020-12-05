@@ -10,7 +10,6 @@ library(reshape2)
 library(plyr)
 library(dplyr)
 
-pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")
 
 #### Plankton tow model ####
 
@@ -117,6 +116,7 @@ check.PTAPmod <- createDHARMa(
 plot(check.PTAPmod)
 testDispersion(check.PTAPmod)
 testZeroInflation(check.PTAPmod)
+plotResiduals(check.PTAPmod, PTdata_AP$site)
 
 #### Inference ####
 
@@ -200,65 +200,45 @@ PTAP_sim$site <- mapvalues(PTAP_sim$site,
                                 "Elliot Bay",
                                 "Victoria Harbour"))
 
-tiff('Plankton Tows AP Plot.tiff',
-     res = 500,
-     width = 9,
-     height = 8,
-     units = 'cm',
-     pointsize = 12)
+# tiff('Plankton Tows AP Plot.tiff',
+#      res = 500,
+#      width = 9,
+#      height = 8,
+#      units = 'cm',
+#      pointsize = 12)
 
 set.seed(123)
 
-ggplot() +
-  geom_linerange(data = PTAP_sim,
-                 aes(x = site,
-                     ymax = upper95,
-                     ymin = lower95),
-                 alpha = 0.05,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_linerange(data = PTAP_sim,
-                 aes(x = site,
-                     ymax = upper75,
-                     ymin = lower75),
-                 alpha = 0.25,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_linerange(data = PTAP_sim,
-                 aes(x = site,
-                     ymax = upper50,
-                     ymin = lower50),
-                 alpha = 0.5,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_linerange(data = PTAP_sim,
-                 aes(x = site,
-                     ymax = upper25,
-                     ymin = lower25),
-                 alpha = 0.75,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_point(data = PTAP_sim,
-             aes(x = site,
-                 y = mean),
-             size = 2,
-             colour = pal[1],) +
-  geom_jitter(data = PTdata_AP,
-              aes(x = site,
-                  y = count/sample.volume),
-              size = 0.75, shape = 1, colour = pal[3],
-              height = 0,
-              width = 0.1) +
-  labs(x = 'Site',
-       y = expression(paste('Particles '*L^-1))) +
-  scale_y_continuous(limits = c(0, 0.2),
-                     expand = c(0, 0.005),
-                     breaks = seq(from = 0,
-                                  to = 0.2,
-                                  by = 0.05)) +
-  theme1
+PTAPplot <- 
+  ggplot() +
+    geom_linerange(data = PTAP_sim,
+                   aes(x = site,
+                       ymax = upper95,
+                       ymin = lower95),
+                   size = 0.5,
+                   colour = pal[2]) +
+    geom_point(data = PTAP_sim,
+               aes(x = site,
+                   y = mean),
+               size = 1.5,
+               fill = pal[2],
+               shape = 21) +
+    geom_jitter(data = PTdata_AP,
+                aes(x = site,
+                    y = count/sample.volume),
+                size = 0.75, shape = 1, colour = pal[1],
+                height = 0,
+                width = 0.1) +
+    labs(x = 'Site',
+         y = "") +
+    scale_y_continuous(limits = c(0, 0.2),
+                       expand = c(0, 0.005),
+                       breaks = seq(from = 0,
+                                    to = 0.2,
+                                    by = 0.05)) +
+    theme1
 
-dev.off()
+# dev.off()
 
 
 #### Plankton jar model ####
@@ -367,6 +347,7 @@ testDispersion(check.PJAPmod)
 testZeroInflation(check.PJAPmod)
 plotResiduals(check.PJAPmod, PJdata_AP$site)
 
+
 #### Inference ####
 
 PJAPmodrun1long <- extract.post(PJAPmodrun1)
@@ -456,68 +437,48 @@ PJAP_sim$site <- mapvalues(PJAP_sim$site,
                                 "Elliot Bay",
                                 "Victoria Harbour"))
 
-tiff('Plankton jars AP Plot.tiff',
-     res = 500,
-     width = 9,
-     height = 8,
-     units = 'cm',
-     pointsize = 12)
+# tiff('Plankton jars AP Plot.tiff',
+#      res = 500,
+#      width = 9,
+#      height = 8,
+#      units = 'cm',
+#      pointsize = 12)
 
 set.seed(123)
 
-ggplot() +
-  geom_linerange(data = PJAP_sim,
-                 aes(x = site,
-                     ymax = upper95,
-                     ymin = lower95),
-                 alpha = 0.05,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_linerange(data = PJAP_sim,
-                 aes(x = site,
-                     ymax = upper75,
-                     ymin = lower75),
-                 alpha = 0.25,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_linerange(data = PJAP_sim,
-                 aes(x = site,
-                     ymax = upper50,
-                     ymin = lower50),
-                 alpha = 0.5,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_linerange(data = PJAP_sim,
-                 aes(x = site,
-                     ymax = upper25,
-                     ymin = lower25),
-                 alpha = 0.75,
-                 size = 0.5,
-                 colour = pal[1]) +
-  geom_point(data = PJAP_sim,
-             aes(x = site,
-                 y = mean),
-             size = 2,
-             colour = pal[1],) +
-  geom_jitter(data = PJdata_AP,
-              aes(x = site,
-                  y = count),
-              size = 0.75, shape = 1, colour = pal[3],
-              height = 0,
-              width = 0.1) +
-  labs(x = 'Site',
-       y = expression(paste('Particles '*L^-1))) +
-  scale_y_continuous(limits = c(0, 30),
-                     expand = c(0, 0.5),
-                     breaks = seq(from = 0,
-                                  to = 30,
-                                  by = 5)) +
+PJAPplot <- 
+  ggplot() +
+    geom_linerange(data = PJAP_sim,
+                   aes(x = site,
+                       ymax = upper95,
+                       ymin = lower95),
+                   size = 0.5,
+                   colour = pal[2]) +
+    geom_point(data = PJAP_sim,
+               aes(x = site,
+                   y = mean),
+               size = 1.5,
+               fill = pal[2],
+               shape = 21) +
+    geom_jitter(data = PJdata_AP,
+                aes(x = site,
+                    y = count),
+                size = 0.75, shape = 1, colour = pal[1],
+                height = 0,
+                width = 0.1) +
+    labs(x = 'Site',
+         y = "") +
+    scale_y_continuous(limits = c(0, 30),
+                       expand = c(0, 0.5),
+                       breaks = seq(from = 0,
+                                    to = 30,
+                                    by = 5)) +
   theme1
 
-dev.off()
+# dev.off()
 
 
-#### MP Model by Individual  ####  
+#### AP Model by Individual  ####  
 
 APgutdata <- subset(gutdata, !is.na(trophic.position) & 
                       particle.type != 'Natural')
@@ -798,7 +759,7 @@ for(i in 1:2000){
   lambda_y <- lambda_true + lambda_blanks
   true <- as.numeric(rpois(lambda_true, lambda_true))
   y <- as.numeric(rpois(lambda_y, lambda_y))
-  APgutsim$mean[i] <- mean(lambda_true)
+  APgutsim$median[i] <- median(lambda_true)
   APgutsim$upper25[i] <- quantile(lambda_true, 0.625)
   APgutsim$lower25[i] <- quantile(lambda_true, 0.375)
   APgutsim$upper50[i] <- quantile(lambda_true, 0.75)
@@ -821,62 +782,21 @@ APgutsim$site <- mapvalues(APgutsim$site,
 
 #### Plot predictions ####
 
-tiff('Trophic Position AP Plot.tiff',
-     res = 500,
-     width = 16,
-     height = 12,
-     units = 'cm',
-     pointsize = 12)
-
-ggplot() +
-  geom_ribbon(data = APgutsim,
-              aes(x = trophic.position,
-                  ymax = upper95,
-                  ymin = lower95),
-              alpha = 0.05,
-              size = 0.5,
-              fill = pal[4]) +
-  geom_ribbon(data = APgutsim,
-              aes(x = trophic.position,
-                  ymax = upper75,
-                  ymin = lower75),
-              alpha = 0.25,
-              size = 0.5,
-              fill = pal[4]) +
-  geom_ribbon(data = APgutsim,
-              aes(x = trophic.position,
-                  ymax = upper50,
-                  ymin = lower50),
-              alpha = 0.5,
-              size = 0.5,
-              fill = pal[4]) +
-  geom_ribbon(data = APgutsim,
-              aes(x = trophic.position,
-                  ymax = upper25,
-                  ymin = lower25),
-              alpha = 0.75,
-              size = 0.5,
-              fill = pal[4]) +
-  geom_line(data = APgutsim,
-            aes(x = trophic.position,
-                y = mean),
-            size = 0.5,
-            colour = pal[1]) +
-  geom_point(data = APgutdata,
-             aes(x = TP.est,
-                 y = count),
-             size = 1, shape = 20, alpha = 0.8, colour = pal[1]) +
-  facet_wrap(~ site) +
-  labs(x = 'Trophic Position',
-       y = expression(paste('Particles '*ind^-1))) +
-  coord_cartesian(xlim = c(1, 6)) +
-  scale_x_continuous(expand = c(0, 0)) +
-  scale_y_continuous(limits = c(0, 12),
-                     expand = c(0, 0.1),
-                     breaks = c(seq(0, 12, 2))) +
-  theme1
-
-dev.off()
+APTLplot <-
+  predictionsplot(
+    simdata = APgutsim,
+    simx = APgutsim$trophic.position,
+    rawdata = APgutdata,
+    rawx = APgutdata$TP.est,
+    rawy = APgutdata$count,
+    ribboncol = pal[2],
+    linecol = pal[1],
+    pointcol = pal[1],
+    xlab = "Trophic Position",
+    ylab = "",
+    xlim = c(1, 6),
+    ylim = c(0, 12)
+  )
 
 
 
@@ -1266,7 +1186,7 @@ for(i in 1:2000){
   lambda_y <- lambda_true + lambda_blanks
   true <- as.numeric(rpois(lambda_true, lambda_true))
   y <- as.numeric(rpois(lambda_y, lambda_y))
-  fishgutAPsim$mean[i] <- mean(lambda_true)
+  fishgutAPsim$median[i] <- median(lambda_true)
   fishgutAPsim$upper25[i] <- quantile(lambda_true, 0.625)
   fishgutAPsim$lower25[i] <- quantile(lambda_true, 0.375)
   fishgutAPsim$upper50[i] <- quantile(lambda_true, 0.75)
@@ -1296,63 +1216,18 @@ tiff('Body Size Fish AP Plot.tiff',
      units = 'cm',
      pointsize = 12)
 
-ggplot() +
-  geom_ribbon(data = fishgutAPsim,
-              aes(x = length,
-                  ymax = upper95,
-                  ymin = lower95),
-              alpha = 0.05,
-              size = 0.5,
-              fill = pal[2]) +
-  geom_ribbon(data = fishgutAPsim,
-              aes(x = length,
-                  ymax = upper75,
-                  ymin = lower75),
-              alpha = 0.25,
-              size = 0.5,
-              fill = pal[2]) +
-  geom_ribbon(data = fishgutAPsim,
-              aes(x = length,
-                  ymax = upper50,
-                  ymin = lower50),
-              alpha = 0.5,
-              size = 0.5,
-              fill = pal[2]) +
-  geom_ribbon(data = fishgutAPsim,
-              aes(x = length,
-                  ymax = upper25,
-                  ymin = lower25),
-              alpha = 0.75,
-              size = 0.5,
-              fill = pal[2],
-              colour = pal[2]) +
-  geom_line(data = fishgutAPsim,
-            aes(x = length,
-                y = mean),
-            size = 0.5,
-            colour = pal[1],
-            alpha = 0.3) +
-  geom_point(data = fishgutAPdata,
-             aes(x = TL,
-                 y = count),
-             size = 0.75, shape = 1, alpha = 0.8, colour = pal[1]) +
-  geom_linerange(data = fishgutAPdata,
-                 aes(x = TL,
-                     ymin = true.est.lower95,
-                     ymax = true.est.upper95),
-                 size = 0.5, alpha = 0.5, colour = pal[3]) +
-  geom_point(data = fishgutAPdata,
-             aes(x = TL,
-                 y = true.est),
-             size = 1.5, shape = 1, alpha = 0.75, colour = pal[3]) +
-  facet_wrap(~ site) +
-  scale_x_continuous(trans = 'log1p',
-                     breaks = c(5, 10, 20, 35),
-                     expand = c(0, 0)) +
-  labs(x = 'Total Length (cm)',
-       y = expression(paste('Particles '*ind^-1))) +
-  theme1 +
-  theme(panel.spacing = unit(0.5, "cm"))
+predictionsplot(simdata = fishgutAPsim,
+                simx = fishgutAPsim$length,
+                rawdata = fishgutAPdata, 
+                rawx = fishgutAPdata$TL,
+                rawy = fishgutAPdata$count,
+                ribboncol = pal[2], 
+                linecol = pal[1], 
+                pointcol = pal[1],
+                xlab = "Total Length (cm)",
+                ylab = expression(paste("Particles "*ind^-1)),
+                xlim = c(5, 30),
+                ylim = c(0, 22))
 
 dev.off()
 
@@ -1698,14 +1573,15 @@ APliversim$site <- mapvalues(APliversim$site,
 
 #### Plot predictions ####
 
-tiff('Trophic Position AP Liver Bayesian Plot.tiff',
-     res = 500,
-     width = 16,
-     height = 12,
-     units = 'cm',
-     pointsize = 12)
+# tiff('Trophic Position AP Liver Bayesian Plot.tiff',
+#      res = 500,
+#      width = 16,
+#      height = 12,
+#      units = 'cm',
+#      pointsize = 12)
 
-ggplot() +
+liverAPplot <-
+  ggplot() +
   geom_ribbon(
     data = APliversim,
     aes(x = trophic.position,
@@ -1713,7 +1589,7 @@ ggplot() +
         ymin = lower95),
     alpha = 0.05,
     size = 0.5,
-    fill = pal[4]
+    fill = pal[2]
   ) +
   geom_ribbon(
     data = APliversim,
@@ -1722,7 +1598,7 @@ ggplot() +
         ymin = lower75),
     alpha = 0.25,
     size = 0.5,
-    fill = pal[4]
+    fill = pal[2]
   ) +
   geom_ribbon(
     data = APliversim,
@@ -1731,7 +1607,7 @@ ggplot() +
         ymin = lower50),
     alpha = 0.5,
     size = 0.5,
-    fill = pal[4]
+    fill = pal[2]
   ) +
   geom_ribbon(
     data = APliversim,
@@ -1740,7 +1616,7 @@ ggplot() +
         ymin = lower25),
     alpha = 0.75,
     size = 0.5,
-    fill = pal[4]
+    fill = pal[2]
   ) +
   geom_line(
     data = APliversim,
@@ -1763,19 +1639,20 @@ ggplot() +
     alpha = 0.5
   ) +
   scale_fill_manual(values = pal[1:5]) +
-  facet_wrap(~ site) +
+  facet_wrap( ~ site) +
   labs(x = 'Trophic Position',
-       y = expression(paste('Particles g dry tissue ' * weight ^ -1))) +
+       y = "") +
   coord_cartesian(xlim = c(2, 4.5)) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(
     trans = 'log1p',
     expand = c(0, 0.01),
-    breaks = c(0, 1, 10, 20)
+    breaks = c(0, 1, 10, 20, 30),
+    limits = c(0, 30)
   ) +
   theme1
 
-dev.off()
+# dev.off()
 
 
 #### Rockfish ingested animals vs. gut ####

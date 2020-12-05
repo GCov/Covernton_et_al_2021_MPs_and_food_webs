@@ -63,20 +63,55 @@ theme1 <-
     legend.title = element_blank()
   )
 
+isotopes$animal.type <- isotopes$sample.type
 
-tiff('Isotopic_Biplot.tiff',width = 19, height = 19, units = 'cm', res = 300)
+isotopes$animal.type <-
+  mapvalues(isotopes$animal.type,
+            from = c("Flatfish Livers",
+                     "Surfperch Livers",
+                     "Rockfish Livers"),
+            to = c("Flatfish",
+                   "Surfperch",
+                   "Rockfish"))
+
+isotopes$tissue.type <-
+  ifelse(isotopes$sample.type == "Flatfish Livers" |
+           isotopes$sample.type == "Surfperch Livers" |
+           isotopes$sample.type == "Rockfish Livers",
+         "Livers",
+         "Digestive Tracts")
+
+
+isopal <-
+  c(
+    "#020c12",
+    "#520000",
+    "#8f3e00",
+    "#cccc00",
+    "#00ff00",
+    "#85ffff",
+    "#8585ff",
+    "#fefffe"
+  )
+
+tiff('Isotopic_Biplot.tiff', width = 19, height = 8, units = 'cm', res = 300)
 
 ggplot(isotopes) +  # isotopic plot
   geom_point(aes(x = deltaC,
                  y = deltaN,
-                 colour = reorder(species, deltaN, mean)),
-             size = 0.75) +
-  facet_grid(~site) +
-  scale_colour_manual(values = qualitative_hcl(n = 20, 
-                                               h = c(-180, 160), 
-                                               c = 60, 
-                                               l = 75)) +
-  theme1
+                 fill = reorder(animal.type, deltaN, mean),
+                 shape = tissue.type),
+             size = 2,
+             colour = "black",
+             alpha = 0.8) +
+  facet_wrap(~site, nrow = 1) +
+  scale_fill_manual(values = isopal) +
+  scale_shape_manual(values = c(21, 24)) +
+  labs(x = expression(paste(delta^13*"C")),
+       y = expression(paste(delta^15*"N"))) +
+  theme1 +
+  guides(fill = guide_legend(override.aes = list(shape = 21, size = 3)),
+         shape = guide_legend(override.aes = list(size = 3)))
 
 dev.off()
 
