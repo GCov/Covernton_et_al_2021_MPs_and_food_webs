@@ -163,6 +163,7 @@ ggplot(PTmodrun1long) +
   labs(x = "",
        y = "Parameter") +
   theme1
+
 dev.off()
 
 
@@ -449,8 +450,8 @@ ggplot(PJmodrun1long) +
   geom_density_ridges(
     aes(x = exp(value),
         y = reorder(variable, order, mean)),
-    fill = pal[5],
-    colour = pal[5],
+    fill = pal[3],
+    colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -750,7 +751,7 @@ ggplot(run1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[5],
+    fill = pal[3],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
@@ -1319,8 +1320,8 @@ ggplot(fishrun1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[5],
-    colour = pal[5],
+    fill = pal[3],
+    colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -1468,7 +1469,6 @@ liver.mod <- function() {
     
     log(lambda_true[i]) <-
       log(weight[i]) +
-      alpha_species[species[i]] +
       beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
@@ -1481,13 +1481,6 @@ liver.mod <- function() {
   }
   
   ## Priors
-  
-  for (j in 1:nspecies) {
-    alpha_species[j] ~ dnorm(0, tau_species)
-  }
-  
-  tau_species <- inverse(pow(sigma_species, 2))
-  sigma_species ~ dexp(1)
   
   for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
@@ -1503,7 +1496,6 @@ liver.mod <- function() {
 liver.mod.init <- function()
 {
   list(
-    "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
     "gamma_site" = rnorm(3),
     "base" = rgamma(3, 1, 1)
@@ -1512,7 +1504,7 @@ liver.mod.init <- function()
 
 ## Keep track of parameters
 
-liver.mod.params <- c("alpha_species", "beta_TP", "gamma_site", "base")
+liver.mod.params <- c("beta_TP", "gamma_site", "base")
 
 ## Specify data
 
@@ -1522,8 +1514,6 @@ liver.mod.data <-
     N = nrow(MPliverdata),
     lambda_blanks = MPliverdata$blank.mean,
     weight = MPliverdata$tissue.dry.weight,
-    species = as.integer(MPliverdata$species),
-    nspecies = length(unique(MPliverdata$species)),
     site = as.integer(MPliverdata$site),
     nsite = length(unique(MPliverdata$site)),
     deltaN = MPliverdata$deltaN,
@@ -1596,6 +1586,8 @@ plotResiduals(check.liver.mod,
               MPliverdata$tissue.dry.weight)
 plotResiduals(check.liver.mod,
               MPliverdata$tissue.wet.weight)
+plotResiduals(check.liver.mod,
+              MPliverdata$species)
 
 testDispersion(check.liver.mod)
 testZeroInflation(check.liver.mod)
@@ -1609,11 +1601,6 @@ liver.mod.run1long$variable <-
     liver.mod.run1long$variable,
     from = levels(liver.mod.run1long$variable),
     to = c(
-      "Cymatogaster aggregata",
-      "Parophrys vetulus",
-      "Platichthys stellatus",
-      "Sebastes caurinus",
-      "Sebastes melanops",
       "Coles Bay Base delta15N",
       "Elliot Base delta15N",
       "Victoria Harbour Base delta15N",
@@ -1640,8 +1627,8 @@ ggplot(liver.mod.run1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[5],
-    colour = pal[5],
+    fill = pal[3],
+    colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -1721,10 +1708,7 @@ MPliversim <- data.frame(
                 replace = TRUE),
   species = sample(MPliverdata$species,
                    2000,
-                   replace = TRUE),
-  blank.mean = sample(MPliverdata$blank.mean,
-                      2000,
-                      replace = TRUE)
+                   replace = TRUE)
 )
 
 MPliversim$weight <-
@@ -1739,11 +1723,6 @@ for(i in 1:2000){
         MPliversim$trophic.position[i] +
         liver.mod.run1$BUGSoutput$sims.list$gamma_site[, MPliversim$site[i]]
     )
-  lambda_true <- true*MPliversim$weight[i]
-  lambda_blanks <- MPliversim$blank.mean[i]
-  lambda_y <- lambda_true + lambda_blanks
-  true.conc <- as.numeric(rpois(lambda_true, lambda_true))/MPliversim$weight[i]
-  y <- as.numeric(rpois(lambda_y, lambda_y))
   MPliversim$median[i] <- median(true.mean)
   MPliversim$upper25[i] <- quantile(true.mean, 0.625)
   MPliversim$lower25[i] <- quantile(true.mean, 0.375)
@@ -1753,8 +1732,6 @@ for(i in 1:2000){
   MPliversim$lower75[i] <- quantile(true.mean, 0.125)
   MPliversim$upper95[i] <- quantile(true.mean, 0.975)
   MPliversim$lower95[i] <- quantile(true.mean, 0.025)
-  MPliversim$yupper95[i] <- quantile(y, 0.975)
-  MPliversim$ylower95[i] <- quantile(y, 0.025)
 }
 
 
@@ -1825,7 +1802,7 @@ liverMPplot <-
     data = MPliverdata,
     aes(
       x = TP.est,
-      y = true.est / tissue.wet.weight,
+      y = count / tissue.wet.weight,
       fill = species
     ),
     colour = "black",
@@ -1855,16 +1832,7 @@ liverMPplot <-
 
 transferdata <- subset(foodweb2, 
                        sample.type == "Rockfish: Ingested Animals" &
-                         particle.type == "Synthetic Polymer" |
-                         sample.type == "Rockfish" &
                          particle.type == "Synthetic Polymer")
-
-transferdata <-
-  subset(transferdata, 
-         (transferdata$ID %in% 
-            subset(transferdata, 
-                   sample.type == "Rockfish: Ingested Animals")$ID) == "TRUE")
-  
 
    
 
@@ -1874,10 +1842,6 @@ transferdata$species <- as.character(transferdata$species)
 transferdata$species <- as.factor(transferdata$species)
 transferdata$sample.type <- as.character(transferdata$sample.type)
 transferdata$sample.type <- as.factor(transferdata$sample.type)
-transferdata$sample.type <- mapvalues(transferdata$sample.type,
-                                      from = levels(transferdata$sample.type),
-                                      to = c("Gut",
-                                             "Gut Animals"))
 transferdata$ID <- as.character(transferdata$ID)
 transferdata$ID <- as.factor(transferdata$ID)
 
@@ -1890,22 +1854,23 @@ transfer.mod <- function() {
     true[i] ~ dpois(lambda_true[i])
     
     log(lambda_true[i]) <- 
-      log(weight[i]) + alpha_ind[ID[i]] + alpha_gut[sample.type[i]]
+      log(weight[i]) + 
+      alpha_species[species[i]] +
+      gamma_site[site[i]]
     
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
   }
   
   ## Priors
+  
   for (j in 1:2) {
-    alpha_gut[j] ~ dnorm(0, 1)
+    alpha_species[j] ~ dnorm(0, 1)
   }
   
-  for (k in 1:nind){
-    alpha_ind[k] ~ dnorm(0, tau_ind)
+  for (k in 1:nsite) {
+    gamma_site[k] ~ dnorm(0, 1)
   }
-  tau_ind <- inverse(pow(sigma_ind, 2))
-  sigma_ind ~ dexp(1)
 }
 
 ## Generate initial values for MCMC
@@ -1913,14 +1878,15 @@ transfer.mod <- function() {
 transfer.mod.init <- function()
 {
   list(
-    "alpha_gut" = rnorm(2),
-    "sigma_ind" = rexp(1)
+    "alpha_species" = rnorm(2),
+    "gamma_site" = rnorm(3)
   )
 }
 
 ## Keep track of parameters
 
-transfer.mod.params <- c("alpha_gut", "sigma_ind")
+transfer.mod.params <- 
+  c("alpha_species", "gamma_site")
 
 ## Specify data
 
@@ -1929,10 +1895,10 @@ transfer.mod.data <-
     y = transferdata$count,
     N = nrow(transferdata),
     lambda_blanks = transferdata$blank.mean,
-    sample.type = as.integer(transferdata$sample.type),
-    nind = length(unique(transferdata$ID)),
-    ID = as.integer(transferdata$ID),
-    weight = transferdata$tissue.dry.weight
+    weight = transferdata$tissue.dry.weight,
+    site = as.integer(transferdata$site),
+    nsite = length(unique(transferdata$site)),
+    species = as.integer(transferdata$species)
   )
 
 ## Run the model
@@ -1990,6 +1956,8 @@ plotResiduals(check.transfer.mod, transferdata$species)
 plotResiduals(check.transfer.mod, transferdata$sample.type)
 plotResiduals(check.transfer.mod, transferdata$ID)
 plotResiduals(check.transfer.mod, transferdata$tissue.dry.weight)
+plotResiduals(check.transfer.mod, transferdata$TL)
+plotResiduals(check.transfer.mod, transferdata$site)
 
 #### Inference ####
 
@@ -2000,9 +1968,11 @@ transfer.mod.run1long$variable <-
     transfer.mod.run1long$variable,
     from = levels(transfer.mod.run1long$variable),
     to = c(
-      "Gut",
-      "Gut Animals",
-      "Individual Standard Deviation"
+      "Sebastes caurinus",
+      "Sebastes melanops",
+      "Coles Bay",
+      "Elliot Bay",
+      "Victoria Harbour"
     )
   )
 
@@ -2026,6 +1996,7 @@ ggplot(transfer.mod.run1long) +
     size = 0.25
   ) +
   scale_x_continuous(expand = c(0,0)) +
+  coord_cartesian(xlim = c(-3, 2.5)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -2046,16 +2017,12 @@ transferdata$true.est.lower95 <-
 
 set.seed(3256)
 
-transfersim <- data.frame(
-  sample.type = c(1, 2)
-)
+transfersim <- expand.grid(species = 1, site = 3)
 
-for(i in 1:2) {
+for(i in 1:nrow(transfersim)) {
   lambda_true <-
-    exp(transfer.mod.run1$BUGSoutput$sims.list$alpha_gut[, transfersim$sample.type[i]])
-  lambda_blanks <- transfersim$blank.mean[i]
-  lambda_y <- lambda_true + lambda_blanks
-  y <- as.numeric(rpois(lambda_y, lambda_y))
+    exp(transfer.mod.run1$BUGSoutput$sims.list$alpha_species[, transfersim$species] +
+          transfer.mod.run1$BUGSoutput$sims.list$gamma_site[, transfersim$site])
   transfersim$median[i] <- median(lambda_true)
   transfersim$upper25[i] <- quantile(lambda_true, 0.625)
   transfersim$lower25[i] <- quantile(lambda_true, 0.375)
@@ -2065,19 +2032,7 @@ for(i in 1:2) {
   transfersim$lower75[i] <- quantile(lambda_true, 0.125)
   transfersim$upper95[i] <- quantile(lambda_true, 0.975)
   transfersim$lower95[i] <- quantile(lambda_true, 0.025)
-  transfersim$yupper95[i] <- quantile(y, 0.975)
-  transfersim$ylower95[i] <- quantile(y, 0.025)
 }
-
-
-transfersim$sample.type <- as.factor(transfersim$sample.type)
-
-transfersim$sample.type <- mapvalues(
-  transfersim$sample.type,
-  from = levels(transfersim$sample.type),
-  to = c("Gut",
-         "Gut Animals")
-)
 
 #### Plot predictions ####
 
@@ -2091,7 +2046,7 @@ tiff('Trophic Transfer Bayesian Plot.tiff',
 ggplot() +
   geom_linerange(
     data = transfersim,
-    aes(x = sample.type,
+    aes(x = 1,
         ymax = upper95,
         ymin = lower95),
     size = 0.5,
@@ -2099,7 +2054,7 @@ ggplot() +
   ) +
   geom_point(
     data = transfersim,
-    aes(x = sample.type,
+    aes(x = 1,
         y = median),
     size = 1.5,
     colour = pal[1],
@@ -2109,7 +2064,7 @@ ggplot() +
   geom_jitter(
     data = transferdata,
     aes(
-      x = sample.type,
+      x = 1,
       y = count/tissue.dry.weight
     ),
     width = 0.25,
@@ -2123,10 +2078,12 @@ ggplot() +
        y = "Number of Particles") +
   scale_y_continuous(
     expand = c(0, 0.1),
-    trans = "log1p",
-    breaks = c(0, 1, 5, 10, 15)
+    breaks = seq(0, 20, 5),
+    limits = c(0, 20)
   ) +
-  theme1
+  theme1 +
+  theme(axis.text.x = element_blank(),
+        axis.ticks.x = element_blank())
 
 dev.off()
 
@@ -2151,8 +2108,8 @@ rfishcompare$species <- as.factor(rfishcompare$species)
 
 rfishcompare$full.stomach <- as.factor(rfishcompare$full.stomach)
 
-
 rfish.mod <- function() {
+  # Likelihood
   for (i in 1:N) {
     y[i] ~ dpois(lambda_y[i])
     
@@ -2160,15 +2117,43 @@ rfish.mod <- function() {
     
     true[i] ~ dpois(lambda_true[i])
     
-    log(lambda_true[i]) <- alpha_gut[full.stomach[i]]
+    log(lambda_true[i]) <-
+      alpha_species[species[i]] +
+      beta_TP * TP[i] +
+      beta_TL * TL[i] +
+      gamma_site[site[i]] +
+      gamma_gut[full.stomach[i]]
+    
+    TP[i] <-
+      ((log(nit_lim - base[site[i]]) - log(nit_lim - animal[i])) / k) + 2
+    animal[i] ~ dnorm(deltaN[i], 1/0.052)  # SD from standards
     
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
   }
   
   ## Priors
-  for (j in 1:2) {
-    alpha_gut[j] ~ dnorm(0, 1)
+  
+  for (j in 1:nspecies) {
+    alpha_species[j] ~ dnorm(0, tau_species)
+  }
+  
+  tau_species <- inverse(pow(sigma_species, 2))
+  sigma_species ~ dexp(1)
+  
+  beta_TP ~ dnorm(0, 1)
+  
+  beta_TL ~ dnorm(0, 1)
+  
+  for (k in 1:nsite) {
+    gamma_site[k] ~ dnorm(0, 1)
+    base[k] ~ dgamma(shape[k], rate[k])
+    shape[k] <- pow(mean_base[k], 2) / pow(sd_base[k], 2)
+    rate[k] <- mean_base[k] / pow(sd_base[k], 2)
+  }
+  
+  for (l in 1:2) {
+    gamma_gut[l] ~ dnorm(0, 1)
   }
 }
 
@@ -2177,13 +2162,19 @@ rfish.mod <- function() {
 rfish.mod.init <- function()
 {
   list(
-    "alpha_gut" = rnorm(2)
+    "sigma_species" = rexp(1),
+    "beta_TP" = rnorm(1),
+    "beta_TL" = rnorm(1),
+    "gamma_site" = rnorm(3),
+    "base" = rgamma(3, 1, 1),
+    "gamma_gut" = rnorm(2)
   )
 }
 
 ## Keep track of parameters
 
-rfish.mod.params <- c("alpha_gut")
+rfish.mod.params <- 
+  c("alpha_species", "beta_TP", "beta_TL", "gamma_site", "base", "gamma_gut")
 
 ## Specify data
 
@@ -2192,6 +2183,24 @@ rfish.mod.data <-
     y = rfishcompare$count,
     N = nrow(rfishcompare),
     lambda_blanks = rfishcompare$blank.mean,
+    species = as.integer(rfishcompare$species),
+    nspecies = length(unique(rfishcompare$species)),
+    site = as.integer(rfishcompare$site),
+    diff = rfishcompare$deltaN - rfishcompare$base_deltaN,
+    nsite = length(unique(rfishcompare$site)),
+    deltaN = rfishcompare$deltaN,
+    mean_base = as.numeric(with(
+      rfishcompare,
+      tapply(base_deltaN,
+             as.integer(site),
+             mean)
+    )),
+    sd_base = as.numeric(with(
+      rfishcompare, tapply(sd_base_deltaN, as.integer(site), mean)
+    )),
+    nit_lim = nit_lim,
+    k = k,
+    TL = rfishcompare$TL,
     full.stomach = as.integer(rfishcompare$full.stomach)
   )
 
@@ -2202,9 +2211,9 @@ rfish.mod.run1 <- jags.parallel(
   parameters.to.save = rfish.mod.params,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 2000,
+  n.iter = 12000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 2,
   jags.seed = 3242,
   model = rfish.mod
 )
@@ -2222,9 +2231,9 @@ rfish.mod.run2 <- jags.parallel(
   parameters.to.save = rfish.mod.params2,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 2000,
+  n.iter = 12000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 2,
   jags.seed = 3242,
   model = rfish.mod
 )
@@ -2245,6 +2254,11 @@ check.rfish.mod <-
 
 plot(check.rfish.mod)
 plotResiduals(check.rfish.mod, rfishcompare$full.stomach)
+plotResiduals(check.rfish.mod, rfishcompare$species)
+plotResiduals(check.rfish.mod, rfishcompare$site)
+plotResiduals(check.rfish.mod, rfishcompare$tissue.wet.weight)
+plotResiduals(check.rfish.mod, rfishcompare$TL)
+plotResiduals(check.rfish.mod, rfishcompare$TP.est)
 
 #### Inference ####
 
@@ -2255,8 +2269,18 @@ rfish.mod.run1long$variable <-
     rfish.mod.run1long$variable,
     from = levels(rfish.mod.run1long$variable),
     to = c(
+      "Sebastes caurinus",
+      "Sebastes melanops",
+      "Coles Bay Base delta15N",
+      "Elliot Base delta15N",
+      "Victoria Harbour Base delta15N",
+      "Total Length",
+      "Trophic Position",
       "Empty Stomach",
-      "Full Stomach"
+      "Full Stomach",
+      "Coles Bay",
+      "Elliot Bay",
+      "Victoria Harbour"
     )
   )
 
@@ -2272,14 +2296,14 @@ png(
 
 ggplot(rfish.mod.run1long) +
   geom_density_ridges(
-    aes(x = exp(value),
+    aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[5],
-    colour = pal[5],
+    fill = pal[3],
+    colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(0, 2)) +
+  coord_cartesian(xlim = c(-3.5, 14)) +
   scale_x_continuous(expand = c(0,0)) +
   labs(x = "",
        y = "Parameter") +
@@ -2301,28 +2325,33 @@ rfishcompare$true.est.lower95 <-
 
 set.seed(3256)
 
-rfishsim <- data.frame(
-  full.stomach = c(1, 2),
-  blank.mean = c(1, 1)
-)
+rfishsim <- 
+  expand.grid(trophic.position = mean(rfishcompare$TP.est),
+             site = 3,
+             species = c(1, 2),
+             length = mean(rfishcompare$TL),
+             full.stomach = c(1, 2))
 
-for(i in 1:2) {
+for(i in 1:nrow(rfishsim)){
   lambda_true <-
-    exp(rfish.mod.run1$BUGSoutput$sims.list$alpha_gut[, rfishsim$full.stomach[i]])
-  lambda_blanks <- rfishsim$blank.mean[i]
-  lambda_y <- lambda_true + lambda_blanks
-  y <- as.numeric(rpois(lambda_y, lambda_y))
+    exp(
+      rfish.mod.run1$BUGSoutput$sims.list$alpha_species[, rfishsim$species[i]] +
+        rfish.mod.run1$BUGSoutput$sims.list$beta_TP * 
+        rfishsim$trophic.position[i] +
+        rfish.mod.run1$BUGSoutput$sims.list$beta_TL *
+        rfishsim$trophic.position[i] +
+        rfish.mod.run1$BUGSoutput$sims.list$gamma_site[, rfishsim$site[i]] +
+        rfish.mod.run1$BUGSoutput$sims.list$gamma_gut[, rfishsim$full.stomach[i]]
+    )
   rfishsim$median[i] <- median(lambda_true)
   rfishsim$upper25[i] <- quantile(lambda_true, 0.625)
   rfishsim$lower25[i] <- quantile(lambda_true, 0.375)
-  rfishsim$upper50[i] <- quantile(lambda_true, 0.750)
-  rfishsim$lower50[i] <- quantile(lambda_true, 0.250)
+  rfishsim$upper50[i] <- quantile(lambda_true, 0.75)
+  rfishsim$lower50[i] <- quantile(lambda_true, 0.25)
   rfishsim$upper75[i] <- quantile(lambda_true, 0.875)
   rfishsim$lower75[i] <- quantile(lambda_true, 0.125)
   rfishsim$upper95[i] <- quantile(lambda_true, 0.975)
   rfishsim$lower95[i] <- quantile(lambda_true, 0.025)
-  rfishsim$yupper95[i] <- quantile(y, 0.975)
-  rfishsim$ylower95[i] <- quantile(y, 0.025)
 }
 
 
@@ -2342,6 +2371,15 @@ rfishcompare$full.stomach <- mapvalues(
          "Full Stomach")
 )
 
+rfishsim$species <- as.factor(rfishsim$species)
+
+rfishsim$species <- mapvalues(
+  rfishsim$species,
+  from = levels(rfishsim$species),
+  to = c("Sebastes caurinus",
+         "Sebastes melanops")
+)
+
 #### Plot predictions ####
 
 tiff('Rockfish Gut Comparison Bayesian Plot.tiff',
@@ -2357,36 +2395,8 @@ ggplot() +
     aes(x = full.stomach,
         ymax = upper95,
         ymin = lower95),
-    alpha = 0.05,
     size = 0.5,
-    colour = pal[5]
-  ) +
-  geom_linerange(
-    data = rfishsim,
-    aes(x = full.stomach,
-        ymax = upper75,
-        ymin = lower75),
-    alpha = 0.25,
-    size = 0.5,
-    colour = pal[5]
-  ) +
-  geom_linerange(
-    data = rfishsim,
-    aes(x = full.stomach,
-        ymax = upper50,
-        ymin = lower50),
-    alpha = 0.5,
-    size = 0.5,
-    colour = pal[5]
-  ) +
-  geom_linerange(
-    data = rfishsim,
-    aes(x = full.stomach,
-        ymax = upper25,
-        ymin = lower25),
-    alpha = 0.75,
-    size = 0.5,
-    colour = pal[5]
+    colour = pal[3]
   ) +
   geom_point(
     data = rfishsim,
@@ -2394,7 +2404,7 @@ ggplot() +
         y = median),
     size = 1.5,
     colour = pal[1],
-    fill = pal[2],
+    fill = pal[3],
     shape = 21
   ) +
   geom_jitter(
@@ -2405,20 +2415,18 @@ ggplot() +
     ),
     width = 0.25,
     height = 0,
-    colour = pal[3],
+    colour = pal[1],
     size = 1,
     shape = 1,
     alpha = 0.5
   ) +
+  facet_wrap(~ species) +
   labs(x = "",
        y = "Number of Particles") +
   scale_y_continuous(
     expand = c(0, 0.1)
   ) +
-  theme1 +
-  theme(panel.background = element_rect(fill = "white"),
-        plot.background = element_rect(fill = pal[2]),
-        legend.background = element_rect(fill = pal[2]))
+  theme1
 
 dev.off()
 

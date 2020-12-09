@@ -15,7 +15,7 @@ plot_grid(PTMPplot, PTAPplot, PJMPplot, PJAPplot,
 dev.off()
 
 
-## Trophic llvel gut figure
+## Trophic level gut figure
 
 tiff("Trophic Position Gut Plot.tiff",
      width = 19,

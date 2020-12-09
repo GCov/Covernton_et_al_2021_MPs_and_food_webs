@@ -144,7 +144,7 @@ ggplot(PTAPmodrun1long) +
   geom_density_ridges(
     aes(x = exp(value),
         y = reorder(variable, order, mean)),
-    fill = pal[3],
+    fill = pal[2],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
@@ -363,7 +363,7 @@ PJAPmodrun1long$variable <- mapvalues(
 PJAPmodrun1long$order <- c(nrow(PJAPmodrun1long):1)
 
 png(
-  'MP PJAP Model Posteriors.png',
+  'PJAP Model Posteriors.png',
   width = 9,
   height = 7,
   units = 'cm',
@@ -374,7 +374,7 @@ ggplot(PJAPmodrun1long) +
   geom_density_ridges(
     aes(x = exp(value),
         y = reorder(variable, order, mean)),
-    fill = pal[3],
+    fill = pal[2],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
@@ -681,7 +681,7 @@ ggplot(APrun1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[3],
+    fill = pal[2],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
@@ -1119,7 +1119,7 @@ ggplot(fishAPrun1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[3],
+    fill = pal[2],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
@@ -1273,7 +1273,6 @@ liverAP.mod <- function() {
     
     log(lambda_true[i]) <-
       log(weight[i]) +
-      alpha_species[species[i]] +
       beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
@@ -1286,13 +1285,6 @@ liverAP.mod <- function() {
   }
   
   ## Priors
-  
-  for (j in 1:nspecies) {
-    alpha_species[j] ~ dnorm(0, tau_species)
-  }
-  
-  tau_species <- inverse(pow(sigma_species, 2))
-  sigma_species ~ dexp(1)
   
   for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
@@ -1308,7 +1300,6 @@ liverAP.mod <- function() {
 liverAP.mod.init <- function()
 {
   list(
-    "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
     "gamma_site" = rnorm(3),
     "base" = rgamma(3, 1, 1)
@@ -1317,7 +1308,7 @@ liverAP.mod.init <- function()
 
 ## Keep track of parameters
 
-liverAP.mod.params <- c("alpha_species", "beta_TP", "gamma_site", "base")
+liverAP.mod.params <- c("beta_TP", "gamma_site", "base")
 
 ## Specify data
 
@@ -1327,8 +1318,6 @@ liverAP.mod.data <-
     N = nrow(APliverdata),
     lambda_blanks = APliverdata$blank.mean,
     weight = APliverdata$tissue.dry.weight,
-    species = as.integer(APliverdata$species),
-    nspecies = length(unique(APliverdata$species)),
     site = as.integer(APliverdata$site),
     nsite = length(unique(APliverdata$site)),
     deltaN = APliverdata$deltaN,
@@ -1395,7 +1384,7 @@ check.liverAP.mod <-
 
 plot(check.liverAP.mod)
 
-plotResiduals(check.liverAP.mod, 
+ plotResiduals(check.liverAP.mod, 
               apply(liverAP.mod.run2$BUGSoutput$sims.list$TP, 2, median))
 plotResiduals(check.liverAP.mod,
               APliverdata$tissue.dry.weight)
@@ -1630,7 +1619,7 @@ liverAPplot <-
     data = APliverdata,
     aes(
       x = TP.est,
-      y = true.est / tissue.wet.weight,
+      y = count / tissue.wet.weight,
       fill = species
     ),
     colour = "black",
@@ -1648,7 +1637,7 @@ liverAPplot <-
     trans = 'log1p',
     expand = c(0, 0.01),
     breaks = c(0, 1, 10, 20, 30),
-    limits = c(0, 30)
+    limits = c(0, 35)
   ) +
   theme1
 
