@@ -30,6 +30,10 @@ PTdata_synth$particle.type <- as.factor(PTdata_synth$particle.type)
 PTdata_synth$site <- as.character(PTdata_synth$site)
 PTdata_synth$site <- as.factor(PTdata_synth$site) 
 
+PTdata_synth$site <- mapvalues(PTdata_synth$site,
+                               from = "Elliot Bay",
+                               to = "Elliot Beach")
+
 PTmod <- function() {
   # Likelihood
   for(i in 1:N) {
@@ -135,7 +139,7 @@ PTmodrun1long$variable <- mapvalues(
   PTmodrun1long$variable,
   from = levels(PTmodrun1long$variable),
   to = c("Coles Bay",
-         "Elliott Bay",
+         "Elliot Beach",
          "Victoria Harbour")
 )
 
@@ -143,22 +147,22 @@ PTmodrun1long$order <- c(nrow(PTmodrun1long):1)
 
 png(
   'MP PT Model Posteriors.png',
-  width = 9,
-  height = 7,
+  width = 16,
+  height = 3,
   units = 'cm',
   res = 500
 )
 
 ggplot(PTmodrun1long) +
   geom_density_ridges(
-    aes(x = exp(value),
+    aes(x = value,
         y = reorder(variable, order, mean)),
     fill = pal[3],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(0, 0.15)) +
+  coord_cartesian(xlim = c(-5.3, -1.8)) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
@@ -276,7 +280,7 @@ PT_sim$site <- as.factor(PT_sim$site)
 PT_sim$site <- mapvalues(PT_sim$site,
                            from = levels(PT_sim$site),
                            to = c("Coles Bay",
-                                  "Elliot Bay",
+                                  "Elliot Beach",
                                   "Victoria Harbour"))
 
 # tiff('Plankton Tows MP Plot.tiff',
@@ -290,6 +294,13 @@ set.seed(123)
 
 PTMPplot <- 
   ggplot() +
+    geom_jitter(data = PTdata_synth,
+               aes(x = site,
+                   y = count/sample.volume),
+               size = 0.75, shape = 1, colour = pal[1],
+               height = 0,
+               width = 0.1,
+               alpha = 0.5) +
     geom_linerange(data = PT_sim,
                 aes(x = site,
                     ymax = upper95,
@@ -302,15 +313,9 @@ PTMPplot <-
               size = 1.5,
               fill = pal[3],
               shape = 21) +
-    geom_jitter(data = PTdata_synth,
-               aes(x = site,
-                   y = count/sample.volume),
-               size = 0.75, shape = 1, colour = pal[1],
-               height = 0,
-               width = 0.1) +
     labs(x = 'Site',
          y = expression(paste('Particles '*L^-1))) +
-    scale_y_continuous(limits = c(0, 0.2),
+    scale_y_continuous(limits = c(0, 0.15),
                        expand = c(0, 0.005),
                        breaks = seq(from = 0,
                                     to = 0.2,
@@ -327,6 +332,10 @@ PJdata_synth$particle.type <- as.character(PJdata_synth$particle.type)
 PJdata_synth$particle.type <- as.factor(PJdata_synth$particle.type)
 PJdata_synth$site <- as.character(PJdata_synth$site)
 PJdata_synth$site <- as.factor(PJdata_synth$site) 
+
+PJdata_synth$site <- mapvalues(PJdata_synth$site,
+                               from = "Elliot Bay",
+                               to = "Elliot Beach")
 
 PJmod <- function() {
   # Likelihood
@@ -432,7 +441,7 @@ PJmodrun1long$variable <- mapvalues(
   PJmodrun1long$variable,
   from = levels(PJmodrun1long$variable),
   to = c("Coles Bay",
-         "Elliott Bay",
+         "Elliot Beach",
          "Victoria Harbour")
 )
 
@@ -440,22 +449,22 @@ PJmodrun1long$order <- c(nrow(PJmodrun1long):1)
 
 png(
   'MP PJ Model Posteriors.png',
-  width = 9,
-  height = 7,
+  width = 16,
+  height = 3,
   units = 'cm',
   res = 500
 )
 
 ggplot(PJmodrun1long) +
   geom_density_ridges(
-    aes(x = exp(value),
+    aes(x = value,
         y = reorder(variable, order, mean)),
     fill = pal[3],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(0, 3)) +
+  coord_cartesian(xlim = c(-2.5, 1.5)) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
@@ -510,7 +519,7 @@ PJ_sim$site <- as.factor(PJ_sim$site)
 PJ_sim$site <- mapvalues(PJ_sim$site,
                          from = levels(PJ_sim$site),
                          to = c("Coles Bay",
-                                "Elliot Bay",
+                                "Elliot Beach",
                                 "Victoria Harbour"))
 
 # tiff('Plankton jars MP Bayesian Plot.tiff',
@@ -524,6 +533,12 @@ set.seed(123)
 
 PJMPplot <- 
   ggplot() +
+    geom_jitter(data = PJdata_synth,
+                aes(x = site,
+                    y = count),
+                size = 0.75, shape = 1, colour = pal[1],
+                height = 0,
+                alpha = 0.5) +
     geom_linerange(data = PJ_sim,
                    aes(x = site,
                        ymax = upper95,
@@ -536,18 +551,13 @@ PJMPplot <-
                size = 1.5,
                fill = pal[3],
                shape = 21) +
-    geom_jitter(data = PJdata_synth,
-                aes(x = site,
-                    y = count),
-                size = 0.75, shape = 1, colour = pal[1],
-                height = 0) +
     labs(x = 'Site',
          y = expression(paste('Particles '*L^-1))) +
-    scale_y_continuous(limits = c(0, 30),
-                       expand = c(0, 0.1),
+    scale_y_continuous(limits = c(0, 8),
+                       expand = c(0, 0.5),
                        breaks = seq(from = 0,
-                                    to = 30,
-                                    by = 5)) +
+                                    to = 8,
+                                    by = 2)) +
     theme1
 
 # dev.off()
@@ -563,6 +573,10 @@ MPgutdata$site <- as.character(MPgutdata$site)
 MPgutdata$site <- as.factor(MPgutdata$site)
 MPgutdata$species <- as.character(MPgutdata$species)
 MPgutdata$species <- as.factor(MPgutdata$species)
+
+MPgutdata$site <- mapvalues(MPgutdata$site,
+                            from = "Elliot Bay",
+                            to = "Elliot Beach")
 
 model1 <- function() {
   # Likelihood
@@ -730,10 +744,10 @@ run1long$variable <- mapvalues(run1long$variable,
                                       "Elliot Base delta15N",
                                       "Victoria Harbour Base delta15N",
                                       "Trophic Position:Coles Bay",
-                                      "Trophic Position:Elliot Bay",
+                                      "Trophic Position:Elliot Beach",
                                       "Trophic Position:Victoria Harbour",
                                       "Coles Bay",
-                                      "Elliot Bay",
+                                      "Elliot Beach",
                                       "Victoria Harbour"
                                       ))
 
@@ -760,7 +774,7 @@ ggplot(run1long) +
     aes(xintercept = 0),
     linetype = 'dashed',
     size = 0.25,
-    colour = pal[3]
+    colour = pal[1]
   ) +
   coord_cartesian(xlim = c(-2, 13)) +
   labs(x = "",
@@ -812,10 +826,7 @@ MPgutsim <- data.frame(
                 replace = TRUE),
   species = sample(c(1:14),
                    2000,
-                   replace = TRUE),
-  blank.mean = sample(MPgutdata$blank.mean,
-                      2000,
-                      replace = TRUE)
+                   replace = TRUE)
 )
 
 for(i in 1:2000){
@@ -823,12 +834,9 @@ for(i in 1:2000){
     exp(
       run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]]*
         MPgutsim$trophic.position[i] +
-        run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]]
+        run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]] +
+        run1$BUGSoutput$sims.list$alpha_species
     )
-  lambda_blanks = MPgutsim$blank.mean[i]
-  lambda_y <- lambda_true + lambda_blanks
-  true <- as.numeric(rpois(lambda_true, lambda_true))
-  y <- as.numeric(rpois(lambda_y, lambda_y))
   MPgutsim$median[i] <- median(lambda_true)
   MPgutsim$upper25[i] <- quantile(lambda_true, 0.625)
   MPgutsim$lower25[i] <- quantile(lambda_true, 0.375)
@@ -838,8 +846,6 @@ for(i in 1:2000){
   MPgutsim$lower75[i] <- quantile(lambda_true, 0.125)
   MPgutsim$upper95[i] <- quantile(lambda_true, 0.975)
   MPgutsim$lower95[i] <- quantile(lambda_true, 0.025)
-  MPgutsim$yupper95[i] <- quantile(y, 0.975)
-  MPgutsim$ylower95[i] <- quantile(y, 0.025)
 }
 
 MPgutsim$site <- as.factor(MPgutsim$site)
@@ -847,7 +853,7 @@ MPgutsim$site <- as.factor(MPgutsim$site)
 MPgutsim$site <- mapvalues(MPgutsim$site,
                            from = levels(MPgutsim$site),
                            to = c("Coles Bay",
-                                  "Elliot Bay",
+                                  "Elliot Beach",
                                   "Victoria Harbour"))
 
 #### Plot predictions ####
@@ -906,7 +912,7 @@ predictionsplot <-
       geom_point(data = rawdata,
                  aes(x = rawx,
                      y = rawy),
-                 size = 1, shape = 20, alpha = 0.8, colour = pointcol) +
+                 size = 2, shape = 20, alpha = 0.5, colour = pointcol) +
       facet_wrap(~ site) +
       labs(x = xlab,
            y = ylab) +
@@ -931,7 +937,7 @@ MPTLplot <-
     xlab = "Trophic Position",
     ylab = expression(paste("Particles " * ind ^ -1)),
     xlim = c(1, 6),
-    ylim = c(0, 12)
+    ylim = c(0, 8)
   )
 
 ## Trophic position uncertainty by species
@@ -960,11 +966,11 @@ MPgutsim$species <- mapvalues(
 )
 
 tiff('Trophic Position Uncertainty Plot.tiff',
-     res = 500,
-     width = 9,
-     height = 12,
+     res = 700,
+     width = 19,
+     height = 14,
      units = 'cm',
-     pointsize = 12)
+     pointsize = 15)
 
 ggplot(MPgutdata) +
   geom_pointrange(aes(x = reorder(species, TP.est, mean),
@@ -973,16 +979,17 @@ ggplot(MPgutdata) +
                       ymax = TP.est.upper95),
                   position = position_jitter(height = 0,
                                              width = 0.5),
-                  size = 0.5,
+                  size = 1,
                   fatten = 0.25,
-                  shape = 1,
+                  shape = 21,
                   alpha = 0.5,
-                  colour = pal[1]) +
+                  colour = pal[1],
+                  fill = pal[5]) +
   facet_wrap(~ site, ncol = 1) +
   labs(x = 'Site',
        y = "Trophic Position") +
   theme1 +
-  theme(axis.text.x = element_text(angle = 55,
+  theme(axis.text.x = element_text(angle = 25,
                                    hjust = 1),
         panel.grid.major.x = element_line(colour = pal[3],
                                           size = 0.2,
@@ -996,23 +1003,18 @@ set.seed(6614)
 
 MPgutsim2 <- expand.grid(
   trophic.position = 2.9,
-  site = 1,
   species = c(1:14),
   blank.mean = mean(MPgutdata$blank.mean)
 )
 
-for(i in 1:14){
+for(i in 1:nrow(MPgutsim2)){
   lambda_true <-
     exp(
-      run1$BUGSoutput$sims.list$beta_TP[, MPgutsim2$site[i]]*
+      run1$BUGSoutput$sims.list$beta_TP *
         MPgutsim2$trophic.position[i] +
-        run1$BUGSoutput$sims.list$gamma_site[, MPgutsim2$site[i]]+
+        run1$BUGSoutput$sims.list$gamma_site +
         run1$BUGSoutput$sims.list$alpha_species[, MPgutsim2$species[i]]
     )
-  lambda_blanks = MPgutsim2$blank.mean[i]
-  lambda_y <- lambda_true + lambda_blanks
-  true <- as.numeric(rpois(lambda_true, lambda_true))
-  y <- as.numeric(rpois(lambda_y, lambda_y))
   MPgutsim2$mean[i] <- mean(lambda_true)
   MPgutsim2$upper25[i] <- quantile(lambda_true, 0.625)
   MPgutsim2$lower25[i] <- quantile(lambda_true, 0.375)
@@ -1022,12 +1024,9 @@ for(i in 1:14){
   MPgutsim2$lower75[i] <- quantile(lambda_true, 0.125)
   MPgutsim2$upper95[i] <- quantile(lambda_true, 0.975)
   MPgutsim2$lower95[i] <- quantile(lambda_true, 0.025)
-  MPgutsim2$yupper95[i] <- quantile(y, 0.975)
-  MPgutsim2$ylower95[i] <- quantile(y, 0.025)
 }
 
 MPgutsim2$species <- as.factor(MPgutsim2$species)
-MPgutsim2$site <- as.factor(MPgutsim2$site)
 
 MPgutsim2$species <- mapvalues(
   MPgutsim2$species,
@@ -1050,93 +1049,47 @@ MPgutsim2$species <- mapvalues(
   )
 )
 
-
-MPgutsim2$site <- mapvalues(
-  MPgutsim2$site,
-  from = levels(MPgutsim2$site),
-  to = c("Coles Bay",
-         "Elliot Bay",
-         "Victoria Harbour")
-)
-
-tiff('Species Plot.tiff',
-     res = 500,
-     width = 14,
-     height = 8,
-     units = 'cm',
-     pointsize = 12)
-
-ggplot() +
-  geom_linerange(
-    data = MPgutsim2,
-    aes(x = species,
-        ymax = upper95,
-        ymin = lower95),
-    alpha = 0.05,
-    size = 0.5,
-    colour = pal[5]
-  ) +
-  geom_linerange(
-    data = MPgutsim2,
-    aes(x = species,
-        ymax = upper75,
-        ymin = lower75),
-    alpha = 0.25,
-    size = 0.5,
-    colour = pal[5]
-  ) +
-  geom_linerange(
-    data = MPgutsim2,
-    aes(x = species,
-        ymax = upper50,
-        ymin = lower50),
-    alpha = 0.5,
-    size = 0.5,
-    colour = pal[5]
-  ) +
-  geom_linerange(
-    data = MPgutsim2,
-    aes(x = species,
-        ymax = upper25,
-        ymin = lower25),
-    alpha = 0.75,
-    size = 0.5,
-    colour = pal[5]
-  ) +
-  geom_point(
-    data = MPgutsim2,
-    aes(x = species,
-        y = mean),
-    size = 1.5,
-    colour = pal[1],
-    fill = pal[2],
-    shape = 21
-  ) +
-  geom_jitter(
-    data = MPgutdata,
-    aes(
-      x = species,
-      y = count
-    ),
-    width = 0.25,
-    height = 0,
-    colour = pal[3],
-    size = 1,
-    shape = 1,
-    alpha = 0.5
-  ) +
-  labs(x = "",
-       y = expression(paste('Particles '*ind^-1))) +
-  scale_y_continuous(
-    expand = c(0, 0.1)
-  ) +
-  theme1 +
-  theme(panel.background = element_rect(fill = "white"),
-        plot.background = element_rect(fill = pal[2]),
-        legend.background = element_rect(fill = pal[2]),
-        axis.text.x = element_text(angle = 45, hjust = 1))
-
-dev.off()
+speciesplot <-
+  ggplot() +
+    geom_jitter(
+      data = MPgutdata,
+      aes(
+        x = species,
+        y = count
+      ),
+      width = 0.25,
+      height = 0,
+      colour = pal[1],
+      size = 1,
+      shape = 1,
+      alpha = 0.5
+    ) +
+    geom_linerange(
+      data = MPgutsim2,
+      aes(x = species,
+          ymax = upper95,
+          ymin = lower95),
+      size = 0.5,
+      colour = pal[3]
+    ) +
+    geom_point(
+      data = MPgutsim2,
+      aes(x = species,
+          y = mean),
+      size = 1.5,
+      colour = pal[1],
+      fill = pal[3],
+      shape = 21
+    ) +
+    labs(x = "",
+         y = expression(paste('Particles '*ind^-1))) +
+    scale_y_continuous(
+      expand = c(0, 0.5),
+      limits = c(0, 8),
+      breaks = seq(0, 8, )
+    ) +
+    theme1 +
+    theme(axis.text.x = element_text(angle = 35, hjust = 1))
 
 
 
@@ -1444,6 +1397,10 @@ MPliverdata$site <- as.factor(MPliverdata$site)
 MPliverdata$species <- as.character(MPliverdata$species)
 MPliverdata$species <- as.factor(MPliverdata$species)
 
+MPliverdata$site <- mapvalues(MPliverdata$site,
+                              from = "Elliot Bay",
+                              to = "Elliot Beach")
+
 ggplot(MPliverdata) +
   geom_point(aes(x = total.body.wet.weight,
                  y = tissue.dry.weight,
@@ -1605,10 +1562,10 @@ liver.mod.run1long$variable <-
       "Elliot Base delta15N",
       "Victoria Harbour Base delta15N",
       "Trophic Position:Coles Bay",
-      "Trophic Position:Elliot Bay",
+      "Trophic Position:Elliot Beach",
       "Trophic Position:Victoria Harbour",
       "Coles Bay",
-      "Elliott Bay",
+      "Elliot Beach",
       "Victoria Harbour"
     )
   )
@@ -1617,8 +1574,8 @@ liver.mod.run1long$order <- c(nrow(liver.mod.run1long):1)
 
 png(
   'MP Liver Model Posteriors.png',
-  width = 9,
-  height = 9,
+  width = 16,
+  height = 5,
   units = 'cm',
   res = 500
 )
@@ -1636,9 +1593,9 @@ ggplot(liver.mod.run1long) +
     aes(xintercept = 0),
     linetype = 'dashed',
     size = 0.25,
-    colour = pal[3]
+    colour = pal[1]
   ) +
-  coord_cartesian(xlim = c(-6, 14)) +
+  coord_cartesian(xlim = c(-2.4, 14.5)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1740,7 +1697,7 @@ MPliversim$site <- as.factor(MPliversim$site)
 MPliversim$site <- mapvalues(MPliversim$site,
                            from = levels(MPliversim$site),
                            to = c("Coles Bay",
-                                  "Elliot Bay",
+                                    "Elliot Beach",
                                   "Victoria Harbour"))
 
 #### Plot predictions ####
@@ -1817,13 +1774,11 @@ liverMPplot <-
   coord_cartesian(xlim = c(2, 4.5)) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(
-    trans = 'log1p',
-    expand = c(0, 0.01),
-    breaks = c(0, 1, 10, 20, 30),
-    limits = c(0, 30)
+    expand = c(0, 0.5),
+    breaks = seq(0, 25, 5),
+    limits = c(0, 25)
   ) +
-  theme1 +
-  theme(legend.position = "none")
+  theme1
 
 # dev.off()
 
@@ -1854,7 +1809,6 @@ transfer.mod <- function() {
     true[i] ~ dpois(lambda_true[i])
     
     log(lambda_true[i]) <- 
-      log(weight[i]) + 
       alpha_species[species[i]] +
       gamma_site[site[i]]
     
@@ -1971,7 +1925,7 @@ transfer.mod.run1long$variable <-
       "Sebastes caurinus",
       "Sebastes melanops",
       "Coles Bay",
-      "Elliot Bay",
+      "Elliot Beach",
       "Victoria Harbour"
     )
   )
@@ -1980,8 +1934,8 @@ transfer.mod.run1long$order <- c(nrow(transfer.mod.run1long):1)
 
 png(
   'MP Transfer Model Posteriors.png',
-  width = 9,
-  height = 9,
+  width = 16,
+  height = 4,
   units = 'cm',
   res = 500
 )
@@ -1994,6 +1948,12 @@ ggplot(transfer.mod.run1long) +
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
+  ) +
+  geom_vline(
+    aes(xintercept = 0),
+    linetype = 'dashed',
+    size = 0.25,
+    colour = pal[1]
   ) +
   scale_x_continuous(expand = c(0,0)) +
   coord_cartesian(xlim = c(-3, 2.5)) +
@@ -2017,12 +1977,24 @@ transferdata$true.est.lower95 <-
 
 set.seed(3256)
 
-transfersim <- expand.grid(species = 1, site = 3)
+transfersim <- data.frame(data = 1)
 
 for(i in 1:nrow(transfersim)) {
-  lambda_true <-
-    exp(transfer.mod.run1$BUGSoutput$sims.list$alpha_species[, transfersim$species] +
-          transfer.mod.run1$BUGSoutput$sims.list$gamma_site[, transfersim$site])
+  x2 <- as.numeric()
+  for (j in 1:2) {
+    for (k in 1:3) {
+      for (l in 1:6) {
+        x1 <-
+          exp(
+            transfer.mod.run1$BUGSoutput$sims.list$alpha_species[, j] +
+              transfer.mod.run1$BUGSoutput$sims.list$gamma_site[, k]
+          )
+        lambda_true <- c(x1, x2)
+        x2 <- x1
+      }
+      
+    }
+  }
   transfersim$median[i] <- median(lambda_true)
   transfersim$upper25[i] <- quantile(lambda_true, 0.625)
   transfersim$lower25[i] <- quantile(lambda_true, 0.375)
@@ -2036,69 +2008,55 @@ for(i in 1:nrow(transfersim)) {
 
 #### Plot predictions ####
 
-tiff('Trophic Transfer Bayesian Plot.tiff',
-     res = 500,
-     width = 9,
-     height = 8,
-     units = 'cm',
-     pointsize = 12)
-
-ggplot() +
-  geom_linerange(
-    data = transfersim,
-    aes(x = 1,
-        ymax = upper95,
-        ymin = lower95),
-    size = 0.5,
-    colour = pal[3]
-  ) +
-  geom_point(
-    data = transfersim,
-    aes(x = 1,
-        y = median),
-    size = 1.5,
-    colour = pal[1],
-    fill = pal[3],
-    shape = 21
-  ) +
-  geom_jitter(
-    data = transferdata,
-    aes(
-      x = 1,
-      y = count/tissue.dry.weight
-    ),
-    width = 0.25,
-    height = 0,
-    colour = pal[1],
-    size = 1,
-    shape = 1,
-    alpha = 0.5
-  ) +
-  labs(x = "",
-       y = "Number of Particles") +
-  scale_y_continuous(
-    expand = c(0, 0.1),
-    breaks = seq(0, 20, 5),
-    limits = c(0, 20)
-  ) +
-  theme1 +
-  theme(axis.text.x = element_blank(),
-        axis.ticks.x = element_blank())
-
-dev.off()
+transferplot <- 
+  ggplot() +
+    geom_linerange(
+      data = transfersim,
+      aes(x = 1,
+          ymax = upper95,
+          ymin = lower95),
+      size = 0.5,
+      colour = pal[3]
+    ) +
+    geom_point(
+      data = transfersim,
+      aes(x = 1,
+          y = median),
+      size = 1.5,
+      colour = pal[1],
+      fill = pal[3],
+      shape = 21
+    ) +
+    geom_jitter(
+      data = transferdata,
+      aes(
+        x = 1,
+        y = count
+      ),
+      width = 0.25,
+      height = 0,
+      colour = pal[1],
+      size = 1,
+      shape = 1,
+      alpha = 0.5
+    ) +
+    labs(x = "",
+         y = "Number of Particles") +
+    scale_y_continuous(
+      expand = c(0, 0.1),
+      breaks = seq(0, 6, 2),
+      limits = c(0, 6)
+    ) +
+    theme1 +
+    theme(axis.text.x = element_blank(),
+          axis.ticks.x = element_blank())
 
 
 #### Comparision of empty vs. full guts ####
 
-transferdata2 <-
-  transferdata %>% 
-  group_by(ID) %>% 
-  summarize(num = length(count)) %>% 
-  filter(num > 1)
-
 rfishcompare <- subset(MPgutdata, sample.type == "Rockfish")
 
-rfishcompare$full.stomach <- rfishcompare$ID %in% transferdata2$ID
+rfishcompare$full.stomach <- rfishcompare$ID %in% transferdata$ID
 
 rfishcompare$ID <- as.character(rfishcompare$ID)
 rfishcompare$ID <- as.factor(rfishcompare$ID)
@@ -2211,9 +2169,9 @@ rfish.mod.run1 <- jags.parallel(
   parameters.to.save = rfish.mod.params,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 12000,
+  n.iter = 25000,
   n.burnin = 500,
-  n.thin = 2,
+  n.thin = 5,
   jags.seed = 3242,
   model = rfish.mod
 )
@@ -2231,9 +2189,9 @@ rfish.mod.run2 <- jags.parallel(
   parameters.to.save = rfish.mod.params2,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 12000,
+  n.iter = 25000,
   n.burnin = 500,
-  n.thin = 2,
+  n.thin = 5,
   jags.seed = 3242,
   model = rfish.mod
 )
@@ -2272,14 +2230,14 @@ rfish.mod.run1long$variable <-
       "Sebastes caurinus",
       "Sebastes melanops",
       "Coles Bay Base delta15N",
-      "Elliot Base delta15N",
+      "Elliot Beach Base delta15N",
       "Victoria Harbour Base delta15N",
       "Total Length",
       "Trophic Position",
       "Empty Stomach",
       "Full Stomach",
       "Coles Bay",
-      "Elliot Bay",
+      "Elliot Beach",
       "Victoria Harbour"
     )
   )
@@ -2287,11 +2245,11 @@ rfish.mod.run1long$variable <-
 rfish.mod.run1long$order <- c(nrow(rfish.mod.run1long):1)
 
 png(
-  'Rockfish Gut Comparison Model Posteriors.png',
-  width = 9,
-  height = 9,
+  'MP Rockfish Gut Comparison Model Posteriors.png',
+  width = 16,
+  height = 6,
   units = 'cm',
-  res = 500
+  res = 700
 )
 
 ggplot(rfish.mod.run1long) +
@@ -2303,7 +2261,13 @@ ggplot(rfish.mod.run1long) +
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(-3.5, 14)) +
+  geom_vline(
+    aes(xintercept = 0),
+    linetype = 'dashed',
+    size = 0.25,
+    colour = pal[1]
+  ) +
+  coord_cartesian(xlim = c(-3, 14.5)) +
   scale_x_continuous(expand = c(0,0)) +
   labs(x = "",
        y = "Parameter") +
@@ -2382,53 +2346,45 @@ rfishsim$species <- mapvalues(
 
 #### Plot predictions ####
 
-tiff('Rockfish Gut Comparison Bayesian Plot.tiff',
-     res = 500,
-     width = 9,
-     height = 8,
-     units = 'cm',
-     pointsize = 12)
-
-ggplot() +
-  geom_linerange(
-    data = rfishsim,
-    aes(x = full.stomach,
-        ymax = upper95,
-        ymin = lower95),
-    size = 0.5,
-    colour = pal[3]
-  ) +
-  geom_point(
-    data = rfishsim,
-    aes(x = full.stomach,
-        y = median),
-    size = 1.5,
-    colour = pal[1],
-    fill = pal[3],
-    shape = 21
-  ) +
-  geom_jitter(
-    data = rfishcompare,
-    aes(
-      x = full.stomach,
-      y = count
-    ),
-    width = 0.25,
-    height = 0,
-    colour = pal[1],
-    size = 1,
-    shape = 1,
-    alpha = 0.5
-  ) +
-  facet_wrap(~ species) +
-  labs(x = "",
-       y = "Number of Particles") +
-  scale_y_continuous(
-    expand = c(0, 0.1)
-  ) +
-  theme1
-
-dev.off()
+emptyvsfullplot <-
+  ggplot() +
+    geom_linerange(
+      data = rfishsim,
+      aes(x = full.stomach,
+          ymax = upper95,
+          ymin = lower95),
+      size = 0.5,
+      colour = pal[3]
+    ) +
+    geom_point(
+      data = rfishsim,
+      aes(x = full.stomach,
+          y = median),
+      size = 1.5,
+      colour = pal[1],
+      fill = pal[3],
+      shape = 21
+    ) +
+    geom_jitter(
+      data = rfishcompare,
+      aes(
+        x = full.stomach,
+        y = count
+      ),
+      width = 0.25,
+      height = 0,
+      colour = pal[1],
+      size = 1,
+      shape = 1,
+      alpha = 0.5
+    ) +
+    facet_wrap(~ species) +
+    labs(x = "",
+         y = "") +
+    scale_y_continuous(
+      expand = c(0, 0.1)
+    ) +
+    theme1
 
 
 #### Export animal size data ####

@@ -3,41 +3,45 @@ library(cowplot)
 
 ## Plankton tow and jar
 
-tiff("Seawater Plot.tiff",
-     width = 14,
-     height = 10,
+seawaterplot <- plot_grid(PTMPplot, PJMPplot, nrow = 1, labels = c("A", "B"))
+
+tiff("Concentrations Plot.tiff",
+     width = 16,
+     height = 12,
      units = "cm",
      res = 700)
 
-plot_grid(PTMPplot, PTAPplot, PJMPplot, PJAPplot,
-          nrow = 2, ncol = 2, labels = c("A", "B", "C", "D"))
+plot_grid(seawaterplot, speciesplot,
+          nrow = 2, labels = c("", "C"), 
+          rel_heights = c(1, 1.6))
 
 dev.off()
 
 
 ## Trophic level gut figure
 
-tiff("Trophic Position Gut Plot.tiff",
-     width = 19,
-     height = 10,
+tiff("Trophic Position MP Plot.tiff",
+     width = 16,
+     height = 12,
      units = "cm",
      res = 700)
 
-plot_grid(MPTLplot, APTLplot, ncol = 2, nrow = 1,
+plot_grid(MPTLplot, liverMPplot, ncol = 1, nrow = 2,
           labels = c("A", "B"))
 
 dev.off()
 
-## Livers plot
+## Rockfish guts plot
 
-tiff("Liver Plot.tiff",
-     width = 23.5,
-     height = 10,
+tiff("Rockfish Guts Plot.tiff",
+     width = 14,
+     height = 8,
      units = "cm",
      res = 700)
 
-plot_grid(liverMPplot, liverAPplot, nrow = 1, rel_widths = c(1, 1.4),
-          align = "h")
+plot_grid(transferplot, emptyvsfullplot, ncol = 2, nrow = 1,
+          labels = c("A", "B"), axis = "bt", align = "h",
+          rel_widths = c(1, 4))
 
 dev.off()
 
