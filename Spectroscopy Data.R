@@ -816,7 +816,7 @@ tiff(
   height = 15,
   units = 'cm',
   pointsize = 12
-)
+)779
 
 ggplot(moddata3) +
   geom_bar(

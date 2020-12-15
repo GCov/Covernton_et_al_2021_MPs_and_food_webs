@@ -497,21 +497,15 @@ for(i in 1:3){
     exp(
       PJmodrun1$BUGSoutput$sims.list$alpha_site[, PJ_sim$site[i]]
     )
-  lambda_blanks = PJ_sim$blank.mean[i]
-  lambda_y <- lambda_true + lambda_blanks
-  true <- as.numeric(rpois(lambda_true, lambda_true))
-  y <- as.numeric(rpois(lambda_y, lambda_y))
-  PJ_sim$mean[i] <- mean(true)
-  PJ_sim$upper25[i] <- quantile(true, 0.625)
-  PJ_sim$lower25[i] <- quantile(true, 0.375)
-  PJ_sim$upper50[i] <- quantile(true, 0.75)
-  PJ_sim$lower50[i] <- quantile(true, 0.25)
-  PJ_sim$upper75[i] <- quantile(true, 0.875)
-  PJ_sim$lower75[i] <- quantile(true, 0.125)
-  PJ_sim$upper95[i] <- quantile(true, 0.975)
-  PJ_sim$lower95[i] <- quantile(true, 0.025)
-  PJ_sim$yupper95[i] <- quantile(y, 0.975)
-  PJ_sim$ylower95[i] <- quantile(y, 0.025)
+  PJ_sim$mean[i] <- mean(lambda_true)
+  PJ_sim$upper25[i] <- quantile(lambda_true, 0.625)
+  PJ_sim$lower25[i] <- quantile(lambda_true, 0.375)
+  PJ_sim$upper50[i] <- quantile(lambda_true, 0.75)
+  PJ_sim$lower50[i] <- quantile(lambda_true, 0.25)
+  PJ_sim$upper75[i] <- quantile(lambda_true, 0.875)
+  PJ_sim$lower75[i] <- quantile(lambda_true, 0.125)
+  PJ_sim$upper95[i] <- quantile(lambda_true, 0.975)
+  PJ_sim$lower95[i] <- quantile(lambda_true, 0.025)
 }
 
 PJ_sim$site <- as.factor(PJ_sim$site)

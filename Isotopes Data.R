@@ -51,6 +51,8 @@ isotopes$species[isotopes$ID == "HPRF1"] <- "Sebastes caurinus"
 
 summary(isotopes$species)
 
+#### Plot ####
+
 theme1 <-
   theme_bw() +
   theme(
@@ -94,6 +96,10 @@ isopal <-
     "#fefffe"
   )
 
+site.lab <- c("Coles Bay" = "Coles Bay", 
+              "Elliot Bay" = "Elliot Beach", 
+              "Victoria Harbour" = "Victoria Harbour")
+
 tiff('Isotopic_Biplot.tiff', width = 19, height = 8, units = 'cm', res = 300)
 
 ggplot(isotopes) +  # isotopic plot
@@ -104,7 +110,9 @@ ggplot(isotopes) +  # isotopic plot
              size = 2,
              colour = "black",
              alpha = 0.8) +
-  facet_wrap(~site, nrow = 1) +
+  facet_wrap(~ site, 
+             nrow = 1,
+             labeller = labeller(site = site.lab)) +
   scale_fill_manual(values = isopal) +
   scale_shape_manual(values = c(21, 24)) +
   labs(x = expression(paste(delta^13*"C")),
