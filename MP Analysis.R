@@ -297,7 +297,7 @@ PTMPplot <-
     geom_jitter(data = PTdata_synth,
                aes(x = site,
                    y = count/sample.volume),
-               size = 0.75, shape = 1, colour = pal[1],
+               size = 1, shape = 1, colour = pal[1],
                height = 0,
                width = 0.1,
                alpha = 0.5) +
@@ -305,12 +305,12 @@ PTMPplot <-
                 aes(x = site,
                     ymax = upper95,
                     ymin = lower95),
-                size = 0.5,
+                size = 1,
                 colour = pal[3]) +
     geom_point(data = PT_sim,
               aes(x = site,
                   y = mean),
-              size = 1.5,
+              size = 2,
               fill = pal[3],
               shape = 21) +
     labs(x = 'Site',
@@ -530,19 +530,19 @@ PJMPplot <-
     geom_jitter(data = PJdata_synth,
                 aes(x = site,
                     y = count),
-                size = 0.75, shape = 1, colour = pal[1],
+                size = 1, shape = 1, colour = pal[1],
                 height = 0,
                 alpha = 0.5) +
     geom_linerange(data = PJ_sim,
                    aes(x = site,
                        ymax = upper95,
                        ymin = lower95),
-                   size = 0.5,
+                   size = 1,
                    colour = pal[3]) +
     geom_point(data = PJ_sim,
                aes(x = site,
                    y = mean),
-               size = 1.5,
+               size = 2,
                fill = pal[3],
                shape = 21) +
     labs(x = 'Site',
@@ -831,7 +831,7 @@ for(i in 1:2000){
         run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]] +
         run1$BUGSoutput$sims.list$alpha_species
     )
-  MPgutsim$median[i] <- median(lambda_true)
+  MPgutsim$mean[i] <- mean(lambda_true)
   MPgutsim$upper25[i] <- quantile(lambda_true, 0.625)
   MPgutsim$lower25[i] <- quantile(lambda_true, 0.375)
   MPgutsim$upper50[i] <- quantile(lambda_true, 0.75)
@@ -900,7 +900,7 @@ predictionsplot <-
                   fill = ribboncol) +
       geom_line(data = simdata,
                 aes(x = simx,
-                    y = median),
+                    y = mean),
                 size = 0.5,
                 colour = linecol) +
       geom_point(data = rawdata,
@@ -913,7 +913,7 @@ predictionsplot <-
       coord_cartesian(xlim = xlim) +
       scale_x_continuous(expand = c(0, 0)) +
       scale_y_continuous(limits = ylim,
-                         expand = c(0, 0.1),
+                         expand = c(0, 0.2),
                          breaks = seq(0, 30, 2)) +
       theme1
   }
@@ -995,60 +995,54 @@ dev.off()
 
 set.seed(6614)
 
-MPgutsim2 <- expand.grid(
-  trophic.position = 2.9,
-  species = c(1:14),
-  blank.mean = mean(MPgutdata$blank.mean)
-)
+MPgutsim2 <- MPgutdata %>% group_by(species) %>% summarize(mean.TP = mean(TP.est))
 
-for(i in 1:nrow(MPgutsim2)){
-  lambda_true <-
-    exp(
-      run1$BUGSoutput$sims.list$beta_TP *
-        MPgutsim2$trophic.position[i] +
-        run1$BUGSoutput$sims.list$gamma_site +
-        run1$BUGSoutput$sims.list$alpha_species[, MPgutsim2$species[i]]
-    )
+for(i in 1:nrow(MPgutsim2)) {
+  x2 <- as.numeric()
+  for (j in 1:3) {
+    x1 <-
+      exp(
+        run1$BUGSoutput$sims.list$beta_TP[, j] *
+          MPgutsim2$mean.TP[i] +
+          run1$BUGSoutput$sims.list$gamma_site[, j] +
+          run1$BUGSoutput$sims.list$alpha_species[, i]
+      )
+    lambda_true <- c(x1, x2)
+    x2 <- x1
+  }
   MPgutsim2$mean[i] <- mean(lambda_true)
   MPgutsim2$upper25[i] <- quantile(lambda_true, 0.625)
   MPgutsim2$lower25[i] <- quantile(lambda_true, 0.375)
-  MPgutsim2$upper50[i] <- quantile(lambda_true, 0.75)
-  MPgutsim2$lower50[i] <- quantile(lambda_true, 0.25)
+  MPgutsim2$upper50[i] <- quantile(lambda_true, 0.750)
+  MPgutsim2$lower50[i] <- quantile(lambda_true, 0.250)
   MPgutsim2$upper75[i] <- quantile(lambda_true, 0.875)
   MPgutsim2$lower75[i] <- quantile(lambda_true, 0.125)
   MPgutsim2$upper95[i] <- quantile(lambda_true, 0.975)
   MPgutsim2$lower95[i] <- quantile(lambda_true, 0.025)
 }
 
-MPgutsim2$species <- as.factor(MPgutsim2$species)
+MPgutsim2 <- MPgutsim2 %>% arrange(mean)
 
-MPgutsim2$species <- mapvalues(
-  MPgutsim2$species,
-  from = levels(MPgutsim2$species),
-  to = c(
-    "Cancer productus",
-    "Cucumeria miniata",
-    "Cymatogaster aggregata",
-    "Dermasterias imbricata",
-    "Metacarcinus gracilis",
-    "Metacarcinus magister",
-    "Mytilus spp.",
-    "Parastichopus californicus",
-    "Parophrys vetulus",
-    "Platichthys stellatus",
-    "Protothaca staminea",
-    "Ruditapes philippinarum",
-    "Sebastes caurinus",
-    "Sebastes melanops"
-  )
-)
+MPgutsim2$order <- 1:nrow(MPgutsim2)
+
+MPgutsim2 <- MPgutsim2 %>% arrange(species)
+
+MPgutdata$order <- mapvalues(MPgutdata$species,
+                             from = levels(MPgutdata$species),
+                               to = MPgutsim2$order)
+
+MPgutsim2$order <- as.character(MPgutsim2$order)
+MPgutsim2$order <- as.numeric(MPgutsim2$order)
+
+MPgutdata$order <- as.character(MPgutdata$order)
+MPgutdata$order <- as.numeric(MPgutdata$order)
 
 speciesplot <-
   ggplot() +
     geom_jitter(
       data = MPgutdata,
       aes(
-        x = species,
+        x = reorder(species, order),
         y = count
       ),
       width = 0.25,
@@ -1060,17 +1054,17 @@ speciesplot <-
     ) +
     geom_linerange(
       data = MPgutsim2,
-      aes(x = species,
+      aes(x = reorder(species, order),
           ymax = upper95,
           ymin = lower95),
-      size = 0.5,
+      size = 1,
       colour = pal[3]
     ) +
     geom_point(
       data = MPgutsim2,
-      aes(x = species,
+      aes(x = reorder(species, order),
           y = mean),
-      size = 1.5,
+      size = 2,
       colour = pal[1],
       fill = pal[3],
       shape = 21
@@ -1083,7 +1077,7 @@ speciesplot <-
       breaks = seq(0, 8, )
     ) +
     theme1 +
-    theme(axis.text.x = element_text(angle = 35, hjust = 1))
+    theme(axis.text.x = element_text(angle = 65 , hjust = 1))
 
 
 
@@ -1674,7 +1668,7 @@ for(i in 1:2000){
         MPliversim$trophic.position[i] +
         liver.mod.run1$BUGSoutput$sims.list$gamma_site[, MPliversim$site[i]]
     )
-  MPliversim$median[i] <- median(true.mean)
+  MPliversim$mean[i] <- mean(true.mean)
   MPliversim$upper25[i] <- quantile(true.mean, 0.625)
   MPliversim$lower25[i] <- quantile(true.mean, 0.375)
   MPliversim$upper50[i] <- quantile(true.mean, 0.750)
@@ -1688,11 +1682,13 @@ for(i in 1:2000){
 
 MPliversim$site <- as.factor(MPliversim$site)
 
-MPliversim$site <- mapvalues(MPliversim$site,
-                           from = levels(MPliversim$site),
-                           to = c("Coles Bay",
-                                    "Elliot Beach",
-                                  "Victoria Harbour"))
+MPliversim$site <- mapvalues(
+  MPliversim$site,
+  from = levels(MPliversim$site),
+  to = c("Coles Bay",
+         "Elliot Beach",
+         "Victoria Harbour")
+)
 
 #### Plot predictions ####
 
@@ -1744,7 +1740,7 @@ liverMPplot <-
   geom_line(
     data = MPliversim,
     aes(x = trophic.position,
-        y = median),
+        y = mean),
     size = 0.5,
     colour = pal[1],
     alpha = 0.3
@@ -1753,11 +1749,11 @@ liverMPplot <-
     data = MPliverdata,
     aes(
       x = TP.est,
-      y = count / tissue.wet.weight,
+      y = count / tissue.dry.weight,
       fill = species
     ),
     colour = "black",
-    size = 2,
+    size = 1.5,
     shape = 21,
     alpha = 0.5
   ) +
@@ -1768,11 +1764,18 @@ liverMPplot <-
   coord_cartesian(xlim = c(2, 4.5)) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(
-    expand = c(0, 0.5),
-    breaks = seq(0, 25, 5),
-    limits = c(0, 25)
+    trans = "log1p",
+    expand = c(0, 0.2),
+    breaks = c(0, 1, 10, 100, 400),
+    limits = c(0, 400)
   ) +
-  theme1
+  theme1 +
+  theme(legend.margin = margin(0, 0, 0, 0, unit = "cm"),
+        legend.box.margin = margin(0, 0, 0, 0, unit = "cm"),
+        legend.position = "bottom",
+        legend.box.spacing = unit(1, "cm"),
+        legend.key.size = unit(0.1, "cm"),
+        panel.spacing = unit(0.5, "cm"))
 
 # dev.off()
 
@@ -1989,7 +1992,7 @@ for(i in 1:nrow(transfersim)) {
       
     }
   }
-  transfersim$median[i] <- median(lambda_true)
+  transfersim$mean[i] <- mean(lambda_true)
   transfersim$upper25[i] <- quantile(lambda_true, 0.625)
   transfersim$lower25[i] <- quantile(lambda_true, 0.375)
   transfersim$upper50[i] <- quantile(lambda_true, 0.750)
@@ -2015,7 +2018,7 @@ transferplot <-
     geom_point(
       data = transfersim,
       aes(x = 1,
-          y = median),
+          y = mean),
       size = 1.5,
       colour = pal[1],
       fill = pal[3],
@@ -2284,24 +2287,37 @@ rfishcompare$true.est.lower95 <-
 set.seed(3256)
 
 rfishsim <- 
-  expand.grid(trophic.position = mean(rfishcompare$TP.est),
-             site = 3,
-             species = c(1, 2),
+  expand.grid(species = c(1, 2),
              length = mean(rfishcompare$TL),
              full.stomach = c(1, 2))
 
-for(i in 1:nrow(rfishsim)){
-  lambda_true <-
-    exp(
-      rfish.mod.run1$BUGSoutput$sims.list$alpha_species[, rfishsim$species[i]] +
-        rfish.mod.run1$BUGSoutput$sims.list$beta_TP * 
-        rfishsim$trophic.position[i] +
-        rfish.mod.run1$BUGSoutput$sims.list$beta_TL *
-        rfishsim$trophic.position[i] +
-        rfish.mod.run1$BUGSoutput$sims.list$gamma_site[, rfishsim$site[i]] +
-        rfish.mod.run1$BUGSoutput$sims.list$gamma_gut[, rfishsim$full.stomach[i]]
-    )
-  rfishsim$median[i] <- median(lambda_true)
+for (i in 1:nrow(rfishsim)) {
+  x2 <- as.numeric()
+  for (j in 1:3) {
+    for (k in 1:1000) {
+      x1 <-
+        exp(
+          rfish.mod.run1$BUGSoutput$sims.list$alpha_species[, rfishsim$species[i]] +
+            rfish.mod.run1$BUGSoutput$sims.list$beta_TP *
+            seq(
+              min(rfishcompare$TP.est),
+              max(rfishcompare$TP.est),
+              length.out = 1000
+            )[k] +
+            rfish.mod.run1$BUGSoutput$sims.list$beta_TL *
+            seq(
+              min(rfishcompare$TL),
+              max(rfishcompare$TL),
+              length.out = 1000
+            )[k] +
+            rfish.mod.run1$BUGSoutput$sims.list$gamma_site[, j] +
+            rfish.mod.run1$BUGSoutput$sims.list$gamma_gut[, rfishsim$full.stomach[i]]
+        )
+      lambda_true <- c(x1, x2)
+      x2 <- x1
+    }
+  }
+  rfishsim$mean[i] <- mean(lambda_true)
   rfishsim$upper25[i] <- quantile(lambda_true, 0.625)
   rfishsim$lower25[i] <- quantile(lambda_true, 0.375)
   rfishsim$upper50[i] <- quantile(lambda_true, 0.75)
@@ -2353,7 +2369,7 @@ emptyvsfullplot <-
     geom_point(
       data = rfishsim,
       aes(x = full.stomach,
-          y = median),
+          y = mean),
       size = 1.5,
       colour = pal[1],
       fill = pal[3],

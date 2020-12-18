@@ -7,7 +7,7 @@ seawaterplot <- plot_grid(PTMPplot, PJMPplot, nrow = 1, labels = c("A", "B"))
 
 tiff("Concentrations Plot.tiff",
      width = 16,
-     height = 12,
+     height = 11,
      units = "cm",
      res = 700)
 
@@ -27,7 +27,8 @@ tiff("Trophic Position MP Plot.tiff",
      res = 700)
 
 plot_grid(MPTLplot, liverMPplot, ncol = 1, nrow = 2,
-          labels = c("A", "B"))
+          labels = c("A", "B"), rel_heights = c(1, 1.3),
+          align = "v")
 
 dev.off()
 

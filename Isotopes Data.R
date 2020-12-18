@@ -115,8 +115,8 @@ ggplot(isotopes) +  # isotopic plot
              labeller = labeller(site = site.lab)) +
   scale_fill_manual(values = isopal) +
   scale_shape_manual(values = c(21, 24)) +
-  labs(x = expression(paste(delta^13*"C")),
-       y = expression(paste(delta^15*"N"))) +
+  labs(x = expression(paste(delta^13*"C (\211)")),
+       y = expression(paste(delta^15*"N (\211)"))) +
   theme1 +
   guides(fill = guide_legend(override.aes = list(shape = 21, size = 3)),
          shape = guide_legend(override.aes = list(size = 3)))
