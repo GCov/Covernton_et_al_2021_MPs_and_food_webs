@@ -1080,6 +1080,17 @@ speciesplot <-
     theme(axis.text.x = element_text(angle = 65 , hjust = 1))
 
 
+#### Export species concentration data ####
+
+species.est <- 
+  MPgutdata %>% 
+  group_by(species) %>% 
+  summarize(ind.conc = mean(true.est),
+            ww.conc = mean(true.est/tissue.wet.weight),
+            dw.conc = mean(true.est/tissue.dry.weight),
+            TP = mean(TP.est))
+write.csv(species.est,
+          "species.est.csv")
 
 #### Body size model with just fish ####
 
