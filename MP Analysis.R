@@ -9,6 +9,7 @@ library(DHARMa)
 library(reshape2)
 library(plyr)
 library(dplyr)
+library(glmmTMB)
 
 extract.post <- function(x){
   out <- data.frame(x$BUGSoutput$sims.list)
@@ -1092,298 +1093,6 @@ species.est <-
 write.csv(species.est,
           "species.est.csv")
 
-#### Body size model with just fish ####
-
-fishgutdata <- subset(MPgutdata, 
-                      sample.type == "Flatfish" |
-                        sample.type == "Rockfish" |
-                        sample.type == "Surfperch")
-
-fishgutdata$species <- as.character(fishgutdata$species)
-fishgutdata$species <- as.factor(fishgutdata$species)
-
-names(fishgutdata)
-
-nrow(fishgutdata)
-
-plot(TP.est ~ TL, data = fishgutdata)
-plot(TL ~ species, data = fishgutdata)
-plot(count ~ TL, data = fishgutdata)
-plot(count ~ log(total.body.wet.weight), data = fishgutdata)
-
-ggplot(fishgutdata) +
-  geom_point(aes(x = log(TL),
-                 y = log(total.body.wet.weight),
-                 colour = species)) +
-  geom_smooth(aes(x = log(TL),
-                  y = log(total.body.wet.weight)),
-              method = 'lm') +
-  facet_grid(. ~ site)
-
-
-fishmodel1 <- function() {
-  # Likelihood
-  for (i in 1:N) {
-    y[i] ~ dpois(lambda_y[i])
-    
-    lambda_y[i] <- lambda_true[i] + lambda_blanks[i]
-    
-    true[i] ~ dpois(lambda_true[i])
-    
-    log(lambda_true[i]) <-
-      alpha_species[species[i]] +
-      beta_length[site[i]] * length[i] +
-      gamma_site[site[i]]
-    
-    ## Fitted values
-    fitted[i] ~ dpois(lambda_y[i])
-  }
-  
-  ## Priors
-  
-  for (j in 1:nspecies) {
-    alpha_species[j] ~ dnorm(0, tau_species)
-  }
-  
-  tau_species <- inverse(pow(sigma_species, 2))
-  sigma_species ~ dexp(1)
-  
-  for (k in 1:nsite) {
-    beta_length[k] ~ dnorm(0, 1)
-    gamma_site[k] ~ dnorm(0, 1)
-  }
-}
-
-## Generate initial values for MCMC
-
-fishmodel1init <- function()
-{
-  list(
-    "beta_length" = rnorm(3),
-    "gamma_site" = rnorm(3),
-    "sigma_species" = rexp(1)
-  )
-}
-
-## Keep track of parameters
-
-fishmodel1param <- c("alpha_species", "beta_length", "gamma_site")
-
-## Specify data
-
-fishmodel1data <-
-  list(
-    y = fishgutdata$count,
-    N = nrow(fishgutdata),
-    lambda_blanks = fishgutdata$blank.mean,
-    species = as.integer(fishgutdata$species),
-    nspecies = length(unique(fishgutdata$species)),
-    site = as.integer(fishgutdata$site),
-    nsite = length(unique(fishgutdata$site)),
-    length = as.numeric(scale(fishgutdata$TL), center = TRUE)
-  )
-
-## Run the model
-fishrun1 <- jags.parallel(
-  data = fishmodel1data,
-  inits = fishmodel1init,
-  parameters.to.save = fishmodel1param,
-  n.chains = 3,
-  n.cluster = 3,
-  n.iter = 5000,
-  n.burnin = 500,
-  n.thin = 1,
-  jags.seed = 3234,
-  model = fishmodel1
-)
-
-fishrun1
-fishrun1mcmc <- as.mcmc(fishrun1)
-xyplot(fishrun1mcmc, layout = c(6, ceiling(nvar(fishrun1mcmc)/6)))
-
-#### Diagnostics ####
-fishmodel1param2 <- c("fitted", "true", "lambda_y", "TP")
-
-fishrun2 <- jags.parallel(
-  data = fishmodel1data,
-  inits = fishmodel1init,
-  parameters.to.save = fishmodel1param2,
-  n.chains = 3,
-  n.cluster = 16,
-  n.iter = 5000,
-  n.burnin = 500,
-  n.thin = 1,
-  jags.seed = 3234,
-  model = fishmodel1
-)
-
-fishmodel1.response <- t(fishrun2$BUGSoutput$sims.list$fitted)
-fishmodel1.observed <- fishgutdata$count
-fishmodel1.fitted <- apply(t(fishrun2$BUGSoutput$sims.list$lambda_y),
-                       1,
-                       median)
-
-check.fishmodel1 <- createDHARMa(simulatedResponse = fishmodel1.response,
-                             observedResponse = fishmodel1.observed, 
-                             fittedPredictedResponse = fishmodel1.fitted,
-                             integerResponse = T)
-
-plot(check.fishmodel1)
-
-plotResiduals(check.fishmodel1, fishgutdata$site)
-plotResiduals(check.fishmodel1, fishgutdata$species)
-plotResiduals(check.fishmodel1, fishgutdata$TL)
-plotResiduals(check.fishmodel1, log(fishgutdata$total.body.wet.weight))
-testZeroInflation(check.fishmodel1)
-testDispersion(check.fishmodel1)
-
-plot(fishmodel1.observed-fishmodel1.fitted ~ log(fishmodel1.fitted))
-
-#### Inference ####
-
-fishrun1long <- extract.post(fishrun1)
-
-fishrun1long$variable <- mapvalues(fishrun1long$variable,
-                               from = levels(fishrun1long$variable),
-                               to = c("Cymatogaster aggregata",
-                                      "Parophrys vetulus",
-                                      "Platichthys stellatus",
-                                      "Sebastes caurinus",
-                                      "Sebastes melanops",
-                                      "Total length (cm):Coles Bay",
-                                      "Total length (cm):Elliot Bay",
-                                      "Total length (cm):Victoria Harbour",
-                                      "Coles Bay",
-                                      "Elliott Bay",
-                                      "Victoria Harbour"
-                               ))
-
-fishrun1long$order <- c(nrow(fishrun1long):1)
-
-png(
-  'Fish Gut Body Size Model Posteriors.png',
-  width = 16,
-  height = 12,
-  units = 'cm',
-  res = 500
-)
-
-ggplot(fishrun1long) +
-  geom_density_ridges(
-    aes(x = value,
-        y = reorder(variable, order, mean)),
-    fill = pal[3],
-    colour = pal[1],
-    alpha = 0.5, 
-    size = 0.25
-  ) +
-  geom_vline(
-    aes(xintercept = 0),
-    linetype = 'dashed',
-    size = 0.25,
-    colour = pal[3]
-  ) +
-  coord_cartesian(xlim = c(-3, 2.1)) +
-  labs(x = "",
-       y = "Parameter") +
-  theme1
-
-dev.off()
-
-
-#### Predictions ####
-
-## Extract 'true' estimate
-
-fishgutdata$true.est <-
-  apply(fishrun2$BUGSoutput$sims.list$true, 2, mean)
-fishgutdata$true.est.upper95 <-
-  apply(fishrun2$BUGSoutput$sims.list$true, 2,
-        quantile, probs = 0.975)
-fishgutdata$true.est.lower95 <-
-  apply(fishrun2$BUGSoutput$sims.list$true, 2,
-        quantile,
-        probs = 0.025)
-
-set.seed(5126)
-
-fishgutsim <- data.frame(
-  length = seq(
-    from = 5,
-    to = 35,
-    length.out = 2000
-  ),
-  site = sample(c(1:3),
-                2000,
-                replace = TRUE),
-  species = sample(c(1:5),
-                   2000,
-                   replace = TRUE),
-  blank.mean = sample(fishgutdata$blank.mean,
-                      2000,
-                      replace = TRUE)
-)
-
-fishgutsim$length.stand <-
-  (log(fishgutsim$length) - log(mean(fishgutdata$TL))) /
-  sd(log(fishgutsim$length) - log(mean(fishgutdata$TL)))
-
-for(i in 1:2000){
-  lambda_true <-
-    exp(
-      fishrun1$BUGSoutput$sims.list$beta_length[, fishgutsim$site[i]]*
-        fishgutsim$length.stand[i] +
-        fishrun1$BUGSoutput$sims.list$gamma_site[, fishgutsim$site[i]]
-    )
-  lambda_blanks = fishgutsim$blank.mean[i]
-  lambda_y <- lambda_true + lambda_blanks
-  true <- as.numeric(rpois(lambda_true, lambda_true))
-  y <- as.numeric(rpois(lambda_y, lambda_y))
-  fishgutsim$median[i] <- median(lambda_true)
-  fishgutsim$upper25[i] <- quantile(lambda_true, 0.625)
-  fishgutsim$lower25[i] <- quantile(lambda_true, 0.375)
-  fishgutsim$upper50[i] <- quantile(lambda_true, 0.75)
-  fishgutsim$lower50[i] <- quantile(lambda_true, 0.25)
-  fishgutsim$upper75[i] <- quantile(lambda_true, 0.875)
-  fishgutsim$lower75[i] <- quantile(lambda_true, 0.125)
-  fishgutsim$upper95[i] <- quantile(lambda_true, 0.975)
-  fishgutsim$lower95[i] <- quantile(lambda_true, 0.025)
-  fishgutsim$yupper95[i] <- quantile(y, 0.975)
-  fishgutsim$ylower95[i] <- quantile(y, 0.025)
-}
-
-fishgutsim$site <- as.factor(fishgutsim$site)
-
-fishgutsim$site <- mapvalues(fishgutsim$site,
-                           from = levels(fishgutsim$site),
-                           to = c("Coles Bay",
-                                  "Elliot Bay",
-                                  "Victoria Harbour"))
-
-#### Plot predictions ####
-
-tiff('Body Size Fish Bayesian Plot.tiff',
-     res = 500,
-     width = 16,
-     height = 12,
-     units = 'cm',
-     pointsize = 12)
-
-predictionsplot(simdata = fishgutsim,
-                simx = fishgutsim$length,
-                rawdata = fishgutdata, 
-                rawx = fishgutdata$TL,
-                rawy = fishgutdata$count,
-                ribboncol = pal[3], 
-                linecol = pal[1], 
-                pointcol = pal[1],
-                xlab = "Total Length (cm)",
-                ylab = expression(paste("Particles "*ind^-1)),
-                xlim = c(5, 30),
-                ylim = c(0, 22))
-
-dev.off()
-
 
 #### Fish liver model ####
 
@@ -2433,3 +2142,107 @@ write.csv(
     ),
   "animalsizes.csv"
 )
+
+
+#### Calculate bioaccumulation factor ####
+
+mean.water <-
+  PJdata_synth %>%
+  group_by(site) %>%
+  summarize(water.conc = mean(true.est))
+
+MPgutdata2 <- left_join(MPgutdata, mean.water, "site")
+
+MPgutdata2$BF <- with(MPgutdata2,
+                      ((true.est / total.body.wet.weight) * 1000) / water.conc)
+
+mean.TP <- 
+  MPgutdata2 %>%
+  group_by(species) %>% 
+  summarize(mean.TP = mean(TP.est))
+
+MPgutdata2 <- left_join(MPgutdata2, mean.TP, by = "species")
+
+
+BF.plot1 <-
+  ggplot(MPgutdata2) +
+  geom_point(
+    aes(x = TP.est,
+        y = BF),
+    size = 1,
+    shape = 21,
+    fill = pal[2],
+    colour = pal[1],
+  ) +
+  scale_fill_manual(values = colfunc(14)) +
+  labs(x = "Trophic Position",
+       y = "Bioaccumulation Factor") +
+  scale_y_continuous(
+    trans = "log1p",
+    limits = c(0, 8000),
+    breaks = c(0, 1, 10, 100, 1000, 5000),
+    expand = c(0, 0)
+  ) +
+  theme1
+
+BF.plot2 <-
+  ggplot(MPgutdata2) +
+  geom_boxplot(
+    aes(x = reorder(species, TP.est, mean),
+        y = BF),
+    size = 0.5,
+    outlier.size = 0.5,
+    fill = pal[2],
+    colour = pal[1]
+  ) +
+  scale_fill_manual(values = colfunc(14)) +
+  labs(x = "Species",
+       y = "Bioaccumulation Factor") +
+  scale_y_continuous(
+    trans = "log1p",
+    limits = c(0, 8000),
+    breaks = c(0, 1, 10, 100, 1000, 5000),
+    expand = c(0, 0)
+  ) +
+  theme1 +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+#### Calculate trophic magnification factor ####
+
+MPgutdata$conc <- with(MPgutdata, true.est/tissue.dry.weight)
+
+TMF.mod1 <- glmmTMB(log(conc) ~ TP.est, data = MPgutdata)
+
+plot(resid(TMF.mod1, type = "pearson") ~ fitted(TMF.mod1))
+qqnorm(resid(TMF.mod1, type = "pearson"))
+qqline(resid(TMF.mod1, type = "pearson"))
+
+exp(TMF.mod1$fit$par[2])
+
+## TMF = 0.28
+
+TMF.plot <-
+  ggplot(MPgutdata) +
+  geom_point(
+    aes(x = TP.est,
+        y = conc),
+    size = 1,
+    shape = 21,
+    colour = pal[1],
+    fill = pal[2]
+  ) +
+  geom_line(aes(x = TP.est,
+                y = exp(predict(TMF.mod1, type = "link"))),
+            size = 1,
+            colour = pal[1],
+            linetype = "dashed") +
+  scale_y_continuous(trans = "log1p",
+                     limits = c(0, 5000),
+                     breaks = c(0, 1, 10, 100, 1000, 5000),
+                     expand = c(0,0.1)) +
+  labs(x = "Trophic Position",
+       y = expression(
+         paste("MP concentration (particles " ~ g ^ -1 * "dry tissue weight)")
+       )) +
+  theme1
+

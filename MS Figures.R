@@ -46,3 +46,20 @@ plot_grid(transferplot, emptyvsfullplot, ncol = 2, nrow = 1,
 
 dev.off()
 
+
+## BF and TMF plots
+
+tiff("BF and TMF plot.tiff",
+     width = 16,
+     height = 12,
+     units = "cm",
+     res = 700)
+
+plot_grid(BF.plot1, 
+          BF.plot2, 
+          TMF.plot, 
+          ncol = 3, 
+          labels = c("A", "B", "C"),
+          align = "h")
+
+dev.off()
