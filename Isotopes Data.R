@@ -105,15 +105,13 @@ tiff('Isotopic_Biplot.tiff', width = 19, height = 8, units = 'cm', res = 300)
 ggplot(isotopes) +  # isotopic plot
   geom_point(aes(x = deltaC,
                  y = deltaN,
-                 fill = reorder(animal.type, deltaN, mean),
+                 fill = reorder(species, deltaN, mean),
                  shape = tissue.type),
              size = 2,
              colour = "black",
              alpha = 0.8) +
-  facet_wrap(~ site, 
-             nrow = 1,
+  facet_grid(animal.type ~ site,
              labeller = labeller(site = site.lab)) +
-  scale_fill_manual(values = isopal) +
   scale_shape_manual(values = c(21, 24)) +
   labs(x = expression(paste(delta^13*"C (\211)")),
        y = expression(paste(delta^15*"N (\211)"))) +

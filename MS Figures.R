@@ -3,7 +3,8 @@ library(cowplot)
 
 ## Plankton tow and jar
 
-seawaterplot <- plot_grid(PTMPplot, PJMPplot, nrow = 1, labels = c("A", "B"))
+seawaterplot <- plot_grid(PTMPplot, PJMPplot, nrow = 1, labels = c("a", "b"),
+                          label_size = 10)
 
 tiff("Concentrations Plot.tiff",
      width = 16,
@@ -12,8 +13,9 @@ tiff("Concentrations Plot.tiff",
      res = 700)
 
 plot_grid(seawaterplot, speciesplot,
-          nrow = 2, labels = c("", "C"), 
-          rel_heights = c(1, 1.6))
+          nrow = 2, labels = c("", "c"), 
+          rel_heights = c(1, 1.6),
+          label_size = 10)
 
 dev.off()
 
@@ -27,8 +29,8 @@ tiff("Trophic Position MP Plot.tiff",
      res = 700)
 
 plot_grid(MPTLplot, liverMPplot, ncol = 1, nrow = 2,
-          labels = c("A", "B"), rel_heights = c(1, 1.3),
-          align = "v")
+          labels = c("a", "b"), rel_heights = c(1, 1.3),
+          align = "v", label_size = 10)
 
 dev.off()
 
@@ -36,30 +38,30 @@ dev.off()
 
 tiff("Rockfish Guts Plot.tiff",
      width = 14,
-     height = 8,
+     height = 6,
      units = "cm",
      res = 700)
 
 plot_grid(transferplot, emptyvsfullplot, ncol = 2, nrow = 1,
-          labels = c("A", "B"), axis = "bt", align = "h",
-          rel_widths = c(1, 4))
+          labels = c("a", "b"), axis = "bt", align = "h",
+          rel_widths = c(1, 4), label_size = 10)
 
 dev.off()
 
 
 ## BF and TMF plots
 
-tiff("BF and TMF plot.tiff",
-     width = 16,
-     height = 12,
+tiff("BF plot.tiff",
+     width = 14,
+     height = 8,
      units = "cm",
      res = 700)
 
 plot_grid(BF.plot1, 
-          BF.plot2, 
-          TMF.plot, 
-          ncol = 3, 
-          labels = c("A", "B", "C"),
-          align = "h")
+          BF.plot2,
+          ncol = 2, 
+          labels = c("a", "b", "c"),
+          align = "h",
+          label_size = 10)
 
 dev.off()

@@ -962,8 +962,8 @@ MPgutsim$species <- mapvalues(
 
 tiff('Trophic Position Uncertainty Plot.tiff',
      res = 700,
-     width = 19,
-     height = 14,
+     width = 16,
+     height = 16,
      units = 'cm',
      pointsize = 15)
 
@@ -974,19 +974,19 @@ ggplot(MPgutdata) +
                       ymax = TP.est.upper95),
                   position = position_jitter(height = 0,
                                              width = 0.5),
-                  size = 1,
-                  fatten = 0.25,
+                  size = 0.5,
+                  fatten = 1.5,
                   shape = 21,
-                  alpha = 0.5,
+                  alpha = 0.8,
                   colour = pal[1],
-                  fill = pal[5]) +
+                  fill = pal[3]) +
   facet_wrap(~ site, ncol = 1) +
   labs(x = 'Site',
        y = "Trophic Position") +
   theme1 +
   theme(axis.text.x = element_text(angle = 25,
                                    hjust = 1),
-        panel.grid.major.x = element_line(colour = pal[3],
+        panel.grid.major.x = element_line(colour = pal[1],
                                           size = 0.2,
                                           linetype = 'dashed'))
 
@@ -1760,7 +1760,7 @@ transferplot <-
     labs(x = "",
          y = "Number of Particles") +
     scale_y_continuous(
-      expand = c(0, 0.1),
+      expand = c(0, 0.2),
       breaks = seq(0, 6, 2),
       limits = c(0, 6)
     ) +
@@ -2078,6 +2078,19 @@ rfishsim$species <- mapvalues(
 
 emptyvsfullplot <-
   ggplot() +
+    geom_jitter(
+      data = rfishcompare,
+      aes(
+        x = full.stomach,
+        y = count
+      ),
+      width = 0.25,
+      height = 0,
+      colour = pal[1],
+      size = 1,
+      shape = 1,
+      alpha = 0.5
+    ) +
     geom_linerange(
       data = rfishsim,
       aes(x = full.stomach,
@@ -2095,24 +2108,11 @@ emptyvsfullplot <-
       fill = pal[3],
       shape = 21
     ) +
-    geom_jitter(
-      data = rfishcompare,
-      aes(
-        x = full.stomach,
-        y = count
-      ),
-      width = 0.25,
-      height = 0,
-      colour = pal[1],
-      size = 1,
-      shape = 1,
-      alpha = 0.5
-    ) +
     facet_wrap(~ species) +
     labs(x = "",
          y = "") +
     scale_y_continuous(
-      expand = c(0, 0.1)
+      expand = c(0, 0.2)
     ) +
     theme1
 
@@ -2207,42 +2207,10 @@ BF.plot2 <-
   theme1 +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
-#### Calculate trophic magnification factor ####
+#### Calculate trophic magnification factor for fish livers ####
 
-MPgutdata$conc <- with(MPgutdata, true.est/tissue.dry.weight)
+mean(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP))
 
-TMF.mod1 <- glmmTMB(log(conc) ~ TP.est, data = MPgutdata)
-
-plot(resid(TMF.mod1, type = "pearson") ~ fitted(TMF.mod1))
-qqnorm(resid(TMF.mod1, type = "pearson"))
-qqline(resid(TMF.mod1, type = "pearson"))
-
-exp(TMF.mod1$fit$par[2])
-
-## TMF = 0.28
-
-TMF.plot <-
-  ggplot(MPgutdata) +
-  geom_point(
-    aes(x = TP.est,
-        y = conc),
-    size = 1,
-    shape = 21,
-    colour = pal[1],
-    fill = pal[2]
-  ) +
-  geom_line(aes(x = TP.est,
-                y = exp(predict(TMF.mod1, type = "link"))),
-            size = 1,
-            colour = pal[1],
-            linetype = "dashed") +
-  scale_y_continuous(trans = "log1p",
-                     limits = c(0, 5000),
-                     breaks = c(0, 1, 10, 100, 1000, 5000),
-                     expand = c(0,0.1)) +
-  labs(x = "Trophic Position",
-       y = expression(
-         paste("MP concentration (particles " ~ g ^ -1 * "dry tissue weight)")
-       )) +
-  theme1
-
+quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.025)
+quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.975)
+  
