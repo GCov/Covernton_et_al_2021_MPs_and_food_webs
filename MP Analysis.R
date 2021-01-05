@@ -620,14 +620,13 @@ model1init <- function()
   list(
     "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
-    "gamma_site" = rnorm(3),
-    "base" = rgamma(3, 1, 1)
+    "gamma_site" = rnorm(3)
   )
 }
 
 ## Keep track of parameters
 
-model1param <- c("alpha_species", "beta_TP", "gamma_site", "base")
+model1param <- c("alpha_species", "beta_TP", "gamma_site")
 
 ## Specify data
 
@@ -735,9 +734,6 @@ run1long$variable <- mapvalues(run1long$variable,
                                       "Mytilus spp.",
                                       "Parastichopus californicus",
                                       "Parophrys vetulus",
-                                      "Coles Bay Base delta15N",
-                                      "Elliot Base delta15N",
-                                      "Victoria Harbour Base delta15N",
                                       "Trophic Position:Coles Bay",
                                       "Trophic Position:Elliot Beach",
                                       "Trophic Position:Victoria Harbour",
@@ -771,7 +767,7 @@ ggplot(run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-  coord_cartesian(xlim = c(-2, 13)) +
+  coord_cartesian(xlim = c(-2.5, 2)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1169,7 +1165,7 @@ liver.mod.init <- function()
 
 ## Keep track of parameters
 
-liver.mod.params <- c("beta_TP", "gamma_site", "base")
+liver.mod.params <- c("beta_TP", "gamma_site")
 
 ## Specify data
 
@@ -1266,9 +1262,6 @@ liver.mod.run1long$variable <-
     liver.mod.run1long$variable,
     from = levels(liver.mod.run1long$variable),
     to = c(
-      "Coles Bay Base delta15N",
-      "Elliot Base delta15N",
-      "Victoria Harbour Base delta15N",
       "Trophic Position:Coles Bay",
       "Trophic Position:Elliot Beach",
       "Trophic Position:Victoria Harbour",
@@ -1303,7 +1296,7 @@ ggplot(liver.mod.run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-  coord_cartesian(xlim = c(-2.4, 14.5)) +
+    coord_cartesian(xlim = c(-2.5, 3.5)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1841,7 +1834,6 @@ rfish.mod.init <- function()
     "beta_TP" = rnorm(1),
     "beta_TL" = rnorm(1),
     "gamma_site" = rnorm(3),
-    "base" = rgamma(3, 1, 1),
     "gamma_gut" = rnorm(2)
   )
 }
@@ -1849,7 +1841,7 @@ rfish.mod.init <- function()
 ## Keep track of parameters
 
 rfish.mod.params <- 
-  c("alpha_species", "beta_TP", "beta_TL", "gamma_site", "base", "gamma_gut")
+  c("alpha_species", "beta_TP", "beta_TL", "gamma_site", "gamma_gut")
 
 ## Specify data
 
@@ -1946,9 +1938,6 @@ rfish.mod.run1long$variable <-
     to = c(
       "Sebastes caurinus",
       "Sebastes melanops",
-      "Coles Bay Base delta15N",
-      "Elliot Beach Base delta15N",
-      "Victoria Harbour Base delta15N",
       "Total Length",
       "Trophic Position",
       "Empty Stomach",
@@ -1964,7 +1953,7 @@ rfish.mod.run1long$order <- c(nrow(rfish.mod.run1long):1)
 png(
   'MP Rockfish Gut Comparison Model Posteriors.png',
   width = 16,
-  height = 6,
+  height = 7,
   units = 'cm',
   res = 700
 )
@@ -1984,7 +1973,7 @@ ggplot(rfish.mod.run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-  coord_cartesian(xlim = c(-3, 14.5)) +
+  coord_cartesian(xlim = c(-3, 3)) +
   scale_x_continuous(expand = c(0,0)) +
   labs(x = "",
        y = "Parameter") +
@@ -2161,9 +2150,6 @@ mean.TP <-
   group_by(species) %>% 
   summarize(mean.TP = mean(TP.est))
 
-MPgutdata2 <- left_join(MPgutdata2, mean.TP, by = "species")
-
-
 BF.plot1 <-
   ggplot(MPgutdata2) +
   geom_point(
@@ -2174,9 +2160,13 @@ BF.plot1 <-
     fill = pal[2],
     colour = pal[1],
   ) +
+  geom_smooth(aes(x = TP.est,
+                  y = BF),
+              method = "lm") +
   scale_fill_manual(values = colfunc(14)) +
   labs(x = "Trophic Position",
        y = "Bioaccumulation Factor") +
+  facet_grid(. ~ species) +
   scale_y_continuous(
     trans = "log1p",
     limits = c(0, 8000),
