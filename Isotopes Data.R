@@ -80,8 +80,8 @@ isotopes$tissue.type <-
   ifelse(isotopes$sample.type == "Flatfish Livers" |
            isotopes$sample.type == "Surfperch Livers" |
            isotopes$sample.type == "Rockfish Livers",
-         "Livers",
-         "Digestive Tracts")
+         "Liver",
+         "Muscle")
 
 
 isopal <-
@@ -100,24 +100,58 @@ site.lab <- c("Coles Bay" = "Coles Bay",
               "Elliot Bay" = "Elliot Beach", 
               "Victoria Harbour" = "Victoria Harbour")
 
-tiff('Isotopic_Biplot.tiff', width = 19, height = 8, units = 'cm', res = 300)
+isotopes$include <- isotopes$ID %in% gutdata$ID
 
-ggplot(isotopes) +  # isotopic plot
+isotopes2 <- subset(isotopes, include == "TRUE")
+
+isotopes2$species <- as.character(isotopes2$species)
+isotopes2$species <- as.factor(isotopes2$species)
+
+isotopes2$common.name <- mapvalues(isotopes2$species,
+                                   from = levels(isotopes2$species),
+                                   to = c("Red Rock Crab",
+                                          "Orange Sea Cucumber",
+                                          "Shiner Surfperch",
+                                          "Shiner Surfperch",
+                                          "Leather Star",
+                                          "Graceful Rock Crab",
+                                          "Dungeness Crab",
+                                          "Blue Mussel",
+                                          "California Sea Cucumber",
+                                          "English Sole",
+                                          "English Sole",
+                                          "Starry Flounder",
+                                          "Starry Flounder",
+                                          "Littleneck Clam",
+                                          "Manila Clam",
+                                          "Copper Rockfish",
+                                          "Copper Rockfish",
+                                          "Black Rockfish",
+                                          "Black Rockfish"))
+
+tiff('Isotopic_Biplot.tiff', width = 16, height = 14, units = 'cm', res = 700)
+
+ggplot(isotopes2) +  # isotopic plot
   geom_point(aes(x = deltaC,
                  y = deltaN,
-                 fill = reorder(species, deltaN, mean),
+                 fill = reorder(common.name, deltaN, mean),
                  shape = tissue.type),
-             size = 2,
+             size = 1.5,
              colour = "black",
              alpha = 0.8) +
-  facet_grid(animal.type ~ site,
+  facet_grid(tissue.type ~ site,
              labeller = labeller(site = site.lab)) +
-  scale_shape_manual(values = c(21, 24)) +
+  scale_fill_manual(values = sequential_hcl(14, palette = "Plasma")) +
+  scale_shape_manual(values = c(24, 21)) +
   labs(x = expression(paste(delta^13*"C (\211)")),
        y = expression(paste(delta^15*"N (\211)"))) +
   theme1 +
-  guides(fill = guide_legend(override.aes = list(shape = 21, size = 3)),
-         shape = guide_legend(override.aes = list(size = 3)))
+  guides(fill = guide_legend(override.aes = list(shape = 21, size = 3),
+                             ncol = 3),
+         shape = guide_legend(override.aes = list(size = 3), 
+                              ncol = 1)
+         ) +
+  theme(legend.position = "bottom")
 
 dev.off()
 

@@ -939,20 +939,20 @@ MPgutsim$species <- mapvalues(
   MPgutsim$species,
   from = levels(MPgutsim$species),
   to = c(
-    "Cancer productus",
-    "Cucumeria miniata",
-    "Cymatogaster aggregata",
-    "Dermasterias imbricata",
-    "Metacarcinus gracilis",
-    "Metacarcinus magister",
-    "Mytilus spp.",
-    "Parastichopus californicus",
-    "Parophrys vetulus",
-    "Platichthys stellatus",
-    "Protothaca staminea",
-    "Ruditapes philippinarum",
-    "Sebastes caurinus",
-    "Sebastes melanops"
+    "Red Rock Crab",
+    "Orange Sea Cucumber",
+    "Shiner Surfperch",
+    "Leather Star",
+    "Graceful Rock Crab",
+    "Dungeness Crab",
+    "Blue Mussel",
+    "California Sea Cucumber",
+    "English Sole",
+    "Starry Flounder",
+    "Littleneck Clam",
+    "Manila Clam",
+    "Copper Rockfish",
+    "Black Rockfish"
   )
 )
 
@@ -1034,12 +1034,46 @@ MPgutsim2$order <- as.numeric(MPgutsim2$order)
 MPgutdata$order <- as.character(MPgutdata$order)
 MPgutdata$order <- as.numeric(MPgutdata$order)
 
+MPgutdata$common.names <- mapvalues(MPgutdata$species,
+                                    from = levels(MPgutdata$species),
+                                    to = c("Red Rock Crab",
+                                           "Orange Sea Cucumber",
+                                           "Shiner Surfperch",
+                                           "Leather Star",
+                                           "Graceful Rock Crab",
+                                           "Dungeness Crab",
+                                           "Blue Mussel",
+                                           "California Sea Cucumber",
+                                           "English Sole",
+                                           "Starry Flounder",
+                                           "Littleneck Clam",
+                                           "Manila Clam",
+                                           "Copper Rockfish",
+                                           "Black Rockfish"))
+
+MPgutsim2$common.names <- mapvalues(MPgutsim2$species,
+                                    from = levels(MPgutdata$species),
+                                    to = c("Red Rock Crab",
+                                           "Orange Sea Cucumber",
+                                           "Shiner Surfperch",
+                                           "Leather Star",
+                                           "Graceful Rock Crab",
+                                           "Dungeness Crab",
+                                           "Blue Mussel",
+                                           "California Sea Cucumber",
+                                           "English Sole",
+                                           "Starry Flounder",
+                                           "Littleneck Clam",
+                                           "Manila Clam",
+                                           "Copper Rockfish",
+                                           "Black Rockfish"))
+
 speciesplot <-
   ggplot() +
     geom_jitter(
       data = MPgutdata,
       aes(
-        x = reorder(species, order),
+        x = reorder(common.names, order),
         y = count
       ),
       width = 0.25,
@@ -1051,7 +1085,7 @@ speciesplot <-
     ) +
     geom_linerange(
       data = MPgutsim2,
-      aes(x = reorder(species, order),
+      aes(x = reorder(common.names, order),
           ymax = upper95,
           ymin = lower95),
       size = 1,
@@ -1059,7 +1093,7 @@ speciesplot <-
     ) +
     geom_point(
       data = MPgutsim2,
-      aes(x = reorder(species, order),
+      aes(x = reorder(common.names, order),
           y = mean),
       size = 2,
       colour = pal[1],
@@ -1074,7 +1108,7 @@ speciesplot <-
       breaks = seq(0, 8, )
     ) +
     theme1 +
-    theme(axis.text.x = element_text(angle = 65 , hjust = 1))
+    theme(axis.text.x = element_text(angle = 45 , hjust = 1))
 
 
 #### Export species concentration data ####
@@ -1493,7 +1527,7 @@ liverMPplot <-
 # dev.off()
 
 
-#### Rockfish ingested animals vs. gut ####
+#### Rockfish ingested animals ####
 
 transferdata <- subset(foodweb2, 
                        sample.type == "Rockfish: Ingested Animals" &
@@ -1761,6 +1795,29 @@ transferplot <-
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank())
 
+## Calculate daily consumption of MPs
+
+transferdata$foodmin <- 0.005 * transferdata$total.body.wet.weight
+transferdata$foodmax <- 0.037 * transferdata$total.body.wet.weight
+
+transferdata$MPmin <- transferdata$foodmin * transfersim$mean / transferdata$tissue.wet.weight
+transferdata$MPmax <- transferdata$foodmax * transfersim$mean / transferdata$tissue.wet.weight
+
+ggplot(transferdata) +
+  geom_density(aes(x = MPmin),
+               fill = pal[2],
+               colour = pal[1],
+               alpha = 0.5) +
+  geom_density(aes(x = MPmax),
+               fill = pal[3],
+               colour = pal[1],
+               alpha = 0.5) +
+  labs(x = expression(paste("Number of microplastics consumed (particles "~day^-1*")")),
+       y = "Density") +
+  scale_x_continuous(limits = c(0, 1),
+                     expand = c(0,0)) +
+  scale_y_continuous(expand = c(0, 0)) +
+  theme1
 
 #### Comparision of empty vs. full guts ####
 
@@ -2196,6 +2253,44 @@ BF.plot2 <-
   ) +
   theme1 +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+rfishgutdata <- subset(MPgutdata2, 
+                       sample.type == "Rockfish")
+
+BFmod1 <- glmmTMB(log(BF) ~ TP.est + (1 | species), 
+                  data = rfishgutdata)
+
+BFmod1.res <- simulateResiduals(BFmod1)
+
+plot(BFmod1.res)
+
+summary(BFmod1)
+
+BFmod1.fitted <- predict(BFmod1, se.fit = TRUE, re.form = NULL)
+
+rfishgutdata$fit <- exp(BFmod1.fitted$fit)
+rfishgutdata$lower <- exp(BFmod1.fitted$fit - (1.96 * BFmod1.fitted$se.fit))
+rfishgutdata$upper <- exp(BFmod1.fitted$fit + (1.96 * BFmod1.fitted$se.fit))
+
+ggplot(rfishgutdata) +
+  geom_ribbon(aes(x = TP.est,
+                  ymin = lower,
+                  ymax = upper,
+                  fill = species),
+              alpha = 0.5) +
+  geom_line(aes(x = TP.est,
+                y = fit,
+                colour = species)) +
+  geom_point(aes(x = TP.est,
+                 y = BF),
+             size = 1,
+             colour = species) +
+  labs(x = "Trophic Position",
+       y = "Biaccumulation Factor") +
+  scale_colour_manual(values = pal[c(2,3)]) +
+  scale_fill_manual(values = pal[c(2,3)]) +
+  theme1
+  
 
 #### Calculate trophic magnification factor for fish livers ####
 
