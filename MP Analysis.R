@@ -1113,15 +1113,71 @@ speciesplot <-
 
 #### Export species concentration data ####
 
-species.est <- 
-  MPgutdata %>% 
-  group_by(species) %>% 
-  summarize(ind.conc = mean(true.est),
-            ww.conc = mean(true.est/tissue.wet.weight),
-            dw.conc = mean(true.est/tissue.dry.weight),
-            TP = mean(TP.est))
+
+species.est <-
+  MPgutdata %>%
+  group_by(common.names, site) %>%
+  summarize(
+    TP = mean(TP.est),
+    TP.low = min(TP.est),
+    TP.high = max(TP.est),
+    ind.conc = mean(true.est),
+    ind.conc.low = min(true.est),
+    ind.conc.high = max(true.est),
+    ww.conc = mean(true.est / tissue.wet.weight),
+    ww.conc.low = min(true.est / tissue.wet.weight),
+    ww.conc.high = max(true.est / tissue.wet.weight),
+    dw.conc = mean(true.est / tissue.dry.weight),
+    dw.conc.low = min(true.est / tissue.dry.weight),
+    dw.conc.high = max(true.est / tissue.dry.weight)
+  )
+
 write.csv(species.est,
           "species.est.csv")
+
+## Plot species concentration data
+
+indplot <-
+  ggplot() +
+    geom_jitter(
+      data = MPgutdata,
+      aes(
+        x = reorder(common.names, order),
+        y = count
+      ),
+      width = 0.25,
+      height = 0,
+      colour = pal[1],
+      size = 1,
+      shape = 1,
+      alpha = 0.5
+    ) +
+    geom_linerange(
+      data = species.est,
+      aes(x = reorder(common.names, order),
+          ymax = ind.conc.high,
+          ymin = ind.conc.low),
+      size = 1,
+      colour = pal[3]
+    ) +
+    geom_point(
+      data = species.est,
+      aes(x = reorder(common.names, order),
+          y = ind.conc),
+      size = 2,
+      colour = pal[1],
+      fill = pal[3],
+      shape = 21
+    ) +
+    labs(x = "",
+         y = expression(paste('Particles '*ind^-1))) +
+    scale_y_continuous(
+      expand = c(0, 0.5),
+      limits = c(0, 8),
+      breaks = seq(0, 8, )
+    ) +
+    theme1 +
+    theme(axis.text.x = element_text(angle = 45 , hjust = 1))
 
 
 #### Fish liver model ####
@@ -1437,14 +1493,13 @@ MPliversim$site <- mapvalues(
          "Victoria Harbour")
 )
 
-#### Plot predictions ####
-
-# tiff('Trophic Position MP Liver Bayesian Plot.tiff',
-#      res = 500,
-#      width = 16,
-#      height = 12,
-#      units = 'cm',
-#      pointsize = 12)
+MPliverdata$common.names <- mapvalues(MPliverdata$species,
+                                      from = levels(MPliverdata$species),
+                                      to = c("Shiner Surfperch",
+                                             "English Sole",
+                                             "Starry Flounder",
+                                             "Copper Rockfish",
+                                             "Black Rockfish"))
 
 liverMPplot <-
   ggplot() +
@@ -1497,10 +1552,10 @@ liverMPplot <-
     aes(
       x = TP.est,
       y = count / tissue.dry.weight,
-      fill = species
+      fill = common.names
     ),
     colour = "black",
-    size = 1.5,
+    size = 2,
     shape = 21,
     alpha = 0.5
   ) +
@@ -2202,28 +2257,44 @@ MPgutdata2 <- left_join(MPgutdata, mean.water, "site")
 MPgutdata2$BF <- with(MPgutdata2,
                       ((true.est / total.body.wet.weight) * 1000) / water.conc)
 
+MPgutdata2$feeding.strategy <-
+  mapvalues(MPgutdata2$species,
+            from = levels(MPgutdata2$species),
+            to = c("Predator",
+                   "Suspension feeder",
+                   "Predator",
+                   "Predator",
+                   "Predator",
+                   "Predator",
+                   "Suspension feeder",
+                   "Deposit feeder",
+                   "Predator",
+                   "Predator",
+                   "Suspension feeder",
+                   "Suspension feeder",
+                   "Predator",
+                   "Predator"))
+
 mean.TP <- 
   MPgutdata2 %>%
   group_by(species) %>% 
   summarize(mean.TP = mean(TP.est))
 
+#### Bioaccumulation plot ####
+
 BF.plot1 <-
   ggplot(MPgutdata2) +
   geom_point(
     aes(x = TP.est,
-        y = BF),
+        y = BF,
+        fill = feeding.strategy),
     size = 1,
     shape = 21,
-    fill = pal[2],
     colour = pal[1],
   ) +
-  geom_smooth(aes(x = TP.est,
-                  y = BF),
-              method = "lm") +
-  scale_fill_manual(values = colfunc(14)) +
   labs(x = "Trophic Position",
        y = "Bioaccumulation Factor") +
-  facet_grid(. ~ species) +
+  scale_fill_manual(values = pal[2:4]) +
   scale_y_continuous(
     trans = "log1p",
     limits = c(0, 8000),
@@ -2235,14 +2306,14 @@ BF.plot1 <-
 BF.plot2 <-
   ggplot(MPgutdata2) +
   geom_boxplot(
-    aes(x = reorder(species, TP.est, mean),
-        y = BF),
+    aes(x = reorder(common.names, TP.est, mean),
+        y = BF,
+        fill = feeding.strategy),
     size = 0.5,
     outlier.size = 0.5,
-    fill = pal[2],
     colour = pal[1]
   ) +
-  scale_fill_manual(values = colfunc(14)) +
+  scale_fill_manual(values = pal[c(2,3,4)]) +
   labs(x = "Species",
        y = "Bioaccumulation Factor") +
   scale_y_continuous(

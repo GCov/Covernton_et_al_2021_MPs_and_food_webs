@@ -53,15 +53,16 @@ dev.off()
 
 tiff("BF plot.tiff",
      width = 14,
-     height = 8,
+     height = 12,
      units = "cm",
      res = 700)
 
 plot_grid(BF.plot1, 
           BF.plot2,
-          ncol = 2, 
+          ncol = 1, 
           labels = c("a", "b", "c"),
-          align = "h",
-          label_size = 10)
+          align = "v",
+          label_size = 10,
+          rel_heights = c(1, 1.6))
 
 dev.off()

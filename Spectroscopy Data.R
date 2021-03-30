@@ -816,7 +816,7 @@ tiff(
   height = 15,
   units = 'cm',
   pointsize = 12
-)779
+)
 
 ggplot(moddata3) +
   geom_bar(
@@ -835,10 +835,7 @@ ggplot(moddata3) +
              labeller = label_wrap_gen(width = 10)) +
   scale_y_continuous(expand = c(0, 0)) +
   scale_fill_manual(values =
-                      qualitative_hcl(n = 18, 
-                                      h = c(-180, 160), 
-                                      c = 60, 
-                                      l = 75)) +
+                      sequential_hcl(n = 18, palette = "Viridis")) +
   guides(fill = guide_legend(ncol = 1)) +
   theme1 +
   theme(
