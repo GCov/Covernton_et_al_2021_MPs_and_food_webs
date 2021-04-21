@@ -5,6 +5,8 @@ library(plyr)
 library(ggplot2)
 library(dplyr)
 library(colorspace)
+library(extrafont)
+loadfonts(device = "win")
 
 #### Process Data ####
 
@@ -56,7 +58,8 @@ summary(isotopes$species)
 theme1 <-
   theme_bw() +
   theme(
-    text = element_text(size = 8),
+    text = element_text(size = 8,
+                        family = "sans"),
     axis.text = element_text(size = 7),
     strip.background = element_blank(),
     strip.text = element_text(size = 8),
@@ -129,29 +132,59 @@ isotopes2$common.name <- mapvalues(isotopes2$species,
                                           "Black Rockfish",
                                           "Black Rockfish"))
 
-tiff('Isotopic_Biplot.tiff', width = 16, height = 14, units = 'cm', res = 700)
+isotopes2$cn.short <- mapvalues(isotopes2$common.name,
+                                from = levels(isotopes2$common.name),
+                                to = c("RRC",
+                                      "OSC",
+                                      "SS",
+                                      "LS",
+                                      "GRC",
+                                      "DC",
+                                      "BM",
+                                      "CSC",
+                                      "ES",
+                                      "SF",
+                                      "LC",
+                                      "MC",
+                                      "CR",
+                                      "BR"))
+
+isotopes2$cn.short <- as.character(isotopes2$cn.short)
+
+isotopes2$cn.short[isotopes2$tissue.type == "Liver"] <-
+  mapvalues(isotopes2$cn.short[isotopes2$tissue.type == "Liver"],
+            from = c("SF",
+                     "ES",
+                     "CR",
+                     "SS",
+                     "BR"),
+            to = c("SF-L",
+                   "ES-L",
+                   "CR-L",
+                   "SS-L",
+                   "BR-L"))
+
+tiff('Isotopic_Biplot.tiff', 
+     width = 15.24, 
+     height = 15.34, 
+     units = 'cm', 
+     res = 500)
 
 ggplot(isotopes2) +  # isotopic plot
-  geom_point(aes(x = deltaC,
-                 y = deltaN,
-                 fill = reorder(common.name, deltaN, mean),
-                 shape = tissue.type),
-             size = 1.5,
-             colour = "black",
-             alpha = 0.8) +
-  facet_grid(tissue.type ~ site,
+  geom_text(aes(x = deltaC,
+                y = deltaN,
+                label = cn.short,
+                colour = tissue.type),
+            size = 1.5,
+            alpha = 0.8) +
+  facet_grid(site ~ .,
              labeller = labeller(site = site.lab)) +
-  scale_fill_manual(values = sequential_hcl(14, palette = "Plasma")) +
-  scale_shape_manual(values = c(24, 21)) +
   labs(x = expression(paste(delta^13*"C (\211)")),
        y = expression(paste(delta^15*"N (\211)"))) +
+  scale_colour_manual(values = pal[c(1,3)]) +
   theme1 +
-  guides(fill = guide_legend(override.aes = list(shape = 21, size = 3),
-                             ncol = 3),
-         shape = guide_legend(override.aes = list(size = 3), 
-                              ncol = 1)
-         ) +
-  theme(legend.position = "bottom")
+  theme(plot.margin = margin(0,0,0,0, unit = "cm"),
+        legend.position = "bottom")
 
 dev.off()
 

@@ -1,5 +1,7 @@
 library(ggplot2)
 library(cowplot)
+library(extrafont)
+loadfonts(device = "win")
 
 ## Plankton tow and jar
 

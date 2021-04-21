@@ -11,6 +11,7 @@ library(plyr)
 library(dplyr)
 library(glmmTMB)
 
+
 extract.post <- function(x){
   out <- data.frame(x$BUGSoutput$sims.list)
   long <- melt(out)
@@ -1584,6 +1585,8 @@ liverMPplot <-
 
 #### Rockfish ingested animals ####
 
+#### Set up data ####
+
 transferdata <- subset(foodweb2, 
                        sample.type == "Rockfish: Ingested Animals" &
                          particle.type == "Synthetic Polymer")
@@ -2209,7 +2212,7 @@ emptyvsfullplot <-
       fill = pal[3],
       shape = 21
     ) +
-    facet_wrap(~ species) +
+    facet_wrap(~ common.names) +
     labs(x = "",
          y = "") +
     scale_y_continuous(

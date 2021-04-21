@@ -11,6 +11,8 @@ library(colorspace)
 library(randomForest)
 require(caTools)
 library(ROCR)
+library(extrafont)
+loadfonts(device = "win")
 
 #### Load spectroscopy data ####
 
