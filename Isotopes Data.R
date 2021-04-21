@@ -5,8 +5,6 @@ library(plyr)
 library(ggplot2)
 library(dplyr)
 library(colorspace)
-library(extrafont)
-loadfonts(device = "win")
 
 #### Process Data ####
 
@@ -58,12 +56,15 @@ summary(isotopes$species)
 theme1 <-
   theme_bw() +
   theme(
-    text = element_text(size = 8,
-                        family = "sans"),
-    axis.text = element_text(size = 7),
+    axis.text = element_text(size = 7,
+                             family = "sans"),
+    axis.title = element_text(size = 9,
+                              family = "sans"),
     strip.background = element_blank(),
-    strip.text = element_text(size = 8),
-    legend.text = element_text(size = 8),
+    strip.text = element_text(size = 8,
+                              family = "sans"),
+    legend.text = element_text(size = 10,
+                               family = "sans"),
     panel.grid = element_blank(),
     legend.title = element_blank()
   )
@@ -85,19 +86,6 @@ isotopes$tissue.type <-
            isotopes$sample.type == "Rockfish Livers",
          "Liver",
          "Muscle")
-
-
-isopal <-
-  c(
-    "#020c12",
-    "#520000",
-    "#8f3e00",
-    "#cccc00",
-    "#00ff00",
-    "#85ffff",
-    "#8585ff",
-    "#fefffe"
-  )
 
 site.lab <- c("Coles Bay" = "Coles Bay", 
               "Elliot Bay" = "Elliot Beach", 
@@ -134,57 +122,47 @@ isotopes2$common.name <- mapvalues(isotopes2$species,
 
 isotopes2$cn.short <- mapvalues(isotopes2$common.name,
                                 from = levels(isotopes2$common.name),
-                                to = c("RRC",
-                                      "OSC",
-                                      "SS",
-                                      "LS",
-                                      "GRC",
-                                      "DC",
-                                      "BM",
-                                      "CSC",
-                                      "ES",
-                                      "SF",
-                                      "LC",
-                                      "MC",
-                                      "CR",
-                                      "BR"))
-
-isotopes2$cn.short <- as.character(isotopes2$cn.short)
-
-isotopes2$cn.short[isotopes2$tissue.type == "Liver"] <-
-  mapvalues(isotopes2$cn.short[isotopes2$tissue.type == "Liver"],
-            from = c("SF",
-                     "ES",
-                     "CR",
-                     "SS",
-                     "BR"),
-            to = c("SF-L",
-                   "ES-L",
-                   "CR-L",
-                   "SS-L",
-                   "BR-L"))
+                                to = c("RR",
+                                       "OC",
+                                       "SS",
+                                       "LS",
+                                       "GR",
+                                       "DU",
+                                       "BM",
+                                       "CC",
+                                       "ES",
+                                       "SF",
+                                       "LC",
+                                       "MC",
+                                       "CR",
+                                       "BR"))
 
 tiff('Isotopic_Biplot.tiff', 
-     width = 15.24, 
-     height = 15.34, 
-     units = 'cm', 
-     res = 500)
+     height = 8,
+     width = 6,
+     units = "in",
+     res = 800,
+     compression = "lzw")
 
 ggplot(isotopes2) +  # isotopic plot
   geom_text(aes(x = deltaC,
                 y = deltaN,
                 label = cn.short,
                 colour = tissue.type),
-            size = 1.5,
-            alpha = 0.8) +
+            size = 6/.pt,
+            alpha = 0.8,
+            family = "sans") +
   facet_grid(site ~ .,
              labeller = labeller(site = site.lab)) +
   labs(x = expression(paste(delta^13*"C (\211)")),
        y = expression(paste(delta^15*"N (\211)"))) +
   scale_colour_manual(values = pal[c(1,3)]) +
+  scale_x_continuous(breaks = c(seq(-22, -10, 2)),
+                     expand = c(0,0.3)) +
+  scale_y_continuous(breaks = seq(8, 18, 2),
+                     expand = c(0,0.4)) +
   theme1 +
-  theme(plot.margin = margin(0,0,0,0, unit = "cm"),
-        legend.position = "bottom")
+  theme(legend.position = "bottom")
 
 dev.off()
 

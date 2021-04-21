@@ -425,11 +425,10 @@ plot_rf_confusion <- function(rf_model)
     geom_text(aes(label = sprintf("%.1f", round(value, 1))), size = 4,
               nudge_x = -0.1, nudge_y = -0.2) +
     geom_text(label = "%", nudge_x = 0.3, nudge_y = -0.2, size = 4) +
-    theme_minimal() +
+    theme1 + 
     theme(axis.text.x = element_text(
       angle = 45,
       vjust = 1,
-      size = 10,
       hjust = 1
     ),
     plot.margin = unit(c(0,0,0,0.5), "cm")) +
@@ -440,11 +439,12 @@ plot_rf_confusion <- function(rf_model)
   return(conf_plot)
 }
 
-png("Confusion Matrix.png",
-    width = 14,
-    height = 14, 
-    units = "cm",
-    res = 700)
+png("Confusion Matrix.png", 
+    height = 6,
+    width = 6,
+    units = "in",
+    res = 800,
+    compression = "lzw")
 
 plot_rf_confusion(rf)
 
@@ -812,12 +812,12 @@ moddata3$sample.type <- factor(moddata3$sample.type,
 
 
 tiff(
-  'Polymer Plot.tiff',
-  res = 700,
-  width = 19,
-  height = 15,
-  units = 'cm',
-  pointsize = 12
+  'Polymer Plot.tiff', 
+  height = 8,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(moddata3) +
@@ -884,12 +884,12 @@ moddata3$colour <- mapvalues(
 summary(moddata3$colour)
 
 tiff(
-  'Colour Plot.tiff',
-  res = 700,
-  width = 19,
-  height = 15,
-  units = 'cm',
-  pointsize = 12
+  'Colour Plot.tiff', 
+  height = 8,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(moddata3) +

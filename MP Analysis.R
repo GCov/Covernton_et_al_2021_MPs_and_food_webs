@@ -147,12 +147,13 @@ PTmodrun1long$variable <- mapvalues(
 
 PTmodrun1long$order <- c(nrow(PTmodrun1long):1)
 
-png(
-  'MP PT Model Posteriors.png',
-  width = 16,
-  height = 3,
-  units = 'cm',
-  res = 500
+tiff(
+  'MP PT Model Posteriors.tiff', 
+  height = 1.5,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(PTmodrun1long) +
@@ -285,13 +286,6 @@ PT_sim$site <- mapvalues(PT_sim$site,
                                   "Elliot Beach",
                                   "Victoria Harbour"))
 
-# tiff('Plankton Tows MP Plot.tiff',
-#      res = 500,
-#      width = 9,
-#      height = 8,
-#      units = 'cm',
-#      pointsize = 12)
-
 set.seed(123)
 
 PTMPplot <- 
@@ -323,8 +317,6 @@ PTMPplot <-
                                     to = 0.2,
                                     by = 0.05)) +
     theme1
-
-# dev.off()
 
 
 #### Plankton jar model ####
@@ -449,12 +441,13 @@ PJmodrun1long$variable <- mapvalues(
 
 PJmodrun1long$order <- c(nrow(PJmodrun1long):1)
 
-png(
-  'MP PJ Model Posteriors.png',
-  width = 16,
-  height = 3,
-  units = 'cm',
-  res = 500
+tiff(
+  'MP PJ Model Posteriors.tiff', 
+  height = 1.5,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(PJmodrun1long) +
@@ -518,13 +511,6 @@ PJ_sim$site <- mapvalues(PJ_sim$site,
                                 "Elliot Beach",
                                 "Victoria Harbour"))
 
-# tiff('Plankton jars MP Bayesian Plot.tiff',
-#      res = 500,
-#      width = 9,
-#      height = 8,
-#      units = 'cm',
-#      pointsize = 12)
-
 set.seed(123)
 
 PJMPplot <- 
@@ -555,8 +541,6 @@ PJMPplot <-
                                     to = 8,
                                     by = 2)) +
     theme1
-
-# dev.off()
 
 
 #### MP Model by Individual  ####  
@@ -745,12 +729,13 @@ run1long$variable <- mapvalues(run1long$variable,
 
 run1long$order <- c(nrow(run1long):1)
 
-png(
-  'MP Gut Model Posteriors.png',
-  width = 16,
-  height = 12,
-  units = 'cm',
-  res = 500
+tiff(
+  'MP Gut Model Posteriors.tiff', 
+  height = 4.5,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(run1long) +
@@ -958,11 +943,11 @@ MPgutsim$species <- mapvalues(
 )
 
 tiff('Trophic Position Uncertainty Plot.tiff',
-     res = 700,
-     width = 16,
-     height = 16,
-     units = 'cm',
-     pointsize = 15)
+     height = 6,
+     width = 6,
+     units = "in",
+     res = 800,
+     compression = "lzw")
 
 ggplot(MPgutdata) +
   geom_pointrange(aes(x = reorder(species, TP.est, mean),
@@ -1364,12 +1349,13 @@ liver.mod.run1long$variable <-
 
 liver.mod.run1long$order <- c(nrow(liver.mod.run1long):1)
 
-png(
-  'MP Liver Model Posteriors.png',
-  width = 16,
-  height = 5,
-  units = 'cm',
-  res = 500
+tiff(
+  'MP Liver Model Posteriors.tiff', 
+  height = 2,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(liver.mod.run1long) +
@@ -1580,8 +1566,6 @@ liverMPplot <-
         legend.key.size = unit(0.1, "cm"),
         panel.spacing = unit(0.5, "cm"))
 
-# dev.off()
-
 
 #### Rockfish ingested animals ####
 
@@ -1734,12 +1718,13 @@ transfer.mod.run1long$variable <-
 
 transfer.mod.run1long$order <- c(nrow(transfer.mod.run1long):1)
 
-png(
-  'MP Transfer Model Posteriors.png',
-  width = 16,
-  height = 4,
-  units = 'cm',
-  res = 500
+tiff(
+  'MP Transfer Model Posteriors.tiff', 
+  height = 2,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(transfer.mod.run1long) +
@@ -2065,12 +2050,13 @@ rfish.mod.run1long$variable <-
 
 rfish.mod.run1long$order <- c(nrow(rfish.mod.run1long):1)
 
-png(
-  'MP Rockfish Gut Comparison Model Posteriors.png',
-  width = 16,
-  height = 7,
-  units = 'cm',
-  res = 700
+tiff(
+  'MP Rockfish Gut Comparison Model Posteriors.tiff', 
+  height = 3,
+  width = 6,
+  units = "in",
+  res = 800,
+  compression = "lzw"
 )
 
 ggplot(rfish.mod.run1long) +
@@ -2177,6 +2163,12 @@ rfishsim$species <- mapvalues(
   to = c("Sebastes caurinus",
          "Sebastes melanops")
 )
+
+rfishsim$common.names <- 
+  mapvalues(rfishsim$species,
+            from = levels(rfishsim$species),
+            to = c("Copper Rockfish",
+                   "Black Rockfish"))
 
 #### Plot predictions ####
 
