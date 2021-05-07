@@ -77,16 +77,16 @@ PT$particle.type <-
   mapvalues(PT$raman.ID,
             from = levels(PT$raman.ID),
             to = c(NA,
-                   'Synthetic Polymer',
-                   'Natural Anthropogenic',
+                   'Synthetic',
                    'Natural',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
+                   'Natural',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
                    'Natural',
                    'Unknown'))
 
@@ -164,16 +164,16 @@ PJ$particle.type <-
   mapvalues(PJ$raman.ID,
             from = levels(PJ$raman.ID),
             to = c(NA,
-                   'Synthetic Polymer',
-                   'Natural Anthropogenic',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Semi-synthetic',
+                   'Synthetic',
+                   'Natural',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Natural',
                    'Unknown',
-                   'Natural Anthropogenic'))
+                   'Natural'))
 
 PJ$particle.type[is.na(PJ$particle.type)] <-
   with(subset(PJ, is.na(particle.type)), 
@@ -304,23 +304,23 @@ full_spec_data$raman.ID <-
 full_spec_data$particle.type <- 
   mapvalues(full_spec_data$raman.ID,
             from = levels(full_spec_data$raman.ID),
-            to = c('Synthetic Polymer',
-                   'Synthetic Polymer',
+            to = c('Synthetic',
+                   'Synthetic',
                    'Natural',
-                   'Natural Anthropogenic',
-                   'Synthetic Polymer',
                    'Natural',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Synthetic Polymer',
-                   'Semi-synthetic',
+                   'Synthetic',
                    'Natural',
-                   'Synthetic Polymer',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Synthetic',
+                   'Natural',
+                   'Natural',
+                   'Synthetic',
                    'Unknown',
-                   'Synthetic Polymer',
-                   'Natural Anthropogenic'))
+                   'Synthetic',
+                   'Natural'))
 
 full_spec_data$particle.type[is.na(full_spec_data$particle.type)] <-
   with(subset(full_spec_data, is.na(particle.type)), 
@@ -380,7 +380,7 @@ rf <- randomForest(particle.type ~
                    data = moddata2,
                    mtry = 2,
                    importance = TRUE,
-                   ntree = 250)
+                   ntree = 1000)
 
 rf
 importance(rf)
@@ -422,9 +422,9 @@ plot_rf_confusion <- function(rf_model)
       name = "Accuracy (%)"
     ) +
     geom_text(aes(label = value2), size = 4, nudge_y = 0.2) +
-    geom_text(aes(label = sprintf("%.1f", round(value, 1))), size = 4,
-              nudge_x = -0.1, nudge_y = -0.2) +
-    geom_text(label = "%", nudge_x = 0.3, nudge_y = -0.2, size = 4) +
+    geom_text(aes(label = sprintf("%.1f", round(value, 1))), size = 3,
+              nudge_x = 0, nudge_y = -0.2) +
+    geom_text(label = "%", nudge_x = 0.3, nudge_y = -0.2, size = 3) +
     theme1 + 
     theme(axis.text.x = element_text(
       angle = 45,
@@ -432,16 +432,15 @@ plot_rf_confusion <- function(rf_model)
       hjust = 1
     ),
     plot.margin = unit(c(0,0,0,0.5), "cm")) +
-    theme(axis.text.y = element_text(size = 10)) +
     labs(x = 'Predicted', y = 'True') +
     coord_fixed()
   
   return(conf_plot)
 }
 
-png("Confusion Matrix.png", 
-    height = 6,
-    width = 6,
+tiff("Confusion Matrix.tiff", 
+    height = 3,
+    width = 3,
     units = "in",
     res = 800,
     compression = "lzw")
@@ -724,34 +723,6 @@ animal_data2$ID <- mapvalues(
   )
 )
 
-## Remove incomplete samples
-
-# animal_incomplete <- 
-#   animal_data2 %>% 
-#   group_by(ID, sample.type) %>%
-#   filter(sample.type != 'Mussels' &
-#            sample.type != 'Clams'&
-#            sample.type != 'Surfperch Livers' &
-#            sample.type != 'Flatfish Livers' &
-#            sample.type != 'Rockfish Livers') %>% 
-#   summarize(size.fractions = length(unique(size.fraction))) %>% 
-#   filter(size.fractions < 2)
-# 
-# animal_data2$incomplete <- animal_data2$ID %in% animal_incomplete$ID
-# 
-# animal_data3 <-
-#   animal_data2 %>% 
-#   filter(incomplete == 'FALSE')
-# 
-# animal_data3$sample.type <- 
-#   mapvalues(animal_data3$sample.type,
-#             from = c('Surfperch Guts',
-#                      'Flatfish Guts',
-#                      'Rockfish Guts'),
-#             to = c('Surfperch',
-#                    'Flatfish',
-#                    'Rockfish'))
-
 #### Plot breakdown by Raman ID, shape, and colour ####
 
 moddata1$num <- ifelse(is.na(moddata1$shape), 0, 1)
@@ -772,26 +743,6 @@ moddata3$raman.ID <- mapvalues(moddata3$raman.ID,
                                to = c('Salt', 'Unknown Synthetic',
                                       'Unknown Synthetic', 'Unknown Synthetic',
                                       'Unknown Synthetic'))
-
-moddata3$raman.ID <- factor(moddata3$raman.ID,
-                            levels = c('Unknown',
-                                       'Acrylic',
-                                       'Nylon',
-                                       'Kevlar',
-                                       'Paint',
-                                       'Polyacrylonitrile',
-                                       'Polyester',
-                                       'Polypropylene',
-                                       'Polystyrene',
-                                       'Polyurethane',
-                                       'Styrene copolymer',
-                                       'Unknown Synthetic',
-                                       'Rayon',
-                                       'Cellulose',
-                                       'Wool',
-                                       'Bone',
-                                       'Mineral',
-                                       'Salt'))
 
 moddata3$sample.type <- factor(moddata3$sample.type,
                                levels = c('Blanks',
@@ -837,7 +788,7 @@ ggplot(moddata3) +
              labeller = label_wrap_gen(width = 10)) +
   scale_y_continuous(expand = c(0, 0)) +
   scale_fill_manual(values =
-                      sequential_hcl(n = 18, palette = "Viridis")) +
+                      qualitative_hcl(n = 18, palette = "Dark 3")) +
   guides(fill = guide_legend(ncol = 1)) +
   theme1 +
   theme(
@@ -1018,10 +969,10 @@ gutdata$sample.type <-
 gutdata <-
   gutdata %>% 
   group_by(ID, site, sample.type, blank.match, particle.type, shell.l,
-           shell.w, shell.h, arm.length, tissue.wet.weight,
-           shell.weight, total.body.wet.weight, density.sep, species, 
-           carapace.length, TL, SL, hepatopancreas.weight, sex, babies, 
-           parasites, base_deltaN, sd_base_deltaN, deltaN, deltaC, 
+           shell.w, shell.h, arm.length, shell.weight, tissue.wet.weight, 
+           total.body.wet.weight, density.sep, species, carapace.length, TL, SL, 
+           hepatopancreas.weight, sex, babies, parasites, base_deltaN, 
+           sd_base_deltaN, deltaN, deltaC, 
            trophic.position) %>% 
   summarize(count = sum(count),
             blank.mean = sum(blank.mean),

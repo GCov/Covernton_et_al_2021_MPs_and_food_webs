@@ -26,7 +26,7 @@ pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")
 
 #### Plankton tow model ####
 
-PTdata_synth <- subset(PT_data2, particle.type == "Synthetic Polymer")
+PTdata_synth <- subset(PT_data2, particle.type == "Synthetic")
 PTdata_synth$particle.type <- as.character(PTdata_synth$particle.type)
 PTdata_synth$particle.type <- as.factor(PTdata_synth$particle.type)
 PTdata_synth$site <- as.character(PTdata_synth$site)
@@ -321,7 +321,7 @@ PTMPplot <-
 
 #### Plankton jar model ####
 
-PJdata_synth <- subset(PJ_data2, particle.type == "Synthetic Polymer")
+PJdata_synth <- subset(PJ_data2, particle.type == "Synthetic")
 PJdata_synth$particle.type <- as.character(PJdata_synth$particle.type)
 PJdata_synth$particle.type <- as.factor(PJdata_synth$particle.type)
 PJdata_synth$site <- as.character(PJdata_synth$site)
@@ -546,7 +546,7 @@ PJMPplot <-
 #### MP Model by Individual  ####  
 
 MPgutdata <- subset(gutdata, !is.na(trophic.position) & 
-                     particle.type == 'Synthetic Polymer')
+                     particle.type == 'Synthetic')
 MPgutdata$particle.type <- as.character(MPgutdata$particle.type)
 MPgutdata$particle.type <- as.factor(MPgutdata$particle.type)
 MPgutdata$site <- as.character(MPgutdata$site)
@@ -705,20 +705,20 @@ run1long <- extract.post(run1)
 
 run1long$variable <- mapvalues(run1long$variable,
                                from = levels(run1long$variable),
-                               to = c("Cancer productus",
-                                      "Platichthys stellatus",
-                                      "Protothaca staminea",
-                                      "Ruditapes philippinarum",
-                                      "Sebastes caurinus",
-                                      "Sebastes melanops",
-                                      "Cucumeria miniata",
-                                      "Cymatogaster aggregata",
-                                      "Dermasterias imbricata",
-                                      "Metacarcinus gracilis",
-                                      "Metacarcinus magister",
-                                      "Mytilus spp.",
-                                      "Parastichopus californicus",
-                                      "Parophrys vetulus",
+                               to = c("Red Rock Crab",
+                                      "Starry Flounder",
+                                      "Pacific Littleneck Clam",
+                                      "Manila Clam",
+                                      "Copper Rockfish",
+                                      "Black Rockfish",
+                                      "Orange Sea Cucumber",
+                                      "Shiner Surfperch",
+                                      "Leather Star",
+                                      "Graceful Rock Crab",
+                                      "Dungeness Crab",
+                                      "Blue Mussel",
+                                      "California Sea Cucumber",
+                                      "English Sole",
                                       "Trophic Position:Coles Bay",
                                       "Trophic Position:Elliot Beach",
                                       "Trophic Position:Victoria Harbour",
@@ -792,21 +792,21 @@ MPgutdata$TP.est.lower25 <- apply(run2$BUGSoutput$sims.list$TP, 2, quantile,
 
 set.seed(5126)
 
-MPgutsim <- data.frame(
-  trophic.position = seq(
-    from = 1,
-    to = 6,
-    length.out = 2000
-  ),
-  site = sample(c(1:3),
-                2000,
-                replace = TRUE),
-  species = sample(c(1:14),
-                   2000,
-                   replace = TRUE)
-)
+MPgutsim <- 
+  data.frame(
+    trophic.position = seq(
+      from = 1,
+      to = 6,
+      length.out = 2000
+    ),
+    site = sample(c(1:3),
+                  2000,
+                  replace = TRUE),
+    species = sample(MPliverdata$species,
+                     2000,
+                     replace = TRUE))
 
-for(i in 1:2000){
+for(i in 1:nrow(MPgutsim)) {
   lambda_true <-
     exp(
       run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]]*
@@ -978,7 +978,8 @@ dev.off()
 
 set.seed(6614)
 
-MPgutsim2 <- MPgutdata %>% group_by(species) %>% summarize(mean.TP = mean(TP.est))
+MPgutsim2 <-
+  as.data.frame(MPgutdata %>% group_by(species) %>% summarize(mean.TP = mean(TP.est)))
 
 for(i in 1:nrow(MPgutsim2)) {
   x2 <- as.numeric()
@@ -1121,55 +1122,11 @@ species.est <-
 write.csv(species.est,
           "species.est.csv")
 
-## Plot species concentration data
-
-indplot <-
-  ggplot() +
-    geom_jitter(
-      data = MPgutdata,
-      aes(
-        x = reorder(common.names, order),
-        y = count
-      ),
-      width = 0.25,
-      height = 0,
-      colour = pal[1],
-      size = 1,
-      shape = 1,
-      alpha = 0.5
-    ) +
-    geom_linerange(
-      data = species.est,
-      aes(x = reorder(common.names, order),
-          ymax = ind.conc.high,
-          ymin = ind.conc.low),
-      size = 1,
-      colour = pal[3]
-    ) +
-    geom_point(
-      data = species.est,
-      aes(x = reorder(common.names, order),
-          y = ind.conc),
-      size = 2,
-      colour = pal[1],
-      fill = pal[3],
-      shape = 21
-    ) +
-    labs(x = "",
-         y = expression(paste('Particles '*ind^-1))) +
-    scale_y_continuous(
-      expand = c(0, 0.5),
-      limits = c(0, 8),
-      breaks = seq(0, 8, )
-    ) +
-    theme1 +
-    theme(axis.text.x = element_text(angle = 45 , hjust = 1))
-
 
 #### Fish liver model ####
 
 MPliverdata <- subset(liverdata, !is.na(trophic.position) & 
-                      particle.type == 'Synthetic Polymer')
+                      particle.type == 'Synthetic')
 MPliverdata$particle.type <- as.character(MPliverdata$particle.type)
 MPliverdata$particle.type <- as.factor(MPliverdata$particle.type)
 MPliverdata$site <- as.character(MPliverdata$site)
@@ -1206,6 +1163,7 @@ liver.mod <- function() {
     
     log(lambda_true[i]) <-
       log(weight[i]) +
+      alpha_species[species[i]] +
       beta_TP[site[i]] * TP[i] +
       gamma_site[site[i]]
     
@@ -1218,6 +1176,13 @@ liver.mod <- function() {
   }
   
   ## Priors
+  
+  for (j in 1:nspecies) {
+    alpha_species[j] ~ dnorm(0, tau_species)
+  }
+  
+  tau_species <- inverse(pow(sigma_species, 2))
+  sigma_species ~ dexp(1)
   
   for (k in 1:nsite) {
     beta_TP[k] ~ dnorm(0, 1)
@@ -1233,15 +1198,15 @@ liver.mod <- function() {
 liver.mod.init <- function()
 {
   list(
+    "sigma_species" = rexp(1),
     "beta_TP" = rnorm(3),
-    "gamma_site" = rnorm(3),
-    "base" = rgamma(3, 1, 1)
+    "gamma_site" = rnorm(3)
   )
 }
 
 ## Keep track of parameters
 
-liver.mod.params <- c("beta_TP", "gamma_site")
+liver.mod.params <- c("alpha_species", "beta_TP", "gamma_site")
 
 ## Specify data
 
@@ -1253,6 +1218,8 @@ liver.mod.data <-
     weight = MPliverdata$tissue.dry.weight,
     site = as.integer(MPliverdata$site),
     nsite = length(unique(MPliverdata$site)),
+    nspecies = length(unique(MPliverdata$species)),
+    species = as.integer(MPliverdata$species),
     deltaN = MPliverdata$deltaN,
     mean_base = as.numeric(with(
       MPliverdata,
@@ -1338,6 +1305,11 @@ liver.mod.run1long$variable <-
     liver.mod.run1long$variable,
     from = levels(liver.mod.run1long$variable),
     to = c(
+      "Shiner Surfperch",
+      "English Sole",
+      "Starry Flounder",
+      "Copper Rockfish",
+      "Black Rockfish",
       "Trophic Position:Coles Bay",
       "Trophic Position:Elliot Beach",
       "Trophic Position:Victoria Harbour",
@@ -1351,7 +1323,7 @@ liver.mod.run1long$order <- c(nrow(liver.mod.run1long):1)
 
 tiff(
   'MP Liver Model Posteriors.tiff', 
-  height = 2,
+  height = 4,
   width = 6,
   units = "in",
   res = 800,
@@ -1373,7 +1345,7 @@ ggplot(liver.mod.run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-    coord_cartesian(xlim = c(-2.5, 3.5)) +
+    coord_cartesian(xlim = c(-6.5, 5.5)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1432,7 +1404,8 @@ summary(TP.mod.liver)
 
 set.seed(5126)
 
-MPliversim <- data.frame(
+MPliversim <- 
+  data.frame(
   trophic.position = seq(
     from = 2,
     to = 4.5,
@@ -1454,7 +1427,8 @@ MPliversim$species <- as.integer(MPliversim$species)
 for(i in 1:2000){
   true.mean <-
     exp(
-      liver.mod.run1$BUGSoutput$sims.list$beta_TP[, MPliversim$site[i]]*
+      liver.mod.run1$BUGSoutput$sims.list$alpha_species +
+        liver.mod.run1$BUGSoutput$sims.list$beta_TP[, MPliversim$site[i]]*
         MPliversim$trophic.position[i] +
         liver.mod.run1$BUGSoutput$sims.list$gamma_site[, MPliversim$site[i]]
     )
@@ -1559,9 +1533,7 @@ liverMPplot <-
     limits = c(0, 400)
   ) +
   theme1 +
-  theme(legend.margin = margin(0, 0, 0, 0, unit = "cm"),
-        legend.box.margin = margin(0, 0, 0, 0, unit = "cm"),
-        legend.position = "bottom",
+  theme(legend.position = "bottom",
         legend.box.spacing = unit(1, "cm"),
         legend.key.size = unit(0.1, "cm"),
         panel.spacing = unit(0.5, "cm"))
