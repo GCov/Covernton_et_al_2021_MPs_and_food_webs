@@ -264,18 +264,16 @@ PT_sim <- data.frame(
 
 for(i in 1:3){
   y_true <-
-    exp(
-      PTmodrun1$BUGSoutput$sims.list$alpha_site[, PT_sim$site[i]]
-    )
-  PT_sim$mean[i] <- mean(y_true)
-  PT_sim$upper25[i] <- quantile(y_true, 0.625)
-  PT_sim$lower25[i] <- quantile(y_true, 0.375)
-  PT_sim$upper50[i] <- quantile(y_true, 0.75)
-  PT_sim$lower50[i] <- quantile(y_true, 0.25)
-  PT_sim$upper75[i] <- quantile(y_true, 0.875)
-  PT_sim$lower75[i] <- quantile(y_true, 0.125)
-  PT_sim$upper95[i] <- quantile(y_true, 0.975)
-  PT_sim$lower95[i] <- quantile(y_true, 0.025)
+    PTmodrun1$BUGSoutput$sims.list$alpha_site[, PT_sim$site[i]]
+  PT_sim$mean[i] <- exp(mean(y_true))
+  PT_sim$upper25[i] <- exp(quantile(y_true, 0.625))                  
+  PT_sim$lower25[i] <- exp(quantile(y_true, 0.375))
+  PT_sim$upper50[i] <- exp(quantile(y_true, 0.75))
+  PT_sim$lower50[i] <- exp(quantile(y_true, 0.25))
+  PT_sim$upper75[i] <- exp(quantile(y_true, 0.875))
+  PT_sim$lower75[i] <- exp(quantile(y_true, 0.125))
+  PT_sim$upper95[i] <- exp(quantile(y_true, 0.975))
+  PT_sim$lower95[i] <- exp(quantile(y_true, 0.025))
 }
 
 PT_sim$site <- as.factor(PT_sim$site)
@@ -489,18 +487,16 @@ PJ_sim <- data.frame(
 
 for(i in 1:3){
   lambda_true <-
-    exp(
-      PJmodrun1$BUGSoutput$sims.list$alpha_site[, PJ_sim$site[i]]
-    )
-  PJ_sim$mean[i] <- mean(lambda_true)
-  PJ_sim$upper25[i] <- quantile(lambda_true, 0.625)
-  PJ_sim$lower25[i] <- quantile(lambda_true, 0.375)
-  PJ_sim$upper50[i] <- quantile(lambda_true, 0.75)
-  PJ_sim$lower50[i] <- quantile(lambda_true, 0.25)
-  PJ_sim$upper75[i] <- quantile(lambda_true, 0.875)
-  PJ_sim$lower75[i] <- quantile(lambda_true, 0.125)
-  PJ_sim$upper95[i] <- quantile(lambda_true, 0.975)
-  PJ_sim$lower95[i] <- quantile(lambda_true, 0.025)
+    PJmodrun1$BUGSoutput$sims.list$alpha_site[, PJ_sim$site[i]]
+  PJ_sim$mean[i] <- exp(mean(lambda_true))
+  PJ_sim$upper25[i] <- exp(quantile(lambda_true, 0.625))
+  PJ_sim$lower25[i] <- exp(quantile(lambda_true, 0.375))
+  PJ_sim$upper50[i] <- exp(quantile(lambda_true, 0.75))
+  PJ_sim$lower50[i] <- exp(quantile(lambda_true, 0.25))
+  PJ_sim$upper75[i] <- exp(quantile(lambda_true, 0.875))
+  PJ_sim$lower75[i] <- exp(quantile(lambda_true, 0.125))
+  PJ_sim$upper95[i] <- exp(quantile(lambda_true, 0.975))
+  PJ_sim$lower95[i] <- exp(quantile(lambda_true, 0.025))
 }
 
 PJ_sim$site <- as.factor(PJ_sim$site)
@@ -808,21 +804,19 @@ MPgutsim <-
 
 for(i in 1:nrow(MPgutsim)) {
   lambda_true <-
-    exp(
-      run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]]*
-        MPgutsim$trophic.position[i] +
-        run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]] +
-        run1$BUGSoutput$sims.list$alpha_species
-    )
-  MPgutsim$mean[i] <- mean(lambda_true)
-  MPgutsim$upper25[i] <- quantile(lambda_true, 0.625)
-  MPgutsim$lower25[i] <- quantile(lambda_true, 0.375)
-  MPgutsim$upper50[i] <- quantile(lambda_true, 0.75)
-  MPgutsim$lower50[i] <- quantile(lambda_true, 0.25)
-  MPgutsim$upper75[i] <- quantile(lambda_true, 0.875)
-  MPgutsim$lower75[i] <- quantile(lambda_true, 0.125)
-  MPgutsim$upper95[i] <- quantile(lambda_true, 0.975)
-  MPgutsim$lower95[i] <- quantile(lambda_true, 0.025)
+    run1$BUGSoutput$sims.list$beta_TP[, MPgutsim$site[i]]*
+      MPgutsim$trophic.position[i] +
+      run1$BUGSoutput$sims.list$gamma_site[, MPgutsim$site[i]] +
+      run1$BUGSoutput$sims.list$alpha_species
+  MPgutsim$mean[i] <- exp(mean(lambda_true))
+  MPgutsim$upper25[i] <- exp(+quantile(lambda_true, 0.625))
+  MPgutsim$lower25[i] <- exp(+quantile(lambda_true, 0.375))
+  MPgutsim$upper50[i] <- exp(+quantile(lambda_true, 0.75))
+  MPgutsim$lower50[i] <- exp(+quantile(lambda_true, 0.25))
+  MPgutsim$upper75[i] <- exp(+quantile(lambda_true, 0.875))
+  MPgutsim$lower75[i] <- exp(+quantile(lambda_true, 0.125))
+  MPgutsim$upper95[i] <- exp(+quantile(lambda_true, 0.975))
+  MPgutsim$lower95[i] <- exp(+quantile(lambda_true, 0.025))
 }
 
 MPgutsim$site <- as.factor(MPgutsim$site)
@@ -985,24 +979,22 @@ for(i in 1:nrow(MPgutsim2)) {
   x2 <- as.numeric()
   for (j in 1:3) {
     x1 <-
-      exp(
-        run1$BUGSoutput$sims.list$beta_TP[, j] *
-          MPgutsim2$mean.TP[i] +
-          run1$BUGSoutput$sims.list$gamma_site[, j] +
-          run1$BUGSoutput$sims.list$alpha_species[, i]
-      )
+      run1$BUGSoutput$sims.list$beta_TP[, j] *
+        MPgutsim2$mean.TP[i] +
+        run1$BUGSoutput$sims.list$gamma_site[, j] +
+        run1$BUGSoutput$sims.list$alpha_species[, i]
     lambda_true <- c(x1, x2)
     x2 <- x1
   }
-  MPgutsim2$mean[i] <- mean(lambda_true)
-  MPgutsim2$upper25[i] <- quantile(lambda_true, 0.625)
-  MPgutsim2$lower25[i] <- quantile(lambda_true, 0.375)
-  MPgutsim2$upper50[i] <- quantile(lambda_true, 0.750)
-  MPgutsim2$lower50[i] <- quantile(lambda_true, 0.250)
-  MPgutsim2$upper75[i] <- quantile(lambda_true, 0.875)
-  MPgutsim2$lower75[i] <- quantile(lambda_true, 0.125)
-  MPgutsim2$upper95[i] <- quantile(lambda_true, 0.975)
-  MPgutsim2$lower95[i] <- quantile(lambda_true, 0.025)
+  MPgutsim2$mean[i] <- exp(mean(lambda_true))
+  MPgutsim2$upper25[i] <- exp(quantile(lambda_true, 0.625))
+  MPgutsim2$lower25[i] <- exp(quantile(lambda_true, 0.375))
+  MPgutsim2$upper50[i] <- exp(quantile(lambda_true, 0.750))
+  MPgutsim2$lower50[i] <- exp(quantile(lambda_true, 0.250))
+  MPgutsim2$upper75[i] <- exp(quantile(lambda_true, 0.875))
+  MPgutsim2$lower75[i] <- exp(quantile(lambda_true, 0.125))
+  MPgutsim2$upper95[i] <- exp(quantile(lambda_true, 0.975))
+  MPgutsim2$lower95[i] <- exp(quantile(lambda_true, 0.025))
 }
 
 MPgutsim2 <- MPgutsim2 %>% arrange(mean)
@@ -1426,21 +1418,19 @@ MPliversim$species <- as.integer(MPliversim$species)
 
 for(i in 1:2000){
   true.mean <-
-    exp(
-      liver.mod.run1$BUGSoutput$sims.list$alpha_species +
-        liver.mod.run1$BUGSoutput$sims.list$beta_TP[, MPliversim$site[i]]*
-        MPliversim$trophic.position[i] +
-        liver.mod.run1$BUGSoutput$sims.list$gamma_site[, MPliversim$site[i]]
-    )
-  MPliversim$mean[i] <- mean(true.mean)
-  MPliversim$upper25[i] <- quantile(true.mean, 0.625)
-  MPliversim$lower25[i] <- quantile(true.mean, 0.375)
-  MPliversim$upper50[i] <- quantile(true.mean, 0.750)
-  MPliversim$lower50[i] <- quantile(true.mean, 0.250)
-  MPliversim$upper75[i] <- quantile(true.mean, 0.875)
-  MPliversim$lower75[i] <- quantile(true.mean, 0.125)
-  MPliversim$upper95[i] <- quantile(true.mean, 0.975)
-  MPliversim$lower95[i] <- quantile(true.mean, 0.025)
+    liver.mod.run1$BUGSoutput$sims.list$alpha_species +
+      liver.mod.run1$BUGSoutput$sims.list$beta_TP[, MPliversim$site[i]]*
+      MPliversim$trophic.position[i] +
+      liver.mod.run1$BUGSoutput$sims.list$gamma_site[, MPliversim$site[i]]
+  MPliversim$mean[i] <- exp(mean(true.mean))
+  MPliversim$upper25[i] <- exp(quantile(true.mean, 0.625))
+  MPliversim$lower25[i] <- exp(quantile(true.mean, 0.375))
+  MPliversim$upper50[i] <- exp(quantile(true.mean, 0.750))
+  MPliversim$lower50[i] <- exp(quantile(true.mean, 0.250))
+  MPliversim$upper75[i] <- exp(quantile(true.mean, 0.875))
+  MPliversim$lower75[i] <- exp(quantile(true.mean, 0.125))
+  MPliversim$upper95[i] <- exp(quantile(true.mean, 0.975))
+  MPliversim$lower95[i] <- exp(quantile(true.mean, 0.025))
 }
 
 
@@ -1545,7 +1535,7 @@ liverMPplot <-
 
 transferdata <- subset(foodweb2, 
                        sample.type == "Rockfish: Ingested Animals" &
-                         particle.type == "Synthetic Polymer")
+                         particle.type == "Synthetic")
 
    
 
@@ -1744,25 +1734,22 @@ for(i in 1:nrow(transfersim)) {
     for (k in 1:3) {
       for (l in 1:6) {
         x1 <-
-          exp(
-            transfer.mod.run1$BUGSoutput$sims.list$alpha_species[, j] +
-              transfer.mod.run1$BUGSoutput$sims.list$gamma_site[, k]
-          )
+          transfer.mod.run1$BUGSoutput$sims.list$alpha_species[, j] +
+            transfer.mod.run1$BUGSoutput$sims.list$gamma_site[, k]
         lambda_true <- c(x1, x2)
         x2 <- x1
       }
-      
     }
   }
-  transfersim$mean[i] <- mean(lambda_true)
-  transfersim$upper25[i] <- quantile(lambda_true, 0.625)
-  transfersim$lower25[i] <- quantile(lambda_true, 0.375)
-  transfersim$upper50[i] <- quantile(lambda_true, 0.750)
-  transfersim$lower50[i] <- quantile(lambda_true, 0.250)
-  transfersim$upper75[i] <- quantile(lambda_true, 0.875)
-  transfersim$lower75[i] <- quantile(lambda_true, 0.125)
-  transfersim$upper95[i] <- quantile(lambda_true, 0.975)
-  transfersim$lower95[i] <- quantile(lambda_true, 0.025)
+  transfersim$mean[i] <- exp(mean(lambda_true))
+  transfersim$upper25[i] <- exp(quantile(lambda_true, 0.625))
+  transfersim$lower25[i] <- exp(quantile(lambda_true, 0.375))
+  transfersim$upper50[i] <- exp(quantile(lambda_true, 0.750))
+  transfersim$lower50[i] <- exp(quantile(lambda_true, 0.250))
+  transfersim$upper75[i] <- exp(quantile(lambda_true, 0.875))
+  transfersim$lower75[i] <- exp(quantile(lambda_true, 0.125))
+  transfersim$upper95[i] <- exp(quantile(lambda_true, 0.975))
+  transfersim$lower95[i] <- exp(quantile(lambda_true, 0.025))
 }
 
 #### Plot predictions ####
@@ -2078,36 +2065,30 @@ for (i in 1:nrow(rfishsim)) {
   for (j in 1:3) {
     for (k in 1:1000) {
       x1 <-
-        exp(
-          rfish.mod.run1$BUGSoutput$sims.list$alpha_species[, rfishsim$species[i]] +
-            rfish.mod.run1$BUGSoutput$sims.list$beta_TP *
-            seq(
-              min(rfishcompare$TP.est),
-              max(rfishcompare$TP.est),
-              length.out = 1000
-            )[k] +
-            rfish.mod.run1$BUGSoutput$sims.list$beta_TL *
-            seq(
-              min(rfishcompare$TL),
-              max(rfishcompare$TL),
-              length.out = 1000
-            )[k] +
-            rfish.mod.run1$BUGSoutput$sims.list$gamma_site[, j] +
-            rfish.mod.run1$BUGSoutput$sims.list$gamma_gut[, rfishsim$full.stomach[i]]
-        )
+        rfish.mod.run1$BUGSoutput$sims.list$alpha_species[, rfishsim$species[i]] +
+        rfish.mod.run1$BUGSoutput$sims.list$beta_TP *
+        seq(min(rfishcompare$TP.est),
+            max(rfishcompare$TP.est),
+            length.out = 1000)[k] +
+        rfish.mod.run1$BUGSoutput$sims.list$beta_TL *
+        seq(min(rfishcompare$TL),
+            max(rfishcompare$TL),
+            length.out = 1000)[k] +
+        rfish.mod.run1$BUGSoutput$sims.list$gamma_site[, j] +
+        rfish.mod.run1$BUGSoutput$sims.list$gamma_gut[, rfishsim$full.stomach[i]]
       lambda_true <- c(x1, x2)
       x2 <- x1
     }
   }
-  rfishsim$mean[i] <- mean(lambda_true)
-  rfishsim$upper25[i] <- quantile(lambda_true, 0.625)
-  rfishsim$lower25[i] <- quantile(lambda_true, 0.375)
-  rfishsim$upper50[i] <- quantile(lambda_true, 0.75)
-  rfishsim$lower50[i] <- quantile(lambda_true, 0.25)
-  rfishsim$upper75[i] <- quantile(lambda_true, 0.875)
-  rfishsim$lower75[i] <- quantile(lambda_true, 0.125)
-  rfishsim$upper95[i] <- quantile(lambda_true, 0.975)
-  rfishsim$lower95[i] <- quantile(lambda_true, 0.025)
+  rfishsim$mean[i] <- exp(mean(lambda_true))
+  rfishsim$upper25[i] <- exp(quantile(lambda_true, 0.625))
+  rfishsim$lower25[i] <- exp(quantile(lambda_true, 0.375))
+  rfishsim$upper50[i] <- exp(quantile(lambda_true, 0.75))
+  rfishsim$lower50[i] <- exp(quantile(lambda_true, 0.25))
+  rfishsim$upper75[i] <- exp(quantile(lambda_true, 0.875))
+  rfishsim$lower75[i] <- exp(quantile(lambda_true, 0.125))
+  rfishsim$upper95[i] <- exp(quantile(lambda_true, 0.975))
+  rfishsim$lower95[i] <- exp(quantile(lambda_true, 0.025))
 }
 
 
