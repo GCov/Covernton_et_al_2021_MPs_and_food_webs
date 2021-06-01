@@ -1315,7 +1315,7 @@ liver.mod.run1long$order <- c(nrow(liver.mod.run1long):1)
 
 tiff(
   'MP Liver Model Posteriors.tiff', 
-  height = 4,
+  height = 3.5,
   width = 6,
   units = "in",
   res = 800,
@@ -1495,8 +1495,7 @@ liverMPplot <-
     aes(x = trophic.position,
         y = mean),
     size = 0.5,
-    colour = pal[1],
-    alpha = 0.3
+    colour = pal[1]
   ) +
   geom_point(
     data = MPliverdata,
@@ -1523,10 +1522,11 @@ liverMPplot <-
     limits = c(0, 400)
   ) +
   theme1 +
+  guides(label.position = "bottom") +
   theme(legend.position = "bottom",
-        legend.box.spacing = unit(1, "cm"),
-        legend.key.size = unit(0.1, "cm"),
-        panel.spacing = unit(0.5, "cm"))
+        panel.spacing = unit(0.5, "cm"),
+        legend.spacing.x = unit(0.001, "cm"),
+        legend.text = element_text(size = 9))
 
 
 #### Rockfish ingested animals ####
