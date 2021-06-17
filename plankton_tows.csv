@@ -1,5 +1,5 @@
 ID,site,sample.type,particle.number,analyzer,size.fraction,shape,colour,length,on.tape,notes,raman.ID,blank.match,user.id
-CBPT1,Coles Bay,Plankton Tows,1,GC,>250,fibre,red,>5000,yes,,Polyester,1,Synthetic
+CBPT1,Coles Bay,Plankton Tows,1,GC,>250,fibre,red,5000,yes,,Polyester,1,Synthetic
 CBPT1,Coles Bay,Plankton Tows,4,NP,>250,fibre,blue,1040.01,yes,,Polypropylene,1,Synthetic
 CBPT1,Coles Bay,Plankton Tows,5,NP,>250,fibre,clear,1087.32,yes,,Polypropylene,1,Synthetic
 CBPT2,Coles Bay,Plankton Tows,6,NP,>250,fibre ,clear,630.6,yes,,Plastics Additive,1,Natural

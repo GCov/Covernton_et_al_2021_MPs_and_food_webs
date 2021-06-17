@@ -1,6 +1,6 @@
 ##### Setup #####
 
-## load packages
+## Load packages
 library(plyr)
 library(ggplot2)
 library(dplyr)
@@ -8,7 +8,7 @@ library(ggridges)
 
 #### Field Data ####
 
-## load field data
+## Load field data
 
 field_data <- read.csv("NCAG_field_data.csv", header = TRUE)
 
@@ -67,7 +67,7 @@ animal_info$sample.type <-
                    'Rockfish',
                    'Surfperch'))
 
-ggplot(animal_info) +  # plot size distribution by species
+ggplot(animal_info) +  # plot body size distribution by species
   geom_density_ridges(aes(x = log(total.body.wet.weight),
                           y = reorder(species, total.body.wet.weight, mean)),
                       fill = 'lightblue') +

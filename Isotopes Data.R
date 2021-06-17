@@ -1,6 +1,6 @@
 ##### Setup #####
 
-## load packages
+## Load packages
 library(plyr)
 library(ggplot2)
 library(dplyr)
@@ -51,7 +51,7 @@ isotopes$species[isotopes$ID == "HPRF1"] <- "Sebastes caurinus"
 
 summary(isotopes$species)
 
-#### Plot ####
+#### Plot Isotopes Data ####
 
 theme1 <-
   theme_bw() +
@@ -166,7 +166,7 @@ ggplot(isotopes2) +  # isotopic plot
 
 dev.off()
 
-## Estimate trophic position for each individual using mussels as a baseline
+## Calculate mean and sd for baseline (mussels) values
 
 baseline <-
   subset(isotopes, sample.type == 'Mussels') %>% 
@@ -180,10 +180,6 @@ isotopes <- left_join(isotopes,
                       baseline,
                       by = 'site')
 
-isotopes$trophic.position <-
-  with(isotopes,
-       ((deltaN - base_deltaN)/3.4)+1)
-
 ## Average liver and muscle values for fish
 
 isotopes2 <-
@@ -195,23 +191,5 @@ isotopes2 <-
 isotopes2$trophic.position <-
   with(isotopes2,
        ((deltaN - base_deltaN)/3.4)+1)
-
-## Plot according to trophic position
-
-ggplot(isotopes) +
-  geom_violin(aes(x = 1,
-                  y = trophic.position,
-                  fill = site),
-              size = 1) +
-  facet_grid(. ~ reorder(sample.type, 
-                              trophic.position,
-                              mean)) +
-  labs(x = 'Sample Type',
-       y = 'Trophic Position') +
-  scale_fill_manual(values = qualitative_hcl(palette = 'Dark 2', n = 3)) +
-  theme1 +
-  theme(axis.line.x = element_blank(),
-        axis.ticks.x = element_blank(),
-        axis.text.x = element_blank())
 
 

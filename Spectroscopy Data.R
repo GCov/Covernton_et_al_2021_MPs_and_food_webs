@@ -1,20 +1,17 @@
 ##### Setup #####
 
-## load packages
+## Load packages
 library(plyr)
 library(ggplot2)
 library(dplyr)
-library(nnet)
-library(MuMIn)
-library(boot)
 library(colorspace)
 library(randomForest)
-require(caTools)
-library(ROCR)
-library(extrafont)
-loadfonts(device = "win")
 
-#### Load spectroscopy data ####
+## Define colour palette
+
+pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")
+
+#### Load Spectroscopy Data ####
 
 ## Load plankton tow data
 
@@ -36,6 +33,7 @@ PT$shape <- as.factor(PT$shape)
 PT$colour <- as.factor(PT$colour)
 PT$raman.ID <- as.factor(PT$raman.ID)
 PT$user.id <- as.factor(PT$user.id)
+PT$blank.match <- as.factor(PT$blank.match)
 
 ## Clean up plankton tow data
 
@@ -115,6 +113,7 @@ PJ$shape <- as.factor(PJ$shape)
 PJ$colour <- as.factor(PJ$colour)
 PJ$raman.ID <- as.factor(PJ$raman.ID)
 PJ$user.id <- as.factor(PJ$user.id)
+PJ$blank.match <- as.factor(PJ$blank.match)
 
 ## Clean up plankton jars data
 
@@ -342,11 +341,19 @@ summary(full_spec_data$particle.type)
 
 ## Create random forest model for known particle types
 
-moddata1 <- rbind(full_spec_data, PT[c(1:14, 22)], PJ)
+full_spec_data$set <- "AD"  # identifiers for bringing back predictions
+PT$set <- "PT"
+PJ$set <- "PJ"
+
+moddata1 <- rbind(full_spec_data, PT[c(1:14, 22:23)], PJ)
 
 moddata2 <- subset(moddata1,
                    particle.type != 'Unknown' &
                      particle.type != 'NA')
+
+unknowndata <- subset(moddata1,
+                      particle.type == 'Unknown' &
+                        particle.type != 'NA')
 
 moddata2$particle.type <- as.character(moddata2$particle.type)
 moddata2$particle.type <- as.factor(moddata2$particle.type)
@@ -369,7 +376,7 @@ mtry <- tuneRF(moddata2[, c(2:3,7:9,14)],
 rf <- randomForest(particle.type ~
                      colour * shape * user.id + sample.type + site + length,
                    data = moddata2,
-                   mtry = 2,
+                   mtry = 3,
                    importance = TRUE,
                    ntree = 2000)
 
@@ -396,7 +403,7 @@ cm <- table(moddata2[, 15], pred)
 
 round((sum(diag(cm))/sum(cm))*100,2)
 
-plot_rf_confusion <- function(rf_model)
+plot_rf_confusion <- function(rf_model)  # function for making confusion matrix
 {
   conf_mat <- rf_model$confusion[, -ncol(rf_model$confusion)]
   class_size <- apply(conf_mat, 1, sum)
@@ -445,45 +452,28 @@ tiff("Confusion Matrix.tiff",
     res = 800,
     compression = "lzw")
 
-plot_rf_confusion(rf)
+plot_rf_confusion(rf)  ## confusion matrix
 
 dev.off()
 
 ## Now predict unknown particle types
 
-predPT_data <- subset(PT[c(1:14, 22)], 
-                      particle.type == 'Unknown')
-predPT_data <- rbind(train[1, -c(16:17)] , predPT_data)
-predPT_data <- predPT_data[-1,]
-
-predPJ_data <- subset(PJ,  
-                      particle.type == 'Unknown')
-predPJ_data <- rbind(train[1, -c(16:17)] , predPJ_data)
-predPJ_data <- predPJ_data[-1,]
-
-predanimal_data <- subset(full_spec_data,
-                    particle.type == 'Unknown')
-predanimal_data <- rbind(train[1, -c(16:17)] , predanimal_data)
-predanimal_data <- predanimal_data[-1,]
-
-predictPT.rf <- predict(rf, newdata = predPT_data)
-
-predictPJ.rf <- predict(rf, newdata = predPJ_data)
-
-predictanimal.rf <- predict(rf, newdata = predanimal_data)
+unknowndata$particle.type <- predict(rf, newdata = unknowndata)
 
 
-## add predictions back to original data
+## Add predictions back to original data
 
 PT[PT$particle.type == 'Unknown' &
-     !is.na(PT$particle.type), ]$particle.type <- predictPT.rf
+     !is.na(PT$particle.type), ]$particle.type <- 
+  unknowndata$particle.type[unknowndata$set == "PT"]
 
 PJ[PJ$particle.type == 'Unknown' &
-     !is.na(PJ$particle.type),]$particle.type <- predictPJ.rf
+     !is.na(PJ$particle.type),]$particle.type <- 
+  unknowndata$particle.type[unknowndata$set == "PJ"]
 
 full_spec_data$particle.type[full_spec_data$particle.type == 'Unknown' &
                                !is.na(full_spec_data$particle.type)] <-
-  predictanimal.rf
+  unknowndata$particle.type[unknowndata$set == "AD"]
 
 PT$particle.type <- as.character(PT$particle.type)
 PT$particle.type <- as.factor(PT$particle.type)
@@ -571,7 +561,7 @@ full_spec_data2$sample.type <-
             to = c("Rockfish Guts",
                    "Rockfish: Ingested Animals"))
 
-#### Blank subtract ####
+#### Blank Subtract (for comparison) ####
 
 ## Summarize by particle type
 

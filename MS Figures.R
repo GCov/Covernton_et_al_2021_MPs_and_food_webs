@@ -1,6 +1,5 @@
 library(ggplot2)
 library(cowplot)
-library(extrafont)
 
 ## Plankton tow and jar
 

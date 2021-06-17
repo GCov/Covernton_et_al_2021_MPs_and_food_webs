@@ -20,9 +20,9 @@ extract.post <- function(x){
   long$variable <- as.character(long$variable)
   long$variable <- as.factor(long$variable)
   long
-}
+}  # handy function for extracting posterior estimates of parameters
 
-pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")
+pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")  # define palette
 
 #### Plankton tow model ####
 
@@ -97,9 +97,10 @@ PTmodrun1 <- jags.parallel(
 
 PTmodrun1
 PTmodrun1mcmc <- as.mcmc(PTmodrun1)
-xyplot(PTmodrun1mcmc, layout = c(6, ceiling(nvar(PTmodrun1mcmc)/6)))
+xyplot(PTmodrun1mcmc, layout = c(6, ceiling(nvar(PTmodrun1mcmc)/6)))  # trace plots
 
 #### Diagnostics ####
+
 PTmodparam2 <- c("fitted", "true", "lambda_y", "lambda_true")
 
 PTmodrun2 <- jags.parallel(
@@ -132,6 +133,7 @@ plot(check.PTmod)
 testDispersion(check.PTmod)
 testZeroInflation(check.PTmod)
 plotResiduals(check.PTmod, PTdata_synth$site)
+plotResiduals(check.PTmod, PTdata_synth$sample.volume)
 
 #### Inference ####
 
@@ -156,7 +158,7 @@ tiff(
   compression = "lzw"
 )
 
-ggplot(PTmodrun1long) +
+ggplot(PTmodrun1long) +  # plot parameter posteriors
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
@@ -169,79 +171,6 @@ ggplot(PTmodrun1long) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
-  theme1
-
-dev.off()
-
-
-#### Demonstrate Process ####
-
-PTmodrun2fitted <- 
-  melt(data.frame(PTmodrun2$BUGSoutput$sims.list$fitted))
-
-PTmodrun2fitted$blanks <- 
-  rpois(PTdata_synth$blank.mean, 
-                                PTdata_synth$blank.mean)
-
-PTmodrun2fitted$true <- 
-  melt(data.frame(PTmodrun2$BUGSoutput$sims.list$lambda_true))$value
-
-PTmodrun2fitted$variable <- 
-  mapvalues(PTmodrun2fitted$variable,
-            from = levels(PTmodrun2fitted$variable),
-            to = c(rep("Coles Bay", 5),
-                   rep("Elliot Bay", 5),
-                   rep("Victoria Harbour", 5)))
-
-png(
-  'PT Correction Process.png',
-  width = 9,
-  height = 7,
-  units = 'cm',
-  res = 500
-)
-
-ggplot(PTmodrun2fitted) +
-  geom_density_ridges(
-    aes(x = true,
-        y = variable,
-        scale = 1),
-    fill = pal[3],
-    colour = pal[1],
-    alpha = 0.5,
-    size = 0.25
-  ) +
-  geom_point(
-    data = PTdata_synth,
-    aes(x = blank.mean,
-        y = site),
-    fill = pal[5],
-    size = 2,
-    shape = 21
-  ) +
-  geom_point(
-    data = data.frame(PTdata_synth %>% group_by(site) %>% summarize(mean = mean(count))),
-    aes(x = mean,
-        y = site),
-    fill = pal[2],
-    size = 2,
-    shape = 21
-  ) +
-  geom_jitter(
-    data = PTdata_synth,
-    aes(x = count,
-        y = site),
-    width = 0,
-    height = 0.05,
-    colour = pal[1],
-    size = 2,
-    shape = 1
-  ) +
-  scale_x_continuous(expand = c(0, 0.1),
-                     limits = c(0, 10),
-                     breaks = seq(0, 10, 2)) +
-  labs(x = "Microplastic Particle Count",
-       y = "Sample") +
   theme1
 
 dev.off()
@@ -798,7 +727,7 @@ MPgutsim <-
     site = sample(c(1:3),
                   2000,
                   replace = TRUE),
-    species = sample(MPliverdata$species,
+    species = sample(MPgutdata$species,
                      2000,
                      replace = TRUE))
 
