@@ -52,7 +52,7 @@ PTmod <- function() {
   ## Priors
   
   for(j in 1:nsite) {
-    alpha_site[j] ~ dnorm(0, 1)
+    alpha_site[j] ~ dnorm(0, 0.01)
   }
 }
 
@@ -167,7 +167,7 @@ ggplot(PTmodrun1long) +  # plot parameter posteriors
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(-5.3, -1.8)) +
+  coord_cartesian(xlim = c(-7, -1.8)) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
@@ -274,7 +274,7 @@ PJmod <- function() {
   ## Priors
   
   for(j in 1:nsite) {
-    alpha_site[j] ~ dnorm(0, 1)
+    alpha_site[j] ~ dnorm(0, 0.01)
   }
 }
 
@@ -386,7 +386,7 @@ ggplot(PJmodrun1long) +
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(-2.5, 1.5)) +
+  coord_cartesian(xlim = c(-25, 3)) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
@@ -618,6 +618,7 @@ plot(check.model1)
 
 plotResiduals(check.model1, MPgutdata$site)
 plotResiduals(check.model1, MPgutdata$species)
+plotResiduals(check.model1, MPgutdata$total.body.wet.weight)
 plotResiduals(check.model1, apply(run2$BUGSoutput$sims.list$TP, 2, median))
 testZeroInflation(check.model1)
 testDispersion(check.model1)
@@ -758,87 +759,54 @@ MPgutsim$site <- mapvalues(MPgutsim$site,
 
 #### Plot predictions ####
 
-## Define plotting function
-
-predictionsplot <- 
-  function(simdata,
-           simx,
-           rawdata, 
-           rawx,
-           rawy,
-           ribboncol = "red", 
-           linecol = "black", 
-           pointcol = "black",
-           xlab = "X",
-           ylab = "Y",
-           facet,
-           xlim,
-           ylim
-  ) {
-    ggplot() +
-      geom_ribbon(data = simdata,
-                  aes(x = simx,
-                      ymax = upper95,
-                      ymin = lower95),
-                  alpha = 0.05,
-                  size = 0.5,
-                  fill = ribboncol) +
-      geom_ribbon(data = simdata,
-                  aes(x = simx,
-                      ymax = upper75,
-                      ymin = lower75),
-                  alpha = 0.25,
-                  size = 0.5,
-                  fill = ribboncol) +
-      geom_ribbon(data = simdata,
-                  aes(x = simx,
-                      ymax = upper50,
-                      ymin = lower50),
-                  alpha = 0.5,
-                  size = 0.5,
-                  fill = ribboncol) +
-      geom_ribbon(data = simdata,
-                  aes(x = simx,
-                      ymax = upper25,
-                      ymin = lower25),
-                  alpha = 0.75,
-                  size = 0.5,
-                  fill = ribboncol) +
-      geom_line(data = simdata,
-                aes(x = simx,
-                    y = mean),
-                size = 0.5,
-                colour = linecol) +
-      geom_point(data = rawdata,
-                 aes(x = rawx,
-                     y = rawy),
-                 size = 2, shape = 20, alpha = 0.5, colour = pointcol) +
-      facet_wrap(~ site) +
-      labs(x = xlab,
-           y = ylab) +
-      coord_cartesian(xlim = xlim) +
-      scale_x_continuous(expand = c(0, 0)) +
-      scale_y_continuous(limits = ylim,
-                         expand = c(0, 0.2),
-                         breaks = seq(0, 30, 2)) +
-      theme1
-  }
-
 MPTLplot <-
-  predictionsplot(
-    simdata = MPgutsim,
-    simx = MPgutsim$trophic.position,
-    rawdata = MPgutdata,
-    rawx = MPgutdata$TP.est,
-    rawy = MPgutdata$count,
-    ribboncol = pal[3],
-    linecol = pal[1],
-    pointcol = pal[1],
-    xlab = "Trophic Position",
-    ylab = expression(paste("Particles " * ind ^ -1)),
-    xlim = c(1, 6),
-    ylim = c(0, 8)
-  )
+  ggplot() +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper95,
+                  ymin = lower95),
+              alpha = 0.05,
+              size = 0.5,
+              fill = pal[3]) +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper75,
+                  ymin = lower75),
+              alpha = 0.25,
+              size = 0.5,
+              fill = pal[3]) +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper50,
+                  ymin = lower50),
+              alpha = 0.5,
+              size = 0.5,
+              fill = pal[3]) +
+  geom_ribbon(data = MPgutsim,
+              aes(x = trophic.position,
+                  ymax = upper25,
+                  ymin = lower25),
+              alpha = 0.75,
+              size = 0.5,
+              fill = pal[3]) +
+  geom_line(data = MPgutsim,
+            aes(x = trophic.position,
+                y = mean),
+            size = 0.5,
+            colour = pal[1]) +
+  geom_point(data = MPgutdata,
+             aes(x = TP.est,
+                 y = count),
+             size = 2, shape = 20, alpha = 0.5, colour = pal[1]) +
+  facet_wrap(~ site) +
+  labs(x = "Trophic Position",
+       y = expression(paste("Particles"~ind^-1))) +
+  coord_cartesian(xlim = c(1, 6)) +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(limits = c(0, 8),
+                     expand = c(0, 0.2),
+                     breaks = seq(0, 30, 2)) +
+  theme1
 
 ## Trophic position uncertainty by species
 
@@ -1060,8 +1028,14 @@ MPliverdata$site <- mapvalues(MPliverdata$site,
                               to = "Elliot Beach")
 
 ggplot(MPliverdata) +
-  geom_point(aes(x = total.body.wet.weight,
-                 y = tissue.dry.weight,
+  geom_point(aes(x = log(total.body.wet.weight),
+                 y = log(tissue.dry.weight),
+                 color = species)) +
+  facet_grid(. ~ site)
+
+ggplot(MPliverdata) +
+  geom_point(aes(x = log(total.body.wet.weight),
+                 y = log(tissue.wet.weight),
                  color = species)) +
   facet_grid(. ~ site)
 
@@ -1136,7 +1110,7 @@ liver.mod.data <-
     y = MPliverdata$count,
     N = nrow(MPliverdata),
     lambda_blanks = MPliverdata$blank.mean,
-    weight = MPliverdata$tissue.dry.weight,
+    weight = MPliverdata$tissue.wet.weight,
     site = as.integer(MPliverdata$site),
     nsite = length(unique(MPliverdata$site)),
     nspecies = length(unique(MPliverdata$species)),
@@ -1163,7 +1137,7 @@ liver.mod.run1 <- jags.parallel(
   n.chains = 3,
   n.cluster = 16,
   n.iter = 5000,
-  n.burnin = 500,
+  n.burnin = 1,
   n.thin = 1,
   jags.seed = 3149,
   model = liver.mod
@@ -1213,6 +1187,10 @@ plotResiduals(check.liver.mod,
               MPliverdata$tissue.wet.weight)
 plotResiduals(check.liver.mod,
               MPliverdata$species)
+plotResiduals(check.liver.mod,
+              MPliverdata$site)
+plotResiduals(check.liver.mod,
+              MPliverdata$total.body.wet.weight)
 
 testDispersion(check.liver.mod)
 testZeroInflation(check.liver.mod)
@@ -1266,7 +1244,7 @@ ggplot(liver.mod.run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-    coord_cartesian(xlim = c(-6.5, 5.5)) +
+    coord_cartesian(xlim = c(-20, 10)) +
   labs(x = "",
        y = "Parameter") +
   theme1
