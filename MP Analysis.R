@@ -1137,7 +1137,7 @@ liver.mod.run1 <- jags.parallel(
   n.chains = 3,
   n.cluster = 16,
   n.iter = 5000,
-  n.burnin = 1,
+  n.burnin = 500,
   n.thin = 1,
   jags.seed = 3149,
   model = liver.mod
@@ -1191,6 +1191,8 @@ plotResiduals(check.liver.mod,
               MPliverdata$site)
 plotResiduals(check.liver.mod,
               MPliverdata$total.body.wet.weight)
+plotResiduals(check.liver.mod,
+              MPliverdata$TL)
 
 testDispersion(check.liver.mod)
 testZeroInflation(check.liver.mod)
@@ -1244,7 +1246,7 @@ ggplot(liver.mod.run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-    coord_cartesian(xlim = c(-20, 10)) +
+    coord_cartesian(xlim = c(-7, 5)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1754,7 +1756,6 @@ rfish.mod <- function() {
     log(lambda_true[i]) <-
       alpha_species[species[i]] +
       beta_TP * TP[i] +
-      beta_TL * TL[i] +
       gamma_site[site[i]] +
       gamma_gut[full.stomach[i]]
     
@@ -1769,15 +1770,10 @@ rfish.mod <- function() {
   ## Priors
   
   for (j in 1:nspecies) {
-    alpha_species[j] ~ dnorm(0, tau_species)
+    alpha_species[j] ~ dnorm(0, 1)
   }
   
-  tau_species <- inverse(pow(sigma_species, 2))
-  sigma_species ~ dexp(1)
-  
   beta_TP ~ dnorm(0, 1)
-  
-  beta_TL ~ dnorm(0, 1)
   
   for (k in 1:nsite) {
     gamma_site[k] ~ dnorm(0, 1)
@@ -1796,9 +1792,8 @@ rfish.mod <- function() {
 rfish.mod.init <- function()
 {
   list(
-    "sigma_species" = rexp(1),
+    "alpha_species" = rnorm(2),
     "beta_TP" = rnorm(1),
-    "beta_TL" = rnorm(1),
     "gamma_site" = rnorm(3),
     "gamma_gut" = rnorm(2)
   )
@@ -1807,7 +1802,7 @@ rfish.mod.init <- function()
 ## Keep track of parameters
 
 rfish.mod.params <- 
-  c("alpha_species", "beta_TP", "beta_TL", "gamma_site", "gamma_gut")
+  c("alpha_species", "beta_TP", "gamma_site", "gamma_gut")
 
 ## Specify data
 
@@ -1833,7 +1828,6 @@ rfish.mod.data <-
     )),
     nit_lim = nit_lim,
     k = k,
-    TL = rfishcompare$TL,
     full.stomach = as.integer(rfishcompare$full.stomach)
   )
 
@@ -1844,9 +1838,9 @@ rfish.mod.run1 <- jags.parallel(
   parameters.to.save = rfish.mod.params,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 25000,
+  n.iter = 5000,
   n.burnin = 500,
-  n.thin = 5,
+  n.thin = 1,
   jags.seed = 3242,
   model = rfish.mod
 )
@@ -1864,9 +1858,9 @@ rfish.mod.run2 <- jags.parallel(
   parameters.to.save = rfish.mod.params2,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 25000,
+  n.iter = 5000,
   n.burnin = 500,
-  n.thin = 5,
+  n.thin = 1,
   jags.seed = 3242,
   model = rfish.mod
 )
@@ -1904,7 +1898,6 @@ rfish.mod.run1long$variable <-
     to = c(
       "Sebastes caurinus",
       "Sebastes melanops",
-      "Total Length",
       "Trophic Position",
       "Empty Stomach",
       "Full Stomach",
@@ -1940,7 +1933,7 @@ ggplot(rfish.mod.run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-  coord_cartesian(xlim = c(-3, 3)) +
+  coord_cartesian(xlim = c(-10, 10)) +
   scale_x_continuous(expand = c(0,0)) +
   labs(x = "",
        y = "Parameter") +
