@@ -156,16 +156,16 @@ tiff(
 
 ggplot(PTmodrun1long) +  # plot parameter posteriors
   geom_density_ridges(
-    aes(x = value,
+    aes(x = exp(value),
         y = reorder(variable, order, mean)),
     fill = pal[3],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(-7, -1.8)) +
+  coord_cartesian(xlim = c(0, 0.13)) +
   scale_x_continuous(expand = c(0, 0)) +
-  labs(x = "",
+  labs(x = expression(paste("Particles"~L^-1)),
        y = "Parameter") +
   theme1
 
@@ -372,16 +372,16 @@ tiff(
 
 ggplot(PJmodrun1long) +
   geom_density_ridges(
-    aes(x = value,
+    aes(x = exp(value),
         y = reorder(variable, order, mean)),
     fill = pal[3],
     colour = pal[1],
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(-25, 3)) +
+  coord_cartesian(xlim = c(0, 4)) +
   scale_x_continuous(expand = c(0, 0)) +
-  labs(x = "",
+  labs(x = expression(paste("Particles"~L^-1)),
        y = "Parameter") +
   theme1
 
@@ -668,13 +668,11 @@ ggplot(run1long) +
     alpha = 0.5, 
     size = 0.25
   ) +
-  geom_vline(
-    aes(xintercept = 0),
-    linetype = 'dashed',
-    size = 0.25,
-    colour = pal[1]
-  ) +
+  geom_vline(aes(xintercept = 0), 
+             size = 0.25, 
+             linetype = "dashed") +
   coord_cartesian(xlim = c(-2.5, 2)) +
+  scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -803,7 +801,7 @@ MPTLplot <-
                      breaks = seq(0, 30, 2)) +
   theme1
 
-## Trophic position uncertainty by species
+#### Trophic position uncertainty by species ####
 
 MPgutsim$species <- as.factor(MPgutsim$species)
 
@@ -836,7 +834,7 @@ tiff('Trophic Position Uncertainty Plot.tiff',
      compression = "lzw")
 
 ggplot(MPgutdata) +
-  geom_pointrange(aes(x = reorder(species, TP.est, mean),
+  geom_pointrange(aes(x = reorder(common.names, TP.est, mean),
                       y = TP.est,
                       ymin = TP.est.lower95,
                       ymax = TP.est.upper95),
@@ -860,7 +858,7 @@ ggplot(MPgutdata) +
 
 dev.off()
 
-## MP concentration by species
+#### MP concentration by species ####
 
 set.seed(6614)
 
@@ -1231,18 +1229,16 @@ ggplot(liver.mod.run1long) +
         y = reorder(variable, order, mean)),
     fill = pal[3],
     colour = pal[1],
-    alpha = 0.5, 
+    alpha = 0.5,
     size = 0.25
   ) +
-  geom_vline(
-    aes(xintercept = 0),
-    linetype = 'dashed',
-    size = 0.25,
-    colour = pal[1]
-  ) +
-    coord_cartesian(xlim = c(-7, 5)) +
+  geom_vline(aes(xintercept = 0), 
+             size = 0.25, 
+             linetype = "dashed") +
+  coord_cartesian(xlim = c(-8, 6)) +
   labs(x = "",
        y = "Parameter") +
+  scale_x_continuous(expand = c(0, 0)) +
   theme1
 
 dev.off()
@@ -1290,12 +1286,17 @@ MPliverdata$TP.est.lower25 <-
   apply(liver.mod.run2$BUGSoutput$sims.list$TP, 2, quantile,
         probs = 0.375)
 
-TP.mod.liver <- 
-  lm(log(tissue.dry.weight) ~ trophic.position + species, 
-     data = MPliverdata)
+summary(MPliverdata$true.est)  # mean 0.09 MPs/ind
+summary(MPliverdata$true.est/MPliverdata$tissue.wet.weight)  # mean 0.60 MPs/g ww
 
-plot(resid(TP.mod.liver, type = "pearson") ~ fitted(TP.mod.liver))
-summary(TP.mod.liver)
+## Compare to fish digestive tracts
+
+summary(subset(MPgutdata, 
+               sample.type == "Flatfish" | 
+                 sample.type == "Rockfish" |
+                 sample.type == "Surfperch")$true.est)  # mean 0.74 MPs/ind
+
+0.74/0.09  # 8.22
 
 set.seed(5126)
 
@@ -1594,14 +1595,11 @@ ggplot(transfer.mod.run1long) +
     alpha = 0.5, 
     size = 0.25
   ) +
-  geom_vline(
-    aes(xintercept = 0),
-    linetype = 'dashed',
-    size = 0.25,
-    colour = pal[1]
-  ) +
-  scale_x_continuous(expand = c(0,0)) +
+  geom_vline(aes(xintercept = 0), 
+             size = 0.25, 
+             linetype = "dashed") +
   coord_cartesian(xlim = c(-3, 2.5)) +
+  scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
   theme1
@@ -1693,7 +1691,7 @@ transferplot <-
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank())
 
-## Calculate daily consumption of MPs
+#### Possible daily consumption of MPs by rockfish ####
 
 transferdata$foodmin <- 0.005 * transferdata$total.body.wet.weight
 transferdata$foodmax <- 0.037 * transferdata$total.body.wet.weight
@@ -1715,7 +1713,12 @@ ggplot(transferdata) +
   scale_x_continuous(limits = c(0, 1),
                      expand = c(0,0)) +
   scale_y_continuous(expand = c(0, 0)) +
-  theme1
+  theme1  # plot distributions
+
+## Summary stats
+
+summary(transferdata$MPmin)  # 0.03-0.10 particles per day
+summary(transferdata$MPmax)  # 0.21-0.71 particles per day
 
 #### Comparison of empty vs. full guts ####
 
@@ -1889,13 +1892,10 @@ ggplot(rfish.mod.run1long) +
     alpha = 0.5, 
     size = 0.25
   ) +
-  geom_vline(
-    aes(xintercept = 0),
-    linetype = 'dashed',
-    size = 0.25,
-    colour = pal[1]
-  ) +
-  coord_cartesian(xlim = c(-7, 3)) +
+  geom_vline(aes(xintercept = 0), 
+             size = 0.25, 
+             linetype = "dashed") +
+  coord_cartesian(xlim = c(-6, 3)) +
   scale_x_continuous(expand = c(0,0)) +
   labs(x = "",
        y = "Parameter") +
@@ -1915,58 +1915,63 @@ rfishcompare$true.est.lower95 <-
   apply(rfish.mod.run2$BUGSoutput$sims.list$true, 2, quantile,
         probs = 0.025)
 
-set.seed(3256)
-
 rfishsim <- 
   expand.grid(species = c(1, 2),
               site = c(1:3),
              full.stomach = c(1, 2))
 
-for (i in 1:nrow(rfishsim)) {
+rfishsim2 <-
+  expand.grid(species = c(1, 2),
+              full.stomach = c(1, 2))
+
+
+set.seed(3256)
+
+for (i in 1:nrow(rfishsim2)) {
   x2 <- as.numeric()
   for (j in 1:3) {
     for (k in 1:1000) {
       x1 <-
-        rfish.mod.run1$BUGSoutput$sims.list$gamma_species[, rfishsim$species[i]] +
+        rfish.mod.run1$BUGSoutput$sims.list$gamma_species[, rfishsim2$species[i]] +
         rfish.mod.run1$BUGSoutput$sims.list$gamma_site[, j] +
-        rfish.mod.run1$BUGSoutput$sims.list$alpha_gut[, rfishsim$full.stomach[i]]
+        rfish.mod.run1$BUGSoutput$sims.list$alpha_gut[, rfishsim2$full.stomach[i]]
       lambda_true <- c(x1, x2)
       x2 <- x1
     }
   }
-  rfishsim$mean[i] <- exp(mean(lambda_true))
-  rfishsim$upper25[i] <- exp(quantile(lambda_true, 0.625))
-  rfishsim$lower25[i] <- exp(quantile(lambda_true, 0.375))
-  rfishsim$upper50[i] <- exp(quantile(lambda_true, 0.75))
-  rfishsim$lower50[i] <- exp(quantile(lambda_true, 0.25))
-  rfishsim$upper75[i] <- exp(quantile(lambda_true, 0.875))
-  rfishsim$lower75[i] <- exp(quantile(lambda_true, 0.125))
-  rfishsim$upper95[i] <- exp(quantile(lambda_true, 0.975))
-  rfishsim$lower95[i] <- exp(quantile(lambda_true, 0.025))
+  rfishsim2$mean[i] <- exp(mean(lambda_true))
+  rfishsim2$upper25[i] <- exp(quantile(lambda_true, 0.625))
+  rfishsim2$lower25[i] <- exp(quantile(lambda_true, 0.375))
+  rfishsim2$upper50[i] <- exp(quantile(lambda_true, 0.75))
+  rfishsim2$lower50[i] <- exp(quantile(lambda_true, 0.25))
+  rfishsim2$upper75[i] <- exp(quantile(lambda_true, 0.875))
+  rfishsim2$lower75[i] <- exp(quantile(lambda_true, 0.125))
+  rfishsim2$upper95[i] <- exp(quantile(lambda_true, 0.975))
+  rfishsim2$lower95[i] <- exp(quantile(lambda_true, 0.025))
 }
 
 
-rfishsim$full.stomach <- as.factor(rfishsim$full.stomach)
+rfishsim2$full.stomach <- as.factor(rfishsim2$full.stomach)
 
-rfishsim$full.stomach <- mapvalues(
-  rfishsim$full.stomach,
-  from = levels(rfishsim$full.stomach),
+rfishsim2$full.stomach <- mapvalues(
+  rfishsim2$full.stomach,
+  from = levels(rfishsim2$full.stomach),
   to = c("Empty Stomach",
          "Full Stomach")
 )
 
-rfishsim$species <- as.factor(rfishsim$species)
+rfishsim2$species <- as.factor(rfishsim2$species)
 
-rfishsim$species <- mapvalues(
-  rfishsim$species,
-  from = levels(rfishsim$species),
+rfishsim2$species <- mapvalues(
+  rfishsim2$species,
+  from = levels(rfishsim2$species),
   to = c("Sebastes caurinus",
          "Sebastes melanops")
 )
 
-rfishsim$common.names <- 
-  mapvalues(rfishsim$species,
-            from = levels(rfishsim$species),
+rfishsim2$common.names <- 
+  mapvalues(rfishsim2$species,
+            from = levels(rfishsim2$species),
             to = c("Copper Rockfish",
                    "Black Rockfish"))
 
@@ -1988,7 +1993,7 @@ emptyvsfullplot <-
       alpha = 0.5
     ) +
     geom_linerange(
-      data = rfishsim,
+      data = rfishsim2,
       aes(x = full.stomach,
           ymax = upper95,
           ymin = lower95),
@@ -1996,7 +2001,7 @@ emptyvsfullplot <-
       colour = pal[3]
     ) +
     geom_point(
-      data = rfishsim,
+      data = rfishsim2,
       aes(x = full.stomach,
           y = mean),
       size = 1.5,
@@ -2123,7 +2128,7 @@ BF.plot2 <-
 
 #### Calculate trophic magnification factor for fish livers ####
 
-mean(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP))
+mean(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP))  # 0.52
 
 quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.025)
 quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.975)

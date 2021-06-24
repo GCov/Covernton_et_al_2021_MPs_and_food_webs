@@ -17,7 +17,9 @@ cowplot
 
 *note: requires external download of JAGS software to run
 
-There are six scripts. Each script starts by loading all necessary packages. for that script:
+There are six scripts. Each script starts by loading all necessary packages.
+
+Script descriptions:
 
 Field and Lab Data
 Compiles sample data to be added to particle data later.
@@ -33,3 +35,6 @@ Runs the Bayesian GLMMs.
 
 MS Figures
 Makes the figures for the manuscript.
+
+Lab Blanks
+...

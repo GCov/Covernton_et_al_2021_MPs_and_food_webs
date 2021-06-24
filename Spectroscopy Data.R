@@ -394,7 +394,6 @@ importance(rf)
 
 varImpPlot(rf, main = "")
 
-
 pred <- predict(rf)
 
 ## Performance metrics
