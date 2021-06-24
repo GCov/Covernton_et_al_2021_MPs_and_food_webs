@@ -74,3 +74,4 @@ ggplot(animal_info) +  # plot body size distribution by species
   labs(x = 'ln(Body Weight) (g)',
        y = 'Species') +
   theme_classic()
+

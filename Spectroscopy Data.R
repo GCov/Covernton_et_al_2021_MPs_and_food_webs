@@ -792,38 +792,6 @@ dev.off()
 
 ## And by colour
 
-summary(moddata3$colour)
-moddata3$colour <- mapvalues(
-  moddata3$colour,
-  from = c(
-    'black',
-    'blue',
-    'brown',
-    'clear',
-    'green',
-    'orange',
-    'pink',
-    'purple',
-    'red',
-    'yellow',
-    'rainbow'
-  ),
-  to = c(
-    'Black',
-    'Blue',
-    'Brown',
-    'Clear',
-    'Green',
-    'Orange',
-    'Pink',
-    'Purple',
-    'Red',
-    'Yellow',
-    'Multi-colour'
-  )
-)
-summary(moddata3$colour)
-
 tiff(
   'Colour Plot.tiff', 
   height = 8,

@@ -129,11 +129,7 @@ check.PTmod <- createDHARMa(
   integerResponse = T
 )
 
-plot(check.PTmod)
-testDispersion(check.PTmod)
-testZeroInflation(check.PTmod)
-plotResiduals(check.PTmod, PTdata_synth$site)
-plotResiduals(check.PTmod, PTdata_synth$sample.volume)
+plot(check.PTmod)  # looks alright
 
 #### Inference ####
 
@@ -215,7 +211,7 @@ PT_sim$site <- mapvalues(PT_sim$site,
 
 set.seed(123)
 
-PTMPplot <- 
+PTMPplot <-  # make predictions plot
   ggplot() +
     geom_jitter(data = PTdata_synth,
                aes(x = site,
@@ -349,10 +345,7 @@ check.PJmod <- createDHARMa(
   integerResponse = T
 )
 
-plot(check.PJmod)
-testDispersion(check.PJmod)
-testZeroInflation(check.PJmod)
-plotResiduals(check.PJmod, PJdata_synth$site)
+plot(check.PJmod)  # looks alright
 
 #### Inference ####
 
@@ -438,7 +431,7 @@ PJ_sim$site <- mapvalues(PJ_sim$site,
 
 set.seed(123)
 
-PJMPplot <- 
+PJMPplot <-  # plot predictions 
   ggplot() +
     geom_jitter(data = PJdata_synth,
                 aes(x = site,
@@ -614,16 +607,16 @@ check.model1 <- createDHARMa(simulatedResponse = model1.response,
                                fittedPredictedResponse = model1.fitted,
                                integerResponse = T)
 
-plot(check.model1)
+plot(check.model1)  # looks pretty good
 
+
+## check some other things
 plotResiduals(check.model1, MPgutdata$site)
 plotResiduals(check.model1, MPgutdata$species)
 plotResiduals(check.model1, MPgutdata$total.body.wet.weight)
 plotResiduals(check.model1, apply(run2$BUGSoutput$sims.list$TP, 2, median))
 testZeroInflation(check.model1)
 testDispersion(check.model1)
-
-plot(model1.observed-model1.fitted ~ log(model1.fitted))
 
 #### Inference ####
 
@@ -654,6 +647,8 @@ run1long$variable <- mapvalues(run1long$variable,
                                       ))
 
 run1long$order <- c(nrow(run1long):1)
+
+## Plot posteriors
 
 tiff(
   'MP Gut Model Posteriors.tiff', 
@@ -1177,25 +1172,24 @@ check.liver.mod <-
     integerResponse = T
   )
 
-plot(check.liver.mod)
+plot(check.liver.mod)  # potential issue with underpredicting large values 
 
 plotResiduals(check.liver.mod, 
               apply(liver.mod.run2$BUGSoutput$sims.list$TP, 2, median))
 plotResiduals(check.liver.mod,
-              MPliverdata$tissue.dry.weight)
-plotResiduals(check.liver.mod,
               MPliverdata$tissue.wet.weight)
+# the huge variation in weights seems to be driving the issue
 plotResiduals(check.liver.mod,
               MPliverdata$species)
 plotResiduals(check.liver.mod,
-              MPliverdata$site)
+              MPliverdata$site)  # some heterogeneity by site
 plotResiduals(check.liver.mod,
               MPliverdata$total.body.wet.weight)
 plotResiduals(check.liver.mod,
               MPliverdata$TL)
 
-testDispersion(check.liver.mod)
-testZeroInflation(check.liver.mod)
+testDispersion(check.liver.mod)  # not overdispersed
+testZeroInflation(check.liver.mod)  # no zero-inflation
 
 #### Inference ####
 
@@ -1421,7 +1415,7 @@ liverMPplot <-
   scale_fill_manual(values = pal[1:5]) +
   facet_wrap( ~ site) +
   labs(x = 'Trophic Position',
-       y = expression(paste('Particles g dry tissue ' * weight ^ -1))) +
+       y = expression(paste('Particles g wet tissue ' * weight ^ -1))) +
   coord_cartesian(xlim = c(2, 4.5)) +
   scale_x_continuous(expand = c(0, 0)) +
   scale_y_continuous(
@@ -1561,14 +1555,7 @@ check.transfer.mod <-
     integerResponse = T
   )
 
-plot(check.transfer.mod)
-
-plotResiduals(check.transfer.mod, transferdata$species)
-plotResiduals(check.transfer.mod, transferdata$sample.type)
-plotResiduals(check.transfer.mod, transferdata$ID)
-plotResiduals(check.transfer.mod, transferdata$tissue.dry.weight)
-plotResiduals(check.transfer.mod, transferdata$TL)
-plotResiduals(check.transfer.mod, transferdata$site)
+plot(check.transfer.mod)  # looks good
 
 #### Inference ####
 
@@ -1730,7 +1717,7 @@ ggplot(transferdata) +
   scale_y_continuous(expand = c(0, 0)) +
   theme1
 
-#### Comparision of empty vs. full guts ####
+#### Comparison of empty vs. full guts ####
 
 rfishcompare <- subset(MPgutdata, sample.type == "Rockfish")
 
@@ -1754,14 +1741,9 @@ rfish.mod <- function() {
     true[i] ~ dpois(lambda_true[i])
     
     log(lambda_true[i]) <-
-      alpha_species[species[i]] +
-      beta_TP * TP[i] +
-      gamma_site[site[i]] +
-      gamma_gut[full.stomach[i]]
-    
-    TP[i] <-
-      ((log(nit_lim - base[site[i]]) - log(nit_lim - animal[i])) / k) + 2
-    animal[i] ~ dnorm(deltaN[i], 1/0.052)  # SD from standards
+      alpha_gut[full.stomach[i]] +
+      gamma_site[site[i]] + 
+      gamma_species[species[i]]
     
     ## Fitted values
     fitted[i] ~ dpois(lambda_y[i])
@@ -1769,21 +1751,13 @@ rfish.mod <- function() {
   
   ## Priors
   
-  for (j in 1:nspecies) {
-    alpha_species[j] ~ dnorm(0, 1)
+  for (i in 1:2) {
+    alpha_gut[i] ~ dnorm(0, 0.01)
+    gamma_species[i] ~ dnorm(0, 1)
   }
   
-  beta_TP ~ dnorm(0, 1)
-  
-  for (k in 1:nsite) {
-    gamma_site[k] ~ dnorm(0, 1)
-    base[k] ~ dgamma(shape[k], rate[k])
-    shape[k] <- pow(mean_base[k], 2) / pow(sd_base[k], 2)
-    rate[k] <- mean_base[k] / pow(sd_base[k], 2)
-  }
-  
-  for (l in 1:2) {
-    gamma_gut[l] ~ dnorm(0, 1)
+  for (i in 1:3) {
+    gamma_site[i] ~ dnorm(0, 1)
   }
 }
 
@@ -1792,17 +1766,18 @@ rfish.mod <- function() {
 rfish.mod.init <- function()
 {
   list(
-    "alpha_species" = rnorm(2),
-    "beta_TP" = rnorm(1),
+    "alpha_gut" = rnorm(2),
     "gamma_site" = rnorm(3),
-    "gamma_gut" = rnorm(2)
-  )
+    "gamma_species" = rnorm(2)
+    )
 }
 
 ## Keep track of parameters
 
 rfish.mod.params <- 
-  c("alpha_species", "beta_TP", "gamma_site", "gamma_gut")
+  c("alpha_gut",
+    "gamma_site", 
+    "gamma_species")
 
 ## Specify data
 
@@ -1811,24 +1786,9 @@ rfish.mod.data <-
     y = rfishcompare$count,
     N = nrow(rfishcompare),
     lambda_blanks = rfishcompare$blank.mean,
-    species = as.integer(rfishcompare$species),
-    nspecies = length(unique(rfishcompare$species)),
+    full.stomach = as.integer(rfishcompare$full.stomach),
     site = as.integer(rfishcompare$site),
-    diff = rfishcompare$deltaN - rfishcompare$base_deltaN,
-    nsite = length(unique(rfishcompare$site)),
-    deltaN = rfishcompare$deltaN,
-    mean_base = as.numeric(with(
-      rfishcompare,
-      tapply(base_deltaN,
-             as.integer(site),
-             mean)
-    )),
-    sd_base = as.numeric(with(
-      rfishcompare, tapply(sd_base_deltaN, as.integer(site), mean)
-    )),
-    nit_lim = nit_lim,
-    k = k,
-    full.stomach = as.integer(rfishcompare$full.stomach)
+    species = as.integer(rfishcompare$species)
   )
 
 ## Run the model
@@ -1879,13 +1839,16 @@ check.rfish.mod <-
     integerResponse = T
   )
 
-plot(check.rfish.mod)
-plotResiduals(check.rfish.mod, rfishcompare$full.stomach)
+plot(check.rfish.mod)  # possible issues
+plotResiduals(check.rfish.mod, rfishcompare$full.stomach)  # not homogeneous
 plotResiduals(check.rfish.mod, rfishcompare$species)
 plotResiduals(check.rfish.mod, rfishcompare$site)
-plotResiduals(check.rfish.mod, rfishcompare$tissue.wet.weight)
+plotResiduals(check.rfish.mod, rfishcompare$tissue.dry.weight)
+plotResiduals(check.rfish.mod, rfishcompare$total.body.wet.weight)
 plotResiduals(check.rfish.mod, rfishcompare$TL)
 plotResiduals(check.rfish.mod, rfishcompare$TP.est)
+
+testDispersion(check.rfish.mod)
 
 #### Inference ####
 
@@ -1896,14 +1859,13 @@ rfish.mod.run1long$variable <-
     rfish.mod.run1long$variable,
     from = levels(rfish.mod.run1long$variable),
     to = c(
-      "Sebastes caurinus",
-      "Sebastes melanops",
-      "Trophic Position",
       "Empty Stomach",
       "Full Stomach",
       "Coles Bay",
       "Elliot Beach",
-      "Victoria Harbour"
+      "Victoria Harbour",
+      "Copper Rockfish",
+      "Black Rockfish"
     )
   )
 
@@ -1933,7 +1895,7 @@ ggplot(rfish.mod.run1long) +
     size = 0.25,
     colour = pal[1]
   ) +
-  coord_cartesian(xlim = c(-10, 10)) +
+  coord_cartesian(xlim = c(-7, 3)) +
   scale_x_continuous(expand = c(0,0)) +
   labs(x = "",
        y = "Parameter") +
@@ -1957,7 +1919,7 @@ set.seed(3256)
 
 rfishsim <- 
   expand.grid(species = c(1, 2),
-             length = mean(rfishcompare$TL),
+              site = c(1:3),
              full.stomach = c(1, 2))
 
 for (i in 1:nrow(rfishsim)) {
@@ -1965,17 +1927,9 @@ for (i in 1:nrow(rfishsim)) {
   for (j in 1:3) {
     for (k in 1:1000) {
       x1 <-
-        rfish.mod.run1$BUGSoutput$sims.list$alpha_species[, rfishsim$species[i]] +
-        rfish.mod.run1$BUGSoutput$sims.list$beta_TP *
-        seq(min(rfishcompare$TP.est),
-            max(rfishcompare$TP.est),
-            length.out = 1000)[k] +
-        rfish.mod.run1$BUGSoutput$sims.list$beta_TL *
-        seq(min(rfishcompare$TL),
-            max(rfishcompare$TL),
-            length.out = 1000)[k] +
+        rfish.mod.run1$BUGSoutput$sims.list$gamma_species[, rfishsim$species[i]] +
         rfish.mod.run1$BUGSoutput$sims.list$gamma_site[, j] +
-        rfish.mod.run1$BUGSoutput$sims.list$gamma_gut[, rfishsim$full.stomach[i]]
+        rfish.mod.run1$BUGSoutput$sims.list$alpha_gut[, rfishsim$full.stomach[i]]
       lambda_true <- c(x1, x2)
       x2 <- x1
     }
@@ -1997,13 +1951,6 @@ rfishsim$full.stomach <- as.factor(rfishsim$full.stomach)
 rfishsim$full.stomach <- mapvalues(
   rfishsim$full.stomach,
   from = levels(rfishsim$full.stomach),
-  to = c("Empty Stomach",
-         "Full Stomach")
-)
-
-rfishcompare$full.stomach <- mapvalues(
-  rfishcompare$full.stomach,
-  from = levels(rfishcompare$full.stomach),
   to = c("Empty Stomach",
          "Full Stomach")
 )
@@ -2145,8 +2092,8 @@ BF.plot1 <-
   scale_fill_manual(values = pal[2:4]) +
   scale_y_continuous(
     trans = "log1p",
-    limits = c(0, 8000),
-    breaks = c(0, 1, 10, 100, 1000, 5000),
+    limits = c(0, 20000),
+    breaks = c(0, 1, 10, 100, 1000, 10000),
     expand = c(0, 0)
   ) +
   theme1
@@ -2166,49 +2113,12 @@ BF.plot2 <-
        y = "Bioaccumulation Factor") +
   scale_y_continuous(
     trans = "log1p",
-    limits = c(0, 8000),
-    breaks = c(0, 1, 10, 100, 1000, 5000),
+    limits = c(0, 20000),
+    breaks = c(0, 1, 10, 100, 1000, 10000),
     expand = c(0, 0)
   ) +
   theme1 +
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-rfishgutdata <- subset(MPgutdata2, 
-                       sample.type == "Rockfish")
-
-BFmod1 <- glmmTMB(log(BF) ~ TP.est + (1 | species), 
-                  data = rfishgutdata)
-
-BFmod1.res <- simulateResiduals(BFmod1)
-
-plot(BFmod1.res)
-
-summary(BFmod1)
-
-BFmod1.fitted <- predict(BFmod1, se.fit = TRUE, re.form = NULL)
-
-rfishgutdata$fit <- exp(BFmod1.fitted$fit)
-rfishgutdata$lower <- exp(BFmod1.fitted$fit - (1.96 * BFmod1.fitted$se.fit))
-rfishgutdata$upper <- exp(BFmod1.fitted$fit + (1.96 * BFmod1.fitted$se.fit))
-
-ggplot(rfishgutdata) +
-  geom_ribbon(aes(x = TP.est,
-                  ymin = lower,
-                  ymax = upper,
-                  fill = species),
-              alpha = 0.5) +
-  geom_line(aes(x = TP.est,
-                y = fit,
-                colour = species)) +
-  geom_point(aes(x = TP.est,
-                 y = BF),
-             size = 1,
-             colour = species) +
-  labs(x = "Trophic Position",
-       y = "Biaccumulation Factor") +
-  scale_colour_manual(values = pal[c(2,3)]) +
-  scale_fill_manual(values = pal[c(2,3)]) +
-  theme1
   
 
 #### Calculate trophic magnification factor for fish livers ####

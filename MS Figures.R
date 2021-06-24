@@ -1,10 +1,12 @@
 library(ggplot2)
 library(cowplot)
 
-## Plankton tow and jar
+## Plankton tow and jar samples
 
 seawaterplot <- plot_grid(PTMPplot, PJMPplot, nrow = 1, labels = c("a", "b"),
                           label_size = 10)
+
+## Combine with animal data
 
 tiff("Concentrations Plot.tiff",
      height = 4.5,
@@ -21,7 +23,7 @@ plot_grid(seawaterplot, speciesplot,
 dev.off()
 
 
-## Trophic level gut figure
+## Trophic level gut/liver figure
 
 tiff("Trophic Position MP Plot.tiff",
      height = 4.5,
@@ -35,6 +37,7 @@ plot_grid(MPTLplot, liverMPplot, ncol = 1, nrow = 2,
           align = "v", label_size = 10)
 
 dev.off()
+
 
 ## Rockfish guts plot
 
