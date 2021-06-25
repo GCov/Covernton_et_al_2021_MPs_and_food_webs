@@ -35,6 +35,4 @@ Runs the Bayesian GLMMs.
 
 MS Figures
 Makes the figures for the manuscript.
-
-Lab Blanks
 ...
