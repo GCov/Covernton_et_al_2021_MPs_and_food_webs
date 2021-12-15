@@ -310,31 +310,31 @@ CBRF6,Coles Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,34,NA
 CBRF7,Coles Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,,,34,NA
 CBRF9,Coles Bay,Rockfish Guts,NA,BB,1-150,NA,NA,NA,NA,**sample contaminated,,34,NA
 CBRFPB3,Coles Bay,Blanks,1077,BB,1-150,fiber,blue,433.42,yes,,,34,Natural
-EBRF4,Elliot Bay,Rockfish Gut,1097,GC,1-150,fiber,blue,1015.58,yes,,,32,Natural
-EBRF4,Elliot Bay,Rockfish Gut,1098,GC,1-150,fiber,blue,484.87,yes,,,32,Natural
-EBRF8,Elliot Bay,Rockfish Gut,,GC,1-150,fiber,blue,451.63,no,dropped,,32,Synthetic
-EBRF8,Elliot Bay,Rockfish Gut,,GC,1-150,fiber,black,886.79,no,dropped,,32,Natural
-EBRF13,Elliot Bay,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
-EBRF17,Elliot Bay,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
-EBRF17,Elliot Bay,Rockfish Gut Animals,1099,GC,1-150,fiber,blue,469,yes,,,32,Natural
-EBRF17,Elliot Bay,Rockfish Gut Animals,1100,GC,1-150,fiber,black,211.79,yes,,,32,Synthetic
-EBRF17,Elliot Bay,Rockfish Gut Animals,1101,GC,1-150,fiber,clear,1295.72,yes,synth,,32,Synthetic
-EBRF21,Elliot Bay,Rockfish Gut,1102,GC,1-150,fiber,black,749.05,yes,,,32,Natural
-EBRF21,Elliot Bay,Rockfish Gut,1103,GC,1-150,fiber,clear,1421.27,yes,,,32,Natural
-EBRF21,Elliot Bay,Rockfish Gut,1104,GC,1-150,fiber,black,1555.91,yes,,,32,Natural
-EBRF21,Elliot Bay,Rockfish Gut,1105,GC,1-150,fiber,red,532.46,yes,,,32,Synthetic
+EBRF4,Elliot Bay,Rockfish Guts,1097,GC,1-150,fiber,blue,1015.58,yes,,,32,Natural
+EBRF4,Elliot Bay,Rockfish Guts,1098,GC,1-150,fiber,blue,484.87,yes,,,32,Natural
+EBRF8,Elliot Bay,Rockfish Guts,,GC,1-150,fiber,blue,451.63,no,dropped,,32,Synthetic
+EBRF8,Elliot Bay,Rockfish Guts,,GC,1-150,fiber,black,886.79,no,dropped,,32,Natural
+EBRF13,Elliot Bay,Rockfish Guts,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
+EBRF17,Elliot Bay,Rockfish Guts,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
+EBRF17,Elliot Bay,Rockfish: Ingested Animals,1099,GC,1-150,fiber,blue,469,yes,,,32,Natural
+EBRF17,Elliot Bay,Rockfish: Ingested Animals,1100,GC,1-150,fiber,black,211.79,yes,,,32,Synthetic
+EBRF17,Elliot Bay,Rockfish: Ingested Animals,1101,GC,1-150,fiber,clear,1295.72,yes,synth,,32,Synthetic
+EBRF21,Elliot Bay,Rockfish Guts,1102,GC,1-150,fiber,black,749.05,yes,,,32,Natural
+EBRF21,Elliot Bay,Rockfish Guts,1103,GC,1-150,fiber,clear,1421.27,yes,,,32,Natural
+EBRF21,Elliot Bay,Rockfish Guts,1104,GC,1-150,fiber,black,1555.91,yes,,,32,Natural
+EBRF21,Elliot Bay,Rockfish Guts,1105,GC,1-150,fiber,red,532.46,yes,,,32,Synthetic
 EBRFPB2,Elliot Bay,Blanks,NA,GC,1-150,NA,NA,NA,NA,,,32,NA
-HPRF11,Victoria Harbour,Rockfish Gut,1109,GC,1-150,fiber,green,976.04,yes,,,33,Natural
-HPRF11,Victoria Harbour,Rockfish Gut,1110,GC,1-150,fiber,blue,1119.19,yes,,,33,Natural
-HPRF11,Victoria Harbour,Rockfish Gut,1112,GC,1-150,fiber,blue,2009.08,no,,,33,Natural
-HPRF11,Victoria Harbour,Rockfish Gut,1111,GC,1-150,fiber,blue,477.67,yes,,,33,Natural
-HPRF16,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
-HPRF19,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
-HPRF19,Victoria Harbour,Rockfish Gut Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
-HPRF21,Victoria Harbour,Rockfish Gut,1113,GC,1-150,fiber,red,718.27,yes,,,33,Natural
-HPRF21,Victoria Harbour,Rockfish Gut,1114,GC,1-150,fiber,black,341.45,yes,,,33,Natural
-HPRF21,Victoria Harbour,Rockfish Gut,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
-HPRF22,Victoria Harbour,Rockfish Gut Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF11,Victoria Harbour,Rockfish Guts,1109,GC,1-150,fiber,green,976.04,yes,,,33,Natural
+HPRF11,Victoria Harbour,Rockfish Guts,1110,GC,1-150,fiber,blue,1119.19,yes,,,33,Natural
+HPRF11,Victoria Harbour,Rockfish Guts,1112,GC,1-150,fiber,blue,2009.08,no,,,33,Natural
+HPRF11,Victoria Harbour,Rockfish Guts,1111,GC,1-150,fiber,blue,477.67,yes,,,33,Natural
+HPRF16,Victoria Harbour,Rockfish Guts,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF19,Victoria Harbour,Rockfish Guts,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF19,Victoria Harbour,Rockfish: Ingested Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF21,Victoria Harbour,Rockfish Guts,1113,GC,1-150,fiber,red,718.27,yes,,,33,Natural
+HPRF21,Victoria Harbour,Rockfish Guts,1114,GC,1-150,fiber,black,341.45,yes,,,33,Natural
+HPRF21,Victoria Harbour,Rockfish Guts,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
+HPRF22,Victoria Harbour,Rockfish: Ingested Animals,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
 HPRFPB2,Victoria Harbour,Blanks,NA,GC,1-150,NA,NA,NA,NA,,,33,NA
 CBRF1,Coles Bay,Rockfish Livers,1096,GC,>1,fiber,clear,2210.9,yes,,,34,Synthetic
 CBRF2,Coles Bay,Rockfish Livers,NA,GC,>1,NA,NA,NA,NA,,,34,NA

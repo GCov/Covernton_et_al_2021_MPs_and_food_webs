@@ -237,6 +237,7 @@ summary(full_spec_data$blank.match)
 summary(full_spec_data$size.fraction)
 summary(full_spec_data$shape)
 summary(full_spec_data$colour)
+summary(full_spec_data$sample.type)
 
 full_spec_data$colour <-
   mapvalues(full_spec_data$colour,

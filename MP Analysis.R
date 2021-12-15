@@ -1,4 +1,4 @@
-#### Load libraries ####
+# Load libraries ####
 
 library(ggplot2)
 library(R2jags)
@@ -24,7 +24,7 @@ extract.post <- function(x){
 
 pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")  # define palette
 
-#### Plankton tow model ####
+#Plankton tow model ####
 
 PTdata_synth <- subset(PT_data2, particle.type == "Synthetic")
 PTdata_synth$particle.type <- as.character(PTdata_synth$particle.type)
@@ -88,9 +88,9 @@ PTmodrun1 <- jags.parallel(
   parameters.to.save = PTmodparam,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 2000,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 5,
   jags.seed = 6193,
   model = PTmod
 )
@@ -99,7 +99,7 @@ PTmodrun1
 PTmodrun1mcmc <- as.mcmc(PTmodrun1)
 xyplot(PTmodrun1mcmc, layout = c(6, ceiling(nvar(PTmodrun1mcmc)/6)))  # trace plots
 
-#### Diagnostics ####
+## Diagnostics ####
 
 PTmodparam2 <- c("fitted", "true", "lambda_y", "lambda_true")
 
@@ -109,9 +109,9 @@ PTmodrun2 <- jags.parallel(
   parameters.to.save = PTmodparam2,
   n.chains = 3,
   n.cluster = 16,
-  n.iter = 2000,
+  n.iter = 10000,
   n.burnin = 500,
-  n.thin = 1,
+  n.thin = 5,
   jags.seed = 6193,
   model = PTmod
 )
@@ -131,7 +131,7 @@ check.PTmod <- createDHARMa(
 
 plot(check.PTmod)  # looks alright
 
-#### Inference ####
+## Inference ####
 
 PTmodrun1long <- extract.post(PTmodrun1)
 
@@ -163,15 +163,16 @@ ggplot(PTmodrun1long) +  # plot parameter posteriors
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(0, 0.13)) +
-  scale_x_continuous(expand = c(0, 0)) +
+  coord_cartesian(xlim = c(0, 0.0007)) +
+  scale_x_continuous(expand = c(0, 0),
+                     labels = scales::comma) +
   labs(x = expression(paste("Particles"~L^-1)),
        y = "Parameter") +
   theme1
 
 dev.off()
 
-#### Predictions ####
+## Predictions ####
 
 ## Extract 'true' estimate
 
@@ -234,15 +235,16 @@ PTMPplot <-  # make predictions plot
               shape = 21) +
     labs(x = 'Site',
          y = expression(paste('Particles '*L^-1))) +
-    scale_y_continuous(limits = c(0, 0.15),
-                       expand = c(0, 0.005),
+    scale_y_continuous(limits = c(0, 0.0007),
+                       expand = c(0.01, 0),
                        breaks = seq(from = 0,
-                                    to = 0.2,
-                                    by = 0.05)) +
+                                    to = 0.0006,
+                                    by = 0.0002),
+                       labels = scales::comma) +
     theme1
 
 
-#### Plankton jar model ####
+# Plankton jar model ####
 
 PJdata_synth <- subset(PJ_data2, particle.type == "Synthetic")
 PJdata_synth$particle.type <- as.character(PJdata_synth$particle.type)
@@ -316,7 +318,7 @@ PJmodrun1
 PJmodrun1mcmc <- as.mcmc(PJmodrun1)
 xyplot(PJmodrun1mcmc, layout = c(6, ceiling(nvar(PJmodrun1mcmc)/6)))
 
-#### Diagnostics ####
+## Diagnostics ####
 PJmodparam2 <- c("fitted", "true", "lambda_y")
 
 PJmodrun2 <- jags.parallel(
@@ -347,7 +349,7 @@ check.PJmod <- createDHARMa(
 
 plot(check.PJmod)  # looks alright
 
-#### Inference ####
+## Inference ####
 
 PJmodrun1long <- extract.post(PJmodrun1)
 
@@ -379,7 +381,7 @@ ggplot(PJmodrun1long) +
     alpha = 0.5, 
     size = 0.25
   ) +
-  coord_cartesian(xlim = c(0, 4)) +
+  coord_cartesian(xlim = c(0, 5)) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = expression(paste("Particles"~L^-1)),
        y = "Parameter") +
@@ -388,7 +390,7 @@ ggplot(PJmodrun1long) +
 dev.off()
 
 
-#### Predictions ####
+## Predictions ####
 
 ## Extract 'true' estimate
 
@@ -461,7 +463,7 @@ PJMPplot <-  # plot predictions
     theme1
 
 
-#### MP Model by Individual  ####  
+# MP Model by Individual  ####  
 
 MPgutdata <- subset(gutdata, !is.na(trophic.position) & 
                      particle.type == 'Synthetic')
@@ -475,6 +477,23 @@ MPgutdata$species <- as.factor(MPgutdata$species)
 MPgutdata$site <- mapvalues(MPgutdata$site,
                             from = "Elliot Bay",
                             to = "Elliot Beach")
+
+MPgutdata$common.names <- mapvalues(MPgutdata$species,
+                                    from = levels(MPgutdata$species),
+                                    to = c("Red Rock Crab",
+                                           "Orange Sea Cucumber",
+                                           "Shiner Surfperch",
+                                           "Leather Star",
+                                           "Graceful Rock Crab",
+                                           "Dungeness Crab", 
+                                           "Blue Mussel",
+                                           "California Sea Cucumber",
+                                           "English Sole",
+                                           "Starry Flounder",
+                                           "Pacific Littleneck Clam",
+                                           "Manila Clam",
+                                           "Copper Rockfish",
+                                           "Black Rockfish"))
 
 model1 <- function() {
   # Likelihood
@@ -580,7 +599,7 @@ run1
 run1mcmc <- as.mcmc(run1)
 xyplot(run1mcmc, layout = c(6, ceiling(nvar(run1mcmc)/6)))
 
-#### Diagnostics ####
+## Diagnostics ####
 model1param2 <- c("fitted", "true", "lambda_y", "TP")
 
 run2 <- jags.parallel(
@@ -618,7 +637,7 @@ plotResiduals(check.model1, apply(run2$BUGSoutput$sims.list$TP, 2, median))
 testZeroInflation(check.model1)
 testDispersion(check.model1)
 
-#### Inference ####
+## Inference ####
 
 run1long <- extract.post(run1)
 
@@ -634,7 +653,7 @@ run1long$variable <- mapvalues(run1long$variable,
                                       "Shiner Surfperch",
                                       "Leather Star",
                                       "Graceful Rock Crab",
-                                      "Dungeness Crab",
+                                      "Dungeness Crab", 
                                       "Blue Mussel",
                                       "California Sea Cucumber",
                                       "English Sole",
@@ -671,7 +690,7 @@ ggplot(run1long) +
   geom_vline(aes(xintercept = 0), 
              size = 0.25, 
              linetype = "dashed") +
-  coord_cartesian(xlim = c(-2.5, 2)) +
+  coord_cartesian(xlim = c(-2.5, 2.7)) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
@@ -680,7 +699,7 @@ ggplot(run1long) +
 dev.off()
 
 
-#### Predictions ####
+## Predictions ####
 
 ## Extract 'true' estimate
 
@@ -720,10 +739,7 @@ MPgutsim <-
     ),
     site = sample(c(1:3),
                   2000,
-                  replace = TRUE),
-    species = sample(MPgutdata$species,
-                     2000,
-                     replace = TRUE))
+                  replace = TRUE))
 
 for(i in 1:nrow(MPgutsim)) {
   lambda_true <-
@@ -750,7 +766,7 @@ MPgutsim$site <- mapvalues(MPgutsim$site,
                                   "Elliot Beach",
                                   "Victoria Harbour"))
 
-#### Plot predictions ####
+## Plot predictions ####
 
 MPTLplot <-
   ggplot() +
@@ -801,30 +817,7 @@ MPTLplot <-
                      breaks = seq(0, 30, 2)) +
   theme1
 
-#### Trophic position uncertainty by species ####
-
-MPgutsim$species <- as.factor(MPgutsim$species)
-
-MPgutsim$species <- mapvalues(
-  MPgutsim$species,
-  from = levels(MPgutsim$species),
-  to = c(
-    "Red Rock Crab",
-    "Orange Sea Cucumber",
-    "Shiner Surfperch",
-    "Leather Star",
-    "Graceful Rock Crab",
-    "Dungeness Crab",
-    "Blue Mussel",
-    "California Sea Cucumber",
-    "English Sole",
-    "Starry Flounder",
-    "Littleneck Clam",
-    "Manila Clam",
-    "Copper Rockfish",
-    "Black Rockfish"
-  )
-)
+## Trophic position uncertainty by species ####
 
 tiff('Trophic Position Uncertainty Plot.tiff',
      height = 6,
@@ -858,12 +851,14 @@ ggplot(MPgutdata) +
 
 dev.off()
 
-#### MP concentration by species ####
+## MP concentration by species ####
 
 set.seed(6614)
 
 MPgutsim2 <-
-  as.data.frame(MPgutdata %>% group_by(species) %>% summarize(mean.TP = mean(TP.est)))
+  as.data.frame(MPgutdata %>% 
+                  group_by(species) %>% 
+                  summarize(mean.TP = mean(TP.est)))
 
 for(i in 1:nrow(MPgutsim2)) {
   x2 <- as.numeric()
@@ -903,25 +898,8 @@ MPgutsim2$order <- as.numeric(MPgutsim2$order)
 MPgutdata$order <- as.character(MPgutdata$order)
 MPgutdata$order <- as.numeric(MPgutdata$order)
 
-MPgutdata$common.names <- mapvalues(MPgutdata$species,
-                                    from = levels(MPgutdata$species),
-                                    to = c("Red Rock Crab",
-                                           "Orange Sea Cucumber",
-                                           "Shiner Surfperch",
-                                           "Leather Star",
-                                           "Graceful Rock Crab",
-                                           "Dungeness Crab",
-                                           "Blue Mussel",
-                                           "California Sea Cucumber",
-                                           "English Sole",
-                                           "Starry Flounder",
-                                           "Littleneck Clam",
-                                           "Manila Clam",
-                                           "Copper Rockfish",
-                                           "Black Rockfish"))
-
 MPgutsim2$common.names <- mapvalues(MPgutsim2$species,
-                                    from = levels(MPgutdata$species),
+                                    from = levels(MPgutsim2$species),
                                     to = c("Red Rock Crab",
                                            "Orange Sea Cucumber",
                                            "Shiner Surfperch",
@@ -980,7 +958,7 @@ speciesplot <-
     theme(axis.text.x = element_text(angle = 45 , hjust = 1))
 
 
-#### Export species concentration data ####
+### Export species concentration data ####
 
 
 species.est <-
@@ -1005,7 +983,7 @@ write.csv(species.est,
           "species.est.csv")
 
 
-#### Fish liver model ####
+# Fish liver model ####
 
 MPliverdata <- subset(liverdata, !is.na(trophic.position) & 
                       particle.type == 'Synthetic')
@@ -1140,7 +1118,7 @@ liver.mod.run1
 liver.mod.run1mcmc <- as.mcmc(liver.mod.run1)
 xyplot(liver.mod.run1mcmc, layout = c(6, ceiling(nvar(liver.mod.run1mcmc)/6)))
 
-#### Diagnostics ####
+## Diagnostics ####
 liver.mod.params2 <- c("fitted", "true", "lambda_y", "TP")
 
 liver.mod.run2 <- jags.parallel(
@@ -1170,26 +1148,9 @@ check.liver.mod <-
     integerResponse = T
   )
 
-plot(check.liver.mod)  # potential issue with underpredicting large values 
+plot(check.liver.mod)
 
-plotResiduals(check.liver.mod, 
-              apply(liver.mod.run2$BUGSoutput$sims.list$TP, 2, median))
-plotResiduals(check.liver.mod,
-              MPliverdata$tissue.wet.weight)
-# the huge variation in weights seems to be driving the issue
-plotResiduals(check.liver.mod,
-              MPliverdata$species)
-plotResiduals(check.liver.mod,
-              MPliverdata$site)  # some heterogeneity by site
-plotResiduals(check.liver.mod,
-              MPliverdata$total.body.wet.weight)
-plotResiduals(check.liver.mod,
-              MPliverdata$TL)
-
-testDispersion(check.liver.mod)  # not overdispersed
-testZeroInflation(check.liver.mod)  # no zero-inflation
-
-#### Inference ####
+## Inference ####
 
 liver.mod.run1long <- extract.post(liver.mod.run1)
 
@@ -1235,7 +1196,7 @@ ggplot(liver.mod.run1long) +
   geom_vline(aes(xintercept = 0), 
              size = 0.25, 
              linetype = "dashed") +
-  coord_cartesian(xlim = c(-8, 6)) +
+  coord_cartesian(xlim = c(-13, 8.5)) +
   labs(x = "",
        y = "Parameter") +
   scale_x_continuous(expand = c(0, 0)) +
@@ -1244,7 +1205,7 @@ ggplot(liver.mod.run1long) +
 dev.off()
 
 
-#### Predictions ####
+## Predictions ####
 
 ## Extract 'true' estimate
 
@@ -1286,15 +1247,17 @@ MPliverdata$TP.est.lower25 <-
   apply(liver.mod.run2$BUGSoutput$sims.list$TP, 2, quantile,
         probs = 0.375)
 
-summary(MPliverdata$true.est)  # mean 0.09 MPs/ind
-summary(MPliverdata$true.est/MPliverdata$tissue.wet.weight)  # mean 0.60 MPs/g ww
+summary(MPliverdata$true.est)  # mean 0.08 MPs/ind
+
+summary(MPliverdata$true.est/MPliverdata$tissue.wet.weight)  
+# mean 0.63 MPs/g ww
 
 ## Compare to fish digestive tracts
 
 summary(subset(MPgutdata, 
                sample.type == "Flatfish" | 
                  sample.type == "Rockfish" |
-                 sample.type == "Surfperch")$true.est)  # mean 0.74 MPs/ind
+                 sample.type == "Surfperch")$true.est)  # mean 0.73 MPs/ind
 
 0.74/0.09  # 8.22
 
@@ -1433,9 +1396,9 @@ liverMPplot <-
         legend.text = element_text(size = 9))
 
 
-#### Rockfish ingested animals ####
+# Rockfish ingested animals ####
 
-#### Set up data ####
+## Set up data ####
 
 transferdata <- subset(foodweb2, 
                        sample.type == "Rockfish: Ingested Animals" &
@@ -1526,7 +1489,7 @@ transfer.mod.run1mcmc <- as.mcmc(transfer.mod.run1)
 xyplot(transfer.mod.run1mcmc, 
        layout = c(6, ceiling(nvar(transfer.mod.run1mcmc)/6)))
 
-#### Diagnostics ####
+## Diagnostics ####
 transfer.mod.params2 <- c("fitted", "true", "lambda_y")
 
 transfer.mod.run2 <- jags.parallel(
@@ -1558,7 +1521,7 @@ check.transfer.mod <-
 
 plot(check.transfer.mod)  # looks good
 
-#### Inference ####
+## Inference ####
 
 transfer.mod.run1long <- extract.post(transfer.mod.run1)
 
@@ -1598,7 +1561,7 @@ ggplot(transfer.mod.run1long) +
   geom_vline(aes(xintercept = 0), 
              size = 0.25, 
              linetype = "dashed") +
-  coord_cartesian(xlim = c(-3, 2.5)) +
+  coord_cartesian(xlim = c(-3.5, 2.75)) +
   scale_x_continuous(expand = c(0, 0)) +
   labs(x = "",
        y = "Parameter") +
@@ -1607,7 +1570,7 @@ ggplot(transfer.mod.run1long) +
 dev.off()
 
 
-#### Predictions ####
+## Predictions ####
 
 transferdata$true.est <-
   apply(transfer.mod.run2$BUGSoutput$sims.list$true, 2, mean)
@@ -1646,7 +1609,7 @@ for(i in 1:nrow(transfersim)) {
   transfersim$lower95[i] <- exp(quantile(lambda_true, 0.025))
 }
 
-#### Plot predictions ####
+## Plot predictions ####
 
 transferplot <- 
   ggplot() +
@@ -1691,7 +1654,7 @@ transferplot <-
     theme(axis.text.x = element_blank(),
           axis.ticks.x = element_blank())
 
-#### Possible daily consumption of MPs by rockfish ####
+## Possible daily consumption of MPs by rockfish ####
 
 transferdata$foodmin <- 0.005 * transferdata$total.body.wet.weight
 transferdata$foodmax <- 0.037 * transferdata$total.body.wet.weight
@@ -1717,10 +1680,10 @@ ggplot(transferdata) +
 
 ## Summary stats
 
-summary(transferdata$MPmin)  # 0.03-0.10 particles per day
-summary(transferdata$MPmax)  # 0.21-0.71 particles per day
+summary(transferdata$MPmin)  # 0.05-0.10 particles per day
+summary(transferdata$MPmax)  # 0.21-0.73 particles per day
 
-#### Comparison of empty vs. full guts ####
+# Comparison of empty vs. full guts ####
 
 rfishcompare <- subset(MPgutdata, sample.type == "Rockfish")
 
@@ -1733,6 +1696,11 @@ rfishcompare$species <- as.character(rfishcompare$species)
 rfishcompare$species <- as.factor(rfishcompare$species)
 
 rfishcompare$full.stomach <- as.factor(rfishcompare$full.stomach)
+
+rfishcompare$full.stomach <- mapvalues(rfishcompare$full.stomach,
+                                       from = levels(rfishcompare$full.stomach),
+                                       to = c("Empty Stomach",
+                                              "Full Stomach"))
 
 rfish.mod <- function() {
   # Likelihood
@@ -1812,7 +1780,7 @@ rfish.mod.run1
 rfish.mod.run1mcmc <- as.mcmc(rfish.mod.run1)
 xyplot(rfish.mod.run1mcmc, layout = c(6, ceiling(nvar(rfish.mod.run1mcmc)/6)))
 
-#### Diagnostics ####
+## Diagnostics ####
 rfish.mod.params2 <- c("fitted", "true", "lambda_y")
 
 rfish.mod.run2 <- jags.parallel(
@@ -1853,7 +1821,7 @@ plotResiduals(check.rfish.mod, rfishcompare$TP.est)
 
 testDispersion(check.rfish.mod)
 
-#### Inference ####
+## Inference ####
 
 rfish.mod.run1long <- extract.post(rfish.mod.run1)
 
@@ -1895,7 +1863,7 @@ ggplot(rfish.mod.run1long) +
   geom_vline(aes(xintercept = 0), 
              size = 0.25, 
              linetype = "dashed") +
-  coord_cartesian(xlim = c(-6, 3)) +
+  coord_cartesian(xlim = c(-6.5, 3.5)) +
   scale_x_continuous(expand = c(0,0)) +
   labs(x = "",
        y = "Parameter") +
@@ -1904,7 +1872,7 @@ ggplot(rfish.mod.run1long) +
 dev.off()
 
 
-#### Predictions ####
+## Predictions ####
 
 rfishcompare$true.est <-
   apply(rfish.mod.run2$BUGSoutput$sims.list$true, 2, mean)
@@ -1975,7 +1943,7 @@ rfishsim2$common.names <-
             to = c("Copper Rockfish",
                    "Black Rockfish"))
 
-#### Plot predictions ####
+## Plot predictions ####
 
 emptyvsfullplot <-
   ggplot() +
@@ -2018,7 +1986,7 @@ emptyvsfullplot <-
     theme1
 
 
-#### Export animal size data ####
+## Export animal size data ####
 
 write.csv(
   MPgutdata %>%
@@ -2045,7 +2013,7 @@ write.csv(
 )
 
 
-#### Calculate bioaccumulation factor ####
+# Calculate bioaccumulation factor ####
 
 mean.water <-
   PJdata_synth %>%
@@ -2080,7 +2048,7 @@ mean.TP <-
   group_by(species) %>% 
   summarize(mean.TP = mean(TP.est))
 
-#### Bioaccumulation plot ####
+## Bioaccumulation plot ####
 
 BF.plot1 <-
   ggplot(MPgutdata2) +
@@ -2126,10 +2094,10 @@ BF.plot2 <-
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
   
 
-#### Calculate trophic magnification factor for fish livers ####
+# Calculate trophic magnification factor for fish livers ####
 
-mean(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP))  # 0.52
+mean(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP))  # 0.53
 
-quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.025)
-quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.975)
+quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.025)  # 0.17
+quantile(exp(liver.mod.run1$BUGSoutput$sims.list$beta_TP), probs = 0.975) # 1.20
   
