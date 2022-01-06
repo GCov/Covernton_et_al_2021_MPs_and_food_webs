@@ -1,6 +1,5 @@
 # Load libraries ####
 
-library(ggplot2)
 library(R2jags)
 library(coda)
 library(lattice)
@@ -9,8 +8,7 @@ library(DHARMa)
 library(reshape2)
 library(plyr)
 library(dplyr)
-library(glmmTMB)
-
+library(ggplot2)
 
 extract.post <- function(x){
   out <- data.frame(x$BUGSoutput$sims.list)
@@ -21,8 +19,6 @@ extract.post <- function(x){
   long$variable <- as.factor(long$variable)
   long
 }  # handy function for extracting posterior estimates of parameters
-
-pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")  # define palette
 
 #Plankton tow model ####
 
@@ -158,8 +154,8 @@ ggplot(PTmodrun1long) +  # plot parameter posteriors
   geom_density_ridges(
     aes(x = exp(value),
         y = reorder(variable, order, mean)),
-    fill = pal[3],
-    colour = pal[1],
+    fill = pal[4],
+    colour = pal[5],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -217,7 +213,7 @@ PTMPplot <-  # make predictions plot
     geom_jitter(data = PTdata_synth,
                aes(x = site,
                    y = count/sample.volume),
-               size = 1, shape = 1, colour = pal[1],
+               size = 1, shape = 1, colour = pal[4],
                height = 0,
                width = 0.1,
                alpha = 0.5) +
@@ -376,8 +372,8 @@ ggplot(PJmodrun1long) +
   geom_density_ridges(
     aes(x = exp(value),
         y = reorder(variable, order, mean)),
-    fill = pal[3],
-    colour = pal[1],
+    fill = pal[4],
+    colour = pal[5],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -438,7 +434,7 @@ PJMPplot <-  # plot predictions
     geom_jitter(data = PJdata_synth,
                 aes(x = site,
                     y = count),
-                size = 1, shape = 1, colour = pal[1],
+                size = 1, shape = 1, colour = pal[4],
                 height = 0,
                 alpha = 0.5) +
     geom_linerange(data = PJ_sim,
@@ -626,16 +622,7 @@ check.model1 <- createDHARMa(simulatedResponse = model1.response,
                                fittedPredictedResponse = model1.fitted,
                                integerResponse = T)
 
-plot(check.model1)  # looks pretty good
-
-
-## check some other things
-plotResiduals(check.model1, MPgutdata$site)
-plotResiduals(check.model1, MPgutdata$species)
-plotResiduals(check.model1, MPgutdata$total.body.wet.weight)
-plotResiduals(check.model1, apply(run2$BUGSoutput$sims.list$TP, 2, median))
-testZeroInflation(check.model1)
-testDispersion(check.model1)
+plot(check.model1)  # looks good
 
 ## Inference ####
 
@@ -683,7 +670,7 @@ ggplot(run1long) +
     aes(x = value,
         y = reorder(variable, order, mean)),
     fill = pal[3],
-    colour = pal[1],
+    colour = pal[5],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -802,11 +789,11 @@ MPTLplot <-
             aes(x = trophic.position,
                 y = mean),
             size = 0.5,
-            colour = pal[1]) +
+            colour = pal[5]) +
   geom_point(data = MPgutdata,
              aes(x = TP.est,
                  y = count),
-             size = 2, shape = 20, alpha = 0.5, colour = pal[1]) +
+             size = 2, shape = 20, alpha = 0.5, colour = pal[4]) +
   facet_wrap(~ site) +
   labs(x = "Trophic Position",
        y = expression(paste("Particles"~ind^-1))) +
@@ -837,15 +824,15 @@ ggplot(MPgutdata) +
                   fatten = 1.5,
                   shape = 21,
                   alpha = 0.8,
-                  colour = pal[1],
-                  fill = pal[3]) +
+                  colour = pal[5],
+                  fill = pal[2]) +
   facet_wrap(~ site, ncol = 1) +
   labs(x = 'Site',
        y = "Trophic Position") +
   theme1 +
   theme(axis.text.x = element_text(angle = 25,
                                    hjust = 1),
-        panel.grid.major.x = element_line(colour = pal[1],
+        panel.grid.major.x = element_line(colour = pal[4],
                                           size = 0.2,
                                           linetype = 'dashed'))
 
@@ -898,22 +885,26 @@ MPgutsim2$order <- as.numeric(MPgutsim2$order)
 MPgutdata$order <- as.character(MPgutdata$order)
 MPgutdata$order <- as.numeric(MPgutdata$order)
 
-MPgutsim2$common.names <- mapvalues(MPgutsim2$species,
-                                    from = levels(MPgutsim2$species),
-                                    to = c("Red Rock Crab",
-                                           "Orange Sea Cucumber",
-                                           "Shiner Surfperch",
-                                           "Leather Star",
-                                           "Graceful Rock Crab",
-                                           "Dungeness Crab",
-                                           "Blue Mussel",
-                                           "California Sea Cucumber",
-                                           "English Sole",
-                                           "Starry Flounder",
-                                           "Littleneck Clam",
-                                           "Manila Clam",
-                                           "Copper Rockfish",
-                                           "Black Rockfish"))
+MPgutsim2$common.names <- as.factor(mapvalues(
+  MPgutsim2$species,
+  from = levels(MPgutsim2$species),
+  to = c(
+    "Red Rock Crab",
+    "Orange Sea Cucumber",
+    "Shiner Surfperch",
+    "Leather Star",
+    "Graceful Rock Crab",
+    "Dungeness Crab",
+    "Blue Mussel",
+    "California Sea Cucumber",
+    "English Sole",
+    "Starry Flounder",
+    "Pacific Littleneck Clam",
+    "Manila Clam",
+    "Copper Rockfish",
+    "Black Rockfish"
+  )
+))
 
 speciesplot <-
   ggplot() +
@@ -925,7 +916,7 @@ speciesplot <-
       ),
       width = 0.25,
       height = 0,
-      colour = pal[1],
+      colour = pal[4],
       size = 1,
       shape = 1,
       alpha = 0.5
@@ -943,7 +934,7 @@ speciesplot <-
       aes(x = reorder(common.names, order),
           y = mean),
       size = 2,
-      colour = pal[1],
+      colour = pal[5],
       fill = pal[3],
       shape = 21
     ) +
@@ -956,7 +947,6 @@ speciesplot <-
     ) +
     theme1 +
     theme(axis.text.x = element_text(angle = 45 , hjust = 1))
-
 
 ### Export species concentration data ####
 
@@ -997,26 +987,6 @@ MPliverdata$species <- as.factor(MPliverdata$species)
 MPliverdata$site <- mapvalues(MPliverdata$site,
                               from = "Elliot Bay",
                               to = "Elliot Beach")
-
-ggplot(MPliverdata) +
-  geom_point(aes(x = log(total.body.wet.weight),
-                 y = log(tissue.dry.weight),
-                 color = species)) +
-  facet_grid(. ~ site)
-
-ggplot(MPliverdata) +
-  geom_point(aes(x = log(total.body.wet.weight),
-                 y = log(tissue.wet.weight),
-                 color = species)) +
-  facet_grid(. ~ site)
-
-ggplot(MPliverdata) +
-  geom_point(aes(x = tissue.wet.weight,
-                 y = tissue.dry.weight,
-                 color = species)) +
-  facet_grid(. ~ site)
-
-plot(tissue.dry.weight ~ trophic.position, data = MPliverdata)
 
 liver.mod <- function() {
   # Likelihood
@@ -1188,15 +1158,15 @@ ggplot(liver.mod.run1long) +
   geom_density_ridges(
     aes(x = value,
         y = reorder(variable, order, mean)),
-    fill = pal[3],
-    colour = pal[1],
+    fill = pal[2],
+    colour = pal[5],
     alpha = 0.5,
     size = 0.25
   ) +
   geom_vline(aes(xintercept = 0), 
              size = 0.25, 
              linetype = "dashed") +
-  coord_cartesian(xlim = c(-13, 8.5)) +
+  coord_cartesian(xlim = c(-12.5, 8.5)) +
   labs(x = "",
        y = "Parameter") +
   scale_x_continuous(expand = c(0, 0)) +
@@ -1362,7 +1332,7 @@ liverMPplot <-
     aes(x = trophic.position,
         y = mean),
     size = 0.5,
-    colour = pal[1]
+    colour = pal[5]
   ) +
   geom_point(
     data = MPliverdata,
@@ -1371,7 +1341,7 @@ liverMPplot <-
       y = count / tissue.dry.weight,
       fill = common.names
     ),
-    colour = "black",
+    colour = pal[5],
     size = 2,
     shape = 21,
     alpha = 0.5
@@ -1554,7 +1524,7 @@ ggplot(transfer.mod.run1long) +
     aes(x = value,
         y = reorder(variable, order, mean)),
     fill = pal[3],
-    colour = pal[1],
+    colour = pal[5],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -1626,7 +1596,7 @@ transferplot <-
       aes(x = 1,
           y = mean),
       size = 1.5,
-      colour = pal[1],
+      colour = pal[5],
       fill = pal[3],
       shape = 21
     ) +
@@ -1638,7 +1608,7 @@ transferplot <-
       ),
       width = 0.25,
       height = 0,
-      colour = pal[1],
+      colour = pal[4],
       size = 1,
       shape = 1,
       alpha = 0.5
@@ -1665,11 +1635,11 @@ transferdata$MPmax <- transferdata$foodmax * transfersim$mean / transferdata$tis
 ggplot(transferdata) +
   geom_density(aes(x = MPmin),
                fill = pal[2],
-               colour = pal[1],
+               colour = pal[5],
                alpha = 0.5) +
   geom_density(aes(x = MPmax),
                fill = pal[3],
-               colour = pal[1],
+               colour = pal[5],
                alpha = 0.5) +
   labs(x = expression(paste("Number of microplastics consumed (particles "~day^-1*")")),
        y = "Density") +
@@ -1680,7 +1650,7 @@ ggplot(transferdata) +
 
 ## Summary stats
 
-summary(transferdata$MPmin)  # 0.05-0.10 particles per day
+summary(transferdata$MPmin)  # 0.03-0.10 particles per day
 summary(transferdata$MPmax)  # 0.21-0.73 particles per day
 
 # Comparison of empty vs. full guts ####
@@ -1856,7 +1826,7 @@ ggplot(rfish.mod.run1long) +
     aes(x = value,
         y = reorder(variable, order, mean)),
     fill = pal[3],
-    colour = pal[1],
+    colour = pal[5],
     alpha = 0.5, 
     size = 0.25
   ) +
@@ -1955,7 +1925,7 @@ emptyvsfullplot <-
       ),
       width = 0.25,
       height = 0,
-      colour = pal[1],
+      colour = pal[4],
       size = 1,
       shape = 1,
       alpha = 0.5
@@ -1973,7 +1943,7 @@ emptyvsfullplot <-
       aes(x = full.stomach,
           y = mean),
       size = 1.5,
-      colour = pal[1],
+      colour = pal[5],
       fill = pal[3],
       shape = 21
     ) +
@@ -1998,9 +1968,9 @@ write.csv(
       min.arm.length = min(arm.length),
       max.arm.length = max(arm.length),
       mean.arm.length = mean(arm.length),
-      min.carapace.length = min(carapace.length),
-      max.carapace.length = max(carapace.length),
-      mean.carapace.length = mean(carapace.length),
+      min.carapace.width = min(carapace.width),
+      max.carapace.width = max(carapace.width),
+      mean.carapace.width = mean(carapace.width),
       min.total.length = min(TL),
       max.total.length = max(TL),
       mean.total.length = mean(TL),
@@ -2058,7 +2028,7 @@ BF.plot1 <-
         fill = feeding.strategy),
     size = 1,
     shape = 21,
-    colour = pal[1],
+    colour = pal[5],
   ) +
   labs(x = "Trophic Position",
        y = "Bioaccumulation Factor") +
@@ -2079,9 +2049,9 @@ BF.plot2 <-
         fill = feeding.strategy),
     size = 0.5,
     outlier.size = 0.5,
-    colour = pal[1]
+    colour = pal[5]
   ) +
-  scale_fill_manual(values = pal[c(2,3,4)]) +
+  scale_fill_manual(values = pal[c(2:4)]) +
   labs(x = "Species",
        y = "Bioaccumulation Factor") +
   scale_y_continuous(

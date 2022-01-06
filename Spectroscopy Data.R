@@ -1,24 +1,20 @@
-##### Setup #####
+# Setup #####
 
-## Load packages
+## Load packages ####
 library(plyr)
 library(ggplot2)
 library(dplyr)
 library(colorspace)
 library(randomForest)
 
-## Define colour palette
+# Load Spectroscopy Data ####
 
-pal <- c("#0b3954","#bfd7ea","#ff6663","#e0ff4f","#fefffe")
-
-#### Load Spectroscopy Data ####
-
-## Load plankton tow data
+## Load plankton tow data ####
 
 plankton_tows <- read.csv("plankton_tows.csv", header = TRUE)
 PT_field <- read.csv("PT_field_data.csv", header = TRUE)
 
-## Clean up and combine plankton tow field data 
+### Clean up and combine plankton tow field data ####
 
 summary(PT_field$sample.volume)
 
@@ -35,7 +31,7 @@ PT$raman.ID <- as.factor(PT$raman.ID)
 PT$user.id <- as.factor(PT$user.id)
 PT$blank.match <- as.factor(PT$blank.match)
 
-## Clean up plankton tow data
+### Clean up plankton tow data ####
 
 names(PT)
 summary(PT$size.fraction)
@@ -101,7 +97,7 @@ PT$particle.type[PT$shape == 'Fibre' &
                               PT$raman.ID == 'Cellulose'] <-
   'Natural'  # call clear cellulosic fibres natural to be safe
 
-## Load plankton jars data
+## Load plankton jars data ####
 
 PJ <- read.csv("plankton_jars.csv", header = TRUE)  # plankton jars
 
@@ -115,7 +111,7 @@ PJ$raman.ID <- as.factor(PJ$raman.ID)
 PJ$user.id <- as.factor(PJ$user.id)
 PJ$blank.match <- as.factor(PJ$blank.match)
 
-## Clean up plankton jars data
+### Clean up plankton jars data ####
 
 names(PJ)
 summary(PJ$size.fraction)
@@ -195,7 +191,7 @@ summary(PJ$particle.type)
 
 
 
-## Load all other data
+## Load all other data ####
 
 MU <- read.csv("mussels.csv", header = TRUE)  # mussels
 C <- read.csv("clams.csv", header = TRUE)  # clams
@@ -206,9 +202,9 @@ SP <- read.csv("surfperch.csv", header = TRUE)  # surfperch
 FF <- read.csv("flatfish.csv", header = TRUE)  # flatfish
 RF <- read.csv("rockfish.csv", header = TRUE)  # rockfish
 
-#### Combine all data and clean up ####
+## Combine all data and clean up ####
 
-## Combine all animal particle counts data into one dataframe
+### Combine all animal particle counts data into one dataframe ####
 
 full_spec_data <-
   rbind.data.frame(MU,
@@ -220,7 +216,7 @@ full_spec_data <-
                    FF,
                    RF)
 
-## Clean up
+### Clean up ####
 
 names(full_spec_data)
 full_spec_data$blank.match <- as.factor(full_spec_data$blank.match)
@@ -338,9 +334,9 @@ full_spec_data$particle.type[full_spec_data$shape == 'Fibre' &
 summary(full_spec_data$particle.type)
 
 
-#### Estimate the particle type for unknown particles ####
+# Estimate the particle type for unknown particles ####
 
-## Create random forest model for known particle types
+## Create random forest model for known particle types ####
 
 full_spec_data$set <- "AD"  # identifiers for bringing back predictions
 PT$set <- "PT"
@@ -359,7 +355,9 @@ unknowndata <- subset(moddata1,
 moddata2$particle.type <- as.character(moddata2$particle.type)
 moddata2$particle.type <- as.factor(moddata2$particle.type)
 
-## Run model on test data
+## Run model on test data ####
+
+set.seed(3543)  # to ensure repeatability
 
 rf <- randomForest(particle.type ~
                      colour + shape + user.id + sample.type + site + length,
@@ -377,7 +375,7 @@ mtry <- tuneRF(moddata2[, c(2:3,7:9,14)],
 rf <- randomForest(particle.type ~
                      colour * shape * user.id + sample.type + site + length,
                    data = moddata2,
-                   mtry = 3,
+                   mtry = 2,
                    importance = TRUE,
                    ntree = 2000)
 
@@ -397,7 +395,7 @@ varImpPlot(rf, main = "")
 
 pred <- predict(rf)
 
-## Performance metrics
+## Performance metrics ####
 
 cm <- table(moddata2[, 15], pred)
 
@@ -420,9 +418,9 @@ plot_rf_confusion <- function(rf_model)  # function for making confusion matrix
     ggplot(data = melt_conf_mat, aes_string('Var2', 'Var1', fill = 'value')) +
     geom_tile(color = "white") +
     scale_fill_gradient2(
-      low = pal[3],
-      high = pal[2],
-      mid = pal[4],
+      low = pal[4],
+      high = pal[3],
+      mid = pal[2],
       midpoint = 50,
       limit = c(0, 100),
       space = "Lab",
@@ -445,6 +443,8 @@ plot_rf_confusion <- function(rf_model)  # function for making confusion matrix
   return(conf_plot)
 }
 
+## Plot confusion matrix ####
+
 tiff("Confusion Matrix.tiff", 
     height = 3,
     width = 3,
@@ -456,12 +456,12 @@ plot_rf_confusion(rf)  ## confusion matrix
 
 dev.off()
 
-## Now predict unknown particle types
+## Predict unknown particle types ####
 
 unknowndata$particle.type <- predict(rf, newdata = unknowndata)
 
 
-## Add predictions back to original data
+## Add predictions back to original data ####
 
 PT[PT$particle.type == 'Unknown' &
      !is.na(PT$particle.type), ]$particle.type <- 
@@ -484,9 +484,9 @@ PJ$particle.type <- as.factor(PJ$particle.type)
 full_spec_data$particle.type <- as.character(full_spec_data$particle.type)
 full_spec_data$particle.type <- as.factor(full_spec_data$particle.type)
 
-#### Make sure each sample has all levels of particle type ####
+# Make sure each sample has all levels of particle type ####
 
-## plankton tows
+## Plankton tows ####
 
 PT$ID <- as.character(PT$ID)
 PT$ID <- as.factor(PT$ID)
@@ -506,7 +506,8 @@ PT2 <- left_join(all_typesPT2,
                  countsPT,
                  by = c('ID', 'particle.type', 'size.fraction'))
 
-## plankton jars
+## Plankton jars ####
+
 PJ$ID <- as.character(PJ$ID)
 PJ$ID <- as.factor(PJ$ID)
 
@@ -526,7 +527,7 @@ PJ2 <- left_join(all_typesPJ2,
                  by = c('ID', 'particle.type', 'size.fraction'))
 
 
-## animal samples
+## Animal samples ####
 
 full_spec_data$ID <- as.character(full_spec_data$ID)
 full_spec_data$ID <- as.factor(full_spec_data$ID)
@@ -554,16 +555,9 @@ full_spec_data2 <- left_join(all_types2,
 
 summary(full_spec_data2$sample.type)
 
-full_spec_data2$sample.type <-
-  mapvalues(full_spec_data2$sample.type,
-            from = c("Rockfish Gut",
-                     "Rockfish Gut Animals"),
-            to = c("Rockfish Guts",
-                   "Rockfish: Ingested Animals"))
+# Blank Subtract (for comparison) ####
 
-#### Blank Subtract (for comparison) ####
-
-## Summarize by particle type
+## Summarize by particle type ####
 
 PT2$num <- ifelse(is.na(PT2$length), 0, 1)
 
@@ -599,7 +593,7 @@ animals_particle_type <-
            particle.type) %>%
   summarize(count = sum(num))  # animal data
 
-## Separate blanks data
+## Separate blanks data ####
 
 PT_blanks <- subset(PT_particle_type, sample.type == 'Blanks')
 PT_data <- subset(PT_particle_type, sample.type != 'Blanks')
@@ -610,7 +604,7 @@ PJ_data <- subset(PJ_particle_type, sample.type != 'Blanks')
 animal_blanks <- subset(animals_particle_type, sample.type == 'Blanks')
 animal_data <- subset(animals_particle_type, sample.type != 'Blanks')
 
-## Summarize blanks data
+## Summarize blanks data ####
 
 PT_blanks_means <- 
   PT_blanks %>% 
@@ -627,9 +621,9 @@ animal_blanks_means <-
   group_by(blank.match, particle.type) %>% 
   summarize(blank.mean = mean(count))
 
-## Blank subtract
+## Blank subtract ####
 
-# plankton tows
+### Plankton tows ####
 
 PT_data2 <-
   left_join(PT_data, 
@@ -641,7 +635,7 @@ PT_data2$blank.mean[is.na(PT_data2$blank.mean)] <- 0
 PT_data2$adj.count <- floor(with(PT_data2, count - blank.mean))
 PT_data2$adj.count[PT_data2$adj.count < 0] <- 0
 
-# plankton jars
+### Plankton jars ####
 
 PJ_data2 <-
   left_join(PJ_data, 
@@ -653,7 +647,7 @@ PJ_data2$blank.mean[is.na(PJ_data2$blank.mean)] <- 0
 PJ_data2$adj.count <- floor(with(PJ_data2, count - blank.mean))
 PJ_data2$adj.count[PJ_data2$adj.count < 0] <- 0
 
-# animal data
+### Animal data ####
 
 animal_data2 <-
   left_join(animal_data, 
@@ -665,7 +659,7 @@ animal_data2$blank.mean[is.na(animal_data2$blank.mean)] <- 0
 animal_data2$adj.count <- floor(with(animal_data2, count - blank.mean))
 animal_data2$adj.count[animal_data2$adj.count < 0] <- 0
 
-## Combine samples that were split
+# Combine samples that were split ####
 
 animal_data2$ID <- mapvalues(
   animal_data2$ID,
@@ -713,7 +707,7 @@ animal_data2$ID <- mapvalues(
   )
 )
 
-#### Plot breakdown by Raman ID, shape, and colour ####
+# Plot breakdown by Raman ID, shape, and colour ####
 
 moddata1$num <- ifelse(is.na(moddata1$shape), 0, 1)
 moddata3 <- moddata1 %>% filter(num == 1)
@@ -751,13 +745,14 @@ moddata3$sample.type <- factor(moddata3$sample.type,
                                           'Rockfish: Ingested Animals',
                                           'Rockfish Livers'))
 
+## Plot by polymer ####
 
 tiff(
   'Polymer Plot.tiff', 
   height = 8,
   width = 6,
   units = "in",
-  res = 800,
+  res = 600,
   compression = "lzw"
 )
 
@@ -778,7 +773,7 @@ ggplot(moddata3) +
              labeller = label_wrap_gen(width = 10)) +
   scale_y_continuous(expand = c(0, 0)) +
   scale_fill_manual(values =
-                      qualitative_hcl(n = 18, palette = "Dark 3")) +
+                      qualitative_hcl(n = 18, palette = "Dynamic")) +
   guides(fill = guide_legend(ncol = 1)) +
   theme1 +
   theme(
@@ -790,14 +785,14 @@ ggplot(moddata3) +
 
 dev.off()
 
-## And by colour
+## Plot by colour ####
 
 tiff(
   'Colour Plot.tiff', 
   height = 8,
   width = 6,
   units = "in",
-  res = 800,
+  res = 600,
   compression = "lzw"
 )
 
@@ -847,9 +842,9 @@ ggplot(moddata3) +
 dev.off()
 
 
-#### Combine food web data ####
+# Combine food web data ####
 
-## Combine lab and field data with isotopes data
+## Combine lab and field data with isotopes data ####
 
 foodweb1 <- 
   left_join(animal_info, 
@@ -866,7 +861,7 @@ ingested_animals <-
 rockfish_info <- 
   foodweb1 %>% 
   filter(animal.type == 'Rockfish' & sample.type == 'Rockfish') %>% 
-  select(1,2,15:30)
+  select(1,2,15:29)
 
 ingested_animals2 <-
   left_join(ingested_animals, rockfish_info, by = c('ID', 'site'))
@@ -875,7 +870,7 @@ foodweb1 <- rbind(subset(foodweb1,
                          sample.type != 'Rockfish: Ingested Animals'),
                   ingested_animals2)
 
-## Combine particle counts data with lab, field, and isotopes data
+## Combine particle counts data with lab, field, and isotopes data ####
 
 animal_data2$sample.type <- 
   mapvalues(animal_data2$sample.type,
@@ -907,10 +902,7 @@ foodweb2$ID <- as.factor(foodweb2$ID)
 foodweb2$site <- as.factor(foodweb2$site)
 foodweb2$sample.type <- as.factor(foodweb2$sample.type)
   
-
-
-
-## Now summarize animal data
+## Summarize animal data ####
 
 summary(subset(foodweb2, is.na(species)))
 foodweb2$species[foodweb2$ID == "CBSS16"] <- "Dermasterias imbricata"
@@ -928,8 +920,8 @@ gutdata <-
   gutdata %>% 
   group_by(ID, site, sample.type, blank.match, particle.type, shell.l,
            shell.w, shell.h, arm.length, shell.weight, tissue.wet.weight, 
-           total.body.wet.weight, density.sep, species, carapace.length, TL, SL, 
-           hepatopancreas.weight, sex, babies, parasites, base_deltaN, 
+           total.body.wet.weight, density.sep, species, carapace.width, TL, SL, 
+           hepatopancreas.weight, sex, parasites, base_deltaN, 
            sd_base_deltaN, deltaN, deltaC, 
            trophic.position) %>% 
   summarize(count = sum(count),
@@ -941,4 +933,3 @@ liverdata <-subset(foodweb2,
                    sample.type == 'Surfperch Livers' |
                      sample.type == 'Flatfish Livers' |
                      sample.type == 'Rockfish Livers')
-

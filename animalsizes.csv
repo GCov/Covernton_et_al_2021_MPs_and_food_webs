@@ -1,4 +1,4 @@
-"","species","site","min.shell.l","max.shell.l","mean.shell.l","min.arm.length","max.arm.length","mean.arm.length","min.carapace.length","max.carapace.length","mean.carapace.length","min.total.length","max.total.length","mean.total.length","min.body.weight","max.body.weight","mean.body.weight","sample.size"
+"","species","site","min.shell.l","max.shell.l","mean.shell.l","min.arm.length","max.arm.length","mean.arm.length","min.carapace.width","max.carapace.width","mean.carapace.width","min.total.length","max.total.length","mean.total.length","min.body.weight","max.body.weight","mean.body.weight","sample.size"
 "1","Cancer productus","Victoria Harbour",NA,NA,NA,NA,NA,NA,80.3,98.6,91.3,NA,NA,NA,59.49,114.14,86.4266666666667,3
 "2","Cucumeria miniata","Elliot Beach",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,1.4992,51.0648,22.8876714285714,14
 "3","Cucumeria miniata","Victoria Harbour",NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,3.3349,96.6796,36.83258125,16

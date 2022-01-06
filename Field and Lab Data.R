@@ -1,20 +1,18 @@
-##### Setup #####
+# Setup ####
 
-## Load packages
+## Load packages ####
 library(plyr)
 library(ggplot2)
 library(dplyr)
 library(ggridges)
 
-#### Field Data ####
+# Field Data ####
 
-## Load field data
+## Load field data ####
 
-field_data <- read.csv("NCAG_field_data.csv", header = TRUE)
+field_data <- read.csv("field_data.csv", header = TRUE)
 
-## Clean up data and merge
-
-## Clean up field data
+## Clean up field data ####
 
 names(field_data)
 summary(field_data$site)
@@ -34,19 +32,19 @@ field_data$sex <- mapvalues(field_data$sex,
 
 summary(field_data)
 
-#### Lab Data ####
+# Lab Data ####
 
-## Import data
+## Import data ####
 
-lab_data <- read.csv('NCAG_lab_data.csv', header = TRUE)
+lab_data <- read.csv('lab_data.csv', header = TRUE)
 
-## Check
+## Check data ####
 
 names(lab_data)
 
 summary(lab_data)
 
-#### Combine ####
+# Combine lab and field data ####
 
 animal_info <- left_join(lab_data,
                          field_data,

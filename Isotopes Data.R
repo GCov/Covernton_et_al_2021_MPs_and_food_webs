@@ -1,12 +1,35 @@
-##### Setup #####
+# Setup #####
 
-## Load packages
+## Load packages ####
 library(plyr)
 library(ggplot2)
 library(dplyr)
-library(colorspace)
 
-#### Process Data ####
+## Set theme for figures ####
+
+theme1 <-
+  theme_bw() +
+  theme(
+    axis.text = element_text(size = 7,
+                             family = "sans"),
+    axis.title = element_text(size = 9,
+                              family = "sans"),
+    strip.background = element_blank(),
+    strip.text = element_text(size = 8,
+                              family = "sans"),
+    legend.text = element_text(size = 10,
+                               family = "sans"),
+    panel.grid = element_blank(),
+    legend.title = element_blank()
+  )
+
+## Define colour palette ####
+
+pal <- c("#ffffff","#ddaa33","#bb5566","#004488","#000000")
+
+# Process Data ####
+
+## Load isotopes data ####
 
 isotopes <- read.csv('isotopes.csv', header = TRUE)
 
@@ -14,7 +37,7 @@ names(isotopes)
 
 summary(isotopes)
 
-## Add species data
+## Add species data ####
 
 isotopes <- left_join(isotopes, 
                       animal_info[, c(1, 3, 16)],
@@ -51,23 +74,7 @@ isotopes$species[isotopes$ID == "HPRF1"] <- "Sebastes caurinus"
 
 summary(isotopes$species)
 
-#### Plot Isotopes Data ####
-
-theme1 <-
-  theme_bw() +
-  theme(
-    axis.text = element_text(size = 7,
-                             family = "sans"),
-    axis.title = element_text(size = 9,
-                              family = "sans"),
-    strip.background = element_blank(),
-    strip.text = element_text(size = 8,
-                              family = "sans"),
-    legend.text = element_text(size = 10,
-                               family = "sans"),
-    panel.grid = element_blank(),
-    legend.title = element_blank()
-  )
+# Plot Isotopes Data ####
 
 isotopes$animal.type <- isotopes$sample.type
 
@@ -141,7 +148,7 @@ tiff('Isotopic_Biplot.tiff',
      height = 8,
      width = 6,
      units = "in",
-     res = 800,
+     res = 600,
      compression = "lzw")
 
 ggplot(isotopes2) +  # isotopic plot
@@ -156,17 +163,18 @@ ggplot(isotopes2) +  # isotopic plot
              labeller = labeller(site = site.lab)) +
   labs(x = expression(paste(delta^13*"C (\211)")),
        y = expression(paste(delta^15*"N (\211)"))) +
-  scale_colour_manual(values = pal[c(1,3)]) +
+  scale_colour_manual(values = pal[c(5,3)]) +
   scale_x_continuous(breaks = c(seq(-22, -10, 2)),
                      expand = c(0,0.3)) +
   scale_y_continuous(breaks = seq(8, 18, 2),
                      expand = c(0,0.4)) +
+  guides(color = guide_legend(override.aes = list(size = 5))) +
   theme1 +
   theme(legend.position = "bottom")
 
 dev.off()
 
-## Calculate mean and sd for baseline (mussels) values
+# Calculate mean and sd for baseline (mussels) values ####
 
 baseline <-
   subset(isotopes, sample.type == 'Mussels') %>% 
@@ -180,7 +188,7 @@ isotopes <- left_join(isotopes,
                       baseline,
                       by = 'site')
 
-## Average liver and muscle values for fish
+# Average liver and muscle values for fish ####
 
 isotopes2 <-
   isotopes %>% 
